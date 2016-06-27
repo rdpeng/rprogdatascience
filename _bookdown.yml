@@ -1,3 +1,3 @@
 book_filename: rprogdatascience
 new_session: yes
-rmd_files: ["contact.md", "preface.md", "overview.Rmd", "gettingstarted.md", "nutsbolts.Rmd", "readwritedata.Rmd", "subsetting.Rmd", "vectorized.Rmd", "dates.Rmd", "dplyr.Rmd", "control.Rmd", "apply.Rmd", "regex.Rmd", "debugging.Rmd", "profiler.Rmd", "simulation.Rmd", "example.Rmd", "parallel.Rmd", "about.md"]
+rmd_files: ["contact.Rmd", "preface.Rmd", "overview.Rmd", "gettingstarted.Rmd", "nutsbolts.Rmd", "readwritedata.Rmd", "subsetting.Rmd", "vectorized.Rmd", "dates.Rmd", "dplyr.Rmd", "control.Rmd", "apply.Rmd", "regex.Rmd", "debugging.Rmd", "profiler.Rmd", "simulation.Rmd", "example.Rmd", "parallel.Rmd", "about.Rmd"]
