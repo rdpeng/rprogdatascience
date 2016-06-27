@@ -1,0 +1,124 @@
+# Dates and Times
+
+
+
+```{r,echo=FALSE}
+knitr::opts_chunk$set(comment = NA, prompt = TRUE, collapse = TRUE, error = TRUE)
+```
+
+R has developed a special representation for dates and times. Dates are represented by the `Date` class and times are represented by the `POSIXct` or the `POSIXlt` class. Dates are stored internally as the number of days since 1970-01-01 while times are stored internally as the number of seconds since 1970-01-01. 
+
+It's not important to know the internal representation of dates and times in order to use them in R. I just thought those were fun facts.
+
+## Dates in R
+
+[Watch a video of this section](https://youtu.be/opYexVgjwkE)
+
+Dates are represented by the `Date` class and can be coerced from a character string using the `as.Date()` function. This is a common way to end up with a `Date` object in R.
+
+```{r}
+## Coerce a 'Date' object from character
+x <- as.Date("1970-01-01")   
+x
+```
+
+You can see the internal representation of a `Date` object by using the `unclass()` function.
+
+```{r}
+unclass(x)
+unclass(as.Date("1970-01-02"))
+```
+
+## Times in R
+
+[Watch a video of this section](https://youtu.be/8HENCYXwZoU)
+
+Times are represented by the `POSIXct` or the `POSIXlt` class. `POSIXct` is just a very large integer under the hood. It use a useful class when you want to store times in something like a data frame. `POSIXlt` is a list underneath and it stores a bunch of other useful information like the day of the week, day of the year, month, day of the month. This is useful when you need that kind of information.
+
+There are a number of generic functions that work on dates and times to help you extract pieces of dates and/or times.
+
+- `weekdays`: give the day of the week
+- `months`: give the month name
+- `quarters`: give the quarter number (“Q1”, “Q2”, “Q3”, or “Q4”)
+
+Times can be coerced from a character string using the `as.POSIXlt` or `as.POSIXct` function.
+
+```{r}
+x <- Sys.time()
+x
+class(x)   ## 'POSIXct' object
+```
+
+The `POSIXlt` object contains some useful metadata.
+
+```{r}
+p <- as.POSIXlt(x)
+names(unclass(p))
+p$wday     ## day of the week
+```
+
+You can also use the `POSIXct` format.
+
+```{r}
+x <- Sys.time()
+x             ## Already in ‘POSIXct’ format
+unclass(x)    ## Internal representation
+x$sec         ## Can't do this with 'POSIXct'!
+p <- as.POSIXlt(x)
+p$sec         ## That's better
+```
+
+Finally, there is the `strptime()` function in case your dates are
+written in a different format. `strptime()` takes a character vector that has dates and times and converts them into to a `POSIXlt` object.
+
+
+```{r}
+datestring <- c("January 10, 2012 10:40", "December 9, 2011 9:10")
+x <- strptime(datestring, "%B %d, %Y %H:%M")
+x
+class(x)
+```
+
+The weird-looking symbols that start with the `%` symbol are the formatting strings for dates and times. I can _never_ remember the formatting strings. Check `?strptime` for details. It's probably not worth memorizing this stuff.
+
+
+## Operations on Dates and Times
+
+[Watch a video of this section](https://youtu.be/vEmWJrpP1KM)
+
+You can use mathematical operations on dates and times. Well, really just + and -. You can do comparisons too (i.e. ==, <=)
+
+```{r}
+x <- as.Date("2012-01-01")
+y <- strptime("9 Jan 2011 11:34:21", "%d %b %Y %H:%M:%S") 
+x-y
+x <- as.POSIXlt(x) 
+x-y
+```
+
+The nice thing about the date/time classes is that they keep track of all the annoying things about dates and times, like leap years, leap seconds, daylight savings, and time zones.
+
+Here's an example where a leap year gets involved.
+
+```{r}
+x <- as.Date("2012-03-01") 
+y <- as.Date("2012-02-28") 
+x-y
+```
+
+Here's an example where two different time zones are in play (unless you live in GMT timezone, in which case they will be the same!).
+
+```{r}
+## My local time zone
+x <- as.POSIXct("2012-10-25 01:00:00")     
+y <- as.POSIXct("2012-10-25 06:00:00", tz = "GMT") 
+y-x
+```
+
+
+## Summary
+
+- Dates and times have special classes in R that allow for numerical and statistical calculations
+- Dates use the `Date` class
+- Times use the `POSIXct` and `POSIXlt` class
+- Character strings can be coerced to Date/Time classes using the `strptime` function or the `as.Date`, `as.POSIXlt`, or `as.POSIXct`
