@@ -2,7 +2,7 @@
 
 
 ```{r,echo=FALSE}
-opts_chunk$set(comment = NA, prompt = TRUE, collapse = TRUE)
+knitr::opts_chunk$set(comment = NA, prompt = TRUE, collapse = TRUE)
 ```
 
 
