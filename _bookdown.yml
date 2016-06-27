@@ -1,0 +1,2 @@
+book_filename: rprogdatascience
+rmd_files: ["contact.md", "preface.md", "overview.Rmd", "gettingstarted.md", "nutsbolts.Rmd"]
