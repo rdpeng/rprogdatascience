@@ -3,7 +3,7 @@
 [Watch a video of this chapter](https://youtu.be/YH3qtw7mTyA)
 
 ```{r,echo=FALSE}
-opts_chunk$set(comment = NA, prompt = TRUE, collapse = TRUE)
+knitr::opts_chunk$set(comment = NA, prompt = TRUE, collapse = TRUE)
 ```
 
 Many operations in R are _vectorized_, meaning that operations occur
