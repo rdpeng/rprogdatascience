@@ -5,8 +5,6 @@ date: "`r Sys.Date()`"
 knit: "bookdown::render_book"
 cover-image: title_page.png
 github-repo: rdpeng/rprogdatascience
-output:
-  bookdown::gitbook: default
 ---
 
 
