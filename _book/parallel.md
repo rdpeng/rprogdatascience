@@ -57,7 +57,7 @@ Detailed instructions on how to use R with optimized BLAS libraries can be found
 
 Many problems in statistics and data science can be executed in an "embarrassingly parallel" way, whereby multiple independent pieces of a problem are executed simultaneously because the different pieces of the problem never really have to communicate with each other (except perhaps at the end when all the results are assembled). Despite the name, there's nothing really "embarrassing" about taking advantage of the structure of the problem and using it speed up your computation. In fact, embarrassingly parallel computation is a common paradigm in statistics and data science.
 
-A> In general, it is NOT a good idea to use the functions described in this chapter with graphical user interfaces (GUIs) because, to summarize the help page for `mclapply()`, bad things can happen. That said, the functions in the `parallel` package seem two work okay in RStudio.
+> In general, it is NOT a good idea to use the functions described in this chapter with graphical user interfaces (GUIs) because, to summarize the help page for `mclapply()`, bad things can happen. That said, the functions in the `parallel` package seem two work okay in RStudio.
 
 The basic mode of an embarrassingly parallel operation can be seen with the `lapply()` function, which we have reviewed in a [previous chapter](#loop-functions). Recall that the `lapply()` function has two arguments:
 
@@ -89,7 +89,7 @@ The `mclapply()` function essentially parallelizes calls to `lapply()`. The firs
 
 The `mclapply()` function (and related `mc*` functions) works via the fork mechanism on Unix-style operating systems. Briefly, your R session is the main process and when you call a function like `mclapply()`, you fork a series of sub-processes that operate independently from the main process (although they share a few low-level features). These sub-processes then execute your function on their subsets of the data, presumably on separate cores of your CPU. Once the computation is complete, each sub-process returns its results and then the sub-process is killed. The `parallel` package manages the logistics of forking the sub-processes and handling them once they've finished.
 
-A> Because of the use of the fork mechanism, the `mc*` functions are generally not available to users of the Windows operating system.
+> Because of the use of the fork mechanism, the `mc*` functions are generally not available to users of the Windows operating system.
 
 The first thing you might want to check with the `parallel` package is if your computer in fact has multiple cores that you can take advantage of.
 
@@ -150,10 +150,10 @@ One thing we might want to do is compute a summary statistic across each of the 
 + })
 > s
    user  system elapsed 
-  0.061   0.007   0.068 
+  0.054   0.007   0.061 
 ```
 
-Note that in the `system.time()` output, the `user` time (0.061 seconds) and the `elapsed` time (0.068 seconds) are roughly the same, which is what we would expect because there was no parallelization.
+Note that in the `system.time()` output, the `user` time (0.054 seconds) and the `elapsed` time (0.061 seconds) are roughly the same, which is what we would expect because there was no parallelization.
 
 The equivalent call using `mclapply()` would be
 
@@ -166,7 +166,7 @@ The equivalent call using `mclapply()` would be
 + })
 > s
    user  system elapsed 
-  0.128   0.213   0.054 
+  0.136   0.224   0.052 
 ```
 
 Here, I chose to use 24 cores, just to see what would happen. You'll notice that the the `elapsed` time is now much less than the `user` time. However, in this case, the `elapsed` time is NOT 1/24th of the `user` time, which is what we might expect with 24 cores if there were a perfect performance gain from parallelization. R keeps track of how much time is spent in the main process and how much is spent in any child processes.
@@ -175,10 +175,10 @@ Here, I chose to use 24 cores, just to see what would happen. You'll notice that
 ```r
 > s["user.self"]  ## Main process
 user.self 
-     0.01 
+    0.011 
 > s["user.child"] ## Child processes
 user.child 
-     0.118 
+     0.125 
 ```
 
 In the call to `mclapply()` you can see that virtually all of the `user` time is spent in the child processes. The total `user` time is the sum of the `self` and `child` times. 
@@ -318,11 +318,11 @@ Generating random numbers in a parallel environment warrants caution because it'
 + }, mc.cores = 5)
 > str(r)
 List of 5
- $ : num [1:3] -1.478 -1.886 0.693
- $ : num [1:3] -1.039 0.395 1.091
- $ : num [1:3] 1.088 -0.683 -1.539
- $ : num [1:3] 0.682 0.618 -0.328
- $ : num [1:3] -1.391 0.635 -1.065
+ $ : num [1:3] -0.0366 0.1102 -0.317
+ $ : num [1:3] 0.763 0.203 1.539
+ $ : num [1:3] 1.079 0.633 -1.388
+ $ : num [1:3] 0.527 1.914 -0.624
+ $ : num [1:3] 1.219 0.545 0.191
 ```
 
 However, the above expression is not **reproducible** because the next time you run it, you will get a different set of random numbers. You cannot simply call `set.seed()` before running the expression as you might in a non-parallel version of the code. 
@@ -450,3 +450,4 @@ Once you've finished working with your cluster, it's good to clean up and stop t
 In this chapter we reviewed two different approaches to executing parallel computations in R. Both approaches used the `parallel` package, which comes with your installation of R. The "multicore" approach, which makes use of the `mclapply()` function is perhaps the simplest and can be implemented on just about any multi-core system (which nowadays is any system). The "socket" approach is a bit more general and can be implemented on systems where the fork-ing mechanism is not available. The approach used in the "socket" type cluster can also be extended to other parallel cluster management systems which unfortunately are outside the scope of this book. 
 
 In general, using parallel computation can speed up "embarrassingly parallel" computations, typically with little additional effort. However, it's important to remember that splitting a computation across $N$ processors usually does not result in a $N$-times speed up of your computation. This is because there is some overhead involved with initiating the sub-processes and copying the data over to those processes.
+

@@ -341,7 +341,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="embarrassing-parallelism" class="section level2">
 <h2><span class="header-section-number">21.2</span> Embarrassing Parallelism</h2>
 <p>Many problems in statistics and data science can be executed in an “embarrassingly parallel” way, whereby multiple independent pieces of a problem are executed simultaneously because the different pieces of the problem never really have to communicate with each other (except perhaps at the end when all the results are assembled). Despite the name, there’s nothing really “embarrassing” about taking advantage of the structure of the problem and using it speed up your computation. In fact, embarrassingly parallel computation is a common paradigm in statistics and data science.</p>
-<p>A&gt; In general, it is NOT a good idea to use the functions described in this chapter with graphical user interfaces (GUIs) because, to summarize the help page for <code>mclapply()</code>, bad things can happen. That said, the functions in the <code>parallel</code> package seem two work okay in RStudio.</p>
+<blockquote>
+<p>In general, it is NOT a good idea to use the functions described in this chapter with graphical user interfaces (GUIs) because, to summarize the help page for <code>mclapply()</code>, bad things can happen. That said, the functions in the <code>parallel</code> package seem two work okay in RStudio.</p>
+</blockquote>
 <p>The basic mode of an embarrassingly parallel operation can be seen with the <code>lapply()</code> function, which we have reviewed in a <a href="loop-functions.html#loop-functions">previous chapter</a>. Recall that the <code>lapply()</code> function has two arguments:</p>
 <ol style="list-style-type: decimal">
 <li><p>A list, or an object that can be coerced to a list.</p></li>
@@ -363,7 +365,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The <code>parallel</code> package which comes with your R installation. It represents a combining of two historical packages–the <code>multicore</code> and <code>snow</code> packages, and the functions in <code>parallel</code> have overlapping names with those older packages. For our purposes, it’s not necessary to know anything about the <code>multicore</code> or <code>snow</code> packages, but long-time users of R may remember them from back in the day.</p>
 <p>The <code>mclapply()</code> function essentially parallelizes calls to <code>lapply()</code>. The first two arguments to <code>mclapply()</code> are exactly the same as they are for <code>lapply()</code>. However, <code>mclapply()</code> has further arguments (that must be named), the most important of which is the <code>mc.cores</code> argument which you can use to specify the number of processors/cores you want to split the computation across. For example, if your machine has 4 cores on it, you might specify <code>mc.cores = 4</code> to break your parallelize your operation across 4 cores (although this may not be the best idea if you are running other operations in the background besides R).</p>
 <p>The <code>mclapply()</code> function (and related <code>mc*</code> functions) works via the fork mechanism on Unix-style operating systems. Briefly, your R session is the main process and when you call a function like <code>mclapply()</code>, you fork a series of sub-processes that operate independently from the main process (although they share a few low-level features). These sub-processes then execute your function on their subsets of the data, presumably on separate cores of your CPU. Once the computation is complete, each sub-process returns its results and then the sub-process is killed. The <code>parallel</code> package manages the logistics of forking the sub-processes and handling them once they’ve finished.</p>
-<p>A&gt; Because of the use of the fork mechanism, the <code>mc*</code> functions are generally not available to users of the Windows operating system.</p>
+<blockquote>
+<p>Because of the use of the fork mechanism, the <code>mc*</code> functions are generally not available to users of the Windows operating system.</p>
+</blockquote>
 <p>The first thing you might want to check with the <code>parallel</code> package is if your computer in fact has multiple cores that you can take advantage of.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(parallel)
 &gt;<span class="st"> </span><span class="kw">detectCores</span>()
@@ -397,8 +401,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 +<span class="st"> </span>})
 &gt;<span class="st"> </span>s
    user  system elapsed 
-  <span class="fl">0.061</span>   <span class="fl">0.007</span>   <span class="fl">0.068</span> </code></pre></div>
-<p>Note that in the <code>system.time()</code> output, the <code>user</code> time (0.061 seconds) and the <code>elapsed</code> time (0.068 seconds) are roughly the same, which is what we would expect because there was no parallelization.</p>
+  <span class="fl">0.054</span>   <span class="fl">0.007</span>   <span class="fl">0.061</span> </code></pre></div>
+<p>Note that in the <code>system.time()</code> output, the <code>user</code> time (0.054 seconds) and the <code>elapsed</code> time (0.061 seconds) are roughly the same, which is what we would expect because there was no parallelization.</p>
 <p>The equivalent call using <code>mclapply()</code> would be</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">system.time</span>({
 +<span class="st">         </span>mn &lt;-<span class="st"> </span><span class="kw">mclapply</span>(specdata, function(df) {
@@ -407,14 +411,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 +<span class="st"> </span>})
 &gt;<span class="st"> </span>s
    user  system elapsed 
-  <span class="fl">0.128</span>   <span class="fl">0.213</span>   <span class="fl">0.054</span> </code></pre></div>
+  <span class="fl">0.136</span>   <span class="fl">0.224</span>   <span class="fl">0.052</span> </code></pre></div>
 <p>Here, I chose to use 24 cores, just to see what would happen. You’ll notice that the the <code>elapsed</code> time is now much less than the <code>user</code> time. However, in this case, the <code>elapsed</code> time is NOT 1/24th of the <code>user</code> time, which is what we might expect with 24 cores if there were a perfect performance gain from parallelization. R keeps track of how much time is spent in the main process and how much is spent in any child processes.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s[<span class="st">&quot;user.self&quot;</span>]  ## Main process
 user.self 
-     <span class="fl">0.01</span> 
+    <span class="fl">0.011</span> 
 &gt;<span class="st"> </span>s[<span class="st">&quot;user.child&quot;</span>] ## Child processes
 user.child 
-     <span class="fl">0.118</span> </code></pre></div>
+     <span class="fl">0.125</span> </code></pre></div>
 <p>In the call to <code>mclapply()</code> you can see that virtually all of the <code>user</code> time is spent in the child processes. The total <code>user</code> time is the sum of the <code>self</code> and <code>child</code> times.</p>
 <p>In some cases it is possible for the parallelized version of an R expression to actually be <em>slower</em> than the serial version. This can occur if there is substantial overhead in creating the child processes. For example, time must be spent copying information over to the child processes and communicating the results back to the parent process. However, for most substantial computations, there will be some benefit in parallelization.</p>
 <p>A&gt; One advantage of serial computations is that it allows you to better keep a handle on how much <strong>memory</strong> your R job is using. When executing parallel jobs via <code>mclapply()</code> it’s important to pre-calculate how much memory <em>all</em> of the processes will require and make sure this is less than the total amount of memory on your computer.</p>
@@ -497,11 +501,11 @@ List of <span class="dv">4</span>
 +<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">5</span>)
 &gt;<span class="st"> </span><span class="kw">str</span>(r)
 List of <span class="dv">5</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">1.478</span> -<span class="fl">1.886</span> <span class="fl">0.693</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">1.039</span> <span class="fl">0.395</span> <span class="fl">1.091</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">1.088</span> -<span class="fl">0.683</span> -<span class="fl">1.539</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.682</span> <span class="fl">0.618</span> -<span class="fl">0.328</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">1.391</span> <span class="fl">0.635</span> -<span class="fl">1.065</span></code></pre></div>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">0.0366</span> <span class="fl">0.1102</span> -<span class="fl">0.317</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.763</span> <span class="fl">0.203</span> <span class="fl">1.539</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">1.079</span> <span class="fl">0.633</span> -<span class="fl">1.388</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.527</span> <span class="fl">1.914</span> -<span class="fl">0.624</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">1.219</span> <span class="fl">0.545</span> <span class="fl">0.191</span></code></pre></div>
 <p>However, the above expression is not <strong>reproducible</strong> because the next time you run it, you will get a different set of random numbers. You cannot simply call <code>set.seed()</code> before running the expression as you might in a non-parallel version of the code.</p>
 <p>The <code>parallel</code> package provides a way to reproducibly generate random numbers in a parallel environment via the “L’Ecuyer-CMRG” random number generator. Note that this is not the default random number generator so you will have to set it explicitly.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Reproducible random numbers
