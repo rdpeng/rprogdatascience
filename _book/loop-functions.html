@@ -337,7 +337,7 @@ function (X, FUN, ...)
         X &lt;-<span class="st"> </span><span class="kw">as.list</span>(X)
     <span class="kw">.Internal</span>(<span class="kw">lapply</span>(X, FUN))
 }
-&lt;bytecode:<span class="st"> </span><span class="dv">0x7fe40a941dc0</span>&gt;
+&lt;bytecode:<span class="st"> </span><span class="dv">0x7fafcb141dc0</span>&gt;
 <span class="er">&lt;</span>environment:<span class="st"> </span>namespace:base&gt;</code></pre></div>
 <p>Note that the actual looping is done internally in C code for efficiency reasons.</p>
 <p>It’s important to remember that <code>lapply()</code> always returns a list, regardless of the class of the input.</p>

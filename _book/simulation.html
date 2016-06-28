@@ -397,7 +397,7 @@ y = \beta_0 + \beta_1 x + \varepsilon
 -<span class="fl">6.4080</span> -<span class="fl">1.5400</span>  <span class="fl">0.6789</span>  <span class="fl">0.6893</span>  <span class="fl">2.9300</span>  <span class="fl">6.5050</span> </code></pre></div>
 <p>We can plot the results of the model simulation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">plot</span>(x, y)</code></pre></div>
-<p><img src="images/Linear Model-1.png" width="672" /></p>
+<p><img src="images/Linear%20Model-1.png" width="672" /></p>
 <p>What if we wanted to simulate a predictor variable <code>x</code> that is binary instead of having a Normal distribution. We can use the <code>rbinom()</code> function to simulate binary random variables.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">set.seed</span>(<span class="dv">10</span>)
 &gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)
@@ -407,7 +407,7 @@ y = \beta_0 + \beta_1 x + \varepsilon
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>e &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">2</span>)
 &gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="fl">0.5</span> +<span class="st"> </span><span class="dv">2</span> *<span class="st"> </span>x +<span class="st"> </span>e
 &gt;<span class="st"> </span><span class="kw">plot</span>(x, y)</code></pre></div>
-<p><img src="images/Linear Model Binary-1.png" width="672" /></p>
+<p><img src="images/Linear%20Model%20Binary-1.png" width="672" /></p>
 <p>We can also simulate from <em>generalized linear model</em> where the errors are no longer from a Normal distribution but come from some other distribution. For examples, suppose we want to simulate from a Poisson log-linear model where</p>
 <p><span class="math display">\[
 Y \sim Poisson(\mu)
@@ -427,7 +427,7 @@ Y \sim Poisson(\mu)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    <span class="fl">0.00</span>    <span class="fl">1.00</span>    <span class="fl">1.00</span>    <span class="fl">1.55</span>    <span class="fl">2.00</span>    <span class="fl">6.00</span> 
 &gt;<span class="st"> </span><span class="kw">plot</span>(x, y)</code></pre></div>
-<p><img src="images/Poisson Log-Linear Model-1.png" width="672" /></p>
+<p><img src="images/Poisson%20Log-Linear%20Model-1.png" width="672" /></p>
 <p>You can build arbitrarily complex models like this by simulating more predictors or making transformations of those predictors (e.g. squaring, log transformations, etc.).</p>
 </div>
 <div id="random-sampling" class="section level2">

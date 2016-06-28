@@ -150,10 +150,10 @@ One thing we might want to do is compute a summary statistic across each of the 
 + })
 > s
    user  system elapsed 
-  0.054   0.007   0.061 
+  0.058   0.007   0.065 
 ```
 
-Note that in the `system.time()` output, the `user` time (0.054 seconds) and the `elapsed` time (0.061 seconds) are roughly the same, which is what we would expect because there was no parallelization.
+Note that in the `system.time()` output, the `user` time (0.058 seconds) and the `elapsed` time (0.065 seconds) are roughly the same, which is what we would expect because there was no parallelization.
 
 The equivalent call using `mclapply()` would be
 
@@ -166,7 +166,7 @@ The equivalent call using `mclapply()` would be
 + })
 > s
    user  system elapsed 
-  0.136   0.224   0.052 
+  0.153   0.264   0.055 
 ```
 
 Here, I chose to use 24 cores, just to see what would happen. You'll notice that the the `elapsed` time is now much less than the `user` time. However, in this case, the `elapsed` time is NOT 1/24th of the `user` time, which is what we might expect with 24 cores if there were a perfect performance gain from parallelization. R keeps track of how much time is spent in the main process and how much is spent in any child processes.
@@ -175,10 +175,10 @@ Here, I chose to use 24 cores, just to see what would happen. You'll notice that
 ```r
 > s["user.self"]  ## Main process
 user.self 
-    0.011 
+     0.01 
 > s["user.child"] ## Child processes
 user.child 
-     0.125 
+     0.143 
 ```
 
 In the call to `mclapply()` you can see that virtually all of the `user` time is spent in the child processes. The total `user` time is the sum of the `self` and `child` times. 
@@ -318,11 +318,11 @@ Generating random numbers in a parallel environment warrants caution because it'
 + }, mc.cores = 5)
 > str(r)
 List of 5
- $ : num [1:3] -0.0366 0.1102 -0.317
- $ : num [1:3] 0.763 0.203 1.539
- $ : num [1:3] 1.079 0.633 -1.388
- $ : num [1:3] 0.527 1.914 -0.624
- $ : num [1:3] 1.219 0.545 0.191
+ $ : num [1:3] 1.0151 -0.0734 -1.1209
+ $ : num [1:3] -0.383 0.192 -0.399
+ $ : num [1:3] 1.18 -1.03 1.16
+ $ : num [1:3] 0.319 0.133 -0.301
+ $ : num [1:3] 0.144 -0.769 1.325
 ```
 
 However, the above expression is not **reproducible** because the next time you run it, you will get a different set of random numbers. You cannot simply call `set.seed()` before running the expression as you might in a non-parallel version of the code. 
@@ -433,7 +433,7 @@ Once the data have been exported to the child processes, we can run our bootstra
 > med.boot <- unlist(med.boot)  ## Collapse list into vector
 > quantile(med.boot, c(0.025, 0.975))
  2.5% 97.5% 
- 2.70  3.47 
+ 2.68  3.46 
 ```
 
 Once you've finished working with your cluster, it's good to clean up and stop the cluster child processes (quitting R will also stop all of the child processes).

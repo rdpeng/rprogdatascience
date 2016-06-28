@@ -5,6 +5,7 @@ date: "2016-06-28"
 knit: "bookdown::render_book"
 cover-image: title_page.png
 github-repo: rdpeng/rprogdatascience
+site: bookdown::bookdown_site
 ---
 
 

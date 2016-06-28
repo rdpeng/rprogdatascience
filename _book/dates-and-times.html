@@ -335,7 +335,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Times can be coerced from a character string using the <code>as.POSIXlt</code> or <code>as.POSIXct</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
 &gt;<span class="st"> </span>x
-[<span class="dv">1</span>] <span class="st">&quot;2016-06-28 09:18:37 EDT&quot;</span>
+[<span class="dv">1</span>] <span class="st">&quot;2016-06-28 10:12:56 EDT&quot;</span>
 &gt;<span class="st"> </span><span class="kw">class</span>(x)   ## &#39;POSIXct&#39; object
 [<span class="dv">1</span>] <span class="st">&quot;POSIXct&quot;</span> <span class="st">&quot;POSIXt&quot;</span> </code></pre></div>
 <p>The <code>POSIXlt</code> object contains some useful metadata.</p>
@@ -348,14 +348,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>You can also use the <code>POSIXct</code> format.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
 &gt;<span class="st"> </span>x             ## Already in ‘POSIXct’ format
-[<span class="dv">1</span>] <span class="st">&quot;2016-06-28 09:18:37 EDT&quot;</span>
+[<span class="dv">1</span>] <span class="st">&quot;2016-06-28 10:12:56 EDT&quot;</span>
 &gt;<span class="st"> </span><span class="kw">unclass</span>(x)    ## Internal representation
-[<span class="dv">1</span>] <span class="dv">1467119917</span>
+[<span class="dv">1</span>] <span class="dv">1467123177</span>
 &gt;<span class="st"> </span>x$sec         ## Can&#39;t do this with &#39;POSIXct&#39;!
 Error in x$sec:<span class="st"> </span><span class="er">$</span><span class="st"> </span>operator is invalid for atomic vectors
 &gt;<span class="st"> </span>p &lt;-<span class="st"> </span><span class="kw">as.POSIXlt</span>(x)
 &gt;<span class="st"> </span>p$sec         ## That&#39;s better
-[<span class="dv">1</span>] <span class="fl">37.36164</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">56.61196</span></code></pre></div>
 <p>Finally, there is the <code>strptime()</code> function in case your dates are written in a different format. <code>strptime()</code> takes a character vector that has dates and times and converts them into to a <code>POSIXlt</code> object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>datestring &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;January 10, 2012 10:40&quot;</span>, <span class="st">&quot;December 9, 2011 9:10&quot;</span>)
 &gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">strptime</span>(datestring, <span class="st">&quot;%B %d, %Y %H:%M&quot;</span>)
