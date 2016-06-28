@@ -86,7 +86,7 @@ x1 <- pm1$Sample.Value
 
 In order to show aggregate changes in PM across the entire monitoring network, we can make boxplots of all monitor values in 1999 and 2012. Here, we take the log of the PM values to adjust for the skew in the data.
 
-```{r boxplot log values}
+```{r}
 boxplot(log2(x0), log2(x1))
 ```
 
@@ -180,7 +180,7 @@ pm0sub <- subset(pm0, State.Code == 36 & County.Code == both.county & Site.ID ==
 
 Now we plot the time series data of PM for the monitor in both years.
 
-```{r,fig.height=4,fig.width=8}
+```{r,fig.height=4,fig.width=8,fig.caption="Time Series Plot of Daily Values, 1999 and 2012"}
 dates1 <- as.Date(as.character(pm1sub$Date), "%Y%m%d")
 x1sub <- pm1sub$Sample.Value
 dates0 <- as.Date(as.character(pm0sub$Date), "%Y%m%d")
