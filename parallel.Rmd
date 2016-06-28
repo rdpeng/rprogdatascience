@@ -100,10 +100,10 @@ library(parallel)
 detectCores()
 ```
 
-The computer on which this is being written is a circa 2013 Mac Pro with 2 physical CPUs, each with 6 cores. Therefore, there are 12 physical cores. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 24 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores, but that does not appear to work on Mac OS X.
+The computer on which this is being written is a circa 2013 Mac Pro with 2 physical CPUs, each with 6 cores. Therefore, there are 12 physical cores. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 24 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores.
 
 ```{r}
-detectCores(logical = FALSE)  ## Same answer?
+detectCores(logical = FALSE)  ## Same answer as before on some systems?
 ```
 
 In general, the information from `detectCores()` should be used cautiously as obtaining this kind of information from Unix-like operating systems is not always reliable. If you are going down this road, it's best if you get to know your hardware better in order to have an understanding of how many CPUs/cores are available to you.
