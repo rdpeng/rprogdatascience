@@ -9,10 +9,19 @@ site: bookdown::bookdown_site
 ---
 
 
-# Stay in Touch!
 
-Thanks for reading this book. If you are interested in
-hearing more from me about things that I'm working on (books, data
+# Welcome
+
+<img src="title_page_sm.png" />
+
+
+Data science has taken the world by storm. Every field of study and area of business has been affected as people increasingly realize the value of the incredible quantities of data being generated. But to extract value from those data, one needs to be trained in the proper data science skills. The R programming language has become the *de facto* programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. 
+
+This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox.
+
+## Stay in Touch!
+
+If you are interested in hearing more from me about things that I'm working on (books, data
 science courses, podcast, etc.), you can do two things:
 
 * First, I encourage you to join my mailing list of [Leanpub Readers](http://eepurl.com/bAJ3zj). On this list I send out updates of my own activities as well as occasional comments on data science current events. I'll also let you know what my co-conspirators Jeff Leek and Brian Caffo are up to because sometimes they do really cool stuff.
