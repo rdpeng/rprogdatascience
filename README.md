@@ -1,7 +1,18 @@
 # R Programming for Data Science
 ## Roger D. Peng
 
-This repository contains the files for the book *R Programming for Data Science*, as it is built on [bookdown.org](). This book was originally published on [Leanpub](https://leanpub.com/rprogramming/) (and still is). The two versions are identical.
+This repository contains the files for the book *R Programming for
+Data Science*, as it is built on [bookdown.org]() and on
+[Leanpub](https://leanpub.com/rprogramming/). This book was originally
+published on Leanpub(and still is). The two versions are identical.
+
+Currently, there are two branches:
+
+* `master`: used to build Leanpub version of the book
+
+* `bookdown`: used to build the Bookdown version of the book
+
+At some point these two will hopefully be merged together.
 
 
 ### Before You Start

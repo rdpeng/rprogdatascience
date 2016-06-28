@@ -363,7 +363,7 @@ apply(x, 1, quantile, probs = c(0.25, 0.75))
 
 Notice that I had to pass the `probs = c(0.25, 0.75)` argument to `quantile()` via the `...` argument to `apply()`.
 
-For a higher dimensional example, I can create an array of {$$}2\times 2{/$$} matrices and the compute the average of the matrices in the array.
+For a higher dimensional example, I can create an array of $2\times2$ matrices and the compute the average of the matrices in the array.
 
 ```{r}
 a <- array(rnorm(2 * 2 * 10), c(2, 2, 10))
@@ -445,7 +445,7 @@ list(noise(1, 1, 2), noise(2, 2, 2),
 
 The `mapply()` function can be use to automatically "vectorize" a function. What this means is that it can be used to take a function that typically only takes single arguments and create a new function that can take vector arguments. This is often needed when you want to plot functions.
 
-Here's an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is {$$}\sum_{i=1}^n(x_i-\mu)^2/\sigma^2{/$$}.
+Here's an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is $\sum_{i=1}^n(x_i-\mu)^2/\sigma^2$.
 
 ```{r}
 sumsq <- function(mu, sigma, x) {

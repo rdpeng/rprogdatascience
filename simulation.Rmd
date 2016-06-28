@@ -107,7 +107,7 @@ Suppose we want to simulate from the following linear model
 y = \beta_0 + \beta_1 x + \varepsilon
 \]
 
-where {$$}\varepsilon\sim\mathcal{N}(0, 2^2){/$$}. Assume {$$}x\sim\mathcal{N}(0,1^2){/$$}, {$$}\beta_0 = 0.5{/$$} and {$$}\beta_1 = 2{/$$}. The variable `x` might represent an important predictor of the outcome `y`. Here's how we could do that in R.
+where $\varepsilon\sim\mathcal{N}(0,2^2)$. Assume $x\sim\mathcal{N}(0,1^2)$, $\beta_0=0.5$ and $\beta_1=2$. The variable `x` might represent an important predictor of the outcome `y`. Here's how we could do that in R.
 
 
 ```{r}
@@ -159,7 +159,7 @@ Y \sim Poisson(\mu)
 \log \mu = \beta_0 + \beta_1 x
 \]
 
-and {$$}\beta_0 = 0.5{/$$} and {$$}\beta_1 = 0.3{/$$}. We need to use the `rpois()` function for this
+and $\beta_0=0.5$ and $\beta_1=0.3$. We need to use the `rpois()` function for this
 
 ```{r}
 set.seed(1)

@@ -4,7 +4,7 @@
 knitr::opts_chunk$set(comment = NA, prompt = TRUE, collapse = TRUE, fig.path = "images/parallel-")
 ```
 
-Many computations in R can be made faster by the use of parallel computation. Generally, parallel computation is the simultaneous execution of different pieces of a larger computation across multiple computing processors or cores. The basic idea is that if you can execute a computation in {$$}X{/$$} seconds on a single processor, then you should be able to execute it in {$$}X/n{/$$} seconds on {$$}n{/$$} proessors. Such a speed-up is generally not possible because of overhead and various barriers to splitting up a problem into $n$ pieces, but it is often possible to come close in simple problems. 
+Many computations in R can be made faster by the use of parallel computation. Generally, parallel computation is the simultaneous execution of different pieces of a larger computation across multiple computing processors or cores. The basic idea is that if you can execute a computation in $X$ seconds on a single processor, then you should be able to execute it in $X/n$ seconds on $n$ proessors. Such a speed-up is generally not possible because of overhead and various barriers to splitting up a problem into $n$ pieces, but it is often possible to come close in simple problems. 
 
 It used to be that parallel computation was squarely in the domain of "high-performance computing", where expensive machines were linked together via high-speed networking to create large clusters of computers. In those kinds of settings, it was important to have sophisticated software to manage the communication of data between different computers in the cluster. Parallel computing in that setting was a highly tuned, and carefully customized operation and not something you could just saunter into.
 
@@ -100,10 +100,10 @@ library(parallel)
 detectCores()
 ```
 
-The computer on which this is being written is a circa 2013 Mac Pro with 2 physical CPUs, each with 6 cores. Therefore, there are 12 physical cores. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 24 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores, but that does not appear to work on Mac OS X.
+The computer on which this is being written is a circa 2013 Mac Pro with 2 physical CPUs, each with 6 cores. Therefore, there are 12 physical cores. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 24 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores.
 
 ```{r}
-detectCores(logical = FALSE)  ## Same answer?
+detectCores(logical = FALSE)  ## Same answer as before on some systems?
 ```
 
 In general, the information from `detectCores()` should be used cautiously as obtaining this kind of information from Unix-like operating systems is not always reliable. If you are going down this road, it's best if you get to know your hardware better in order to have an understanding of how many CPUs/cores are available to you.
@@ -362,4 +362,4 @@ stopCluster(cl)
 
 In this chapter we reviewed two different approaches to executing parallel computations in R. Both approaches used the `parallel` package, which comes with your installation of R. The "multicore" approach, which makes use of the `mclapply()` function is perhaps the simplest and can be implemented on just about any multi-core system (which nowadays is any system). The "socket" approach is a bit more general and can be implemented on systems where the fork-ing mechanism is not available. The approach used in the "socket" type cluster can also be extended to other parallel cluster management systems which unfortunately are outside the scope of this book. 
 
-In general, using parallel computation can speed up "embarrassingly parallel" computations, typically with little additional effort. However, it's important to remember that splitting a computation across {$$}N{/$$} processors usually does not result in a {$$}N{/$$}-times speed up of your computation. This is because there is some overhead involved with initiating the sub-processes and copying the data over to those processes.
+In general, using parallel computation can speed up "embarrassingly parallel" computations, typically with little additional effort. However, it's important to remember that splitting a computation across $N$ processors usually does not result in a $N$-times speed up of your computation. This is because there is some overhead involved with initiating the sub-processes and copying the data over to those processes.

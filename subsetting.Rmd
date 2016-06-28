@@ -71,7 +71,7 @@ x[x > "a"]
 [Watch a video of this section](https://youtu.be/FzjXesh9tRw)
 
 Matrices can be subsetted in the usual way with (_i,j_) type
-indices. Here, we create simple {$$}2\times 3{/$$} matrix with the `matrix`
+indices. Here, we create simple $2\times3$ matrix with the `matrix`
 function.
 
 ```{r}
@@ -79,7 +79,7 @@ x <- matrix(1:6, 2, 3)
 x
 ```
 
-We can access the {$$}(1,2){/$$} or the {$$}(2,1){/$$} element of this matrix
+We can access the $(1,2)$ or the $(2,1)$ element of this matrix
 using the appropriate indices.
 
 ```{r}
@@ -98,7 +98,7 @@ x[, 2]  ## Extract the second column
 ### Dropping matrix dimensions
 
 By default, when a single element of a matrix is retrieved, it is
-returned as a vector of length 1 rather than a {$$}1\times 1{/$$}
+returned as a vector of length 1 rather than a $1\times1$
 matrix. Often, this is exactly what we want, but this behavior can be
 turned off by setting `drop = FALSE`.
 
@@ -110,7 +110,7 @@ x[1, 2, drop = FALSE]
 
 Similarly, when we extract a single row or column of a matrix, R by
 default drops the dimension of length 1, so instead of getting a
-{$$}1\times 3{/$$} matrix after extracting the first row, we get a vector of
+$1\times3$ matrix after extracting the first row, we get a vector of
 length 3. This behavior can similarly be turned off with the `drop =
 FALSE` option.
 
