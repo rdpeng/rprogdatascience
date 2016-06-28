@@ -9,6 +9,7 @@ book_datasets.zip:	chicago.rds homicides.txt book_datasets/pm25_data/RD_501_8810
 
 parallel.md:		parallel.Rmd
 			knit.R $<
+			R --no-save --args $@ < fixmath.R
 
 regex.md:		regex.Rmd
 			knit.R $<
@@ -22,6 +23,7 @@ dplyr.md:		dplyr.Rmd
 
 simulation.md:		simulation.Rmd
 			knit.R $<
+			R --no-save --args $@ < fixmath.R
 			perl -npi -e 's/```r/{line-numbers=off}\n~~~~~~~~/' $@
 			perl -npi -e 's/```/~~~~~~~~/' $@
 			./equation.pl $@
@@ -39,6 +41,7 @@ debugging.md:		debugging.Rmd
 
 apply.md:		apply.Rmd
 			knit.R $<
+			R --no-save --args $@ < fixmath.R
 			perl -npi -e 's/```r/{line-numbers=off}\n~~~~~~~~/' $@
 			perl -npi -e 's/```/~~~~~~~~/' $@
 
@@ -72,6 +75,7 @@ vectorized.md:		vectorized.Rmd
 
 subsetting.md:		subsetting.Rmd
 			knit.R $<
+			R --no-save --args $@ < fixmath.R
 			perl -npi -e 's/```r/{line-numbers=off}\n~~~~~~~~/' $@
 			perl -npi -e 's/```/~~~~~~~~/' $@
 
