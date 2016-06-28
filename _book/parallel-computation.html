@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R Programming for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="R Programming for Data Science">
+  <meta name="generator" content="bookdown 0.0.73 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R Programming for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="title_page.png" />
+  
+  <meta name="github-repo" content="rdpeng/rprogdatascience" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Programming for Data Science" />
+  
+  
+  <meta name="twitter:image" content="title_page.png" />
+
+<meta name="author" content="Roger D. Peng">
+
+<meta name="date" content="2016-06-28">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html">
+<link rel="next" href="about-the-author.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Stay in Touch!</a></li>
+<li class="chapter" data-level="2" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i><b>2</b> Preface</a></li>
+<li class="chapter" data-level="3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html"><i class="fa fa-check"></i><b>3</b> History and Overview of R</a><ul>
+<li class="chapter" data-level="3.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-r"><i class="fa fa-check"></i><b>3.1</b> What is R?</a></li>
+<li class="chapter" data-level="3.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-s"><i class="fa fa-check"></i><b>3.2</b> What is S?</a></li>
+<li class="chapter" data-level="3.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#the-s-philosophy"><i class="fa fa-check"></i><b>3.3</b> The S Philosophy</a></li>
+<li class="chapter" data-level="3.4" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#back-to-r"><i class="fa fa-check"></i><b>3.4</b> Back to R</a></li>
+<li class="chapter" data-level="3.5" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#basic-features-of-r"><i class="fa fa-check"></i><b>3.5</b> Basic Features of R</a></li>
+<li class="chapter" data-level="3.6" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#free-software"><i class="fa fa-check"></i><b>3.6</b> Free Software</a></li>
+<li class="chapter" data-level="3.7" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#design-of-the-r-system"><i class="fa fa-check"></i><b>3.7</b> Design of the R System</a></li>
+<li class="chapter" data-level="3.8" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#limitations-of-r"><i class="fa fa-check"></i><b>3.8</b> Limitations of R</a></li>
+<li class="chapter" data-level="3.9" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#r-resources"><i class="fa fa-check"></i><b>3.9</b> R Resources</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#official-manuals"><i class="fa fa-check"></i><b>3.9.1</b> Official Manuals</a></li>
+<li class="chapter" data-level="3.9.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#useful-standard-texts-on-s-and-r"><i class="fa fa-check"></i><b>3.9.2</b> Useful Standard Texts on S and R</a></li>
+<li class="chapter" data-level="3.9.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#other-resources"><i class="fa fa-check"></i><b>3.9.3</b> Other Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>4</b> Getting Started with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installation"><i class="fa fa-check"></i><b>4.1</b> Installation</a></li>
+<li class="chapter" data-level="4.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-started-with-the-r-interface"><i class="fa fa-check"></i><b>4.2</b> Getting started with the R interface</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html"><i class="fa fa-check"></i><b>5</b> R Nuts and Bolts</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#entering-input"><i class="fa fa-check"></i><b>5.1</b> Entering Input</a></li>
+<li class="chapter" data-level="5.2" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#evaluation"><i class="fa fa-check"></i><b>5.2</b> Evaluation</a></li>
+<li class="chapter" data-level="5.3" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#r-objects"><i class="fa fa-check"></i><b>5.3</b> R Objects</a></li>
+<li class="chapter" data-level="5.4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#numbers"><i class="fa fa-check"></i><b>5.4</b> Numbers</a></li>
+<li class="chapter" data-level="5.5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#attributes"><i class="fa fa-check"></i><b>5.5</b> Attributes</a></li>
+<li class="chapter" data-level="5.6" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#creating-vectors"><i class="fa fa-check"></i><b>5.6</b> Creating Vectors</a></li>
+<li class="chapter" data-level="5.7" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#mixing-objects"><i class="fa fa-check"></i><b>5.7</b> Mixing Objects</a></li>
+<li class="chapter" data-level="5.8" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#explicit-coercion"><i class="fa fa-check"></i><b>5.8</b> Explicit Coercion</a></li>
+<li class="chapter" data-level="5.9" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#matrices"><i class="fa fa-check"></i><b>5.9</b> Matrices</a></li>
+<li class="chapter" data-level="5.10" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#lists"><i class="fa fa-check"></i><b>5.10</b> Lists</a></li>
+<li class="chapter" data-level="5.11" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#factors"><i class="fa fa-check"></i><b>5.11</b> Factors</a></li>
+<li class="chapter" data-level="5.12" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#missing-values"><i class="fa fa-check"></i><b>5.12</b> Missing Values</a></li>
+<li class="chapter" data-level="5.13" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#data-frames"><i class="fa fa-check"></i><b>5.13</b> Data Frames</a></li>
+<li class="chapter" data-level="5.14" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#names"><i class="fa fa-check"></i><b>5.14</b> Names</a></li>
+<li class="chapter" data-level="5.15" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#summary"><i class="fa fa-check"></i><b>5.15</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html"><i class="fa fa-check"></i><b>6</b> Getting Data In and Out of R</a><ul>
+<li class="chapter" data-level="6.1" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-and-writing-data"><i class="fa fa-check"></i><b>6.1</b> Reading and Writing Data</a></li>
+<li class="chapter" data-level="6.2" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-data-files-with-read.table"><i class="fa fa-check"></i><b>6.2</b> Reading Data Files with <code>read.table()</code></a></li>
+<li class="chapter" data-level="6.3" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-in-larger-datasets-with-read.table"><i class="fa fa-check"></i><b>6.3</b> Reading in Larger Datasets with read.table</a></li>
+<li class="chapter" data-level="6.4" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#calculating-memory-requirements-for-r-objects"><i class="fa fa-check"></i><b>6.4</b> Calculating Memory Requirements for R Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="using-the-readr-package.html"><a href="using-the-readr-package.html"><i class="fa fa-check"></i><b>7</b> Using the <code>readr</code> Package</a></li>
+<li class="chapter" data-level="8" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html"><i class="fa fa-check"></i><b>8</b> Using Textual and Binary Formats for Storing Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#using-dput-and-dump"><i class="fa fa-check"></i><b>8.1</b> Using <code>dput()</code> and <code>dump()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#binary-formats"><i class="fa fa-check"></i><b>8.2</b> Binary Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html"><i class="fa fa-check"></i><b>9</b> Interfaces to the Outside World</a><ul>
+<li class="chapter" data-level="9.1" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#file-connections"><i class="fa fa-check"></i><b>9.1</b> File Connections</a></li>
+<li class="chapter" data-level="9.2" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-lines-of-a-text-file"><i class="fa fa-check"></i><b>9.2</b> Reading Lines of a Text File</a></li>
+<li class="chapter" data-level="9.3" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-from-a-url-connection"><i class="fa fa-check"></i><b>9.3</b> Reading From a URL Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Subsetting R Objects</a><ul>
+<li class="chapter" data-level="10.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-vector"><i class="fa fa-check"></i><b>10.1</b> Subsetting a Vector</a></li>
+<li class="chapter" data-level="10.2" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-matrix"><i class="fa fa-check"></i><b>10.2</b> Subsetting a Matrix</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#dropping-matrix-dimensions"><i class="fa fa-check"></i><b>10.2.1</b> Dropping matrix dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-lists"><i class="fa fa-check"></i><b>10.3</b> Subsetting Lists</a></li>
+<li class="chapter" data-level="10.4" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-nested-elements-of-a-list"><i class="fa fa-check"></i><b>10.4</b> Subsetting Nested Elements of a List</a></li>
+<li class="chapter" data-level="10.5" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#extracting-multiple-elements-of-a-list"><i class="fa fa-check"></i><b>10.5</b> Extracting Multiple Elements of a List</a></li>
+<li class="chapter" data-level="10.6" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#partial-matching"><i class="fa fa-check"></i><b>10.6</b> Partial Matching</a></li>
+<li class="chapter" data-level="10.7" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#removing-na-values"><i class="fa fa-check"></i><b>10.7</b> Removing NA Values</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="vectorized-operations.html"><a href="vectorized-operations.html"><i class="fa fa-check"></i><b>11</b> Vectorized Operations</a><ul>
+<li class="chapter" data-level="11.1" data-path="vectorized-operations.html"><a href="vectorized-operations.html#vectorized-matrix-operations"><i class="fa fa-check"></i><b>11.1</b> Vectorized Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
+<li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#dates-in-r"><i class="fa fa-check"></i><b>12.1</b> Dates in R</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#times-in-r"><i class="fa fa-check"></i><b>12.2</b> Times in R</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#operations-on-dates-and-times"><i class="fa fa-check"></i><b>12.3</b> Operations on Dates and Times</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#summary-1"><i class="fa fa-check"></i><b>12.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html"><i class="fa fa-check"></i><b>13</b> Managing Data Frames with the <code>dplyr</code> package</a><ul>
+<li class="chapter" data-level="13.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#data-frames-1"><i class="fa fa-check"></i><b>13.1</b> Data Frames</a></li>
+<li class="chapter" data-level="13.2" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#the-dplyr-package"><i class="fa fa-check"></i><b>13.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="13.3" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#dplyr-grammar"><i class="fa fa-check"></i><b>13.3</b> <code>dplyr</code> Grammar</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#common-dplyr-function-properties"><i class="fa fa-check"></i><b>13.3.1</b> Common <code>dplyr</code> Function Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#installing-the-dplyr-package"><i class="fa fa-check"></i><b>13.4</b> Installing the <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="13.5" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>13.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="13.6" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>13.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="13.7" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>13.7</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="13.8" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#rename"><i class="fa fa-check"></i><b>13.8</b> <code>rename()</code></a></li>
+<li class="chapter" data-level="13.9" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>13.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="13.10" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>13.10</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="13.11" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#section"><i class="fa fa-check"></i><b>13.11</b> <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="13.12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#summary-2"><i class="fa fa-check"></i><b>13.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="control-structures.html"><a href="control-structures.html"><i class="fa fa-check"></i><b>14</b> Control Structures</a><ul>
+<li class="chapter" data-level="14.1" data-path="control-structures.html"><a href="control-structures.html#if-else"><i class="fa fa-check"></i><b>14.1</b> <code>if</code>-<code>else</code></a></li>
+<li class="chapter" data-level="14.2" data-path="control-structures.html"><a href="control-structures.html#for-loops"><i class="fa fa-check"></i><b>14.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="14.3" data-path="control-structures.html"><a href="control-structures.html#nested-for-loops"><i class="fa fa-check"></i><b>14.3</b> Nested <code>for</code> loops</a></li>
+<li class="chapter" data-level="14.4" data-path="control-structures.html"><a href="control-structures.html#while-loops"><i class="fa fa-check"></i><b>14.4</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="14.5" data-path="control-structures.html"><a href="control-structures.html#repeat-loops"><i class="fa fa-check"></i><b>14.5</b> <code>repeat</code> Loops</a></li>
+<li class="chapter" data-level="14.6" data-path="control-structures.html"><a href="control-structures.html#next-break"><i class="fa fa-check"></i><b>14.6</b> <code>next</code>, <code>break</code></a></li>
+<li class="chapter" data-level="14.7" data-path="control-structures.html"><a href="control-structures.html#summary-3"><i class="fa fa-check"></i><b>14.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="loop-functions.html"><a href="loop-functions.html"><i class="fa fa-check"></i><b>15</b> Loop Functions</a><ul>
+<li class="chapter" data-level="15.1" data-path="loop-functions.html"><a href="loop-functions.html#looping-on-the-command-line"><i class="fa fa-check"></i><b>15.1</b> Looping on the Command Line</a></li>
+<li class="chapter" data-level="15.2" data-path="loop-functions.html"><a href="loop-functions.html#lapply"><i class="fa fa-check"></i><b>15.2</b> <code>lapply()</code></a></li>
+<li class="chapter" data-level="15.3" data-path="loop-functions.html"><a href="loop-functions.html#sapply"><i class="fa fa-check"></i><b>15.3</b> <code>sapply()</code></a></li>
+<li class="chapter" data-level="15.4" data-path="loop-functions.html"><a href="loop-functions.html#split"><i class="fa fa-check"></i><b>15.4</b> <code>split()</code></a></li>
+<li class="chapter" data-level="15.5" data-path="loop-functions.html"><a href="loop-functions.html#splitting-a-data-frame"><i class="fa fa-check"></i><b>15.5</b> Splitting a Data Frame</a></li>
+<li class="chapter" data-level="15.6" data-path="loop-functions.html"><a href="loop-functions.html#tapply"><i class="fa fa-check"></i><b>15.6</b> tapply</a></li>
+<li class="chapter" data-level="15.7" data-path="loop-functions.html"><a href="loop-functions.html#apply"><i class="fa fa-check"></i><b>15.7</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="15.8" data-path="loop-functions.html"><a href="loop-functions.html#colrow-sums-and-means"><i class="fa fa-check"></i><b>15.8</b> Col/Row Sums and Means</a></li>
+<li class="chapter" data-level="15.9" data-path="loop-functions.html"><a href="loop-functions.html#other-ways-to-apply"><i class="fa fa-check"></i><b>15.9</b> Other Ways to Apply</a></li>
+<li class="chapter" data-level="15.10" data-path="loop-functions.html"><a href="loop-functions.html#mapply"><i class="fa fa-check"></i><b>15.10</b> <code>mapply()</code></a></li>
+<li class="chapter" data-level="15.11" data-path="loop-functions.html"><a href="loop-functions.html#vectorizing-a-function"><i class="fa fa-check"></i><b>15.11</b> Vectorizing a Function</a></li>
+<li class="chapter" data-level="15.12" data-path="loop-functions.html"><a href="loop-functions.html#summary-4"><i class="fa fa-check"></i><b>15.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="regular-expressions.html"><a href="regular-expressions.html"><i class="fa fa-check"></i><b>16</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="16.1" data-path="regular-expressions.html"><a href="regular-expressions.html#before-you-begin"><i class="fa fa-check"></i><b>16.1</b> Before You Begin</a></li>
+<li class="chapter" data-level="16.2" data-path="regular-expressions.html"><a href="regular-expressions.html#primary-r-functions"><i class="fa fa-check"></i><b>16.2</b> Primary R Functions</a></li>
+<li class="chapter" data-level="16.3" data-path="regular-expressions.html"><a href="regular-expressions.html#grep"><i class="fa fa-check"></i><b>16.3</b> <code>grep()</code></a></li>
+<li class="chapter" data-level="16.4" data-path="regular-expressions.html"><a href="regular-expressions.html#grepl"><i class="fa fa-check"></i><b>16.4</b> <code>grepl()</code></a></li>
+<li class="chapter" data-level="16.5" data-path="regular-expressions.html"><a href="regular-expressions.html#regexpr"><i class="fa fa-check"></i><b>16.5</b> <code>regexpr()</code></a></li>
+<li class="chapter" data-level="16.6" data-path="regular-expressions.html"><a href="regular-expressions.html#sub-and-gsub"><i class="fa fa-check"></i><b>16.6</b> <code>sub()</code> and <code>gsub()</code></a></li>
+<li class="chapter" data-level="16.7" data-path="regular-expressions.html"><a href="regular-expressions.html#regexec"><i class="fa fa-check"></i><b>16.7</b> <code>regexec()</code></a></li>
+<li class="chapter" data-level="16.8" data-path="regular-expressions.html"><a href="regular-expressions.html#summary-5"><i class="fa fa-check"></i><b>16.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>17</b> Debugging</a><ul>
+<li class="chapter" data-level="17.1" data-path="debugging.html"><a href="debugging.html#somethings-wrong"><i class="fa fa-check"></i><b>17.1</b> Something’s Wrong!</a></li>
+<li class="chapter" data-level="17.2" data-path="debugging.html"><a href="debugging.html#figuring-out-whats-wrong"><i class="fa fa-check"></i><b>17.2</b> Figuring Out What’s Wrong</a></li>
+<li class="chapter" data-level="17.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>17.3</b> Debugging Tools in R</a></li>
+<li class="chapter" data-level="17.4" data-path="debugging.html"><a href="debugging.html#using-traceback"><i class="fa fa-check"></i><b>17.4</b> Using <code>traceback()</code></a></li>
+<li class="chapter" data-level="17.5" data-path="debugging.html"><a href="debugging.html#using-debug"><i class="fa fa-check"></i><b>17.5</b> Using <code>debug()</code></a></li>
+<li class="chapter" data-level="17.6" data-path="debugging.html"><a href="debugging.html#using-recover"><i class="fa fa-check"></i><b>17.6</b> Using <code>recover()</code></a></li>
+<li class="chapter" data-level="17.7" data-path="debugging.html"><a href="debugging.html#summary-6"><i class="fa fa-check"></i><b>17.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="profiling-r-code.html"><a href="profiling-r-code.html"><i class="fa fa-check"></i><b>18</b> Profiling R Code</a><ul>
+<li class="chapter" data-level="18.1" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-system.time"><i class="fa fa-check"></i><b>18.1</b> Using <code>system.time()</code></a></li>
+<li class="chapter" data-level="18.2" data-path="profiling-r-code.html"><a href="profiling-r-code.html#timing-longer-expressions"><i class="fa fa-check"></i><b>18.2</b> Timing Longer Expressions</a></li>
+<li class="chapter" data-level="18.3" data-path="profiling-r-code.html"><a href="profiling-r-code.html#the-r-profiler"><i class="fa fa-check"></i><b>18.3</b> The R Profiler</a></li>
+<li class="chapter" data-level="18.4" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-summaryrprof"><i class="fa fa-check"></i><b>18.4</b> Using <code>summaryRprof()</code></a></li>
+<li class="chapter" data-level="18.5" data-path="profiling-r-code.html"><a href="profiling-r-code.html#summary-7"><i class="fa fa-check"></i><b>18.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>19</b> Simulation</a><ul>
+<li class="chapter" data-level="19.1" data-path="simulation.html"><a href="simulation.html#generating-random-numbers"><i class="fa fa-check"></i><b>19.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="19.2" data-path="simulation.html"><a href="simulation.html#setting-the-random-number-seed"><i class="fa fa-check"></i><b>19.2</b> Setting the random number seed</a></li>
+<li class="chapter" data-level="19.3" data-path="simulation.html"><a href="simulation.html#simulating-a-linear-model"><i class="fa fa-check"></i><b>19.3</b> Simulating a Linear Model</a></li>
+<li class="chapter" data-level="19.4" data-path="simulation.html"><a href="simulation.html#random-sampling"><i class="fa fa-check"></i><b>19.4</b> Random Sampling</a></li>
+<li class="chapter" data-level="19.5" data-path="simulation.html"><a href="simulation.html#summary-8"><i class="fa fa-check"></i><b>19.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><i class="fa fa-check"></i><b>20</b> Data Analysis Case Study: Changes in Fine Particle Air Pollution in the U.S.</a><ul>
+<li class="chapter" data-level="20.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#synopsis"><i class="fa fa-check"></i><b>20.1</b> Synopsis</a></li>
+<li class="chapter" data-level="20.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#loading-and-processing-the-raw-data"><i class="fa fa-check"></i><b>20.2</b> Loading and Processing the Raw Data</a><ul>
+<li class="chapter" data-level="20.2.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#reading-in-the-1999-data"><i class="fa fa-check"></i><b>20.2.1</b> Reading in the 1999 data</a></li>
+<li class="chapter" data-level="20.2.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#reading-in-the-2012-data"><i class="fa fa-check"></i><b>20.2.2</b> Reading in the 2012 data</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#results"><i class="fa fa-check"></i><b>20.3</b> Results</a><ul>
+<li class="chapter" data-level="20.3.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#entire-u.s.-analysis"><i class="fa fa-check"></i><b>20.3.1</b> Entire U.S. analysis</a></li>
+<li class="chapter" data-level="20.3.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#changes-in-pm-levels-at-an-individual-monitor"><i class="fa fa-check"></i><b>20.3.2</b> Changes in PM levels at an individual monitor</a></li>
+<li class="chapter" data-level="20.3.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#changes-in-state-wide-pm-levels"><i class="fa fa-check"></i><b>20.3.3</b> Changes in state-wide PM levels</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="parallel-computation.html"><a href="parallel-computation.html"><i class="fa fa-check"></i><b>21</b> Parallel Computation</a><ul>
+<li class="chapter" data-level="21.1" data-path="parallel-computation.html"><a href="parallel-computation.html#hidden-parallelism"><i class="fa fa-check"></i><b>21.1</b> Hidden Parallelism</a><ul>
+<li class="chapter" data-level="21.1.1" data-path="parallel-computation.html"><a href="parallel-computation.html#parallel-blas"><i class="fa fa-check"></i><b>21.1.1</b> Parallel BLAS</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="parallel-computation.html"><a href="parallel-computation.html#embarrassing-parallelism"><i class="fa fa-check"></i><b>21.2</b> Embarrassing Parallelism</a></li>
+<li class="chapter" data-level="21.3" data-path="parallel-computation.html"><a href="parallel-computation.html#the-parallel-package"><i class="fa fa-check"></i><b>21.3</b> The Parallel Package</a><ul>
+<li class="chapter" data-level="21.3.1" data-path="parallel-computation.html"><a href="parallel-computation.html#mclapply"><i class="fa fa-check"></i><b>21.3.1</b> <code>mclapply()</code></a></li>
+<li class="chapter" data-level="21.3.2" data-path="parallel-computation.html"><a href="parallel-computation.html#error-handling"><i class="fa fa-check"></i><b>21.3.2</b> Error Handling</a></li>
+</ul></li>
+<li class="chapter" data-level="21.4" data-path="parallel-computation.html"><a href="parallel-computation.html#example-bootstrapping-a-statistic"><i class="fa fa-check"></i><b>21.4</b> Example: Bootstrapping a Statistic</a><ul>
+<li class="chapter" data-level="21.4.1" data-path="parallel-computation.html"><a href="parallel-computation.html#generating-random-numbers-1"><i class="fa fa-check"></i><b>21.4.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="21.4.2" data-path="parallel-computation.html"><a href="parallel-computation.html#using-the-boot-package"><i class="fa fa-check"></i><b>21.4.2</b> Using the <code>boot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="21.5" data-path="parallel-computation.html"><a href="parallel-computation.html#building-a-socket-cluster"><i class="fa fa-check"></i><b>21.5</b> Building a Socket Cluster</a></li>
+<li class="chapter" data-level="21.6" data-path="parallel-computation.html"><a href="parallel-computation.html#summary-9"><i class="fa fa-check"></i><b>21.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i><b>22</b> About the Author</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Programming for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="parallel-computation" class="section level1">
+<h1><span class="header-section-number">21</span> Parallel Computation</h1>
+<p>Many computations in R can be made faster by the use of parallel computation. Generally, parallel computation is the simultaneous execution of different pieces of a larger computation across multiple computing processors or cores. The basic idea is that if you can execute a computation in <span class="math inline">\(X\)</span> seconds on a single processor, then you should be able to execute it in <span class="math inline">\(X/n\)</span> seconds on <span class="math inline">\(n\)</span> proessors. Such a speed-up is generally not possible because of overhead and various barriers to splitting up a problem into <span class="math inline">\(n\)</span> pieces, but it is often possible to come close in simple problems.</p>
+<p>It used to be that parallel computation was squarely in the domain of “high-performance computing”, where expensive machines were linked together via high-speed networking to create large clusters of computers. In those kinds of settings, it was important to have sophisticated software to manage the communication of data between different computers in the cluster. Parallel computing in that setting was a highly tuned, and carefully customized operation and not something you could just saunter into.</p>
+<p>These days though, almost all computers contain multiple processors or cores on them. Even Apple’s iPhone 6S comes with a <a href="https://en.wikipedia.org/wiki/Apple_A9">dual-core CPU</a> as part of its A9 system-on-a-chip. Getting access to a “cluster” of CPUs, in this case all built into the same computer, is much easier than it used to be and this has opened the door to parallel computing for a wide range of people.</p>
+<p>In this chapter, we will discuss some of the basic funtionality in R for executing parallel computations. In particular, we will focus on functions that can be used on <em>multi-core</em> computers, which these days is almost all computers. It is possible to do more traditional parallel computing via the network-of-workstations style of computing, but we will not discuss that here.</p>
+<div id="hidden-parallelism" class="section level2">
+<h2><span class="header-section-number">21.1</span> Hidden Parallelism</h2>
+<p>You may be computing in parallel without even knowing it! These days, many computational libraries have built-in parallelism that can be used behind the scenes. Usually, this kind of “hidden parallelism” will generally not affect you and will improve you computational efficiency. However, it’s usually a good idea that you know it’s going on (even in the background) because it may affect other work you are doing on the machine. Also, certain shared computing environments may have rules about how many cores/CPUs you are allowed to use and if a function fires off multiple parallel jobs, it may cause a problem for others sharing the system with you.</p>
+<div id="parallel-blas" class="section level3">
+<h3><span class="header-section-number">21.1.1</span> Parallel BLAS</h3>
+<p>A common example in R is the use of linear algebra functions. Some versions of R that you use may be linked to on optimized Basic Linear Algebra Subroutines (BLAS) library. Such libraries are custom coded for specific CPUs/chipsets to take advantage of the architecture of the chip. It’s important to realize that while R can do linear algebra out of the box, its default BLAS library is a <em>reference implementation</em> that is not necessarily optimized to any particular chipset.</p>
+<p>When possible, it’s always a good idea to install an optimized BLAS on your system because it can dramatically improve the performance of those kinds of computations. Part of the increase in performance comes from the customization of the code to a particular chipset while part of it comes from the multi-threading that many libraries use to parallelize their computations.</p>
+<p>For example, below I simulate a matrix <code>X</code> of 1 million observations by 100 predictors and generate an outcome <code>y</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="fl">1e6</span> *<span class="st"> </span><span class="dv">100</span>), <span class="fl">1e6</span>, <span class="dv">100</span>)
+&gt;<span class="st"> </span><span class="kw">dim</span>(X)
+[<span class="dv">1</span>] <span class="dv">1000000</span>     <span class="dv">100</span>
+&gt;<span class="st"> </span>b &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)
+&gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">drop</span>(X %*%<span class="st"> </span>b) +<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e6</span>)</code></pre></div>
+<p>Then I compute the least squares estimates of the linear regression coefficents when regressing the response <code>y</code> on the predictor matrix <code>X</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">system.time</span>(b &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">crossprod</span>(X), <span class="kw">crossprod</span>(X, y)))
+   user  system elapsed 
+  <span class="fl">0.854</span>   <span class="fl">0.002</span>   <span class="fl">0.448</span> </code></pre></div>
+<p>Here, you can see that the <code>user</code> time is just under 1 second while the <code>elapsed</code> time is about half that. Here, the key task, matrix inversion, was handled by the optimized BLAS and was computed in parallel so that the elapsed time was less than the user or CPU time. In this case, I was using a Mac that was linked to Apple’s Accelerate framework which contains an optimized BLAS.</p>
+<p>Here’s a summary of some of the optimized BLAS libraries out there:</p>
+<ul>
+<li><p>The <a href="http://developer.amd.com/tools-and-sdks/archive/amd-core-math-library-acml/">AMD Core Math Library</a> (ACML) is built for AMD chips and contains a full set of BLAS and LAPACK routines. The library is closed-source and is maintained/released by AMD.</p></li>
+<li><p>The <a href="https://software.intel.com/en-us/intel-mkl">Intel Math Kernel</a> is an analogous optimized library for Intel-based chips</p></li>
+<li><p>The <a href="https://developer.apple.com/library/tvos/documentation/Accelerate/Reference/AccelerateFWRef/index.html">Accelerate framework</a> on the Mac contains an optimized BLAS built by Apple.</p></li>
+<li><p>The <a href="http://math-atlas.sourceforge.net">Automatically Tuned Linear Algebra Software</a> (ATLAS) library is a special “adaptive” software package that is designed to be compiled on the computer where it will be used. As part of the build process, the library extracts detailed CPU information and optimizes the code as it goes along. The ATLAS library is hence a generic package that can be built on a wider array of CPUs.</p></li>
+</ul>
+<p>Detailed instructions on how to use R with optimized BLAS libraries can be found in the <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html#BLAS">R Installation and Administration</a> manual. In some cases, you may need to build R from the sources in order to link it with the optimized BLAS library.</p>
+</div>
+</div>
+<div id="embarrassing-parallelism" class="section level2">
+<h2><span class="header-section-number">21.2</span> Embarrassing Parallelism</h2>
+<p>Many problems in statistics and data science can be executed in an “embarrassingly parallel” way, whereby multiple independent pieces of a problem are executed simultaneously because the different pieces of the problem never really have to communicate with each other (except perhaps at the end when all the results are assembled). Despite the name, there’s nothing really “embarrassing” about taking advantage of the structure of the problem and using it speed up your computation. In fact, embarrassingly parallel computation is a common paradigm in statistics and data science.</p>
+<p>A&gt; In general, it is NOT a good idea to use the functions described in this chapter with graphical user interfaces (GUIs) because, to summarize the help page for <code>mclapply()</code>, bad things can happen. That said, the functions in the <code>parallel</code> package seem two work okay in RStudio.</p>
+<p>The basic mode of an embarrassingly parallel operation can be seen with the <code>lapply()</code> function, which we have reviewed in a <a href="loop-functions.html#loop-functions">previous chapter</a>. Recall that the <code>lapply()</code> function has two arguments:</p>
+<ol style="list-style-type: decimal">
+<li><p>A list, or an object that can be coerced to a list.</p></li>
+<li><p>A function to be applied to each element of the list</p></li>
+</ol>
+<p>Finally, recall that <code>lapply()</code> always returns a list whose length is equal to the length of the input list.</p>
+<p>The <code>lapply()</code> function works much like a loop–it cycles through each element of the list and applies the supplied function to that element. While <code>lapply()</code> is applying your function to a list element, the other elements of the list are just…sitting around in memory. Note that in the description of <code>lapply()</code> above, there’s no mention of the different elements of the list communicating with each other, and the function being applied to a given list element does not need to know about other list elements.</p>
+<p>Just about any operation that is handled by the <code>lapply()</code> function can be parallelized. This approach is analogous to the <a href="https://en.wikipedia.org/wiki/MapReduce">“map-reduce”</a> approach in large-scale cluster systems. The idea is that a list object can be split across multiple cores of a processor and then the function can be applied to each subset of the list object on each of the cores. Conceptually, the steps in the parallel procedure are</p>
+<ol style="list-style-type: decimal">
+<li><p>Split list <code>X</code> across multiple cores</p></li>
+<li><p>Copy the supplied function (and associated environment) to each of the cores</p></li>
+<li><p>Apply the supplied function to each subset of the list <code>X</code> on each of the cores in parallel</p></li>
+<li><p>Assemble the results of all the function evaluations into a single list and return</p></li>
+</ol>
+<p>The differences between the many packages/functions in R essentially come down to how each of these steps are implemented. In this chapter we will cover the <code>parallel</code> package, which has a few implementations of this paradigm. The goal of the functions in this package (and in other related packages) is to abstract the complexities of the implemetation so that the R user is presented a relatively clean interface for doing computations.</p>
+</div>
+<div id="the-parallel-package" class="section level2">
+<h2><span class="header-section-number">21.3</span> The Parallel Package</h2>
+<p>The <code>parallel</code> package which comes with your R installation. It represents a combining of two historical packages–the <code>multicore</code> and <code>snow</code> packages, and the functions in <code>parallel</code> have overlapping names with those older packages. For our purposes, it’s not necessary to know anything about the <code>multicore</code> or <code>snow</code> packages, but long-time users of R may remember them from back in the day.</p>
+<p>The <code>mclapply()</code> function essentially parallelizes calls to <code>lapply()</code>. The first two arguments to <code>mclapply()</code> are exactly the same as they are for <code>lapply()</code>. However, <code>mclapply()</code> has further arguments (that must be named), the most important of which is the <code>mc.cores</code> argument which you can use to specify the number of processors/cores you want to split the computation across. For example, if your machine has 4 cores on it, you might specify <code>mc.cores = 4</code> to break your parallelize your operation across 4 cores (although this may not be the best idea if you are running other operations in the background besides R).</p>
+<p>The <code>mclapply()</code> function (and related <code>mc*</code> functions) works via the fork mechanism on Unix-style operating systems. Briefly, your R session is the main process and when you call a function like <code>mclapply()</code>, you fork a series of sub-processes that operate independently from the main process (although they share a few low-level features). These sub-processes then execute your function on their subsets of the data, presumably on separate cores of your CPU. Once the computation is complete, each sub-process returns its results and then the sub-process is killed. The <code>parallel</code> package manages the logistics of forking the sub-processes and handling them once they’ve finished.</p>
+<p>A&gt; Because of the use of the fork mechanism, the <code>mc*</code> functions are generally not available to users of the Windows operating system.</p>
+<p>The first thing you might want to check with the <code>parallel</code> package is if your computer in fact has multiple cores that you can take advantage of.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(parallel)
+&gt;<span class="st"> </span><span class="kw">detectCores</span>()
+[<span class="dv">1</span>] <span class="dv">24</span></code></pre></div>
+<p>The computer on which this is being written is a circa 2013 Mac Pro with 2 physical CPUs, each with 6 cores. Therefore, there are 12 physical cores. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 24 “logical” cores. This is what <code>detectCores()</code> returns. On some systems you can call <code>detectCores(logical = FALSE)</code> to return the number of physical cores.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">detectCores</span>(<span class="dt">logical =</span> <span class="ot">FALSE</span>)  ## Same answer as before on some systems?
+[<span class="dv">1</span>] <span class="dv">12</span></code></pre></div>
+<p>In general, the information from <code>detectCores()</code> should be used cautiously as obtaining this kind of information from Unix-like operating systems is not always reliable. If you are going down this road, it’s best if you get to know your hardware better in order to have an understanding of how many CPUs/cores are available to you.</p>
+<div id="mclapply" class="section level3">
+<h3><span class="header-section-number">21.3.1</span> <code>mclapply()</code></h3>
+<p>The simplest application of the <code>parallel</code> package is via the <code>mclapply()</code> function, which conceptually splits what might be a call to <code>lapply()</code> across multiple cores. Just to show how the function works, I’ll run some code that splits a job across 10 cores and then just sleeps for 10 seconds.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">10</span>, function(i) {
++<span class="st">         </span><span class="kw">Sys.sleep</span>(<span class="dv">10</span>)  ## Do nothing for 10 seconds
++<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">10</span>)      ## Split this job across 10 cores</code></pre></div>
+<p>While this “job” was running, I took a screen shot of the system activity monitor (“top”). Here’s what it looks like on Mac OS X.</p>
+<div class="figure">
+<img src="images/topparallel.png" alt="Multiple sub-processes spawned by mclapply()" />
+<p class="caption">Multiple sub-processes spawned by <code>mclapply()</code></p>
+</div>
+<p>In case you are not used to viewing this output, each row of the table is an application or process running on your computer. You can see that there are 11 rows where the COMMAND is labelled <code>rsession</code>. One of these is my primary R session (being run through RStudio), and the other 10 are the sub-processes spawned by the <code>mclapply()</code> function.</p>
+<p>We will use as a second (slightly more realistic) example processing data from multiple files. Often this is something that can be easily parallelized.</p>
+<p>Here we have data on ambient concentrations of sulfate particulate matter (PM) and nitrate PM from 332 monitors around the United States. First, we can read in the data via a simple call to <code>lapply()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>infiles &lt;-<span class="st"> </span><span class="kw">dir</span>(<span class="st">&quot;specdata&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)
+&gt;<span class="st"> </span>specdata &lt;-<span class="st"> </span><span class="kw">lapply</span>(infiles, read.csv)</code></pre></div>
+<p>Now, <code>specdata</code> is a list of data frames, with each data frame corresponding to each of the 332 monitors in the dataset.</p>
+<p>One thing we might want to do is compute a summary statistic across each of the monitors. For example, we might want to compute the 90th percentile of sulfate for each of the monitors. This can easily be implemented as a serial call to <code>lapply()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">system.time</span>({
++<span class="st">         </span>mn &lt;-<span class="st"> </span><span class="kw">lapply</span>(specdata, function(df) {
++<span class="st">                 </span><span class="kw">quantile</span>(df$sulfate, <span class="fl">0.9</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
++<span class="st">         </span>})
++<span class="st"> </span>})
+&gt;<span class="st"> </span>s
+   user  system elapsed 
+  <span class="fl">0.061</span>   <span class="fl">0.007</span>   <span class="fl">0.068</span> </code></pre></div>
+<p>Note that in the <code>system.time()</code> output, the <code>user</code> time (0.061 seconds) and the <code>elapsed</code> time (0.068 seconds) are roughly the same, which is what we would expect because there was no parallelization.</p>
+<p>The equivalent call using <code>mclapply()</code> would be</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">system.time</span>({
++<span class="st">         </span>mn &lt;-<span class="st"> </span><span class="kw">mclapply</span>(specdata, function(df) {
++<span class="st">                 </span><span class="kw">quantile</span>(df$sulfate, <span class="fl">0.9</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
++<span class="st">         </span>}, <span class="dt">mc.cores =</span> <span class="dv">24</span>)
++<span class="st"> </span>})
+&gt;<span class="st"> </span>s
+   user  system elapsed 
+  <span class="fl">0.128</span>   <span class="fl">0.213</span>   <span class="fl">0.054</span> </code></pre></div>
+<p>Here, I chose to use 24 cores, just to see what would happen. You’ll notice that the the <code>elapsed</code> time is now much less than the <code>user</code> time. However, in this case, the <code>elapsed</code> time is NOT 1/24th of the <code>user</code> time, which is what we might expect with 24 cores if there were a perfect performance gain from parallelization. R keeps track of how much time is spent in the main process and how much is spent in any child processes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s[<span class="st">&quot;user.self&quot;</span>]  ## Main process
+user.self 
+     <span class="fl">0.01</span> 
+&gt;<span class="st"> </span>s[<span class="st">&quot;user.child&quot;</span>] ## Child processes
+user.child 
+     <span class="fl">0.118</span> </code></pre></div>
+<p>In the call to <code>mclapply()</code> you can see that virtually all of the <code>user</code> time is spent in the child processes. The total <code>user</code> time is the sum of the <code>self</code> and <code>child</code> times.</p>
+<p>In some cases it is possible for the parallelized version of an R expression to actually be <em>slower</em> than the serial version. This can occur if there is substantial overhead in creating the child processes. For example, time must be spent copying information over to the child processes and communicating the results back to the parent process. However, for most substantial computations, there will be some benefit in parallelization.</p>
+<p>A&gt; One advantage of serial computations is that it allows you to better keep a handle on how much <strong>memory</strong> your R job is using. When executing parallel jobs via <code>mclapply()</code> it’s important to pre-calculate how much memory <em>all</em> of the processes will require and make sure this is less than the total amount of memory on your computer.</p>
+<p>The <code>mclapply()</code> function is useful for iterating over a single list or list-like object. If you have to iterate over multiple objects together, you can use <code>mcmapply()</code>, which is the the multi-core equivalent of the <code>mapply()</code> function.</p>
+</div>
+<div id="error-handling" class="section level3">
+<h3><span class="header-section-number">21.3.2</span> Error Handling</h3>
+<p>When either <code>mclapply()</code> or <code>mcmapply()</code> are called, the functions supplied will be run in the sub-process while effectively being wrapped in a call to <code>try()</code>. This allows for one of the sub-processes to fail without disrupting the entire call to <code>mclapply()</code>, possibly causing you to lose much of your work. If one sub-process fails, it may be that all of the others work just fine and produce good results.</p>
+<p>This error handling behavior is a significant difference from the usual call to <code>lapply()</code>. With <code>lapply()</code>, if the supplied function fails on one component of the list, the entire function call to <code>lapply()</code> fails and you only get an error as a result.</p>
+<p>With <code>mclapply()</code>, when a sub-process fails, the return value for that sub-process will be an R object that inherits from the class <code>&quot;try-error&quot;</code>, which is something you can test with the <code>inherits()</code> function. Conceptually, each child process is executed with the <code>try()</code> function wrapped around it. The code below deliberately causes an error in the 3 element of the list.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5</span>, function(i) {
++<span class="st">         </span>if(i ==<span class="st"> </span>3L)
++<span class="st">                 </span><span class="kw">stop</span>(<span class="st">&quot;error in this process!&quot;</span>)
++<span class="st">         </span>else
++<span class="st">                 </span><span class="kw">return</span>(<span class="st">&quot;success!&quot;</span>)
++<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">5</span>)
+Warning in <span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5</span>, function(i) {:<span class="st"> </span>scheduled cores <span class="dv">3</span> encountered
+errors in user code, all values of the jobs will be affected</code></pre></div>
+<p>Here we see there was a warning but no error in the running of the above code. We can check the return value.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(r)
+List of <span class="dv">5</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
+ $<span class="st"> </span><span class="er">:</span>Class <span class="st">&#39;try-error&#39;</span>  atomic [<span class="dv">1</span>:<span class="dv">1</span>] Error in <span class="kw">FUN</span>(X[[i]], ...) :<span class="st"> </span>error in this process!
+
+<span class="st">  </span>.. ..-<span class="st"> </span><span class="kw">attr</span>(*, <span class="st">&quot;condition&quot;</span>)=List of <span class="dv">2</span>
+  .. .. ..$<span class="st"> </span>message:<span class="st"> </span>chr <span class="st">&quot;error in this process!&quot;</span>
+  .. .. ..$<span class="st"> </span>call   :<span class="st"> </span>language <span class="kw">FUN</span>(X[[i]], ...)
+  .. .. ..-<span class="st"> </span><span class="kw">attr</span>(*, <span class="st">&quot;class&quot;</span>)=<span class="st"> </span>chr [<span class="dv">1</span>:<span class="dv">3</span>] <span class="st">&quot;simpleError&quot;</span> <span class="st">&quot;error&quot;</span> <span class="st">&quot;condition&quot;</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span></code></pre></div>
+<p>Note that the 3rd list element in <code>r</code> is different.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">class</span>(r[[<span class="dv">3</span>]])
+[<span class="dv">1</span>] <span class="st">&quot;try-error&quot;</span>
+&gt;<span class="st"> </span><span class="kw">inherits</span>(r[[<span class="dv">3</span>]], <span class="st">&quot;try-error&quot;</span>)
+[<span class="dv">1</span>] <span class="ot">TRUE</span></code></pre></div>
+<p>When running code where there may be errors in some of the sub-processes, it’s useful to check afterwards to see if there are any errors in the output received.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>bad &lt;-<span class="st"> </span><span class="kw">sapply</span>(r, inherits, <span class="dt">what =</span> <span class="st">&quot;try-error&quot;</span>)
+&gt;<span class="st"> </span>bad
+[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span></code></pre></div>
+<p>You can subsequently subset your return object to only keep the “good” elements.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r.good &lt;-<span class="st"> </span>r[!bad]
+&gt;<span class="st"> </span><span class="kw">str</span>(r.good)
+List of <span class="dv">4</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span></code></pre></div>
+</div>
+</div>
+<div id="example-bootstrapping-a-statistic" class="section level2">
+<h2><span class="header-section-number">21.4</span> Example: Bootstrapping a Statistic</h2>
+<p>One technique that is commonly used to assess the variability of a statistic is the bootstrap. Briefly, the bootstrap technique resamples the original dataset with replacement to create pseudo-datasets that are similar to, but slightly perturbed from, the original dataset. This technique is particularly useful when the statistic in question does not have a readily accessible formula for its standard error.</p>
+<p>One example of a statistic for which the bootstrap is useful is the median. Here, we plot the histogram of some of the sulfate particulate matter data from the previous example.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;specdata/001.csv&quot;</span>)
+&gt;<span class="st"> </span>sulf &lt;-<span class="st"> </span>dat$sulfate
+&gt;<span class="st"> </span>sulf &lt;-<span class="st"> </span>sulf[!<span class="kw">is.na</span>(sulf)]     ## Remove missing values
+&gt;<span class="st"> </span><span class="kw">hist</span>(sulf, <span class="dt">xlab =</span> <span class="kw">expression</span>(<span class="st">&quot;Sulfate PM (&quot;</span> *<span class="st"> </span>mu *<span class="st"> </span>g/m^<span class="dv">3</span> *<span class="st"> &quot;)&quot;</span>))</code></pre></div>
+<p><img src="images/parallel-unnamed-chunk-14-1.png" width="672" /></p>
+<p>We can see from the histogram that the distribution of sulfate is skewed to the right. Therefore, it would seem that the median might be a better summary of the distribution than the mean.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summary</span>(sulf)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  <span class="fl">0.613</span>   <span class="fl">2.210</span>   <span class="fl">2.870</span>   <span class="fl">3.881</span>   <span class="fl">4.730</span>  <span class="fl">19.100</span> </code></pre></div>
+<p>How can we construct confidence interval for the median of sulfate for this monitor? The bootstrap is simple procedure that can work well. Here’s how we might do it in the usual (non-parallel) way.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">set.seed</span>(<span class="dv">1</span>)
+&gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">5000</span>, {
++<span class="st">         </span>xnew &lt;-<span class="st"> </span><span class="kw">sample</span>(sulf, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
++<span class="st">         </span><span class="kw">median</span>(xnew)
++<span class="st"> </span>})</code></pre></div>
+<p>A 95% confidence interval would then take the 2.5th and 97.5th percentiles of this distribution (this is known as the percentile method).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">quantile</span>(med.boot, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))
+ <span class="fl">2.5</span>% 97.5%<span class="st"> </span>
+<span class="st"> </span><span class="fl">2.68</span>  <span class="fl">3.47</span> </code></pre></div>
+<p>How could be done in parallel? We could simply wrap the expression passed to <code>replicate()</code> in a function and pass it to <code>mclapply()</code>. However, one thing we need to be careful of is generating random numbers.</p>
+<div id="generating-random-numbers-1" class="section level3">
+<h3><span class="header-section-number">21.4.1</span> Generating Random Numbers</h3>
+<p>Generating random numbers in a parallel environment warrants caution because it’s possible to create a situation where each of the sub-processes are all generating the <em>exact same random numbers</em>. For the most part, the <code>mc*</code> functions do their best to avoid this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5</span>, function(i) {
++<span class="st">         </span><span class="kw">rnorm</span>(<span class="dv">3</span>)
++<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">5</span>)
+&gt;<span class="st"> </span><span class="kw">str</span>(r)
+List of <span class="dv">5</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">1.478</span> -<span class="fl">1.886</span> <span class="fl">0.693</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">1.039</span> <span class="fl">0.395</span> <span class="fl">1.091</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">1.088</span> -<span class="fl">0.683</span> -<span class="fl">1.539</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.682</span> <span class="fl">0.618</span> -<span class="fl">0.328</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">1.391</span> <span class="fl">0.635</span> -<span class="fl">1.065</span></code></pre></div>
+<p>However, the above expression is not <strong>reproducible</strong> because the next time you run it, you will get a different set of random numbers. You cannot simply call <code>set.seed()</code> before running the expression as you might in a non-parallel version of the code.</p>
+<p>The <code>parallel</code> package provides a way to reproducibly generate random numbers in a parallel environment via the “L’Ecuyer-CMRG” random number generator. Note that this is not the default random number generator so you will have to set it explicitly.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Reproducible random numbers
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">RNGkind</span>(<span class="st">&quot;L&#39;Ecuyer-CMRG&quot;</span>)
+&gt;<span class="st"> </span><span class="kw">set.seed</span>(<span class="dv">1</span>)
+&gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5</span>, function(i) {
++<span class="st">         </span><span class="kw">rnorm</span>(<span class="dv">3</span>)
++<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">5</span>)
+&gt;<span class="st"> </span><span class="kw">str</span>(r)
+List of <span class="dv">5</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">0.485</span> -<span class="fl">0.626</span> -<span class="fl">0.873</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">1.86</span> -<span class="fl">1.825</span> -<span class="fl">0.995</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">1.177</span> <span class="fl">1.472</span> -<span class="fl">0.988</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.984</span> <span class="fl">1.291</span> <span class="fl">0.459</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">0.621</span> -<span class="fl">1.221</span> <span class="fl">1.541</span></code></pre></div>
+<p>Running the above code twice will generate the same random numbers in each of the sub-processes.</p>
+<p>Now we can run our parallel bootstrap in a reproducible way.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">RNGkind</span>(<span class="st">&quot;L&#39;Ecuyer-CMRG&quot;</span>)
+&gt;<span class="st"> </span><span class="kw">set.seed</span>(<span class="dv">1</span>)
+&gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5000</span>, function(i) {
++<span class="st">         </span>xnew &lt;-<span class="st"> </span><span class="kw">sample</span>(sulf, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
++<span class="st">         </span><span class="kw">median</span>(xnew)
++<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">24</span>)
+&gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">unlist</span>(med.boot)  ## Collapse list into vector
+&gt;<span class="st"> </span><span class="kw">quantile</span>(med.boot, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))
+ <span class="fl">2.5</span>% 97.5%<span class="st"> </span>
+<span class="st"> </span><span class="fl">2.70</span>  <span class="fl">3.46</span> </code></pre></div>
+<p>A&gt; Although I’ve rarely seen it done in practice (including in my own code), it’s a good idea to explicitly set the random number generator via <code>RNGkind()</code>, in addition to setting the seed with <code>set.seed()</code>. This way, you can be sure that the appropriate random number generator is being used every time and your code will be reproducible even on a system where the default generator has been changed.</p>
+</div>
+<div id="using-the-boot-package" class="section level3">
+<h3><span class="header-section-number">21.4.2</span> Using the <code>boot</code> package</h3>
+<p>For bootstrapping in particular, you can use the <code>boot</code> package to do most of the work and the key <code>boot</code> function has an option to do the work in parallel.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(boot)
+&gt;<span class="st"> </span>b &lt;-<span class="st"> </span><span class="kw">boot</span>(sulf, function(x, i) <span class="kw">median</span>(x[i]), <span class="dt">R =</span> <span class="dv">5000</span>, <span class="dt">parallel =</span> <span class="st">&quot;multicore&quot;</span>, <span class="dt">ncpus =</span> <span class="dv">24</span>)
+&gt;<span class="st"> </span><span class="kw">boot.ci</span>(b, <span class="dt">type =</span> <span class="st">&quot;perc&quot;</span>)
+BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on <span class="dv">5000</span> bootstrap replicates
+
+CALL :<span class="st"> </span>
+<span class="kw">boot.ci</span>(<span class="dt">boot.out =</span> b, <span class="dt">type =</span> <span class="st">&quot;perc&quot;</span>)
+
+Intervals :<span class="st"> </span>
+Level     Percentile     
+<span class="dv">95</span>%   ( <span class="fl">2.70</span>,  <span class="fl">3.47</span> )  
+Calculations and Intervals on Original Scale</code></pre></div>
+</div>
+</div>
+<div id="building-a-socket-cluster" class="section level2">
+<h2><span class="header-section-number">21.5</span> Building a Socket Cluster</h2>
+<p>Using the forking mechanism on your computer is one way to execute parallel computation but it’s not the only way that the <code>parallel</code> package offers. Another way to build a “cluster” using the multiple cores on your computer is via <em>sockets</em>. A <a href="https://en.wikipedia.org/wiki/Network_socket">socket</a> is simply a mechanism with which multiple processes or applications running on your computer (or different computers, for that matter) can communicate with each other. With parallel computation, data and results need to be passed back and forth between the parent and child processes and sockets can be used for that purpose.</p>
+<p>Building a socket cluster is simple to do in R with the <code>makeCluster()</code> function. Here I’m initializing a cluster with 24 components.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">24</span>)</code></pre></div>
+<p>The <code>cl</code> object is an abstraction of the entire cluster and is what we’ll use to indicate to the various cluster functions that we want to do parallel computation.</p>
+<p>A&gt;You’ll notice that the <code>makeCluster()</code> function has a <code>type</code> argument that allows for different types of clusters beyond using sockets (although the default is a socket cluster). We will not discuss these other options here.</p>
+<p>To do an <code>lapply()</code> operation over a socket cluster we can use the <code>parLapply()</code> function. For example, we can use <code>parLapply()</code> to run our median bootstrap example described above.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="dv">1</span>:<span class="dv">5000</span>, function(i) {
++<span class="st">         </span>xnew &lt;-<span class="st"> </span><span class="kw">sample</span>(sulf, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
++<span class="st">         </span><span class="kw">median</span>(xnew)
++<span class="st"> </span>})
+Error in <span class="kw">checkForRemoteErrors</span>(val):<span class="st"> </span><span class="dv">24</span> nodes produced errors; first error:<span class="st"> </span>object <span class="st">&#39;sulf&#39;</span> not found</code></pre></div>
+<p>You’ll notice, unfortunately, that there’s an error in running this code. The reason is that while we have loaded the sulfate data into our R session, the data is not available to the independent child processes that have been spawned by the <code>makeCluster()</code> function. The data, and any other information that the child process will need to execute your code, needs to be <strong>exported</strong> to the child process from the parent process via the <code>clusterExport()</code> function. The need to export data is a key difference in behavior between the “multicore” approach and the “socket” approach.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">clusterExport</span>(cl, <span class="st">&quot;sulf&quot;</span>)</code></pre></div>
+<p>The second argument to <code>clusterExport()</code> is a character vector, and so you can export an arbitrary number of R objects to the child processes. You should be judicious in choosing what you export simply because each R object will be replicated in each of the child processes, and hence take up memory on your computer.</p>
+<p>Once the data have been exported to the child processes, we can run our bootstrap code again.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="dv">1</span>:<span class="dv">5000</span>, function(i) {
++<span class="st">         </span>xnew &lt;-<span class="st"> </span><span class="kw">sample</span>(sulf, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
++<span class="st">         </span><span class="kw">median</span>(xnew)
++<span class="st"> </span>})
+&gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">unlist</span>(med.boot)  ## Collapse list into vector
+&gt;<span class="st"> </span><span class="kw">quantile</span>(med.boot, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))
+ <span class="fl">2.5</span>% 97.5%<span class="st"> </span>
+<span class="st"> </span><span class="fl">2.70</span>  <span class="fl">3.47</span> </code></pre></div>
+<p>Once you’ve finished working with your cluster, it’s good to clean up and stop the cluster child processes (quitting R will also stop all of the child processes).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">stopCluster</span>(cl)</code></pre></div>
+</div>
+<div id="summary-9" class="section level2">
+<h2><span class="header-section-number">21.6</span> Summary</h2>
+<p>In this chapter we reviewed two different approaches to executing parallel computations in R. Both approaches used the <code>parallel</code> package, which comes with your installation of R. The “multicore” approach, which makes use of the <code>mclapply()</code> function is perhaps the simplest and can be implemented on just about any multi-core system (which nowadays is any system). The “socket” approach is a bit more general and can be implemented on systems where the fork-ing mechanism is not available. The approach used in the “socket” type cluster can also be extended to other parallel cluster management systems which unfortunately are outside the scope of this book.</p>
+<p>In general, using parallel computation can speed up “embarrassingly parallel” computations, typically with little additional effort. However, it’s important to remember that splitting a computation across <span class="math inline">\(N\)</span> processors usually does not result in a <span class="math inline">\(N\)</span>-times speed up of your computation. This is because there is some overhead involved with initiating the sub-processes and copying the data over to those processes.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-author.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

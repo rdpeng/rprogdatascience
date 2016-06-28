@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R Programming for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="R Programming for Data Science">
+  <meta name="generator" content="bookdown 0.0.73 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R Programming for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="title_page.png" />
+  
+  <meta name="github-repo" content="rdpeng/rprogdatascience" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Programming for Data Science" />
+  
+  
+  <meta name="twitter:image" content="title_page.png" />
+
+<meta name="author" content="Roger D. Peng">
+
+<meta name="date" content="2016-06-28">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="simulation.html">
+<link rel="next" href="parallel-computation.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Stay in Touch!</a></li>
+<li class="chapter" data-level="2" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i><b>2</b> Preface</a></li>
+<li class="chapter" data-level="3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html"><i class="fa fa-check"></i><b>3</b> History and Overview of R</a><ul>
+<li class="chapter" data-level="3.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-r"><i class="fa fa-check"></i><b>3.1</b> What is R?</a></li>
+<li class="chapter" data-level="3.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-s"><i class="fa fa-check"></i><b>3.2</b> What is S?</a></li>
+<li class="chapter" data-level="3.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#the-s-philosophy"><i class="fa fa-check"></i><b>3.3</b> The S Philosophy</a></li>
+<li class="chapter" data-level="3.4" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#back-to-r"><i class="fa fa-check"></i><b>3.4</b> Back to R</a></li>
+<li class="chapter" data-level="3.5" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#basic-features-of-r"><i class="fa fa-check"></i><b>3.5</b> Basic Features of R</a></li>
+<li class="chapter" data-level="3.6" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#free-software"><i class="fa fa-check"></i><b>3.6</b> Free Software</a></li>
+<li class="chapter" data-level="3.7" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#design-of-the-r-system"><i class="fa fa-check"></i><b>3.7</b> Design of the R System</a></li>
+<li class="chapter" data-level="3.8" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#limitations-of-r"><i class="fa fa-check"></i><b>3.8</b> Limitations of R</a></li>
+<li class="chapter" data-level="3.9" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#r-resources"><i class="fa fa-check"></i><b>3.9</b> R Resources</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#official-manuals"><i class="fa fa-check"></i><b>3.9.1</b> Official Manuals</a></li>
+<li class="chapter" data-level="3.9.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#useful-standard-texts-on-s-and-r"><i class="fa fa-check"></i><b>3.9.2</b> Useful Standard Texts on S and R</a></li>
+<li class="chapter" data-level="3.9.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#other-resources"><i class="fa fa-check"></i><b>3.9.3</b> Other Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>4</b> Getting Started with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installation"><i class="fa fa-check"></i><b>4.1</b> Installation</a></li>
+<li class="chapter" data-level="4.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-started-with-the-r-interface"><i class="fa fa-check"></i><b>4.2</b> Getting started with the R interface</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html"><i class="fa fa-check"></i><b>5</b> R Nuts and Bolts</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#entering-input"><i class="fa fa-check"></i><b>5.1</b> Entering Input</a></li>
+<li class="chapter" data-level="5.2" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#evaluation"><i class="fa fa-check"></i><b>5.2</b> Evaluation</a></li>
+<li class="chapter" data-level="5.3" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#r-objects"><i class="fa fa-check"></i><b>5.3</b> R Objects</a></li>
+<li class="chapter" data-level="5.4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#numbers"><i class="fa fa-check"></i><b>5.4</b> Numbers</a></li>
+<li class="chapter" data-level="5.5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#attributes"><i class="fa fa-check"></i><b>5.5</b> Attributes</a></li>
+<li class="chapter" data-level="5.6" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#creating-vectors"><i class="fa fa-check"></i><b>5.6</b> Creating Vectors</a></li>
+<li class="chapter" data-level="5.7" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#mixing-objects"><i class="fa fa-check"></i><b>5.7</b> Mixing Objects</a></li>
+<li class="chapter" data-level="5.8" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#explicit-coercion"><i class="fa fa-check"></i><b>5.8</b> Explicit Coercion</a></li>
+<li class="chapter" data-level="5.9" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#matrices"><i class="fa fa-check"></i><b>5.9</b> Matrices</a></li>
+<li class="chapter" data-level="5.10" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#lists"><i class="fa fa-check"></i><b>5.10</b> Lists</a></li>
+<li class="chapter" data-level="5.11" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#factors"><i class="fa fa-check"></i><b>5.11</b> Factors</a></li>
+<li class="chapter" data-level="5.12" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#missing-values"><i class="fa fa-check"></i><b>5.12</b> Missing Values</a></li>
+<li class="chapter" data-level="5.13" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#data-frames"><i class="fa fa-check"></i><b>5.13</b> Data Frames</a></li>
+<li class="chapter" data-level="5.14" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#names"><i class="fa fa-check"></i><b>5.14</b> Names</a></li>
+<li class="chapter" data-level="5.15" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#summary"><i class="fa fa-check"></i><b>5.15</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html"><i class="fa fa-check"></i><b>6</b> Getting Data In and Out of R</a><ul>
+<li class="chapter" data-level="6.1" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-and-writing-data"><i class="fa fa-check"></i><b>6.1</b> Reading and Writing Data</a></li>
+<li class="chapter" data-level="6.2" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-data-files-with-read.table"><i class="fa fa-check"></i><b>6.2</b> Reading Data Files with <code>read.table()</code></a></li>
+<li class="chapter" data-level="6.3" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-in-larger-datasets-with-read.table"><i class="fa fa-check"></i><b>6.3</b> Reading in Larger Datasets with read.table</a></li>
+<li class="chapter" data-level="6.4" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#calculating-memory-requirements-for-r-objects"><i class="fa fa-check"></i><b>6.4</b> Calculating Memory Requirements for R Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="using-the-readr-package.html"><a href="using-the-readr-package.html"><i class="fa fa-check"></i><b>7</b> Using the <code>readr</code> Package</a></li>
+<li class="chapter" data-level="8" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html"><i class="fa fa-check"></i><b>8</b> Using Textual and Binary Formats for Storing Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#using-dput-and-dump"><i class="fa fa-check"></i><b>8.1</b> Using <code>dput()</code> and <code>dump()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#binary-formats"><i class="fa fa-check"></i><b>8.2</b> Binary Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html"><i class="fa fa-check"></i><b>9</b> Interfaces to the Outside World</a><ul>
+<li class="chapter" data-level="9.1" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#file-connections"><i class="fa fa-check"></i><b>9.1</b> File Connections</a></li>
+<li class="chapter" data-level="9.2" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-lines-of-a-text-file"><i class="fa fa-check"></i><b>9.2</b> Reading Lines of a Text File</a></li>
+<li class="chapter" data-level="9.3" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-from-a-url-connection"><i class="fa fa-check"></i><b>9.3</b> Reading From a URL Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Subsetting R Objects</a><ul>
+<li class="chapter" data-level="10.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-vector"><i class="fa fa-check"></i><b>10.1</b> Subsetting a Vector</a></li>
+<li class="chapter" data-level="10.2" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-matrix"><i class="fa fa-check"></i><b>10.2</b> Subsetting a Matrix</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#dropping-matrix-dimensions"><i class="fa fa-check"></i><b>10.2.1</b> Dropping matrix dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-lists"><i class="fa fa-check"></i><b>10.3</b> Subsetting Lists</a></li>
+<li class="chapter" data-level="10.4" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-nested-elements-of-a-list"><i class="fa fa-check"></i><b>10.4</b> Subsetting Nested Elements of a List</a></li>
+<li class="chapter" data-level="10.5" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#extracting-multiple-elements-of-a-list"><i class="fa fa-check"></i><b>10.5</b> Extracting Multiple Elements of a List</a></li>
+<li class="chapter" data-level="10.6" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#partial-matching"><i class="fa fa-check"></i><b>10.6</b> Partial Matching</a></li>
+<li class="chapter" data-level="10.7" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#removing-na-values"><i class="fa fa-check"></i><b>10.7</b> Removing NA Values</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="vectorized-operations.html"><a href="vectorized-operations.html"><i class="fa fa-check"></i><b>11</b> Vectorized Operations</a><ul>
+<li class="chapter" data-level="11.1" data-path="vectorized-operations.html"><a href="vectorized-operations.html#vectorized-matrix-operations"><i class="fa fa-check"></i><b>11.1</b> Vectorized Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
+<li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#dates-in-r"><i class="fa fa-check"></i><b>12.1</b> Dates in R</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#times-in-r"><i class="fa fa-check"></i><b>12.2</b> Times in R</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#operations-on-dates-and-times"><i class="fa fa-check"></i><b>12.3</b> Operations on Dates and Times</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#summary-1"><i class="fa fa-check"></i><b>12.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html"><i class="fa fa-check"></i><b>13</b> Managing Data Frames with the <code>dplyr</code> package</a><ul>
+<li class="chapter" data-level="13.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#data-frames-1"><i class="fa fa-check"></i><b>13.1</b> Data Frames</a></li>
+<li class="chapter" data-level="13.2" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#the-dplyr-package"><i class="fa fa-check"></i><b>13.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="13.3" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#dplyr-grammar"><i class="fa fa-check"></i><b>13.3</b> <code>dplyr</code> Grammar</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#common-dplyr-function-properties"><i class="fa fa-check"></i><b>13.3.1</b> Common <code>dplyr</code> Function Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#installing-the-dplyr-package"><i class="fa fa-check"></i><b>13.4</b> Installing the <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="13.5" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>13.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="13.6" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>13.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="13.7" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>13.7</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="13.8" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#rename"><i class="fa fa-check"></i><b>13.8</b> <code>rename()</code></a></li>
+<li class="chapter" data-level="13.9" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>13.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="13.10" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>13.10</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="13.11" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#section"><i class="fa fa-check"></i><b>13.11</b> <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="13.12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#summary-2"><i class="fa fa-check"></i><b>13.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="control-structures.html"><a href="control-structures.html"><i class="fa fa-check"></i><b>14</b> Control Structures</a><ul>
+<li class="chapter" data-level="14.1" data-path="control-structures.html"><a href="control-structures.html#if-else"><i class="fa fa-check"></i><b>14.1</b> <code>if</code>-<code>else</code></a></li>
+<li class="chapter" data-level="14.2" data-path="control-structures.html"><a href="control-structures.html#for-loops"><i class="fa fa-check"></i><b>14.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="14.3" data-path="control-structures.html"><a href="control-structures.html#nested-for-loops"><i class="fa fa-check"></i><b>14.3</b> Nested <code>for</code> loops</a></li>
+<li class="chapter" data-level="14.4" data-path="control-structures.html"><a href="control-structures.html#while-loops"><i class="fa fa-check"></i><b>14.4</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="14.5" data-path="control-structures.html"><a href="control-structures.html#repeat-loops"><i class="fa fa-check"></i><b>14.5</b> <code>repeat</code> Loops</a></li>
+<li class="chapter" data-level="14.6" data-path="control-structures.html"><a href="control-structures.html#next-break"><i class="fa fa-check"></i><b>14.6</b> <code>next</code>, <code>break</code></a></li>
+<li class="chapter" data-level="14.7" data-path="control-structures.html"><a href="control-structures.html#summary-3"><i class="fa fa-check"></i><b>14.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="loop-functions.html"><a href="loop-functions.html"><i class="fa fa-check"></i><b>15</b> Loop Functions</a><ul>
+<li class="chapter" data-level="15.1" data-path="loop-functions.html"><a href="loop-functions.html#looping-on-the-command-line"><i class="fa fa-check"></i><b>15.1</b> Looping on the Command Line</a></li>
+<li class="chapter" data-level="15.2" data-path="loop-functions.html"><a href="loop-functions.html#lapply"><i class="fa fa-check"></i><b>15.2</b> <code>lapply()</code></a></li>
+<li class="chapter" data-level="15.3" data-path="loop-functions.html"><a href="loop-functions.html#sapply"><i class="fa fa-check"></i><b>15.3</b> <code>sapply()</code></a></li>
+<li class="chapter" data-level="15.4" data-path="loop-functions.html"><a href="loop-functions.html#split"><i class="fa fa-check"></i><b>15.4</b> <code>split()</code></a></li>
+<li class="chapter" data-level="15.5" data-path="loop-functions.html"><a href="loop-functions.html#splitting-a-data-frame"><i class="fa fa-check"></i><b>15.5</b> Splitting a Data Frame</a></li>
+<li class="chapter" data-level="15.6" data-path="loop-functions.html"><a href="loop-functions.html#tapply"><i class="fa fa-check"></i><b>15.6</b> tapply</a></li>
+<li class="chapter" data-level="15.7" data-path="loop-functions.html"><a href="loop-functions.html#apply"><i class="fa fa-check"></i><b>15.7</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="15.8" data-path="loop-functions.html"><a href="loop-functions.html#colrow-sums-and-means"><i class="fa fa-check"></i><b>15.8</b> Col/Row Sums and Means</a></li>
+<li class="chapter" data-level="15.9" data-path="loop-functions.html"><a href="loop-functions.html#other-ways-to-apply"><i class="fa fa-check"></i><b>15.9</b> Other Ways to Apply</a></li>
+<li class="chapter" data-level="15.10" data-path="loop-functions.html"><a href="loop-functions.html#mapply"><i class="fa fa-check"></i><b>15.10</b> <code>mapply()</code></a></li>
+<li class="chapter" data-level="15.11" data-path="loop-functions.html"><a href="loop-functions.html#vectorizing-a-function"><i class="fa fa-check"></i><b>15.11</b> Vectorizing a Function</a></li>
+<li class="chapter" data-level="15.12" data-path="loop-functions.html"><a href="loop-functions.html#summary-4"><i class="fa fa-check"></i><b>15.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="regular-expressions.html"><a href="regular-expressions.html"><i class="fa fa-check"></i><b>16</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="16.1" data-path="regular-expressions.html"><a href="regular-expressions.html#before-you-begin"><i class="fa fa-check"></i><b>16.1</b> Before You Begin</a></li>
+<li class="chapter" data-level="16.2" data-path="regular-expressions.html"><a href="regular-expressions.html#primary-r-functions"><i class="fa fa-check"></i><b>16.2</b> Primary R Functions</a></li>
+<li class="chapter" data-level="16.3" data-path="regular-expressions.html"><a href="regular-expressions.html#grep"><i class="fa fa-check"></i><b>16.3</b> <code>grep()</code></a></li>
+<li class="chapter" data-level="16.4" data-path="regular-expressions.html"><a href="regular-expressions.html#grepl"><i class="fa fa-check"></i><b>16.4</b> <code>grepl()</code></a></li>
+<li class="chapter" data-level="16.5" data-path="regular-expressions.html"><a href="regular-expressions.html#regexpr"><i class="fa fa-check"></i><b>16.5</b> <code>regexpr()</code></a></li>
+<li class="chapter" data-level="16.6" data-path="regular-expressions.html"><a href="regular-expressions.html#sub-and-gsub"><i class="fa fa-check"></i><b>16.6</b> <code>sub()</code> and <code>gsub()</code></a></li>
+<li class="chapter" data-level="16.7" data-path="regular-expressions.html"><a href="regular-expressions.html#regexec"><i class="fa fa-check"></i><b>16.7</b> <code>regexec()</code></a></li>
+<li class="chapter" data-level="16.8" data-path="regular-expressions.html"><a href="regular-expressions.html#summary-5"><i class="fa fa-check"></i><b>16.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>17</b> Debugging</a><ul>
+<li class="chapter" data-level="17.1" data-path="debugging.html"><a href="debugging.html#somethings-wrong"><i class="fa fa-check"></i><b>17.1</b> Something’s Wrong!</a></li>
+<li class="chapter" data-level="17.2" data-path="debugging.html"><a href="debugging.html#figuring-out-whats-wrong"><i class="fa fa-check"></i><b>17.2</b> Figuring Out What’s Wrong</a></li>
+<li class="chapter" data-level="17.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>17.3</b> Debugging Tools in R</a></li>
+<li class="chapter" data-level="17.4" data-path="debugging.html"><a href="debugging.html#using-traceback"><i class="fa fa-check"></i><b>17.4</b> Using <code>traceback()</code></a></li>
+<li class="chapter" data-level="17.5" data-path="debugging.html"><a href="debugging.html#using-debug"><i class="fa fa-check"></i><b>17.5</b> Using <code>debug()</code></a></li>
+<li class="chapter" data-level="17.6" data-path="debugging.html"><a href="debugging.html#using-recover"><i class="fa fa-check"></i><b>17.6</b> Using <code>recover()</code></a></li>
+<li class="chapter" data-level="17.7" data-path="debugging.html"><a href="debugging.html#summary-6"><i class="fa fa-check"></i><b>17.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="profiling-r-code.html"><a href="profiling-r-code.html"><i class="fa fa-check"></i><b>18</b> Profiling R Code</a><ul>
+<li class="chapter" data-level="18.1" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-system.time"><i class="fa fa-check"></i><b>18.1</b> Using <code>system.time()</code></a></li>
+<li class="chapter" data-level="18.2" data-path="profiling-r-code.html"><a href="profiling-r-code.html#timing-longer-expressions"><i class="fa fa-check"></i><b>18.2</b> Timing Longer Expressions</a></li>
+<li class="chapter" data-level="18.3" data-path="profiling-r-code.html"><a href="profiling-r-code.html#the-r-profiler"><i class="fa fa-check"></i><b>18.3</b> The R Profiler</a></li>
+<li class="chapter" data-level="18.4" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-summaryrprof"><i class="fa fa-check"></i><b>18.4</b> Using <code>summaryRprof()</code></a></li>
+<li class="chapter" data-level="18.5" data-path="profiling-r-code.html"><a href="profiling-r-code.html#summary-7"><i class="fa fa-check"></i><b>18.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>19</b> Simulation</a><ul>
+<li class="chapter" data-level="19.1" data-path="simulation.html"><a href="simulation.html#generating-random-numbers"><i class="fa fa-check"></i><b>19.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="19.2" data-path="simulation.html"><a href="simulation.html#setting-the-random-number-seed"><i class="fa fa-check"></i><b>19.2</b> Setting the random number seed</a></li>
+<li class="chapter" data-level="19.3" data-path="simulation.html"><a href="simulation.html#simulating-a-linear-model"><i class="fa fa-check"></i><b>19.3</b> Simulating a Linear Model</a></li>
+<li class="chapter" data-level="19.4" data-path="simulation.html"><a href="simulation.html#random-sampling"><i class="fa fa-check"></i><b>19.4</b> Random Sampling</a></li>
+<li class="chapter" data-level="19.5" data-path="simulation.html"><a href="simulation.html#summary-8"><i class="fa fa-check"></i><b>19.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><i class="fa fa-check"></i><b>20</b> Data Analysis Case Study: Changes in Fine Particle Air Pollution in the U.S.</a><ul>
+<li class="chapter" data-level="20.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#synopsis"><i class="fa fa-check"></i><b>20.1</b> Synopsis</a></li>
+<li class="chapter" data-level="20.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#loading-and-processing-the-raw-data"><i class="fa fa-check"></i><b>20.2</b> Loading and Processing the Raw Data</a><ul>
+<li class="chapter" data-level="20.2.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#reading-in-the-1999-data"><i class="fa fa-check"></i><b>20.2.1</b> Reading in the 1999 data</a></li>
+<li class="chapter" data-level="20.2.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#reading-in-the-2012-data"><i class="fa fa-check"></i><b>20.2.2</b> Reading in the 2012 data</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#results"><i class="fa fa-check"></i><b>20.3</b> Results</a><ul>
+<li class="chapter" data-level="20.3.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#entire-u.s.-analysis"><i class="fa fa-check"></i><b>20.3.1</b> Entire U.S. analysis</a></li>
+<li class="chapter" data-level="20.3.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#changes-in-pm-levels-at-an-individual-monitor"><i class="fa fa-check"></i><b>20.3.2</b> Changes in PM levels at an individual monitor</a></li>
+<li class="chapter" data-level="20.3.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#changes-in-state-wide-pm-levels"><i class="fa fa-check"></i><b>20.3.3</b> Changes in state-wide PM levels</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="parallel-computation.html"><a href="parallel-computation.html"><i class="fa fa-check"></i><b>21</b> Parallel Computation</a><ul>
+<li class="chapter" data-level="21.1" data-path="parallel-computation.html"><a href="parallel-computation.html#hidden-parallelism"><i class="fa fa-check"></i><b>21.1</b> Hidden Parallelism</a><ul>
+<li class="chapter" data-level="21.1.1" data-path="parallel-computation.html"><a href="parallel-computation.html#parallel-blas"><i class="fa fa-check"></i><b>21.1.1</b> Parallel BLAS</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="parallel-computation.html"><a href="parallel-computation.html#embarrassing-parallelism"><i class="fa fa-check"></i><b>21.2</b> Embarrassing Parallelism</a></li>
+<li class="chapter" data-level="21.3" data-path="parallel-computation.html"><a href="parallel-computation.html#the-parallel-package"><i class="fa fa-check"></i><b>21.3</b> The Parallel Package</a><ul>
+<li class="chapter" data-level="21.3.1" data-path="parallel-computation.html"><a href="parallel-computation.html#mclapply"><i class="fa fa-check"></i><b>21.3.1</b> <code>mclapply()</code></a></li>
+<li class="chapter" data-level="21.3.2" data-path="parallel-computation.html"><a href="parallel-computation.html#error-handling"><i class="fa fa-check"></i><b>21.3.2</b> Error Handling</a></li>
+</ul></li>
+<li class="chapter" data-level="21.4" data-path="parallel-computation.html"><a href="parallel-computation.html#example-bootstrapping-a-statistic"><i class="fa fa-check"></i><b>21.4</b> Example: Bootstrapping a Statistic</a><ul>
+<li class="chapter" data-level="21.4.1" data-path="parallel-computation.html"><a href="parallel-computation.html#generating-random-numbers-1"><i class="fa fa-check"></i><b>21.4.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="21.4.2" data-path="parallel-computation.html"><a href="parallel-computation.html#using-the-boot-package"><i class="fa fa-check"></i><b>21.4.2</b> Using the <code>boot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="21.5" data-path="parallel-computation.html"><a href="parallel-computation.html#building-a-socket-cluster"><i class="fa fa-check"></i><b>21.5</b> Building a Socket Cluster</a></li>
+<li class="chapter" data-level="21.6" data-path="parallel-computation.html"><a href="parallel-computation.html#summary-9"><i class="fa fa-check"></i><b>21.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i><b>22</b> About the Author</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Programming for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s." class="section level1">
+<h1><span class="header-section-number">20</span> Data Analysis Case Study: Changes in Fine Particle Air Pollution in the U.S.</h1>
+<p>This chapter presents an example data analysis looking at changes in fine particulate matter (PM) air pollution in the United States using the Environmental Protection Agencies freely available national monitoring data. The purpose of the chapter is to just show how the various tools that we have covered in this book can be used to read, manipulate, and summarize data so that you can develop statistical evidence for relevant real-world questions.</p>
+<p><a href="https://youtu.be/VE-6bQvyfTQ">Watch a video of this chapter</a></p>
+<div id="synopsis" class="section level2">
+<h2><span class="header-section-number">20.1</span> Synopsis</h2>
+<p>In this chapter we aim to describe the changes in fine particle (PM2.5) outdoor air pollution in the United States between the years 1999 and 2012. Our overall hypothesis is that outdoor PM2.5 has decreased on average across the U.S. due to nationwide regulatory requirements arising from the Clean Air Act. To investigate this hypothesis, we obtained PM2.5 data from the U.S. Environmental Protection Agency which is collected from monitors sited across the U.S. We specifically obtained data for the years 1999 and 2012 (the most recent complete year available). From these data, we found that, on average across the U.S., levels of PM2.5 have decreased between 1999 and 2012. At one individual monitor, we found that levels have decreased and that the variability of PM2.5 has decreased. Most individual states also experienced decreases in PM2.5, although some states saw increases.</p>
+</div>
+<div id="loading-and-processing-the-raw-data" class="section level2">
+<h2><span class="header-section-number">20.2</span> Loading and Processing the Raw Data</h2>
+<p>From the <a href="http://aqsdr1.epa.gov/aqsweb/aqstmp/airdata/download_files.html">EPA Air Quality System</a> we obtained data on fine particulate matter air pollution (PM2.5) that is monitored across the U.S. as part of the nationwide PM monitoring network. We obtained the files for the years 1999 and 2012.</p>
+<div id="reading-in-the-1999-data" class="section level3">
+<h3><span class="header-section-number">20.2.1</span> Reading in the 1999 data</h3>
+<p>We first read in the 1999 data from the raw text file included in the zip archive. The data is a delimited file were fields are delimited with the <code>|</code> character and missing values are coded as blank fields. We skip some commented lines in the beginning of the file and initially we do not read the header data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>pm0 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;pm25_data/RD_501_88101_1999-0.txt&quot;</span>, <span class="dt">comment.char =</span> <span class="st">&quot;#&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
+<p>After reading in the 1999 we check the first few rows (there are 117,421) rows in this dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">dim</span>(pm0)
+[<span class="dv">1</span>] <span class="dv">117421</span>     <span class="dv">28</span>
+&gt;<span class="st"> </span><span class="kw">head</span>(pm0[, <span class="dv">1</span>:<span class="dv">13</span>])
+  V1 V2 V3 V4 V5    V6 V7 V8  V9 V10      V11   V12    V13
+<span class="dv">1</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990103</span> <span class="dv">00</span>:<span class="dv">00</span>     <span class="ot">NA</span>
+<span class="dv">2</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990106</span> <span class="dv">00</span>:<span class="dv">00</span>     <span class="ot">NA</span>
+<span class="dv">3</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990109</span> <span class="dv">00</span>:<span class="dv">00</span>     <span class="ot">NA</span>
+<span class="dv">4</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990112</span> <span class="dv">00</span>:<span class="dv">00</span>  <span class="fl">8.841</span>
+<span class="dv">5</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990115</span> <span class="dv">00</span>:<span class="dv">00</span> <span class="fl">14.920</span>
+<span class="dv">6</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990118</span> <span class="dv">00</span>:<span class="dv">00</span>  <span class="fl">3.878</span></code></pre></div>
+<p>We then attach the column headers to the dataset and make sure that they are properly formated for R data frames.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>cnames &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&quot;pm25_data/RD_501_88101_1999-0.txt&quot;</span>, <span class="dv">1</span>)
+&gt;<span class="st"> </span>cnames &lt;-<span class="st"> </span><span class="kw">strsplit</span>(cnames, <span class="st">&quot;|&quot;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)
+&gt;<span class="st"> </span>## Ensure names are properly formatted
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">names</span>(pm0) &lt;-<span class="st"> </span><span class="kw">make.names</span>(cnames[[<span class="dv">1</span>]])  
+&gt;<span class="st"> </span><span class="kw">head</span>(pm0[, <span class="dv">1</span>:<span class="dv">13</span>])
+  X..RD Action.Code State.Code County.Code Site.ID Parameter POC
+<span class="dv">1</span>    RD           I          <span class="dv">1</span>          <span class="dv">27</span>       <span class="dv">1</span>     <span class="dv">88101</span>   <span class="dv">1</span>
+<span class="dv">2</span>    RD           I          <span class="dv">1</span>          <span class="dv">27</span>       <span class="dv">1</span>     <span class="dv">88101</span>   <span class="dv">1</span>
+<span class="dv">3</span>    RD           I          <span class="dv">1</span>          <span class="dv">27</span>       <span class="dv">1</span>     <span class="dv">88101</span>   <span class="dv">1</span>
+<span class="dv">4</span>    RD           I          <span class="dv">1</span>          <span class="dv">27</span>       <span class="dv">1</span>     <span class="dv">88101</span>   <span class="dv">1</span>
+<span class="dv">5</span>    RD           I          <span class="dv">1</span>          <span class="dv">27</span>       <span class="dv">1</span>     <span class="dv">88101</span>   <span class="dv">1</span>
+<span class="dv">6</span>    RD           I          <span class="dv">1</span>          <span class="dv">27</span>       <span class="dv">1</span>     <span class="dv">88101</span>   <span class="dv">1</span>
+  Sample.Duration Unit Method     Date Start.Time Sample.Value
+<span class="dv">1</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990103</span>      <span class="dv">00</span>:<span class="dv">00</span>           <span class="ot">NA</span>
+<span class="dv">2</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990106</span>      <span class="dv">00</span>:<span class="dv">00</span>           <span class="ot">NA</span>
+<span class="dv">3</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990109</span>      <span class="dv">00</span>:<span class="dv">00</span>           <span class="ot">NA</span>
+<span class="dv">4</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990112</span>      <span class="dv">00</span>:<span class="dv">00</span>        <span class="fl">8.841</span>
+<span class="dv">5</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990115</span>      <span class="dv">00</span>:<span class="dv">00</span>       <span class="fl">14.920</span>
+<span class="dv">6</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990118</span>      <span class="dv">00</span>:<span class="dv">00</span>        <span class="fl">3.878</span></code></pre></div>
+<p>The column we are interested in is the <code>Sample.Value</code> column which contains the PM2.5 measurements. Here we extract that column and print a brief summary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x0 &lt;-<span class="st"> </span>pm0$Sample.Value
+&gt;<span class="st"> </span><span class="kw">summary</span>(x0)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA<span class="st">&#39;s </span>
+<span class="st">   0.00    7.20   11.50   13.74   17.90  157.10   13217 </span></code></pre></div>
+<p>Missing values are a common problem with environmental data and so we check to se what proportion of the observations are missing (i.e. coded as <code>NA</code>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mean</span>(<span class="kw">is.na</span>(x0))  ## Are missing values important here?
+[<span class="dv">1</span>] <span class="fl">0.1125608</span></code></pre></div>
+<p>Because the proportion of missing values is relatively low (0.1125608), we choose to ignore missing values for now.</p>
+</div>
+<div id="reading-in-the-2012-data" class="section level3">
+<h3><span class="header-section-number">20.2.2</span> Reading in the 2012 data</h3>
+<p>We then read in the 2012 data in the same manner in which we read the 1999 data (the data files are in the same format).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>pm1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;pm25_data/RD_501_88101_2012-0.txt&quot;</span>, <span class="dt">comment.char =</span> <span class="st">&quot;#&quot;</span>, 
++<span class="st">                   </span><span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>, <span class="dt">nrow =</span> <span class="dv">1304290</span>)</code></pre></div>
+<p>We also set the column names (they are the same as the 1999 dataset) and extract the <code>Sample.Value</code> column from this dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">names</span>(pm1) &lt;-<span class="st"> </span><span class="kw">make.names</span>(cnames[[<span class="dv">1</span>]])
+&gt;<span class="st"> </span>x1 &lt;-<span class="st"> </span>pm1$Sample.Value</code></pre></div>
+</div>
+</div>
+<div id="results" class="section level2">
+<h2><span class="header-section-number">20.3</span> Results</h2>
+<div id="entire-u.s.-analysis" class="section level3">
+<h3><span class="header-section-number">20.3.1</span> Entire U.S. analysis</h3>
+<p>In order to show aggregate changes in PM across the entire monitoring network, we can make boxplots of all monitor values in 1999 and 2012. Here, we take the log of the PM values to adjust for the skew in the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">boxplot</span>(<span class="kw">log2</span>(x0), <span class="kw">log2</span>(x1))
+Warning in <span class="kw">boxplot.default</span>(<span class="kw">log2</span>(x0), <span class="kw">log2</span>(x1)):<span class="st"> </span>NaNs produced
+Warning in <span class="kw">bplt</span>(at[i], <span class="dt">wid =</span> width[i], <span class="dt">stats =</span> z$stats[, i], <span class="dt">out =</span> z$out[z
+$group ==<span class="st"> </span><span class="er">:</span><span class="st"> </span><span class="kw">Outlier</span> (-<span class="ot">Inf</span>) in boxplot <span class="dv">1</span> is not drawn
+Warning in <span class="kw">bplt</span>(at[i], <span class="dt">wid =</span> width[i], <span class="dt">stats =</span> z$stats[, i], <span class="dt">out =</span> z$out[z
+$group ==<span class="st"> </span><span class="er">:</span><span class="st"> </span><span class="kw">Outlier</span> (-<span class="ot">Inf</span>) in boxplot <span class="dv">2</span> is not drawn</code></pre></div>
+<p><img src="images/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summary</span>(x0)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA<span class="st">&#39;s </span>
+<span class="st">   0.00    7.20   11.50   13.74   17.90  157.10   13217 </span>
+<span class="st">&gt; summary(x1)</span>
+<span class="st">   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;</span>s 
+ -<span class="fl">10.00</span>    <span class="fl">4.00</span>    <span class="fl">7.63</span>    <span class="fl">9.14</span>   <span class="fl">12.00</span>  <span class="fl">909.00</span>   <span class="dv">73133</span> </code></pre></div>
+<p>Interestingly, from the summary of <code>x1</code> it appears there are some negative values of PM, which in general should not occur. We can investigate that somewhat to see if there is anything we should worry about.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>negative &lt;-<span class="st"> </span>x1 &lt;<span class="st"> </span><span class="dv">0</span>
+&gt;<span class="st"> </span><span class="kw">mean</span>(negative, <span class="dt">na.rm =</span> T)
+[<span class="dv">1</span>] <span class="fl">0.0215034</span></code></pre></div>
+<p>There is a relatively small proportion of values that are negative, which is perhaps reassuring. In order to investigate this a step further we can extract the date of each measurement from the original data frame. The idea here is that perhaps negative values occur more often in some parts of the year than other parts. However, the original data are formatted as character strings so we convert them to R’s <code>Date</code> format for easier manipulation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dates &lt;-<span class="st"> </span>pm1$Date
+&gt;<span class="st"> </span>dates &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">as.character</span>(dates), <span class="st">&quot;%Y%m%d&quot;</span>)</code></pre></div>
+<p>We can then extract the month from each of the dates with negative values and attempt to identify when negative values occur most often.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>missing.months &lt;-<span class="st"> </span>month.name[<span class="kw">as.POSIXlt</span>(dates)$mon +<span class="st"> </span><span class="dv">1</span>]
+&gt;<span class="st"> </span>tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="kw">factor</span>(missing.months, <span class="dt">levels =</span> month.name))
+&gt;<span class="st"> </span><span class="kw">round</span>(<span class="dv">100</span> *<span class="st"> </span>tab /<span class="st"> </span><span class="kw">sum</span>(tab))
+
+  January  February     March     April       May      June      July 
+       <span class="dv">15</span>        <span class="dv">13</span>        <span class="dv">15</span>        <span class="dv">13</span>        <span class="dv">14</span>        <span class="dv">13</span>         <span class="dv">8</span> 
+   August September   October  November  December 
+        <span class="dv">6</span>         <span class="dv">3</span>         <span class="dv">0</span>         <span class="dv">0</span>         <span class="dv">0</span> </code></pre></div>
+<p>From the table above it appears that bulk of the negative values occur in the first six months of the year (January–June). However, beyond that simple observation, it is not clear why the negative values occur. That said, given the relatively low proportion of negative values, we will ignore them for now.</p>
+</div>
+<div id="changes-in-pm-levels-at-an-individual-monitor" class="section level3">
+<h3><span class="header-section-number">20.3.2</span> Changes in PM levels at an individual monitor</h3>
+<p>So far we have examined the change in PM levels on average across the country. One issue with the previous analysis is that the monitoring network could have changed in the time period between 1999 and 2012. So if for some reason in 2012 there are more monitors concentrated in cleaner parts of the country than there were in 1999, it might appear the PM levels decreased when in fact they didn’t. In this section we will focus on a single monitor in New York State to see if PM levels <em>at that monitor</em> decreased from 1999 to 2012.</p>
+<p>Our first task is to identify a monitor in New York State that has data in 1999 and 2012 (not all monitors operated during both time periods). First we subset the data frames to only include data from New York (<code>State.Code == 36</code>) and only include the <code>County.Code</code> and the <code>Site.ID</code> (i.e. monitor number) variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>site0 &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">subset</span>(pm0, State.Code ==<span class="st"> </span><span class="dv">36</span>, <span class="kw">c</span>(County.Code, Site.ID)))
+&gt;<span class="st"> </span>site1 &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">subset</span>(pm1, State.Code ==<span class="st"> </span><span class="dv">36</span>, <span class="kw">c</span>(County.Code, Site.ID)))</code></pre></div>
+<p>Then we create a new variable that combines the county code and the site ID into a single string.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>site0 &lt;-<span class="st"> </span><span class="kw">paste</span>(site0[,<span class="dv">1</span>], site0[,<span class="dv">2</span>], <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>)
+&gt;<span class="st"> </span>site1 &lt;-<span class="st"> </span><span class="kw">paste</span>(site1[,<span class="dv">1</span>], site1[,<span class="dv">2</span>], <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>)
+&gt;<span class="st"> </span><span class="kw">str</span>(site0)
+ chr [<span class="dv">1</span>:<span class="dv">33</span>] <span class="st">&quot;1.5&quot;</span> <span class="st">&quot;1.12&quot;</span> <span class="st">&quot;5.73&quot;</span> <span class="st">&quot;5.80&quot;</span> <span class="st">&quot;5.83&quot;</span> <span class="st">&quot;5.110&quot;</span> ...
+&gt;<span class="st"> </span><span class="kw">str</span>(site1)
+ chr [<span class="dv">1</span>:<span class="dv">18</span>] <span class="st">&quot;1.5&quot;</span> <span class="st">&quot;1.12&quot;</span> <span class="st">&quot;5.80&quot;</span> <span class="st">&quot;5.133&quot;</span> <span class="st">&quot;13.11&quot;</span> <span class="st">&quot;29.5&quot;</span> ...</code></pre></div>
+<p>Finaly, we want the intersection between the sites present in 1999 and 2012 so that we might choose a monitor that has data in both periods.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>both &lt;-<span class="st"> </span><span class="kw">intersect</span>(site0, site1)
+&gt;<span class="st"> </span><span class="kw">print</span>(both)
+ [<span class="dv">1</span>] <span class="st">&quot;1.5&quot;</span>     <span class="st">&quot;1.12&quot;</span>    <span class="st">&quot;5.80&quot;</span>    <span class="st">&quot;13.11&quot;</span>   <span class="st">&quot;29.5&quot;</span>    <span class="st">&quot;31.3&quot;</span>    <span class="st">&quot;63.2008&quot;</span>
+ [<span class="dv">8</span>] <span class="st">&quot;67.1015&quot;</span> <span class="st">&quot;85.55&quot;</span>   <span class="st">&quot;101.3&quot;</span>  </code></pre></div>
+<p>Here (above) we can see that there are 10 monitors that were operating in both time periods. However, rather than choose one at random, it might best to choose one that had a reasonable amount of data in each year.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Find how many observations available at each monitor
+<span class="er">&gt;</span><span class="st"> </span>pm0$county.site &lt;-<span class="st"> </span><span class="kw">with</span>(pm0, <span class="kw">paste</span>(County.Code, Site.ID, <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>))
+&gt;<span class="st"> </span>pm1$county.site &lt;-<span class="st"> </span><span class="kw">with</span>(pm1, <span class="kw">paste</span>(County.Code, Site.ID, <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>))
+&gt;<span class="st"> </span>cnt0 &lt;-<span class="st"> </span><span class="kw">subset</span>(pm0, State.Code ==<span class="st"> </span><span class="dv">36</span> &amp;<span class="st"> </span>county.site %in%<span class="st"> </span>both)
+&gt;<span class="st"> </span>cnt1 &lt;-<span class="st"> </span><span class="kw">subset</span>(pm1, State.Code ==<span class="st"> </span><span class="dv">36</span> &amp;<span class="st"> </span>county.site %in%<span class="st"> </span>both)</code></pre></div>
+<p>Now that we have subsetted the original data frames to only include the data from the monitors that overlap between 1999 and 2012, we can split the data frames and count the number of observations at each monitor to see which ones have the most observations.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## 1999
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">sapply</span>(<span class="kw">split</span>(cnt0, cnt0$county.site), nrow)  
+   <span class="fl">1.12</span>     <span class="fl">1.5</span>   <span class="fl">101.3</span>   <span class="fl">13.11</span>    <span class="fl">29.5</span>    <span class="fl">31.3</span>    <span class="fl">5.80</span> <span class="fl">63.2008</span> <span class="fl">67.1015</span> 
+     <span class="dv">61</span>     <span class="dv">122</span>     <span class="dv">152</span>      <span class="dv">61</span>      <span class="dv">61</span>     <span class="dv">183</span>      <span class="dv">61</span>     <span class="dv">122</span>     <span class="dv">122</span> 
+  <span class="fl">85.55</span> 
+      <span class="dv">7</span> 
+&gt;<span class="st"> </span>## 2012
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">sapply</span>(<span class="kw">split</span>(cnt1, cnt1$county.site), nrow)  
+   <span class="fl">1.12</span>     <span class="fl">1.5</span>   <span class="fl">101.3</span>   <span class="fl">13.11</span>    <span class="fl">29.5</span>    <span class="fl">31.3</span>    <span class="fl">5.80</span> <span class="fl">63.2008</span> <span class="fl">67.1015</span> 
+     <span class="dv">31</span>      <span class="dv">64</span>      <span class="dv">31</span>      <span class="dv">31</span>      <span class="dv">33</span>      <span class="dv">15</span>      <span class="dv">31</span>      <span class="dv">30</span>      <span class="dv">31</span> 
+  <span class="fl">85.55</span> 
+     <span class="dv">31</span> </code></pre></div>
+<p>A number of monitors seem suitable from the output, but we will focus here on County 63 and site ID 2008.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>both.county &lt;-<span class="st"> </span><span class="dv">63</span>
+&gt;<span class="st"> </span>both.id &lt;-<span class="st"> </span><span class="dv">2008</span>
+&gt;<span class="st"> </span>
+<span class="er">&gt;</span><span class="st"> </span>## Choose county 63 and side ID 2008
+<span class="er">&gt;</span><span class="st"> </span>pm1sub &lt;-<span class="st"> </span><span class="kw">subset</span>(pm1, State.Code ==<span class="st"> </span><span class="dv">36</span> &amp;<span class="st"> </span>County.Code ==<span class="st"> </span>both.county &amp;<span class="st"> </span>Site.ID ==<span class="st"> </span>both.id)
+&gt;<span class="st"> </span>pm0sub &lt;-<span class="st"> </span><span class="kw">subset</span>(pm0, State.Code ==<span class="st"> </span><span class="dv">36</span> &amp;<span class="st"> </span>County.Code ==<span class="st"> </span>both.county &amp;<span class="st"> </span>Site.ID ==<span class="st"> </span>both.id)</code></pre></div>
+<p>Now we plot the time series data of PM for the monitor in both years.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dates1 &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">as.character</span>(pm1sub$Date), <span class="st">&quot;%Y%m%d&quot;</span>)
+&gt;<span class="st"> </span>x1sub &lt;-<span class="st"> </span>pm1sub$Sample.Value
+&gt;<span class="st"> </span>dates0 &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">as.character</span>(pm0sub$Date), <span class="st">&quot;%Y%m%d&quot;</span>)
+&gt;<span class="st"> </span>x0sub &lt;-<span class="st"> </span>pm0sub$Sample.Value
+&gt;<span class="st"> </span>
+<span class="er">&gt;</span><span class="st"> </span>## Find global range
+<span class="er">&gt;</span><span class="st"> </span>rng &lt;-<span class="st"> </span><span class="kw">range</span>(x0sub, x1sub, <span class="dt">na.rm =</span> T)
+&gt;<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>))
+&gt;<span class="st"> </span><span class="kw">plot</span>(dates0, x0sub, <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">ylim =</span> rng, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="kw">expression</span>(PM[<span class="fl">2.5</span>] *<span class="st"> &quot; (&quot;</span> *<span class="st"> </span>mu *<span class="st"> </span>g/m^<span class="dv">3</span> *<span class="st"> &quot;)&quot;</span>))
+&gt;<span class="st"> </span><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">median</span>(x0sub, <span class="dt">na.rm =</span> T))
+&gt;<span class="st"> </span><span class="kw">plot</span>(dates1, x1sub, <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">ylim =</span> rng, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="kw">expression</span>(PM[<span class="fl">2.5</span>] *<span class="st"> &quot; (&quot;</span> *<span class="st"> </span>mu *<span class="st"> </span>g/m^<span class="dv">3</span> *<span class="st"> &quot;)&quot;</span>))
+&gt;<span class="st"> </span><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">median</span>(x1sub, <span class="dt">na.rm =</span> T))</code></pre></div>
+<p><img src="images/unnamed-chunk-12-1.png" width="768" /></p>
+<p>From the plot above, we can that median levels of PM (horizontal solid line) have decreased a little from 10.45 in 1999 to 8.29 in 2012. However, perhaps more interesting is that the variation (spread) in the PM values in 2012 is much smaller than it was in 1999. This suggest that not only are median levels of PM lower in 2012, but that there are fewer large spikes from day to day. One issue with the data here is that the 1999 data are from July through December while the 2012 data are recorded in January through April. It would have been better if we’d had full-year data for both years as there could be some seasonal confounding going on.</p>
+</div>
+<div id="changes-in-state-wide-pm-levels" class="section level3">
+<h3><span class="header-section-number">20.3.3</span> Changes in state-wide PM levels</h3>
+<p>Although ambient air quality standards are set at the federal level in the U.S. and hence affect the entire country, the actual reduction and management of PM is left to the individual states. States that are not “in attainment” have to develop a plan to reduce PM so that that the are in attainment (eventually). Therefore, it might be useful to examine changes in PM at the state level. This analysis falls somewhere in between looking at the entire country all at once and looking at an individual monitor.</p>
+<p>What we do here is calculate the mean of PM for each state in 1999 and 2012.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## 1999
+<span class="er">&gt;</span><span class="st"> </span>mn0 &lt;-<span class="st"> </span><span class="kw">with</span>(pm0, <span class="kw">tapply</span>(Sample.Value, State.Code, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))  
+&gt;<span class="st"> </span>## 2012
+<span class="er">&gt;</span><span class="st"> </span>mn1 &lt;-<span class="st"> </span><span class="kw">with</span>(pm1, <span class="kw">tapply</span>(Sample.Value, State.Code, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))  
+&gt;<span class="st"> </span>
+<span class="er">&gt;</span><span class="st"> </span>## Make separate data frames for states / years
+<span class="er">&gt;</span><span class="st"> </span>d0 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">state =</span> <span class="kw">names</span>(mn0), <span class="dt">mean =</span> mn0)
+&gt;<span class="st"> </span>d1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">state =</span> <span class="kw">names</span>(mn1), <span class="dt">mean =</span> mn1)
+&gt;<span class="st"> </span>mrg &lt;-<span class="st"> </span><span class="kw">merge</span>(d0, d1, <span class="dt">by =</span> <span class="st">&quot;state&quot;</span>)
+&gt;<span class="st"> </span><span class="kw">head</span>(mrg)
+  state    mean.x    mean.y
+<span class="dv">1</span>     <span class="dv">1</span> <span class="fl">19.956391</span> <span class="fl">10.126190</span>
+<span class="dv">2</span>    <span class="dv">10</span> <span class="fl">14.492895</span> <span class="fl">11.236059</span>
+<span class="dv">3</span>    <span class="dv">11</span> <span class="fl">15.786507</span> <span class="fl">11.991697</span>
+<span class="dv">4</span>    <span class="dv">12</span> <span class="fl">11.137139</span>  <span class="fl">8.239690</span>
+<span class="dv">5</span>    <span class="dv">13</span> <span class="fl">19.943240</span> <span class="fl">11.321364</span>
+<span class="dv">6</span>    <span class="dv">15</span>  <span class="fl">4.861821</span>  <span class="fl">8.749336</span></code></pre></div>
+<p>Now make a plot that shows the 1999 state-wide means in one “column” and the 2012 state-wide means in another columns. We then draw a line connecting the means for each year in the same state to highlight the trend.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))
+&gt;<span class="st"> </span>rng &lt;-<span class="st"> </span><span class="kw">range</span>(mrg[,<span class="dv">2</span>], mrg[,<span class="dv">3</span>])
+&gt;<span class="st"> </span><span class="kw">with</span>(mrg, <span class="kw">plot</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">52</span>), mrg[, <span class="dv">2</span>], <span class="dt">xlim =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">2.5</span>), <span class="dt">ylim =</span> rng, <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;State-wide Mean PM&quot;</span>))
+&gt;<span class="st"> </span><span class="kw">with</span>(mrg, <span class="kw">points</span>(<span class="kw">rep</span>(<span class="dv">2</span>, <span class="dv">52</span>), mrg[, <span class="dv">3</span>]))
+&gt;<span class="st"> </span><span class="kw">segments</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">52</span>), mrg[, <span class="dv">2</span>], <span class="kw">rep</span>(<span class="dv">2</span>, <span class="dv">52</span>), mrg[, <span class="dv">3</span>])
+&gt;<span class="st"> </span><span class="kw">axis</span>(<span class="dv">1</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="st">&quot;1999&quot;</span>, <span class="st">&quot;2012&quot;</span>))</code></pre></div>
+<p><img src="images/unnamed-chunk-14-1.png" width="864" /></p>
+<p>From the plot above we can see that many states have decreased the average PM levels from 1999 to 2012 (although a few states actually increased their levels).</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simulation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="parallel-computation.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

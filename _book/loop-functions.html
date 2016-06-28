@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R Programming for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="R Programming for Data Science">
+  <meta name="generator" content="bookdown 0.0.73 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R Programming for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="title_page.png" />
+  
+  <meta name="github-repo" content="rdpeng/rprogdatascience" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Programming for Data Science" />
+  
+  
+  <meta name="twitter:image" content="title_page.png" />
+
+<meta name="author" content="Roger D. Peng">
+
+<meta name="date" content="2016-06-28">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="control-structures.html">
+<link rel="next" href="regular-expressions.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Stay in Touch!</a></li>
+<li class="chapter" data-level="2" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i><b>2</b> Preface</a></li>
+<li class="chapter" data-level="3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html"><i class="fa fa-check"></i><b>3</b> History and Overview of R</a><ul>
+<li class="chapter" data-level="3.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-r"><i class="fa fa-check"></i><b>3.1</b> What is R?</a></li>
+<li class="chapter" data-level="3.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-s"><i class="fa fa-check"></i><b>3.2</b> What is S?</a></li>
+<li class="chapter" data-level="3.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#the-s-philosophy"><i class="fa fa-check"></i><b>3.3</b> The S Philosophy</a></li>
+<li class="chapter" data-level="3.4" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#back-to-r"><i class="fa fa-check"></i><b>3.4</b> Back to R</a></li>
+<li class="chapter" data-level="3.5" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#basic-features-of-r"><i class="fa fa-check"></i><b>3.5</b> Basic Features of R</a></li>
+<li class="chapter" data-level="3.6" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#free-software"><i class="fa fa-check"></i><b>3.6</b> Free Software</a></li>
+<li class="chapter" data-level="3.7" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#design-of-the-r-system"><i class="fa fa-check"></i><b>3.7</b> Design of the R System</a></li>
+<li class="chapter" data-level="3.8" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#limitations-of-r"><i class="fa fa-check"></i><b>3.8</b> Limitations of R</a></li>
+<li class="chapter" data-level="3.9" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#r-resources"><i class="fa fa-check"></i><b>3.9</b> R Resources</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#official-manuals"><i class="fa fa-check"></i><b>3.9.1</b> Official Manuals</a></li>
+<li class="chapter" data-level="3.9.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#useful-standard-texts-on-s-and-r"><i class="fa fa-check"></i><b>3.9.2</b> Useful Standard Texts on S and R</a></li>
+<li class="chapter" data-level="3.9.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#other-resources"><i class="fa fa-check"></i><b>3.9.3</b> Other Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>4</b> Getting Started with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installation"><i class="fa fa-check"></i><b>4.1</b> Installation</a></li>
+<li class="chapter" data-level="4.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-started-with-the-r-interface"><i class="fa fa-check"></i><b>4.2</b> Getting started with the R interface</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html"><i class="fa fa-check"></i><b>5</b> R Nuts and Bolts</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#entering-input"><i class="fa fa-check"></i><b>5.1</b> Entering Input</a></li>
+<li class="chapter" data-level="5.2" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#evaluation"><i class="fa fa-check"></i><b>5.2</b> Evaluation</a></li>
+<li class="chapter" data-level="5.3" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#r-objects"><i class="fa fa-check"></i><b>5.3</b> R Objects</a></li>
+<li class="chapter" data-level="5.4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#numbers"><i class="fa fa-check"></i><b>5.4</b> Numbers</a></li>
+<li class="chapter" data-level="5.5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#attributes"><i class="fa fa-check"></i><b>5.5</b> Attributes</a></li>
+<li class="chapter" data-level="5.6" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#creating-vectors"><i class="fa fa-check"></i><b>5.6</b> Creating Vectors</a></li>
+<li class="chapter" data-level="5.7" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#mixing-objects"><i class="fa fa-check"></i><b>5.7</b> Mixing Objects</a></li>
+<li class="chapter" data-level="5.8" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#explicit-coercion"><i class="fa fa-check"></i><b>5.8</b> Explicit Coercion</a></li>
+<li class="chapter" data-level="5.9" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#matrices"><i class="fa fa-check"></i><b>5.9</b> Matrices</a></li>
+<li class="chapter" data-level="5.10" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#lists"><i class="fa fa-check"></i><b>5.10</b> Lists</a></li>
+<li class="chapter" data-level="5.11" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#factors"><i class="fa fa-check"></i><b>5.11</b> Factors</a></li>
+<li class="chapter" data-level="5.12" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#missing-values"><i class="fa fa-check"></i><b>5.12</b> Missing Values</a></li>
+<li class="chapter" data-level="5.13" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#data-frames"><i class="fa fa-check"></i><b>5.13</b> Data Frames</a></li>
+<li class="chapter" data-level="5.14" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#names"><i class="fa fa-check"></i><b>5.14</b> Names</a></li>
+<li class="chapter" data-level="5.15" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#summary"><i class="fa fa-check"></i><b>5.15</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html"><i class="fa fa-check"></i><b>6</b> Getting Data In and Out of R</a><ul>
+<li class="chapter" data-level="6.1" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-and-writing-data"><i class="fa fa-check"></i><b>6.1</b> Reading and Writing Data</a></li>
+<li class="chapter" data-level="6.2" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-data-files-with-read.table"><i class="fa fa-check"></i><b>6.2</b> Reading Data Files with <code>read.table()</code></a></li>
+<li class="chapter" data-level="6.3" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-in-larger-datasets-with-read.table"><i class="fa fa-check"></i><b>6.3</b> Reading in Larger Datasets with read.table</a></li>
+<li class="chapter" data-level="6.4" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#calculating-memory-requirements-for-r-objects"><i class="fa fa-check"></i><b>6.4</b> Calculating Memory Requirements for R Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="using-the-readr-package.html"><a href="using-the-readr-package.html"><i class="fa fa-check"></i><b>7</b> Using the <code>readr</code> Package</a></li>
+<li class="chapter" data-level="8" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html"><i class="fa fa-check"></i><b>8</b> Using Textual and Binary Formats for Storing Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#using-dput-and-dump"><i class="fa fa-check"></i><b>8.1</b> Using <code>dput()</code> and <code>dump()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#binary-formats"><i class="fa fa-check"></i><b>8.2</b> Binary Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html"><i class="fa fa-check"></i><b>9</b> Interfaces to the Outside World</a><ul>
+<li class="chapter" data-level="9.1" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#file-connections"><i class="fa fa-check"></i><b>9.1</b> File Connections</a></li>
+<li class="chapter" data-level="9.2" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-lines-of-a-text-file"><i class="fa fa-check"></i><b>9.2</b> Reading Lines of a Text File</a></li>
+<li class="chapter" data-level="9.3" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-from-a-url-connection"><i class="fa fa-check"></i><b>9.3</b> Reading From a URL Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Subsetting R Objects</a><ul>
+<li class="chapter" data-level="10.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-vector"><i class="fa fa-check"></i><b>10.1</b> Subsetting a Vector</a></li>
+<li class="chapter" data-level="10.2" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-matrix"><i class="fa fa-check"></i><b>10.2</b> Subsetting a Matrix</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#dropping-matrix-dimensions"><i class="fa fa-check"></i><b>10.2.1</b> Dropping matrix dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-lists"><i class="fa fa-check"></i><b>10.3</b> Subsetting Lists</a></li>
+<li class="chapter" data-level="10.4" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-nested-elements-of-a-list"><i class="fa fa-check"></i><b>10.4</b> Subsetting Nested Elements of a List</a></li>
+<li class="chapter" data-level="10.5" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#extracting-multiple-elements-of-a-list"><i class="fa fa-check"></i><b>10.5</b> Extracting Multiple Elements of a List</a></li>
+<li class="chapter" data-level="10.6" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#partial-matching"><i class="fa fa-check"></i><b>10.6</b> Partial Matching</a></li>
+<li class="chapter" data-level="10.7" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#removing-na-values"><i class="fa fa-check"></i><b>10.7</b> Removing NA Values</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="vectorized-operations.html"><a href="vectorized-operations.html"><i class="fa fa-check"></i><b>11</b> Vectorized Operations</a><ul>
+<li class="chapter" data-level="11.1" data-path="vectorized-operations.html"><a href="vectorized-operations.html#vectorized-matrix-operations"><i class="fa fa-check"></i><b>11.1</b> Vectorized Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
+<li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#dates-in-r"><i class="fa fa-check"></i><b>12.1</b> Dates in R</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#times-in-r"><i class="fa fa-check"></i><b>12.2</b> Times in R</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#operations-on-dates-and-times"><i class="fa fa-check"></i><b>12.3</b> Operations on Dates and Times</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#summary-1"><i class="fa fa-check"></i><b>12.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html"><i class="fa fa-check"></i><b>13</b> Managing Data Frames with the <code>dplyr</code> package</a><ul>
+<li class="chapter" data-level="13.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#data-frames-1"><i class="fa fa-check"></i><b>13.1</b> Data Frames</a></li>
+<li class="chapter" data-level="13.2" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#the-dplyr-package"><i class="fa fa-check"></i><b>13.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="13.3" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#dplyr-grammar"><i class="fa fa-check"></i><b>13.3</b> <code>dplyr</code> Grammar</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#common-dplyr-function-properties"><i class="fa fa-check"></i><b>13.3.1</b> Common <code>dplyr</code> Function Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#installing-the-dplyr-package"><i class="fa fa-check"></i><b>13.4</b> Installing the <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="13.5" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>13.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="13.6" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>13.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="13.7" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>13.7</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="13.8" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#rename"><i class="fa fa-check"></i><b>13.8</b> <code>rename()</code></a></li>
+<li class="chapter" data-level="13.9" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>13.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="13.10" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>13.10</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="13.11" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#section"><i class="fa fa-check"></i><b>13.11</b> <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="13.12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#summary-2"><i class="fa fa-check"></i><b>13.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="control-structures.html"><a href="control-structures.html"><i class="fa fa-check"></i><b>14</b> Control Structures</a><ul>
+<li class="chapter" data-level="14.1" data-path="control-structures.html"><a href="control-structures.html#if-else"><i class="fa fa-check"></i><b>14.1</b> <code>if</code>-<code>else</code></a></li>
+<li class="chapter" data-level="14.2" data-path="control-structures.html"><a href="control-structures.html#for-loops"><i class="fa fa-check"></i><b>14.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="14.3" data-path="control-structures.html"><a href="control-structures.html#nested-for-loops"><i class="fa fa-check"></i><b>14.3</b> Nested <code>for</code> loops</a></li>
+<li class="chapter" data-level="14.4" data-path="control-structures.html"><a href="control-structures.html#while-loops"><i class="fa fa-check"></i><b>14.4</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="14.5" data-path="control-structures.html"><a href="control-structures.html#repeat-loops"><i class="fa fa-check"></i><b>14.5</b> <code>repeat</code> Loops</a></li>
+<li class="chapter" data-level="14.6" data-path="control-structures.html"><a href="control-structures.html#next-break"><i class="fa fa-check"></i><b>14.6</b> <code>next</code>, <code>break</code></a></li>
+<li class="chapter" data-level="14.7" data-path="control-structures.html"><a href="control-structures.html#summary-3"><i class="fa fa-check"></i><b>14.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="loop-functions.html"><a href="loop-functions.html"><i class="fa fa-check"></i><b>15</b> Loop Functions</a><ul>
+<li class="chapter" data-level="15.1" data-path="loop-functions.html"><a href="loop-functions.html#looping-on-the-command-line"><i class="fa fa-check"></i><b>15.1</b> Looping on the Command Line</a></li>
+<li class="chapter" data-level="15.2" data-path="loop-functions.html"><a href="loop-functions.html#lapply"><i class="fa fa-check"></i><b>15.2</b> <code>lapply()</code></a></li>
+<li class="chapter" data-level="15.3" data-path="loop-functions.html"><a href="loop-functions.html#sapply"><i class="fa fa-check"></i><b>15.3</b> <code>sapply()</code></a></li>
+<li class="chapter" data-level="15.4" data-path="loop-functions.html"><a href="loop-functions.html#split"><i class="fa fa-check"></i><b>15.4</b> <code>split()</code></a></li>
+<li class="chapter" data-level="15.5" data-path="loop-functions.html"><a href="loop-functions.html#splitting-a-data-frame"><i class="fa fa-check"></i><b>15.5</b> Splitting a Data Frame</a></li>
+<li class="chapter" data-level="15.6" data-path="loop-functions.html"><a href="loop-functions.html#tapply"><i class="fa fa-check"></i><b>15.6</b> tapply</a></li>
+<li class="chapter" data-level="15.7" data-path="loop-functions.html"><a href="loop-functions.html#apply"><i class="fa fa-check"></i><b>15.7</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="15.8" data-path="loop-functions.html"><a href="loop-functions.html#colrow-sums-and-means"><i class="fa fa-check"></i><b>15.8</b> Col/Row Sums and Means</a></li>
+<li class="chapter" data-level="15.9" data-path="loop-functions.html"><a href="loop-functions.html#other-ways-to-apply"><i class="fa fa-check"></i><b>15.9</b> Other Ways to Apply</a></li>
+<li class="chapter" data-level="15.10" data-path="loop-functions.html"><a href="loop-functions.html#mapply"><i class="fa fa-check"></i><b>15.10</b> <code>mapply()</code></a></li>
+<li class="chapter" data-level="15.11" data-path="loop-functions.html"><a href="loop-functions.html#vectorizing-a-function"><i class="fa fa-check"></i><b>15.11</b> Vectorizing a Function</a></li>
+<li class="chapter" data-level="15.12" data-path="loop-functions.html"><a href="loop-functions.html#summary-4"><i class="fa fa-check"></i><b>15.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="regular-expressions.html"><a href="regular-expressions.html"><i class="fa fa-check"></i><b>16</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="16.1" data-path="regular-expressions.html"><a href="regular-expressions.html#before-you-begin"><i class="fa fa-check"></i><b>16.1</b> Before You Begin</a></li>
+<li class="chapter" data-level="16.2" data-path="regular-expressions.html"><a href="regular-expressions.html#primary-r-functions"><i class="fa fa-check"></i><b>16.2</b> Primary R Functions</a></li>
+<li class="chapter" data-level="16.3" data-path="regular-expressions.html"><a href="regular-expressions.html#grep"><i class="fa fa-check"></i><b>16.3</b> <code>grep()</code></a></li>
+<li class="chapter" data-level="16.4" data-path="regular-expressions.html"><a href="regular-expressions.html#grepl"><i class="fa fa-check"></i><b>16.4</b> <code>grepl()</code></a></li>
+<li class="chapter" data-level="16.5" data-path="regular-expressions.html"><a href="regular-expressions.html#regexpr"><i class="fa fa-check"></i><b>16.5</b> <code>regexpr()</code></a></li>
+<li class="chapter" data-level="16.6" data-path="regular-expressions.html"><a href="regular-expressions.html#sub-and-gsub"><i class="fa fa-check"></i><b>16.6</b> <code>sub()</code> and <code>gsub()</code></a></li>
+<li class="chapter" data-level="16.7" data-path="regular-expressions.html"><a href="regular-expressions.html#regexec"><i class="fa fa-check"></i><b>16.7</b> <code>regexec()</code></a></li>
+<li class="chapter" data-level="16.8" data-path="regular-expressions.html"><a href="regular-expressions.html#summary-5"><i class="fa fa-check"></i><b>16.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>17</b> Debugging</a><ul>
+<li class="chapter" data-level="17.1" data-path="debugging.html"><a href="debugging.html#somethings-wrong"><i class="fa fa-check"></i><b>17.1</b> Something’s Wrong!</a></li>
+<li class="chapter" data-level="17.2" data-path="debugging.html"><a href="debugging.html#figuring-out-whats-wrong"><i class="fa fa-check"></i><b>17.2</b> Figuring Out What’s Wrong</a></li>
+<li class="chapter" data-level="17.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>17.3</b> Debugging Tools in R</a></li>
+<li class="chapter" data-level="17.4" data-path="debugging.html"><a href="debugging.html#using-traceback"><i class="fa fa-check"></i><b>17.4</b> Using <code>traceback()</code></a></li>
+<li class="chapter" data-level="17.5" data-path="debugging.html"><a href="debugging.html#using-debug"><i class="fa fa-check"></i><b>17.5</b> Using <code>debug()</code></a></li>
+<li class="chapter" data-level="17.6" data-path="debugging.html"><a href="debugging.html#using-recover"><i class="fa fa-check"></i><b>17.6</b> Using <code>recover()</code></a></li>
+<li class="chapter" data-level="17.7" data-path="debugging.html"><a href="debugging.html#summary-6"><i class="fa fa-check"></i><b>17.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="profiling-r-code.html"><a href="profiling-r-code.html"><i class="fa fa-check"></i><b>18</b> Profiling R Code</a><ul>
+<li class="chapter" data-level="18.1" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-system.time"><i class="fa fa-check"></i><b>18.1</b> Using <code>system.time()</code></a></li>
+<li class="chapter" data-level="18.2" data-path="profiling-r-code.html"><a href="profiling-r-code.html#timing-longer-expressions"><i class="fa fa-check"></i><b>18.2</b> Timing Longer Expressions</a></li>
+<li class="chapter" data-level="18.3" data-path="profiling-r-code.html"><a href="profiling-r-code.html#the-r-profiler"><i class="fa fa-check"></i><b>18.3</b> The R Profiler</a></li>
+<li class="chapter" data-level="18.4" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-summaryrprof"><i class="fa fa-check"></i><b>18.4</b> Using <code>summaryRprof()</code></a></li>
+<li class="chapter" data-level="18.5" data-path="profiling-r-code.html"><a href="profiling-r-code.html#summary-7"><i class="fa fa-check"></i><b>18.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>19</b> Simulation</a><ul>
+<li class="chapter" data-level="19.1" data-path="simulation.html"><a href="simulation.html#generating-random-numbers"><i class="fa fa-check"></i><b>19.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="19.2" data-path="simulation.html"><a href="simulation.html#setting-the-random-number-seed"><i class="fa fa-check"></i><b>19.2</b> Setting the random number seed</a></li>
+<li class="chapter" data-level="19.3" data-path="simulation.html"><a href="simulation.html#simulating-a-linear-model"><i class="fa fa-check"></i><b>19.3</b> Simulating a Linear Model</a></li>
+<li class="chapter" data-level="19.4" data-path="simulation.html"><a href="simulation.html#random-sampling"><i class="fa fa-check"></i><b>19.4</b> Random Sampling</a></li>
+<li class="chapter" data-level="19.5" data-path="simulation.html"><a href="simulation.html#summary-8"><i class="fa fa-check"></i><b>19.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><i class="fa fa-check"></i><b>20</b> Data Analysis Case Study: Changes in Fine Particle Air Pollution in the U.S.</a><ul>
+<li class="chapter" data-level="20.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#synopsis"><i class="fa fa-check"></i><b>20.1</b> Synopsis</a></li>
+<li class="chapter" data-level="20.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#loading-and-processing-the-raw-data"><i class="fa fa-check"></i><b>20.2</b> Loading and Processing the Raw Data</a><ul>
+<li class="chapter" data-level="20.2.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#reading-in-the-1999-data"><i class="fa fa-check"></i><b>20.2.1</b> Reading in the 1999 data</a></li>
+<li class="chapter" data-level="20.2.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#reading-in-the-2012-data"><i class="fa fa-check"></i><b>20.2.2</b> Reading in the 2012 data</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#results"><i class="fa fa-check"></i><b>20.3</b> Results</a><ul>
+<li class="chapter" data-level="20.3.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#entire-u.s.-analysis"><i class="fa fa-check"></i><b>20.3.1</b> Entire U.S. analysis</a></li>
+<li class="chapter" data-level="20.3.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#changes-in-pm-levels-at-an-individual-monitor"><i class="fa fa-check"></i><b>20.3.2</b> Changes in PM levels at an individual monitor</a></li>
+<li class="chapter" data-level="20.3.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#changes-in-state-wide-pm-levels"><i class="fa fa-check"></i><b>20.3.3</b> Changes in state-wide PM levels</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="parallel-computation.html"><a href="parallel-computation.html"><i class="fa fa-check"></i><b>21</b> Parallel Computation</a><ul>
+<li class="chapter" data-level="21.1" data-path="parallel-computation.html"><a href="parallel-computation.html#hidden-parallelism"><i class="fa fa-check"></i><b>21.1</b> Hidden Parallelism</a><ul>
+<li class="chapter" data-level="21.1.1" data-path="parallel-computation.html"><a href="parallel-computation.html#parallel-blas"><i class="fa fa-check"></i><b>21.1.1</b> Parallel BLAS</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="parallel-computation.html"><a href="parallel-computation.html#embarrassing-parallelism"><i class="fa fa-check"></i><b>21.2</b> Embarrassing Parallelism</a></li>
+<li class="chapter" data-level="21.3" data-path="parallel-computation.html"><a href="parallel-computation.html#the-parallel-package"><i class="fa fa-check"></i><b>21.3</b> The Parallel Package</a><ul>
+<li class="chapter" data-level="21.3.1" data-path="parallel-computation.html"><a href="parallel-computation.html#mclapply"><i class="fa fa-check"></i><b>21.3.1</b> <code>mclapply()</code></a></li>
+<li class="chapter" data-level="21.3.2" data-path="parallel-computation.html"><a href="parallel-computation.html#error-handling"><i class="fa fa-check"></i><b>21.3.2</b> Error Handling</a></li>
+</ul></li>
+<li class="chapter" data-level="21.4" data-path="parallel-computation.html"><a href="parallel-computation.html#example-bootstrapping-a-statistic"><i class="fa fa-check"></i><b>21.4</b> Example: Bootstrapping a Statistic</a><ul>
+<li class="chapter" data-level="21.4.1" data-path="parallel-computation.html"><a href="parallel-computation.html#generating-random-numbers-1"><i class="fa fa-check"></i><b>21.4.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="21.4.2" data-path="parallel-computation.html"><a href="parallel-computation.html#using-the-boot-package"><i class="fa fa-check"></i><b>21.4.2</b> Using the <code>boot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="21.5" data-path="parallel-computation.html"><a href="parallel-computation.html#building-a-socket-cluster"><i class="fa fa-check"></i><b>21.5</b> Building a Socket Cluster</a></li>
+<li class="chapter" data-level="21.6" data-path="parallel-computation.html"><a href="parallel-computation.html#summary-9"><i class="fa fa-check"></i><b>21.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i><b>22</b> About the Author</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Programming for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="loop-functions" class="section level1">
+<h1><span class="header-section-number">15</span> Loop Functions</h1>
+<div id="looping-on-the-command-line" class="section level2">
+<h2><span class="header-section-number">15.1</span> Looping on the Command Line</h2>
+<p>Writing <code>for</code> and <code>while</code> loops is useful when programming but not particularly easy when working interactively on the command line. Multi-line expressions with curly braces are just not that easy to sort through when working on the command line. R has some functions which implement looping in a compact form to make your life easier.</p>
+<ul>
+<li><p><code>lapply()</code>: Loop over a list and evaluate a function on each element</p></li>
+<li><p><code>sapply()</code>: Same as <code>lapply</code> but try to simplify the result</p></li>
+<li><p><code>apply()</code>: Apply a function over the margins of an array</p></li>
+<li><p><code>tapply()</code>: Apply a function over subsets of a vector</p></li>
+<li><p><code>mapply()</code>: Multivariate version of <code>lapply</code></p></li>
+</ul>
+<p>An auxiliary function <code>split</code> is also useful, particularly in conjunction with <code>lapply</code>.</p>
+</div>
+<div id="lapply" class="section level2">
+<h2><span class="header-section-number">15.2</span> <code>lapply()</code></h2>
+<p><a href="https://youtu.be/E1_NlFb0E4g">Watch a video of this section</a></p>
+<p>The <code>lapply()</code> function does the following simple series of operations:</p>
+<ol style="list-style-type: decimal">
+<li>it loops over a list, iterating over each element in that list</li>
+<li>it applies a <em>function</em> to each element of the list (a function that you specify)</li>
+<li>and returns a list (the <code>l</code> is for “list”).</li>
+</ol>
+<p>This function takes three arguments: (1) a list <code>X</code>; (2) a function (or the name of a function) <code>FUN</code>; (3) other arguments via its <code>...</code> argument. If <code>X</code> is not a list, it will be coerced to a list using <code>as.list()</code>.</p>
+<p>The body of the <code>lapply()</code> function can be seen here.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>lapply
+function (X, FUN, ...) 
+{
+    FUN &lt;-<span class="st"> </span><span class="kw">match.fun</span>(FUN)
+    if (!<span class="kw">is.vector</span>(X) ||<span class="st"> </span><span class="kw">is.object</span>(X)) 
+        X &lt;-<span class="st"> </span><span class="kw">as.list</span>(X)
+    <span class="kw">.Internal</span>(<span class="kw">lapply</span>(X, FUN))
+}
+&lt;bytecode:<span class="st"> </span><span class="dv">0x7fe40a941dc0</span>&gt;
+<span class="er">&lt;</span>environment:<span class="st"> </span>namespace:base&gt;</code></pre></div>
+<p>Note that the actual looping is done internally in C code for efficiency reasons.</p>
+<p>It’s important to remember that <code>lapply()</code> always returns a list, regardless of the class of the input.</p>
+<p>Here’s an example of applying the <code>mean()</code> function to all elements of a list. If the original list has names, the the names will be preserved in the output.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">5</span>, <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>))
+&gt;<span class="st"> </span><span class="kw">lapply</span>(x, mean)
+$a
+[<span class="dv">1</span>] <span class="dv">3</span>
+
+$b
+[<span class="dv">1</span>] <span class="fl">0.1322028</span></code></pre></div>
+<p>Notice that here we are passing the <code>mean()</code> function as an argument to the <code>lapply()</code> function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses <code>()</code> like you do when you are <em>calling</em> a function.</p>
+<p>Here is another example of using <code>lapply()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>), <span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>))
+&gt;<span class="st"> </span><span class="kw">lapply</span>(x, mean)
+$a
+[<span class="dv">1</span>] <span class="fl">2.5</span>
+
+$b
+[<span class="dv">1</span>] <span class="fl">0.248845</span>
+
+$c
+[<span class="dv">1</span>] <span class="fl">0.9935285</span>
+
+$d
+[<span class="dv">1</span>] <span class="fl">5.051388</span></code></pre></div>
+<p>You can use <code>lapply()</code> to evaluate a function multiple times each with a different argument. Below, is an example where I call the <code>runif()</code> function (to generate uniformly distributed random variables) four times, each time generating a different number of random numbers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+&gt;<span class="st"> </span><span class="kw">lapply</span>(x, runif)
+[[<span class="dv">1</span>]]
+[<span class="dv">1</span>] <span class="fl">0.02778712</span>
+
+[[<span class="dv">2</span>]]
+[<span class="dv">1</span>] <span class="fl">0.5273108</span> <span class="fl">0.8803191</span>
+
+[[<span class="dv">3</span>]]
+[<span class="dv">1</span>] <span class="fl">0.37306337</span> <span class="fl">0.04795913</span> <span class="fl">0.13862825</span>
+
+[[<span class="dv">4</span>]]
+[<span class="dv">1</span>] <span class="fl">0.3214921</span> <span class="fl">0.1548316</span> <span class="fl">0.1322282</span> <span class="fl">0.2213059</span></code></pre></div>
+<p>When you pass a function to <code>lapply()</code>, <code>lapply()</code> takes elements of the list and passes them as the <em>first argument</em> of the function you are applying. In the above example, the first argument of <code>runif()</code> is <code>n</code>, and so the elements of the sequence <code>1:4</code> all got passed to the <code>n</code> argument of <code>runif()</code>.</p>
+<p>Functions that you pass to <code>lapply()</code> may have other arguments. For example, the <code>runif()</code> function has a <code>min</code> and <code>max</code> argument too. In the example above I used the default values for <code>min</code> and <code>max</code>. How would you be able to specify different values for that in the context of <code>lapply()</code>?</p>
+<p>Here is where the <code>...</code> argument to <code>lapply()</code> comes into play. Any arguments that you place in the <code>...</code> argument will get passed down to the function being applied to the elements of the list.</p>
+<p>Here, the <code>min = 0</code> and <code>max = 10</code> arguments are passed down to <code>runif()</code> every time it gets called.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+&gt;<span class="st"> </span><span class="kw">lapply</span>(x, runif, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">10</span>)
+[[<span class="dv">1</span>]]
+[<span class="dv">1</span>] <span class="fl">2.263808</span>
+
+[[<span class="dv">2</span>]]
+[<span class="dv">1</span>] <span class="fl">1.314165</span> <span class="fl">9.815635</span>
+
+[[<span class="dv">3</span>]]
+[<span class="dv">1</span>] <span class="fl">3.270137</span> <span class="fl">5.069395</span> <span class="fl">6.814425</span>
+
+[[<span class="dv">4</span>]]
+[<span class="dv">1</span>] <span class="fl">0.9916910</span> <span class="fl">1.1890256</span> <span class="fl">0.5043966</span> <span class="fl">9.2925392</span></code></pre></div>
+<p>So now, instead of the random numbers being between 0 and 1 (the default), the are all between 0 and 10.</p>
+<p>The <code>lapply()</code> function and its friends make heavy use of <em>anonymous</em> functions. Anonymous functions are like members of <a href="http://en.wikipedia.org/wiki/Fight_Club">Project Mayhem</a>—they have no names. These are functions are generated “on the fly” as you are using <code>lapply()</code>. Once the call to <code>lapply()</code> is finished, the function disappears and does not appear in the workspace.</p>
+<p>Here I am creating a list that contains two matrices.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">b =</span> <span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">2</span>)) 
+&gt;<span class="st"> </span>x
+$a
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>
+[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>
+
+$b
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">4</span>
+[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">5</span>
+[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">6</span></code></pre></div>
+<p>Suppose I wanted to extract the first column of each matrix in the list. I could write an anonymous function for extracting the first column of each matrix.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lapply</span>(x, function(elt) { elt[,<span class="dv">1</span>] })
+$a
+[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span>
+
+$b
+[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></code></pre></div>
+<p>Notice that I put the <code>function()</code> definition right in the call to <code>lapply()</code>. This is perfectly legal and acceptable. You can put an arbitrarily complicated function definition inside <code>lapply()</code>, but if it’s going to be more complicated, it’s probably a better idea to define the function separately.</p>
+<p>For example, I could have done the following.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function(elt) {
++<span class="st">         </span>elt[, <span class="dv">1</span>]
++<span class="st"> </span>}
+&gt;<span class="st"> </span><span class="kw">lapply</span>(x, f)
+$a
+[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span>
+
+$b
+[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></code></pre></div>
+<p>Now the function is no longer anonymous; it’s name is <code>f</code>. Whether you use an anonymous function or you define a function first depends on your context. If you think the function <code>f</code> is something you’re going to need a lot in other parts of your code, you might want to define it separately. But if you’re just going to use it for this call to <code>lapply()</code>, then it’s probably simpler to use an anonymous function.</p>
+</div>
+<div id="sapply" class="section level2">
+<h2><span class="header-section-number">15.3</span> <code>sapply()</code></h2>
+<p>The <code>sapply()</code> function behaves similarly to <code>lapply()</code>; the only real difference is in the return value. <code>sapply()</code> will try to simplify the result of <code>lapply()</code> if possible. Essentially, <code>sapply()</code> calls <code>lapply()</code> on its input and then applies the following algorithm:</p>
+<ul>
+<li><p>If the result is a list where every element is length 1, then a vector is returned</p></li>
+<li><p>If the result is a list where every element is a vector of the same length (&gt; 1), a matrix is returned.</p></li>
+<li><p>If it can’t figure things out, a list is returned</p></li>
+</ul>
+<p>Here’s the result of calling <code>lapply()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>), <span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>))
+&gt;<span class="st"> </span><span class="kw">lapply</span>(x, mean)
+$a
+[<span class="dv">1</span>] <span class="fl">2.5</span>
+
+$b
+[<span class="dv">1</span>] -<span class="fl">0.251483</span>
+
+$c
+[<span class="dv">1</span>] <span class="fl">1.481246</span>
+
+$d
+[<span class="dv">1</span>] <span class="fl">4.968715</span></code></pre></div>
+<p>Notice that <code>lapply()</code> returns a list (as usual), but that each element of the list has length 1.</p>
+<p>Here’s the result of calling <code>sapply()</code> on the same list.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sapply</span>(x, mean) 
+        a         b         c         d 
+ <span class="fl">2.500000</span> -<span class="fl">0.251483</span>  <span class="fl">1.481246</span>  <span class="fl">4.968715</span> </code></pre></div>
+<p>Because the result of <code>lapply()</code> was a list where each element had length 1, <code>sapply()</code> collapsed the output into a numeric vector, which is often more useful than a list.</p>
+</div>
+<div id="split" class="section level2">
+<h2><span class="header-section-number">15.4</span> <code>split()</code></h2>
+<p><a href="https://youtu.be/TjwE5b0fOcs">Watch a video of this section</a></p>
+<p>The <code>split()</code> function takes a vector or other objects and splits it into groups determined by a factor or list of factors.</p>
+<p>The arguments to <code>split()</code> are</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(split)
+function (x, f, <span class="dt">drop =</span> <span class="ot">FALSE</span>, ...)  </code></pre></div>
+<p>where</p>
+<ul>
+<li><code>x</code> is a vector (or list) or data frame</li>
+<li><code>f</code> is a factor (or coerced to one) or a list of factors</li>
+<li><code>drop</code> indicates whether empty factors levels should be dropped</li>
+</ul>
+<p>The combination of <code>split()</code> and a function like <code>lapply()</code> or <code>sapply()</code> is a common paradigm in R. The basic idea is that you can take a data structure, split it into subsets defined by another variable, and apply a function over those subsets. The results of applying tha function over the subsets are then collated and returned as an object. This sequence of operations is sometimes referred to as “map-reduce” in other contexts.</p>
+<p>Here we simulate some data and split it according to a factor variable. Note that we use the <code>gl()</code> function to “generate levels” in a factor variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="kw">runif</span>(<span class="dv">10</span>), <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>))
+&gt;<span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>)
+&gt;<span class="st"> </span><span class="kw">split</span>(x, f)
+$<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
+ [<span class="dv">1</span>]  <span class="fl">0.3981302</span> -<span class="fl">0.4075286</span>  <span class="fl">1.3242586</span> -<span class="fl">0.7012317</span> -<span class="fl">0.5806143</span> -<span class="fl">1.0010722</span>
+ [<span class="dv">7</span>] -<span class="fl">0.6681786</span>  <span class="fl">0.9451850</span>  <span class="fl">0.4337021</span>  <span class="fl">1.0051592</span>
+
+$<span class="st">`</span><span class="dt">2</span><span class="st">`</span>
+ [<span class="dv">1</span>] <span class="fl">0.34822440</span> <span class="fl">0.94893818</span> <span class="fl">0.64667919</span> <span class="fl">0.03527777</span> <span class="fl">0.59644846</span> <span class="fl">0.41531800</span>
+ [<span class="dv">7</span>] <span class="fl">0.07689704</span> <span class="fl">0.52804888</span> <span class="fl">0.96233331</span> <span class="fl">0.70874005</span>
+
+$<span class="st">`</span><span class="dt">3</span><span class="st">`</span>
+ [<span class="dv">1</span>]  <span class="fl">1.13444766</span>  <span class="fl">1.76559900</span>  <span class="fl">1.95513668</span>  <span class="fl">0.94943430</span>  <span class="fl">0.69418458</span>
+ [<span class="dv">6</span>]  <span class="fl">1.89367370</span> -<span class="fl">0.04729815</span>  <span class="fl">2.97133739</span>  <span class="fl">0.61636789</span>  <span class="fl">2.65414530</span></code></pre></div>
+<p>A common idiom is <code>split</code> followed by an <code>lapply</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">split</span>(x, f), mean)
+$<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
+[<span class="dv">1</span>] <span class="fl">0.07478098</span>
+
+$<span class="st">`</span><span class="dt">2</span><span class="st">`</span>
+[<span class="dv">1</span>] <span class="fl">0.5266905</span>
+
+$<span class="st">`</span><span class="dt">3</span><span class="st">`</span>
+[<span class="dv">1</span>] <span class="fl">1.458703</span></code></pre></div>
+</div>
+<div id="splitting-a-data-frame" class="section level2">
+<h2><span class="header-section-number">15.5</span> Splitting a Data Frame</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(datasets)
+&gt;<span class="st"> </span><span class="kw">head</span>(airquality)
+  Ozone Solar.R Wind Temp Month Day
+<span class="dv">1</span>    <span class="dv">41</span>     <span class="dv">190</span>  <span class="fl">7.4</span>   <span class="dv">67</span>     <span class="dv">5</span>   <span class="dv">1</span>
+<span class="dv">2</span>    <span class="dv">36</span>     <span class="dv">118</span>  <span class="fl">8.0</span>   <span class="dv">72</span>     <span class="dv">5</span>   <span class="dv">2</span>
+<span class="dv">3</span>    <span class="dv">12</span>     <span class="dv">149</span> <span class="fl">12.6</span>   <span class="dv">74</span>     <span class="dv">5</span>   <span class="dv">3</span>
+<span class="dv">4</span>    <span class="dv">18</span>     <span class="dv">313</span> <span class="fl">11.5</span>   <span class="dv">62</span>     <span class="dv">5</span>   <span class="dv">4</span>
+<span class="dv">5</span>    <span class="ot">NA</span>      <span class="ot">NA</span> <span class="fl">14.3</span>   <span class="dv">56</span>     <span class="dv">5</span>   <span class="dv">5</span>
+<span class="dv">6</span>    <span class="dv">28</span>      <span class="ot">NA</span> <span class="fl">14.9</span>   <span class="dv">66</span>     <span class="dv">5</span>   <span class="dv">6</span></code></pre></div>
+<p>We can split the <code>airquality</code> data frame by the <code>Month</code> variable so that we have separate sub-data frames for each month.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">split</span>(airquality, airquality$Month)
+&gt;<span class="st"> </span><span class="kw">str</span>(s)
+List of <span class="dv">5</span>
+ $<span class="st"> </span><span class="dv">5</span>:<span class="st">&#39;data.frame&#39;</span>:<span class="st">  </span><span class="dv">31</span> obs. of  <span class="dv">6</span> variables:
+<span class="st">  </span>..$<span class="st"> </span>Ozone  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">41</span> <span class="dv">36</span> <span class="dv">12</span> <span class="dv">18</span> <span class="ot">NA</span> <span class="dv">28</span> <span class="dv">23</span> <span class="dv">19</span> <span class="dv">8</span> <span class="ot">NA</span> ...
+  ..$<span class="st"> </span>Solar.R:<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">190</span> <span class="dv">118</span> <span class="dv">149</span> <span class="dv">313</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="dv">299</span> <span class="dv">99</span> <span class="dv">19</span> <span class="dv">194</span> ...
+  ..$<span class="st"> </span>Wind   :<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">31</span>] <span class="fl">7.4</span> <span class="dv">8</span> <span class="fl">12.6</span> <span class="fl">11.5</span> <span class="fl">14.3</span> <span class="fl">14.9</span> <span class="fl">8.6</span> <span class="fl">13.8</span> <span class="fl">20.1</span> <span class="fl">8.6</span> ...
+  ..$<span class="st"> </span>Temp   :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">67</span> <span class="dv">72</span> <span class="dv">74</span> <span class="dv">62</span> <span class="dv">56</span> <span class="dv">66</span> <span class="dv">65</span> <span class="dv">59</span> <span class="dv">61</span> <span class="dv">69</span> ...
+  ..$<span class="st"> </span>Month  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> ...
+  ..$<span class="st"> </span>Day    :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> ...
+ $<span class="st"> </span><span class="dv">6</span>:<span class="st">&#39;data.frame&#39;</span>:<span class="st">  </span><span class="dv">30</span> obs. of  <span class="dv">6</span> variables:
+<span class="st">  </span>..$<span class="st"> </span>Ozone  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="dv">29</span> <span class="ot">NA</span> <span class="dv">71</span> <span class="dv">39</span> ...
+  ..$<span class="st"> </span>Solar.R:<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">286</span> <span class="dv">287</span> <span class="dv">242</span> <span class="dv">186</span> <span class="dv">220</span> <span class="dv">264</span> <span class="dv">127</span> <span class="dv">273</span> <span class="dv">291</span> <span class="dv">323</span> ...
+  ..$<span class="st"> </span>Wind   :<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">30</span>] <span class="fl">8.6</span> <span class="fl">9.7</span> <span class="fl">16.1</span> <span class="fl">9.2</span> <span class="fl">8.6</span> <span class="fl">14.3</span> <span class="fl">9.7</span> <span class="fl">6.9</span> <span class="fl">13.8</span> <span class="fl">11.5</span> ...
+  ..$<span class="st"> </span>Temp   :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">78</span> <span class="dv">74</span> <span class="dv">67</span> <span class="dv">84</span> <span class="dv">85</span> <span class="dv">79</span> <span class="dv">82</span> <span class="dv">87</span> <span class="dv">90</span> <span class="dv">87</span> ...
+  ..$<span class="st"> </span>Month  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> ...
+  ..$<span class="st"> </span>Day    :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> ...
+ $<span class="st"> </span><span class="dv">7</span>:<span class="st">&#39;data.frame&#39;</span>:<span class="st">  </span><span class="dv">31</span> obs. of  <span class="dv">6</span> variables:
+<span class="st">  </span>..$<span class="st"> </span>Ozone  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">135</span> <span class="dv">49</span> <span class="dv">32</span> <span class="ot">NA</span> <span class="dv">64</span> <span class="dv">40</span> <span class="dv">77</span> <span class="dv">97</span> <span class="dv">97</span> <span class="dv">85</span> ...
+  ..$<span class="st"> </span>Solar.R:<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">269</span> <span class="dv">248</span> <span class="dv">236</span> <span class="dv">101</span> <span class="dv">175</span> <span class="dv">314</span> <span class="dv">276</span> <span class="dv">267</span> <span class="dv">272</span> <span class="dv">175</span> ...
+  ..$<span class="st"> </span>Wind   :<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">31</span>] <span class="fl">4.1</span> <span class="fl">9.2</span> <span class="fl">9.2</span> <span class="fl">10.9</span> <span class="fl">4.6</span> <span class="fl">10.9</span> <span class="fl">5.1</span> <span class="fl">6.3</span> <span class="fl">5.7</span> <span class="fl">7.4</span> ...
+  ..$<span class="st"> </span>Temp   :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">84</span> <span class="dv">85</span> <span class="dv">81</span> <span class="dv">84</span> <span class="dv">83</span> <span class="dv">83</span> <span class="dv">88</span> <span class="dv">92</span> <span class="dv">92</span> <span class="dv">89</span> ...
+  ..$<span class="st"> </span>Month  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> ...
+  ..$<span class="st"> </span>Day    :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> ...
+ $<span class="st"> </span><span class="dv">8</span>:<span class="st">&#39;data.frame&#39;</span>:<span class="st">  </span><span class="dv">31</span> obs. of  <span class="dv">6</span> variables:
+<span class="st">  </span>..$<span class="st"> </span>Ozone  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">39</span> <span class="dv">9</span> <span class="dv">16</span> <span class="dv">78</span> <span class="dv">35</span> <span class="dv">66</span> <span class="dv">122</span> <span class="dv">89</span> <span class="dv">110</span> <span class="ot">NA</span> ...
+  ..$<span class="st"> </span>Solar.R:<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">83</span> <span class="dv">24</span> <span class="dv">77</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="dv">255</span> <span class="dv">229</span> <span class="dv">207</span> <span class="dv">222</span> ...
+  ..$<span class="st"> </span>Wind   :<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">31</span>] <span class="fl">6.9</span> <span class="fl">13.8</span> <span class="fl">7.4</span> <span class="fl">6.9</span> <span class="fl">7.4</span> <span class="fl">4.6</span> <span class="dv">4</span> <span class="fl">10.3</span> <span class="dv">8</span> <span class="fl">8.6</span> ...
+  ..$<span class="st"> </span>Temp   :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">81</span> <span class="dv">81</span> <span class="dv">82</span> <span class="dv">86</span> <span class="dv">85</span> <span class="dv">87</span> <span class="dv">89</span> <span class="dv">90</span> <span class="dv">90</span> <span class="dv">92</span> ...
+  ..$<span class="st"> </span>Month  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> ...
+  ..$<span class="st"> </span>Day    :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">31</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> ...
+ $<span class="st"> </span><span class="dv">9</span>:<span class="st">&#39;data.frame&#39;</span>:<span class="st">  </span><span class="dv">30</span> obs. of  <span class="dv">6</span> variables:
+<span class="st">  </span>..$<span class="st"> </span>Ozone  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">96</span> <span class="dv">78</span> <span class="dv">73</span> <span class="dv">91</span> <span class="dv">47</span> <span class="dv">32</span> <span class="dv">20</span> <span class="dv">23</span> <span class="dv">21</span> <span class="dv">24</span> ...
+  ..$<span class="st"> </span>Solar.R:<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">167</span> <span class="dv">197</span> <span class="dv">183</span> <span class="dv">189</span> <span class="dv">95</span> <span class="dv">92</span> <span class="dv">252</span> <span class="dv">220</span> <span class="dv">230</span> <span class="dv">259</span> ...
+  ..$<span class="st"> </span>Wind   :<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">30</span>] <span class="fl">6.9</span> <span class="fl">5.1</span> <span class="fl">2.8</span> <span class="fl">4.6</span> <span class="fl">7.4</span> <span class="fl">15.5</span> <span class="fl">10.9</span> <span class="fl">10.3</span> <span class="fl">10.9</span> <span class="fl">9.7</span> ...
+  ..$<span class="st"> </span>Temp   :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">91</span> <span class="dv">92</span> <span class="dv">93</span> <span class="dv">93</span> <span class="dv">87</span> <span class="dv">84</span> <span class="dv">80</span> <span class="dv">78</span> <span class="dv">75</span> <span class="dv">73</span> ...
+  ..$<span class="st"> </span>Month  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> ...
+  ..$<span class="st"> </span>Day    :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> ...</code></pre></div>
+<p>Then we can take the column means for <code>Ozone</code>, <code>Solar.R</code>, and <code>Wind</code> for each sub-data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lapply</span>(s, function(x) {
++<span class="st">         </span><span class="kw">colMeans</span>(x[, <span class="kw">c</span>(<span class="st">&quot;Ozone&quot;</span>, <span class="st">&quot;Solar.R&quot;</span>, <span class="st">&quot;Wind&quot;</span>)])
++<span class="st"> </span>})
+$<span class="st">`</span><span class="dt">5</span><span class="st">`</span>
+   Ozone  Solar.R     Wind 
+      <span class="ot">NA</span>       <span class="ot">NA</span> <span class="fl">11.62258</span> 
+
+$<span class="st">`</span><span class="dt">6</span><span class="st">`</span>
+    Ozone   Solar.R      Wind 
+       <span class="ot">NA</span> <span class="fl">190.16667</span>  <span class="fl">10.26667</span> 
+
+$<span class="st">`</span><span class="dt">7</span><span class="st">`</span>
+     Ozone    Solar.R       Wind 
+        <span class="ot">NA</span> <span class="fl">216.483871</span>   <span class="fl">8.941935</span> 
+
+$<span class="st">`</span><span class="dt">8</span><span class="st">`</span>
+   Ozone  Solar.R     Wind 
+      <span class="ot">NA</span>       <span class="ot">NA</span> <span class="fl">8.793548</span> 
+
+$<span class="st">`</span><span class="dt">9</span><span class="st">`</span>
+   Ozone  Solar.R     Wind 
+      <span class="ot">NA</span> <span class="fl">167.4333</span>  <span class="fl">10.1800</span> </code></pre></div>
+<p>Using <code>sapply()</code> might be better here for a more readable output.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sapply</span>(s, function(x) {
++<span class="st">         </span><span class="kw">colMeans</span>(x[, <span class="kw">c</span>(<span class="st">&quot;Ozone&quot;</span>, <span class="st">&quot;Solar.R&quot;</span>, <span class="st">&quot;Wind&quot;</span>)])
++<span class="st"> </span>})
+               <span class="dv">5</span>         <span class="dv">6</span>          <span class="dv">7</span>        <span class="dv">8</span>        <span class="dv">9</span>
+Ozone         <span class="ot">NA</span>        <span class="ot">NA</span>         <span class="ot">NA</span>       <span class="ot">NA</span>       <span class="ot">NA</span>
+Solar.R       <span class="ot">NA</span> <span class="fl">190.16667</span> <span class="fl">216.483871</span>       <span class="ot">NA</span> <span class="fl">167.4333</span>
+Wind    <span class="fl">11.62258</span>  <span class="fl">10.26667</span>   <span class="fl">8.941935</span> <span class="fl">8.793548</span>  <span class="fl">10.1800</span></code></pre></div>
+<p>Unfortunately, there are <code>NA</code>s in the data so we cannot simply take the means of those variables. However, we can tell the <code>colMeans</code> function to remove the <code>NA</code>s before computing the mean.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sapply</span>(s, function(x) {
++<span class="st">         </span><span class="kw">colMeans</span>(x[, <span class="kw">c</span>(<span class="st">&quot;Ozone&quot;</span>, <span class="st">&quot;Solar.R&quot;</span>, <span class="st">&quot;Wind&quot;</span>)], 
++<span class="st">                  </span><span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
++<span class="st"> </span>})
+                <span class="dv">5</span>         <span class="dv">6</span>          <span class="dv">7</span>          <span class="dv">8</span>         <span class="dv">9</span>
+Ozone    <span class="fl">23.61538</span>  <span class="fl">29.44444</span>  <span class="fl">59.115385</span>  <span class="fl">59.961538</span>  <span class="fl">31.44828</span>
+Solar.R <span class="fl">181.29630</span> <span class="fl">190.16667</span> <span class="fl">216.483871</span> <span class="fl">171.857143</span> <span class="fl">167.43333</span>
+Wind     <span class="fl">11.62258</span>  <span class="fl">10.26667</span>   <span class="fl">8.941935</span>   <span class="fl">8.793548</span>  <span class="fl">10.18000</span></code></pre></div>
+<p>Occasionally, we may want to split an R object according to levels defined in more than one variable. We can do this by creating an interaction of the variables with the <code>interaction()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)
+&gt;<span class="st"> </span>f1 &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">2</span>, <span class="dv">5</span>)
+&gt;<span class="st"> </span>f2 &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">5</span>, <span class="dv">2</span>)
+&gt;<span class="st"> </span>f1
+ [<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span>
+Levels:<span class="st"> </span><span class="dv">1</span> <span class="dv">2</span>
+&gt;<span class="st"> </span>f2
+ [<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">5</span>
+Levels:<span class="st"> </span><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>
+&gt;<span class="st"> </span>## Create interaction of two factors
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">interaction</span>(f1, f2)
+ [<span class="dv">1</span>] <span class="fl">1.1</span> <span class="fl">1.1</span> <span class="fl">1.2</span> <span class="fl">1.2</span> <span class="fl">1.3</span> <span class="fl">2.3</span> <span class="fl">2.4</span> <span class="fl">2.4</span> <span class="fl">2.5</span> <span class="fl">2.5</span>
+Levels:<span class="st"> </span><span class="fl">1.1</span> <span class="fl">2.1</span> <span class="fl">1.2</span> <span class="fl">2.2</span> <span class="fl">1.3</span> <span class="fl">2.3</span> <span class="fl">1.4</span> <span class="fl">2.4</span> <span class="fl">1.5</span> <span class="fl">2.5</span></code></pre></div>
+<p>With multiple factors and many levels, creating an interaction can result in many levels that are empty.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(<span class="kw">split</span>(x, <span class="kw">list</span>(f1, f2)))
+List of <span class="dv">10</span>
+ $<span class="st"> </span><span class="fl">1.1</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">1.512</span> <span class="fl">0.083</span>
+ $<span class="st"> </span><span class="fl">2.1</span>:<span class="st"> </span><span class="kw">num</span>(<span class="dv">0</span>) 
+ $<span class="st"> </span><span class="fl">1.2</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">0.567</span> -<span class="fl">1.025</span>
+ $<span class="st"> </span><span class="fl">2.2</span>:<span class="st"> </span><span class="kw">num</span>(<span class="dv">0</span>) 
+ $<span class="st"> </span><span class="fl">1.3</span>:<span class="st"> </span>num <span class="fl">0.323</span>
+ $<span class="st"> </span><span class="fl">2.3</span>:<span class="st"> </span>num <span class="fl">1.04</span>
+ $<span class="st"> </span><span class="fl">1.4</span>:<span class="st"> </span><span class="kw">num</span>(<span class="dv">0</span>) 
+ $<span class="st"> </span><span class="fl">2.4</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">0.0991</span> -<span class="fl">0.4541</span>
+ $<span class="st"> </span><span class="fl">1.5</span>:<span class="st"> </span><span class="kw">num</span>(<span class="dv">0</span>) 
+ $<span class="st"> </span><span class="fl">2.5</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] -<span class="fl">0.6558</span> -<span class="fl">0.0359</span></code></pre></div>
+<p>Notice that there are 4 categories with no data. But we can drop empty levels when we call the <code>split()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(<span class="kw">split</span>(x, <span class="kw">list</span>(f1, f2), <span class="dt">drop =</span> <span class="ot">TRUE</span>))
+List of <span class="dv">6</span>
+ $<span class="st"> </span><span class="fl">1.1</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">1.512</span> <span class="fl">0.083</span>
+ $<span class="st"> </span><span class="fl">1.2</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">0.567</span> -<span class="fl">1.025</span>
+ $<span class="st"> </span><span class="fl">1.3</span>:<span class="st"> </span>num <span class="fl">0.323</span>
+ $<span class="st"> </span><span class="fl">2.3</span>:<span class="st"> </span>num <span class="fl">1.04</span>
+ $<span class="st"> </span><span class="fl">2.4</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">0.0991</span> -<span class="fl">0.4541</span>
+ $<span class="st"> </span><span class="fl">2.5</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] -<span class="fl">0.6558</span> -<span class="fl">0.0359</span></code></pre></div>
+</div>
+<div id="tapply" class="section level2">
+<h2><span class="header-section-number">15.6</span> tapply</h2>
+<p><a href="https://youtu.be/6YEPWjbk3GA">Watch a video of this section</a></p>
+<p><code>tapply()</code> is used to apply a function over subsets of a vector. It can be thought of as a combination of <code>split()</code> and <code>sapply()</code> for vectors only. I’ve been told that the “t” in <code>tapply()</code> refers to “table”, but that is unconfirmed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(tapply)
+function (X, INDEX, <span class="dt">FUN =</span> <span class="ot">NULL</span>, ..., <span class="dt">simplify =</span> <span class="ot">TRUE</span>)  </code></pre></div>
+<p>The arguments to <code>tapply()</code> are as follows:</p>
+<ul>
+<li><code>X</code> is a vector</li>
+<li><code>INDEX</code> is a factor or a list of factors (or else they are coerced to factors)</li>
+<li><code>FUN</code> is a function to be applied</li>
+<li>… contains other arguments to be passed <code>FUN</code></li>
+<li><code>simplify</code>, should we simplify the result?</li>
+</ul>
+<p>Given a vector of numbers, one simple operation is to take group means.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Simulate some data
+<span class="er">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="kw">runif</span>(<span class="dv">10</span>), <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>))
+&gt;<span class="st"> </span>## Define some groups with a factor variable
+<span class="er">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>)   
+&gt;<span class="st"> </span>f
+ [<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span>
+Levels:<span class="st"> </span><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>
+&gt;<span class="st"> </span><span class="kw">tapply</span>(x, f, mean)
+        <span class="dv">1</span>         <span class="dv">2</span>         <span class="dv">3</span> 
+<span class="fl">0.1896235</span> <span class="fl">0.5336667</span> <span class="fl">0.9568236</span> </code></pre></div>
+<p>We can also take the group means without simplifying the result, which will give us a list. For functions that return a single value, usually, this is not what we want, but it can be done.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">tapply</span>(x, f, mean, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)
+$<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
+[<span class="dv">1</span>] <span class="fl">0.1896235</span>
+
+$<span class="st">`</span><span class="dt">2</span><span class="st">`</span>
+[<span class="dv">1</span>] <span class="fl">0.5336667</span>
+
+$<span class="st">`</span><span class="dt">3</span><span class="st">`</span>
+[<span class="dv">1</span>] <span class="fl">0.9568236</span></code></pre></div>
+<p>We can also apply functions that return more than a single value. In this case, <code>tapply()</code> will not simplify the result and will return a list. Here’s an example of finding the range of each sub-group.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">tapply</span>(x, f, range)
+$<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
+[<span class="dv">1</span>] -<span class="fl">1.869789</span>  <span class="fl">1.497041</span>
+
+$<span class="st">`</span><span class="dt">2</span><span class="st">`</span>
+[<span class="dv">1</span>] <span class="fl">0.09515213</span> <span class="fl">0.86723879</span>
+
+$<span class="st">`</span><span class="dt">3</span><span class="st">`</span>
+[<span class="dv">1</span>] -<span class="fl">0.5690822</span>  <span class="fl">2.3644349</span></code></pre></div>
+</div>
+<div id="apply" class="section level2">
+<h2><span class="header-section-number">15.7</span> <code>apply()</code></h2>
+<p><a href="https://youtu.be/F54ixFPq_xQ">Watch a video of this section</a></p>
+<p>The <code>apply()</code> function is used to a evaluate a function (often an anonymous one) over the margins of an array. It is most often used to apply a function to the rows or columns of a matrix (which is just a 2-dimensional array). However, it can be used with general arrays, for example, to take the average of an array of matrices. Using <code>apply()</code> is not really faster than writing a loop, but it works in one line and is highly compact.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(apply)
+function (X, MARGIN, FUN, ...)  </code></pre></div>
+<p>The arguments to <code>apply()</code> are</p>
+<ul>
+<li><code>X</code> is an array</li>
+<li><code>MARGIN</code> is an integer vector indicating which margins should be “retained”.</li>
+<li><code>FUN</code> is a function to be applied</li>
+<li><code>...</code> is for other arguments to be passed to <code>FUN</code></li>
+</ul>
+<p>Here I create a 20 by 10 matrix of Normal random numbers. I then compute the mean of each column.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">200</span>), <span class="dv">20</span>, <span class="dv">10</span>)
+&gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">2</span>, mean)  ## Take the mean of each column
+ [<span class="dv">1</span>]  <span class="fl">0.02218266</span> -<span class="fl">0.15932850</span>  <span class="fl">0.09021391</span>  <span class="fl">0.14723035</span> -<span class="fl">0.22431309</span>
+ [<span class="dv">6</span>] -<span class="fl">0.49657847</span>  <span class="fl">0.30095015</span>  <span class="fl">0.07703985</span> -<span class="fl">0.20818099</span>  <span class="fl">0.06809774</span></code></pre></div>
+<p>I can also compute the sum of each row.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">1</span>, sum)   ## Take the mean of each row
+ [<span class="dv">1</span>] -<span class="fl">0.48483448</span>  <span class="fl">5.33222301</span> -<span class="fl">3.33862932</span> -<span class="fl">1.39998450</span>  <span class="fl">2.37859098</span>
+ [<span class="dv">6</span>]  <span class="fl">0.01082604</span> -<span class="fl">6.29457190</span> -<span class="fl">0.26287700</span>  <span class="fl">0.71133578</span> -<span class="fl">3.38125293</span>
+[<span class="dv">11</span>] -<span class="fl">4.67522818</span>  <span class="fl">3.01900232</span> -<span class="fl">2.39466347</span> -<span class="fl">2.16004389</span>  <span class="fl">5.33063755</span>
+[<span class="dv">16</span>] -<span class="fl">2.92024635</span>  <span class="fl">3.52026401</span> -<span class="fl">1.84880901</span> -<span class="fl">4.10213912</span>  <span class="fl">5.30667310</span></code></pre></div>
+<p>Note that in both calls to <code>apply()</code>, the return value was a vector of numbers.</p>
+<p>You’ve probably noticed that the second argument is either a 1 or a 2, depending on whether we want row statistics or column statistics. What exactly <em>is</em> the second argument to <code>apply()</code>?</p>
+<p>The <code>MARGIN</code> argument essentially indicates to <code>apply()</code> which dimension of the array you want to preserve or retain. So when taking the mean of each column, I specify</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">2</span>, mean)</code></pre></div>
+<p>because I want to collapse the first dimension (the rows) by taking the mean and I want to preserve the number of columns. Similarly, when I want the row sums, I run</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">1</span>, mean)</code></pre></div>
+<p>because I want to collapse the columns (the second dimension) and preserve the number of rows (the first dimension).</p>
+</div>
+<div id="colrow-sums-and-means" class="section level2">
+<h2><span class="header-section-number">15.8</span> Col/Row Sums and Means</h2>
+<p>For the special case of column/row sums and column/row means of matrices, we have some useful shortcuts.</p>
+<ul>
+<li><code>rowSums</code> = <code>apply(x, 1, sum)</code></li>
+<li><code>rowMeans</code> = <code>apply(x, 1, mean)</code></li>
+<li><code>colSums</code> = <code>apply(x, 2, sum)</code></li>
+<li><code>colMeans</code> = <code>apply(x, 2, mean)</code></li>
+</ul>
+<p>The shortcut functions are heavily optimized and hence are <em>much</em> faster, but you probably won’t notice unless you’re using a large matrix. Another nice aspect of these functions is that they are a bit more descriptive. It’s arguably more clear to write <code>colMeans(x)</code> in your code than <code>apply(x, 2, mean)</code>.</p>
+</div>
+<div id="other-ways-to-apply" class="section level2">
+<h2><span class="header-section-number">15.9</span> Other Ways to Apply</h2>
+<p>You can do more than take sums and means with the <code>apply()</code> function. For example, you can compute quantiles of the rows of a matrix using the <code>quantile()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">200</span>), <span class="dv">20</span>, <span class="dv">10</span>)
+&gt;<span class="st"> </span>## Get row quantiles
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">1</span>, quantile, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))    
+          [,<span class="dv">1</span>]       [,<span class="dv">2</span>]      [,<span class="dv">3</span>]       [,<span class="dv">4</span>]       [,<span class="dv">5</span>]        [,<span class="dv">6</span>]
+<span class="dv">25</span>% -<span class="fl">1.0884151</span> -<span class="fl">0.6693040</span> <span class="fl">0.2908481</span> -<span class="fl">0.4602083</span> -<span class="fl">1.0432010</span> -<span class="fl">1.12773555</span>
+<span class="dv">75</span>%  <span class="fl">0.1843547</span>  <span class="fl">0.8210295</span> <span class="fl">1.3667301</span>  <span class="fl">0.4424153</span>  <span class="fl">0.3571219</span>  <span class="fl">0.03653687</span>
+          [,<span class="dv">7</span>]       [,<span class="dv">8</span>]       [,<span class="dv">9</span>]     [,<span class="dv">10</span>]      [,<span class="dv">11</span>]      [,<span class="dv">12</span>]
+<span class="dv">25</span>% -<span class="fl">1.4571706</span> -<span class="fl">0.2406991</span> -<span class="fl">0.3226845</span> -<span class="fl">0.329898</span> -<span class="fl">0.8677524</span> -<span class="fl">0.2023664</span>
+<span class="dv">75</span>% -<span class="fl">0.1705336</span>  <span class="fl">0.6504486</span>  <span class="fl">1.1460854</span>  <span class="fl">1.247092</span>  <span class="fl">0.4138139</span>  <span class="fl">0.9145331</span>
+         [,<span class="dv">13</span>]      [,<span class="dv">14</span>]      [,<span class="dv">15</span>]        [,<span class="dv">16</span>]      [,<span class="dv">17</span>]      [,<span class="dv">18</span>]
+<span class="dv">25</span>% -<span class="fl">0.9796050</span> -<span class="fl">1.3551031</span> -<span class="fl">0.1823252</span> -<span class="fl">1.260911898</span> -<span class="fl">0.9954289</span> -<span class="fl">0.3767354</span>
+<span class="dv">75</span>%  <span class="fl">0.5448777</span> -<span class="fl">0.5396766</span>  <span class="fl">0.7795571</span>  <span class="fl">0.002908451</span>  <span class="fl">0.4323192</span>  <span class="fl">0.7542638</span>
+         [,<span class="dv">19</span>]      [,<span class="dv">20</span>]
+<span class="dv">25</span>% -<span class="fl">0.8557544</span> -<span class="fl">0.7000363</span>
+<span class="dv">75</span>%  <span class="fl">0.5440158</span>  <span class="fl">0.5432995</span></code></pre></div>
+<p>Notice that I had to pass the <code>probs = c(0.25, 0.75)</code> argument to <code>quantile()</code> via the <code>...</code> argument to <code>apply()</code>.</p>
+<p>For a higher dimensional example, I can create an array of <span class="math inline">\(2\times2\)</span> matrices and the compute the average of the matrices in the array.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">rnorm</span>(<span class="dv">2</span> *<span class="st"> </span><span class="dv">2</span> *<span class="st"> </span><span class="dv">10</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">10</span>))
+&gt;<span class="st"> </span><span class="kw">apply</span>(a, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), mean)
+          [,<span class="dv">1</span>]       [,<span class="dv">2</span>]
+[<span class="dv">1</span>,] <span class="fl">0.1681387</span> -<span class="fl">0.1039673</span>
+[<span class="dv">2</span>,] <span class="fl">0.3519741</span> -<span class="fl">0.4029737</span></code></pre></div>
+<p>In the call to <code>apply()</code> here, I indicated via the <code>MARGIN</code> argument that I wanted to preserve the first and second dimensions and to collapse the third dimension by taking the mean.</p>
+<p>There is a faster way to do this specific operation via the <code>colMeans()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">rowMeans</span>(a, <span class="dt">dims =</span> <span class="dv">2</span>)    ## Faster
+          [,<span class="dv">1</span>]       [,<span class="dv">2</span>]
+[<span class="dv">1</span>,] <span class="fl">0.1681387</span> -<span class="fl">0.1039673</span>
+[<span class="dv">2</span>,] <span class="fl">0.3519741</span> -<span class="fl">0.4029737</span></code></pre></div>
+<p>In this situation, I might argue that the use of <code>rowMeans()</code> is less readable, but it is substantially faster with large arrays.</p>
+</div>
+<div id="mapply" class="section level2">
+<h2><span class="header-section-number">15.10</span> <code>mapply()</code></h2>
+<p><a href="https://youtu.be/z8jC_h7S0VE">Watch a video of this section</a></p>
+<p>The <code>mapply()</code> function is a multivariate apply of sorts which applies a function in parallel over a set of arguments. Recall that <code>lapply()</code> and friends only iterate over a single R object. What if you want to iterate over multiple R objects in parallel? This is what <code>mapply()</code> is for.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(mapply)
+function (FUN, ..., <span class="dt">MoreArgs =</span> <span class="ot">NULL</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">TRUE</span>, <span class="dt">USE.NAMES =</span> <span class="ot">TRUE</span>)  </code></pre></div>
+<p>The arguments to <code>mapply()</code> are</p>
+<ul>
+<li><code>FUN</code> is a function to apply</li>
+<li><code>...</code> contains R objects to apply over</li>
+<li><code>MoreArgs</code> is a list of other arguments to <code>FUN</code>.</li>
+<li><code>SIMPLIFY</code> indicates whether the result should be simplified</li>
+</ul>
+<p>The <code>mapply()</code> function has a different argument order from <code>lapply()</code> because the function to apply comes first rather than the object to iterate over. The R objects over which we apply the function are given in the <code>...</code> argument because we can apply over an arbitrary number of R objects.</p>
+<p>For example, the following is tedious to type</p>
+<p><code>list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1))</code></p>
+<p>With <code>mapply()</code>, instead we can do</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st">  </span><span class="kw">mapply</span>(rep, <span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">4</span>:<span class="dv">1</span>)
+[[<span class="dv">1</span>]]
+[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>
+
+[[<span class="dv">2</span>]]
+[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span>
+
+[[<span class="dv">3</span>]]
+[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">3</span>
+
+[[<span class="dv">4</span>]]
+[<span class="dv">1</span>] <span class="dv">4</span></code></pre></div>
+<p>This passes the sequence <code>1:4</code> to the first argument of <code>rep()</code> and the sequence <code>4:1</code> to the second argument.</p>
+<p>Here’s another example for simulating randon Normal variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>noise &lt;-<span class="st"> </span>function(n, mean, sd) {
++<span class="st">       </span><span class="kw">rnorm</span>(n, mean, sd)
++<span class="st"> </span>}
+&gt;<span class="st"> </span>## Simulate 5 randon numbers
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">noise</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>)        
+[<span class="dv">1</span>] -<span class="fl">0.5196913</span>  <span class="fl">3.2979182</span> -<span class="fl">0.6849525</span>  <span class="fl">1.7828267</span>  <span class="fl">2.7827545</span>
+&gt;<span class="st"> </span>
+<span class="er">&gt;</span><span class="st"> </span>## This only simulates 1 set of numbers, not 5
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">noise</span>(<span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">2</span>)    
+[<span class="dv">1</span>] -<span class="fl">1.670517</span>  <span class="fl">2.796247</span>  <span class="fl">2.776826</span>  <span class="fl">5.351488</span>  <span class="fl">3.422804</span></code></pre></div>
+<p>Here we can use <code>mapply()</code> to pass the sequence <code>1:5</code> separately to the <code>noise()</code> function so that we can get 5 sets of random numbers, each with a different length and mean.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mapply</span>(noise, <span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">2</span>)
+[[<span class="dv">1</span>]]
+[<span class="dv">1</span>] <span class="fl">0.8260273</span>
+
+[[<span class="dv">2</span>]]
+[<span class="dv">1</span>] <span class="fl">4.764568</span> <span class="fl">2.336980</span>
+
+[[<span class="dv">3</span>]]
+[<span class="dv">1</span>] <span class="fl">4.6463819</span> <span class="fl">2.5582108</span> <span class="fl">0.9412167</span>
+
+[[<span class="dv">4</span>]]
+[<span class="dv">1</span>]  <span class="fl">3.978149</span>  <span class="fl">1.550018</span> -<span class="fl">1.192223</span>  <span class="fl">6.338245</span>
+
+[[<span class="dv">5</span>]]
+[<span class="dv">1</span>] <span class="fl">2.826182</span> <span class="fl">1.347834</span> <span class="fl">6.990564</span> <span class="fl">4.976276</span> <span class="fl">3.800743</span></code></pre></div>
+<p>The above call to <code>mapply()</code> is the same as</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">list</span>(<span class="kw">noise</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">noise</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>),
++<span class="st">      </span><span class="kw">noise</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>), <span class="kw">noise</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>),
++<span class="st">      </span><span class="kw">noise</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">2</span>))
+[[<span class="dv">1</span>]]
+[<span class="dv">1</span>] <span class="fl">0.644104</span>
+
+[[<span class="dv">2</span>]]
+[<span class="dv">1</span>] <span class="fl">1.148037</span> <span class="fl">3.993318</span>
+
+[[<span class="dv">3</span>]]
+[<span class="dv">1</span>]  <span class="fl">4.4553214</span> -<span class="fl">0.4532612</span>  <span class="fl">3.7067970</span>
+
+[[<span class="dv">4</span>]]
+[<span class="dv">1</span>]  <span class="fl">5.4536273</span>  <span class="fl">5.3365220</span> -<span class="fl">0.8486346</span>  <span class="fl">3.5292851</span>
+
+[[<span class="dv">5</span>]]
+[<span class="dv">1</span>] <span class="fl">8.959267</span> <span class="fl">6.593589</span> <span class="fl">1.581448</span> <span class="fl">1.672663</span> <span class="fl">5.982219</span></code></pre></div>
+</div>
+<div id="vectorizing-a-function" class="section level2">
+<h2><span class="header-section-number">15.11</span> Vectorizing a Function</h2>
+<p>The <code>mapply()</code> function can be use to automatically “vectorize” a function. What this means is that it can be used to take a function that typically only takes single arguments and create a new function that can take vector arguments. This is often needed when you want to plot functions.</p>
+<p>Here’s an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is <span class="math inline">\(\sum_{i=1}^n(x_i-\mu)^2/\sigma^2\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>sumsq &lt;-<span class="st"> </span>function(mu, sigma, x) {
++<span class="st">         </span><span class="kw">sum</span>(((x -<span class="st"> </span>mu) /<span class="st"> </span>sigma)^<span class="dv">2</span>)
++<span class="st"> </span>}</code></pre></div>
+<p>This function takes a mean <code>mu</code>, a standard deviation <code>sigma</code>, and some data in a vector <code>x</code>.</p>
+<p>In many statistical applications, we want to minimize the sum of squares to find the optimal <code>mu</code> and <code>sigma</code>. Before we do that, we may want to evaluate or plot the function for many different values of <code>mu</code> or <code>sigma</code>. However, passing a vector of <code>mu</code>s or <code>sigma</code>s won’t work with this function because it’s not vectorized.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)       ## Generate some data
+&gt;<span class="st"> </span><span class="kw">sumsq</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>, x)  ## This is not what we want
+[<span class="dv">1</span>] <span class="fl">110.2594</span></code></pre></div>
+<p>Note that the call to <code>sumsq()</code> only produced one value instead of 10 values.</p>
+<p>However, we can do what we want to do by using <code>mapply()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mapply</span>(sumsq, <span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">MoreArgs =</span> <span class="kw">list</span>(<span class="dt">x =</span> x))
+ [<span class="dv">1</span>] <span class="fl">196.2289</span> <span class="fl">121.4765</span> <span class="fl">108.3981</span> <span class="fl">104.0788</span> <span class="fl">102.1975</span> <span class="fl">101.2393</span> <span class="fl">100.6998</span>
+ [<span class="dv">8</span>] <span class="fl">100.3745</span> <span class="fl">100.1685</span> <span class="fl">100.0332</span></code></pre></div>
+<p>There’s even a function in R called <code>Vectorize()</code> that automatically can create a vectorized version of your function. So we could create a <code>vsumsq()</code> function that is fully vectorized as follows.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>vsumsq &lt;-<span class="st"> </span><span class="kw">Vectorize</span>(sumsq, <span class="kw">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;sigma&quot;</span>))
+&gt;<span class="st"> </span><span class="kw">vsumsq</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>, x)
+ [<span class="dv">1</span>] <span class="fl">196.2289</span> <span class="fl">121.4765</span> <span class="fl">108.3981</span> <span class="fl">104.0788</span> <span class="fl">102.1975</span> <span class="fl">101.2393</span> <span class="fl">100.6998</span>
+ [<span class="dv">8</span>] <span class="fl">100.3745</span> <span class="fl">100.1685</span> <span class="fl">100.0332</span></code></pre></div>
+<p>Pretty cool, right?</p>
+</div>
+<div id="summary-4" class="section level2">
+<h2><span class="header-section-number">15.12</span> Summary</h2>
+<ul>
+<li><p>The loop functions in R are very powerful because they allow you to conduct a series of operations on data using a compact form</p></li>
+<li><p>The operation of a loop function involves iterating over an R object (e.g. a list or vector or matrix), applying a function to each element of the object, and the collating the results and returning the collated results.</p></li>
+<li><p>Loop functions make heavy use of anonymous functions, which exist for the life of the loop function but are not stored anywhere</p></li>
+<li><p>The <code>split()</code> function can be used to divide an R object in to subsets determined by another variable which can subsequently be looped over using loop functions.</p></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="control-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regular-expressions.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

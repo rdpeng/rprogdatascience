@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R Programming for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="R Programming for Data Science">
+  <meta name="generator" content="bookdown 0.0.73 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R Programming for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="title_page.png" />
+  
+  <meta name="github-repo" content="rdpeng/rprogdatascience" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Programming for Data Science" />
+  
+  
+  <meta name="twitter:image" content="title_page.png" />
+
+<meta name="author" content="Roger D. Peng">
+
+<meta name="date" content="2016-06-28">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="preface.html">
+<link rel="next" href="getting-started-with-r.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Stay in Touch!</a></li>
+<li class="chapter" data-level="2" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i><b>2</b> Preface</a></li>
+<li class="chapter" data-level="3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html"><i class="fa fa-check"></i><b>3</b> History and Overview of R</a><ul>
+<li class="chapter" data-level="3.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-r"><i class="fa fa-check"></i><b>3.1</b> What is R?</a></li>
+<li class="chapter" data-level="3.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-s"><i class="fa fa-check"></i><b>3.2</b> What is S?</a></li>
+<li class="chapter" data-level="3.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#the-s-philosophy"><i class="fa fa-check"></i><b>3.3</b> The S Philosophy</a></li>
+<li class="chapter" data-level="3.4" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#back-to-r"><i class="fa fa-check"></i><b>3.4</b> Back to R</a></li>
+<li class="chapter" data-level="3.5" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#basic-features-of-r"><i class="fa fa-check"></i><b>3.5</b> Basic Features of R</a></li>
+<li class="chapter" data-level="3.6" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#free-software"><i class="fa fa-check"></i><b>3.6</b> Free Software</a></li>
+<li class="chapter" data-level="3.7" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#design-of-the-r-system"><i class="fa fa-check"></i><b>3.7</b> Design of the R System</a></li>
+<li class="chapter" data-level="3.8" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#limitations-of-r"><i class="fa fa-check"></i><b>3.8</b> Limitations of R</a></li>
+<li class="chapter" data-level="3.9" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#r-resources"><i class="fa fa-check"></i><b>3.9</b> R Resources</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#official-manuals"><i class="fa fa-check"></i><b>3.9.1</b> Official Manuals</a></li>
+<li class="chapter" data-level="3.9.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#useful-standard-texts-on-s-and-r"><i class="fa fa-check"></i><b>3.9.2</b> Useful Standard Texts on S and R</a></li>
+<li class="chapter" data-level="3.9.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#other-resources"><i class="fa fa-check"></i><b>3.9.3</b> Other Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>4</b> Getting Started with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installation"><i class="fa fa-check"></i><b>4.1</b> Installation</a></li>
+<li class="chapter" data-level="4.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-started-with-the-r-interface"><i class="fa fa-check"></i><b>4.2</b> Getting started with the R interface</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html"><i class="fa fa-check"></i><b>5</b> R Nuts and Bolts</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#entering-input"><i class="fa fa-check"></i><b>5.1</b> Entering Input</a></li>
+<li class="chapter" data-level="5.2" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#evaluation"><i class="fa fa-check"></i><b>5.2</b> Evaluation</a></li>
+<li class="chapter" data-level="5.3" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#r-objects"><i class="fa fa-check"></i><b>5.3</b> R Objects</a></li>
+<li class="chapter" data-level="5.4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#numbers"><i class="fa fa-check"></i><b>5.4</b> Numbers</a></li>
+<li class="chapter" data-level="5.5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#attributes"><i class="fa fa-check"></i><b>5.5</b> Attributes</a></li>
+<li class="chapter" data-level="5.6" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#creating-vectors"><i class="fa fa-check"></i><b>5.6</b> Creating Vectors</a></li>
+<li class="chapter" data-level="5.7" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#mixing-objects"><i class="fa fa-check"></i><b>5.7</b> Mixing Objects</a></li>
+<li class="chapter" data-level="5.8" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#explicit-coercion"><i class="fa fa-check"></i><b>5.8</b> Explicit Coercion</a></li>
+<li class="chapter" data-level="5.9" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#matrices"><i class="fa fa-check"></i><b>5.9</b> Matrices</a></li>
+<li class="chapter" data-level="5.10" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#lists"><i class="fa fa-check"></i><b>5.10</b> Lists</a></li>
+<li class="chapter" data-level="5.11" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#factors"><i class="fa fa-check"></i><b>5.11</b> Factors</a></li>
+<li class="chapter" data-level="5.12" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#missing-values"><i class="fa fa-check"></i><b>5.12</b> Missing Values</a></li>
+<li class="chapter" data-level="5.13" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#data-frames"><i class="fa fa-check"></i><b>5.13</b> Data Frames</a></li>
+<li class="chapter" data-level="5.14" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#names"><i class="fa fa-check"></i><b>5.14</b> Names</a></li>
+<li class="chapter" data-level="5.15" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#summary"><i class="fa fa-check"></i><b>5.15</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html"><i class="fa fa-check"></i><b>6</b> Getting Data In and Out of R</a><ul>
+<li class="chapter" data-level="6.1" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-and-writing-data"><i class="fa fa-check"></i><b>6.1</b> Reading and Writing Data</a></li>
+<li class="chapter" data-level="6.2" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-data-files-with-read.table"><i class="fa fa-check"></i><b>6.2</b> Reading Data Files with <code>read.table()</code></a></li>
+<li class="chapter" data-level="6.3" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-in-larger-datasets-with-read.table"><i class="fa fa-check"></i><b>6.3</b> Reading in Larger Datasets with read.table</a></li>
+<li class="chapter" data-level="6.4" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#calculating-memory-requirements-for-r-objects"><i class="fa fa-check"></i><b>6.4</b> Calculating Memory Requirements for R Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="using-the-readr-package.html"><a href="using-the-readr-package.html"><i class="fa fa-check"></i><b>7</b> Using the <code>readr</code> Package</a></li>
+<li class="chapter" data-level="8" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html"><i class="fa fa-check"></i><b>8</b> Using Textual and Binary Formats for Storing Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#using-dput-and-dump"><i class="fa fa-check"></i><b>8.1</b> Using <code>dput()</code> and <code>dump()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#binary-formats"><i class="fa fa-check"></i><b>8.2</b> Binary Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html"><i class="fa fa-check"></i><b>9</b> Interfaces to the Outside World</a><ul>
+<li class="chapter" data-level="9.1" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#file-connections"><i class="fa fa-check"></i><b>9.1</b> File Connections</a></li>
+<li class="chapter" data-level="9.2" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-lines-of-a-text-file"><i class="fa fa-check"></i><b>9.2</b> Reading Lines of a Text File</a></li>
+<li class="chapter" data-level="9.3" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-from-a-url-connection"><i class="fa fa-check"></i><b>9.3</b> Reading From a URL Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Subsetting R Objects</a><ul>
+<li class="chapter" data-level="10.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-vector"><i class="fa fa-check"></i><b>10.1</b> Subsetting a Vector</a></li>
+<li class="chapter" data-level="10.2" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-matrix"><i class="fa fa-check"></i><b>10.2</b> Subsetting a Matrix</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#dropping-matrix-dimensions"><i class="fa fa-check"></i><b>10.2.1</b> Dropping matrix dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-lists"><i class="fa fa-check"></i><b>10.3</b> Subsetting Lists</a></li>
+<li class="chapter" data-level="10.4" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-nested-elements-of-a-list"><i class="fa fa-check"></i><b>10.4</b> Subsetting Nested Elements of a List</a></li>
+<li class="chapter" data-level="10.5" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#extracting-multiple-elements-of-a-list"><i class="fa fa-check"></i><b>10.5</b> Extracting Multiple Elements of a List</a></li>
+<li class="chapter" data-level="10.6" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#partial-matching"><i class="fa fa-check"></i><b>10.6</b> Partial Matching</a></li>
+<li class="chapter" data-level="10.7" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#removing-na-values"><i class="fa fa-check"></i><b>10.7</b> Removing NA Values</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="vectorized-operations.html"><a href="vectorized-operations.html"><i class="fa fa-check"></i><b>11</b> Vectorized Operations</a><ul>
+<li class="chapter" data-level="11.1" data-path="vectorized-operations.html"><a href="vectorized-operations.html#vectorized-matrix-operations"><i class="fa fa-check"></i><b>11.1</b> Vectorized Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
+<li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#dates-in-r"><i class="fa fa-check"></i><b>12.1</b> Dates in R</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#times-in-r"><i class="fa fa-check"></i><b>12.2</b> Times in R</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#operations-on-dates-and-times"><i class="fa fa-check"></i><b>12.3</b> Operations on Dates and Times</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#summary-1"><i class="fa fa-check"></i><b>12.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html"><i class="fa fa-check"></i><b>13</b> Managing Data Frames with the <code>dplyr</code> package</a><ul>
+<li class="chapter" data-level="13.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#data-frames-1"><i class="fa fa-check"></i><b>13.1</b> Data Frames</a></li>
+<li class="chapter" data-level="13.2" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#the-dplyr-package"><i class="fa fa-check"></i><b>13.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="13.3" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#dplyr-grammar"><i class="fa fa-check"></i><b>13.3</b> <code>dplyr</code> Grammar</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#common-dplyr-function-properties"><i class="fa fa-check"></i><b>13.3.1</b> Common <code>dplyr</code> Function Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#installing-the-dplyr-package"><i class="fa fa-check"></i><b>13.4</b> Installing the <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="13.5" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>13.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="13.6" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>13.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="13.7" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>13.7</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="13.8" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#rename"><i class="fa fa-check"></i><b>13.8</b> <code>rename()</code></a></li>
+<li class="chapter" data-level="13.9" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>13.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="13.10" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>13.10</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="13.11" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#section"><i class="fa fa-check"></i><b>13.11</b> <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="13.12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#summary-2"><i class="fa fa-check"></i><b>13.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="control-structures.html"><a href="control-structures.html"><i class="fa fa-check"></i><b>14</b> Control Structures</a><ul>
+<li class="chapter" data-level="14.1" data-path="control-structures.html"><a href="control-structures.html#if-else"><i class="fa fa-check"></i><b>14.1</b> <code>if</code>-<code>else</code></a></li>
+<li class="chapter" data-level="14.2" data-path="control-structures.html"><a href="control-structures.html#for-loops"><i class="fa fa-check"></i><b>14.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="14.3" data-path="control-structures.html"><a href="control-structures.html#nested-for-loops"><i class="fa fa-check"></i><b>14.3</b> Nested <code>for</code> loops</a></li>
+<li class="chapter" data-level="14.4" data-path="control-structures.html"><a href="control-structures.html#while-loops"><i class="fa fa-check"></i><b>14.4</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="14.5" data-path="control-structures.html"><a href="control-structures.html#repeat-loops"><i class="fa fa-check"></i><b>14.5</b> <code>repeat</code> Loops</a></li>
+<li class="chapter" data-level="14.6" data-path="control-structures.html"><a href="control-structures.html#next-break"><i class="fa fa-check"></i><b>14.6</b> <code>next</code>, <code>break</code></a></li>
+<li class="chapter" data-level="14.7" data-path="control-structures.html"><a href="control-structures.html#summary-3"><i class="fa fa-check"></i><b>14.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="loop-functions.html"><a href="loop-functions.html"><i class="fa fa-check"></i><b>15</b> Loop Functions</a><ul>
+<li class="chapter" data-level="15.1" data-path="loop-functions.html"><a href="loop-functions.html#looping-on-the-command-line"><i class="fa fa-check"></i><b>15.1</b> Looping on the Command Line</a></li>
+<li class="chapter" data-level="15.2" data-path="loop-functions.html"><a href="loop-functions.html#lapply"><i class="fa fa-check"></i><b>15.2</b> <code>lapply()</code></a></li>
+<li class="chapter" data-level="15.3" data-path="loop-functions.html"><a href="loop-functions.html#sapply"><i class="fa fa-check"></i><b>15.3</b> <code>sapply()</code></a></li>
+<li class="chapter" data-level="15.4" data-path="loop-functions.html"><a href="loop-functions.html#split"><i class="fa fa-check"></i><b>15.4</b> <code>split()</code></a></li>
+<li class="chapter" data-level="15.5" data-path="loop-functions.html"><a href="loop-functions.html#splitting-a-data-frame"><i class="fa fa-check"></i><b>15.5</b> Splitting a Data Frame</a></li>
+<li class="chapter" data-level="15.6" data-path="loop-functions.html"><a href="loop-functions.html#tapply"><i class="fa fa-check"></i><b>15.6</b> tapply</a></li>
+<li class="chapter" data-level="15.7" data-path="loop-functions.html"><a href="loop-functions.html#apply"><i class="fa fa-check"></i><b>15.7</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="15.8" data-path="loop-functions.html"><a href="loop-functions.html#colrow-sums-and-means"><i class="fa fa-check"></i><b>15.8</b> Col/Row Sums and Means</a></li>
+<li class="chapter" data-level="15.9" data-path="loop-functions.html"><a href="loop-functions.html#other-ways-to-apply"><i class="fa fa-check"></i><b>15.9</b> Other Ways to Apply</a></li>
+<li class="chapter" data-level="15.10" data-path="loop-functions.html"><a href="loop-functions.html#mapply"><i class="fa fa-check"></i><b>15.10</b> <code>mapply()</code></a></li>
+<li class="chapter" data-level="15.11" data-path="loop-functions.html"><a href="loop-functions.html#vectorizing-a-function"><i class="fa fa-check"></i><b>15.11</b> Vectorizing a Function</a></li>
+<li class="chapter" data-level="15.12" data-path="loop-functions.html"><a href="loop-functions.html#summary-4"><i class="fa fa-check"></i><b>15.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="regular-expressions.html"><a href="regular-expressions.html"><i class="fa fa-check"></i><b>16</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="16.1" data-path="regular-expressions.html"><a href="regular-expressions.html#before-you-begin"><i class="fa fa-check"></i><b>16.1</b> Before You Begin</a></li>
+<li class="chapter" data-level="16.2" data-path="regular-expressions.html"><a href="regular-expressions.html#primary-r-functions"><i class="fa fa-check"></i><b>16.2</b> Primary R Functions</a></li>
+<li class="chapter" data-level="16.3" data-path="regular-expressions.html"><a href="regular-expressions.html#grep"><i class="fa fa-check"></i><b>16.3</b> <code>grep()</code></a></li>
+<li class="chapter" data-level="16.4" data-path="regular-expressions.html"><a href="regular-expressions.html#grepl"><i class="fa fa-check"></i><b>16.4</b> <code>grepl()</code></a></li>
+<li class="chapter" data-level="16.5" data-path="regular-expressions.html"><a href="regular-expressions.html#regexpr"><i class="fa fa-check"></i><b>16.5</b> <code>regexpr()</code></a></li>
+<li class="chapter" data-level="16.6" data-path="regular-expressions.html"><a href="regular-expressions.html#sub-and-gsub"><i class="fa fa-check"></i><b>16.6</b> <code>sub()</code> and <code>gsub()</code></a></li>
+<li class="chapter" data-level="16.7" data-path="regular-expressions.html"><a href="regular-expressions.html#regexec"><i class="fa fa-check"></i><b>16.7</b> <code>regexec()</code></a></li>
+<li class="chapter" data-level="16.8" data-path="regular-expressions.html"><a href="regular-expressions.html#summary-5"><i class="fa fa-check"></i><b>16.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>17</b> Debugging</a><ul>
+<li class="chapter" data-level="17.1" data-path="debugging.html"><a href="debugging.html#somethings-wrong"><i class="fa fa-check"></i><b>17.1</b> Something’s Wrong!</a></li>
+<li class="chapter" data-level="17.2" data-path="debugging.html"><a href="debugging.html#figuring-out-whats-wrong"><i class="fa fa-check"></i><b>17.2</b> Figuring Out What’s Wrong</a></li>
+<li class="chapter" data-level="17.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>17.3</b> Debugging Tools in R</a></li>
+<li class="chapter" data-level="17.4" data-path="debugging.html"><a href="debugging.html#using-traceback"><i class="fa fa-check"></i><b>17.4</b> Using <code>traceback()</code></a></li>
+<li class="chapter" data-level="17.5" data-path="debugging.html"><a href="debugging.html#using-debug"><i class="fa fa-check"></i><b>17.5</b> Using <code>debug()</code></a></li>
+<li class="chapter" data-level="17.6" data-path="debugging.html"><a href="debugging.html#using-recover"><i class="fa fa-check"></i><b>17.6</b> Using <code>recover()</code></a></li>
+<li class="chapter" data-level="17.7" data-path="debugging.html"><a href="debugging.html#summary-6"><i class="fa fa-check"></i><b>17.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="profiling-r-code.html"><a href="profiling-r-code.html"><i class="fa fa-check"></i><b>18</b> Profiling R Code</a><ul>
+<li class="chapter" data-level="18.1" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-system.time"><i class="fa fa-check"></i><b>18.1</b> Using <code>system.time()</code></a></li>
+<li class="chapter" data-level="18.2" data-path="profiling-r-code.html"><a href="profiling-r-code.html#timing-longer-expressions"><i class="fa fa-check"></i><b>18.2</b> Timing Longer Expressions</a></li>
+<li class="chapter" data-level="18.3" data-path="profiling-r-code.html"><a href="profiling-r-code.html#the-r-profiler"><i class="fa fa-check"></i><b>18.3</b> The R Profiler</a></li>
+<li class="chapter" data-level="18.4" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-summaryrprof"><i class="fa fa-check"></i><b>18.4</b> Using <code>summaryRprof()</code></a></li>
+<li class="chapter" data-level="18.5" data-path="profiling-r-code.html"><a href="profiling-r-code.html#summary-7"><i class="fa fa-check"></i><b>18.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>19</b> Simulation</a><ul>
+<li class="chapter" data-level="19.1" data-path="simulation.html"><a href="simulation.html#generating-random-numbers"><i class="fa fa-check"></i><b>19.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="19.2" data-path="simulation.html"><a href="simulation.html#setting-the-random-number-seed"><i class="fa fa-check"></i><b>19.2</b> Setting the random number seed</a></li>
+<li class="chapter" data-level="19.3" data-path="simulation.html"><a href="simulation.html#simulating-a-linear-model"><i class="fa fa-check"></i><b>19.3</b> Simulating a Linear Model</a></li>
+<li class="chapter" data-level="19.4" data-path="simulation.html"><a href="simulation.html#random-sampling"><i class="fa fa-check"></i><b>19.4</b> Random Sampling</a></li>
+<li class="chapter" data-level="19.5" data-path="simulation.html"><a href="simulation.html#summary-8"><i class="fa fa-check"></i><b>19.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><i class="fa fa-check"></i><b>20</b> Data Analysis Case Study: Changes in Fine Particle Air Pollution in the U.S.</a><ul>
+<li class="chapter" data-level="20.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#synopsis"><i class="fa fa-check"></i><b>20.1</b> Synopsis</a></li>
+<li class="chapter" data-level="20.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#loading-and-processing-the-raw-data"><i class="fa fa-check"></i><b>20.2</b> Loading and Processing the Raw Data</a><ul>
+<li class="chapter" data-level="20.2.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#reading-in-the-1999-data"><i class="fa fa-check"></i><b>20.2.1</b> Reading in the 1999 data</a></li>
+<li class="chapter" data-level="20.2.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#reading-in-the-2012-data"><i class="fa fa-check"></i><b>20.2.2</b> Reading in the 2012 data</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#results"><i class="fa fa-check"></i><b>20.3</b> Results</a><ul>
+<li class="chapter" data-level="20.3.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#entire-u.s.-analysis"><i class="fa fa-check"></i><b>20.3.1</b> Entire U.S. analysis</a></li>
+<li class="chapter" data-level="20.3.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#changes-in-pm-levels-at-an-individual-monitor"><i class="fa fa-check"></i><b>20.3.2</b> Changes in PM levels at an individual monitor</a></li>
+<li class="chapter" data-level="20.3.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#changes-in-state-wide-pm-levels"><i class="fa fa-check"></i><b>20.3.3</b> Changes in state-wide PM levels</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="parallel-computation.html"><a href="parallel-computation.html"><i class="fa fa-check"></i><b>21</b> Parallel Computation</a><ul>
+<li class="chapter" data-level="21.1" data-path="parallel-computation.html"><a href="parallel-computation.html#hidden-parallelism"><i class="fa fa-check"></i><b>21.1</b> Hidden Parallelism</a><ul>
+<li class="chapter" data-level="21.1.1" data-path="parallel-computation.html"><a href="parallel-computation.html#parallel-blas"><i class="fa fa-check"></i><b>21.1.1</b> Parallel BLAS</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="parallel-computation.html"><a href="parallel-computation.html#embarrassing-parallelism"><i class="fa fa-check"></i><b>21.2</b> Embarrassing Parallelism</a></li>
+<li class="chapter" data-level="21.3" data-path="parallel-computation.html"><a href="parallel-computation.html#the-parallel-package"><i class="fa fa-check"></i><b>21.3</b> The Parallel Package</a><ul>
+<li class="chapter" data-level="21.3.1" data-path="parallel-computation.html"><a href="parallel-computation.html#mclapply"><i class="fa fa-check"></i><b>21.3.1</b> <code>mclapply()</code></a></li>
+<li class="chapter" data-level="21.3.2" data-path="parallel-computation.html"><a href="parallel-computation.html#error-handling"><i class="fa fa-check"></i><b>21.3.2</b> Error Handling</a></li>
+</ul></li>
+<li class="chapter" data-level="21.4" data-path="parallel-computation.html"><a href="parallel-computation.html#example-bootstrapping-a-statistic"><i class="fa fa-check"></i><b>21.4</b> Example: Bootstrapping a Statistic</a><ul>
+<li class="chapter" data-level="21.4.1" data-path="parallel-computation.html"><a href="parallel-computation.html#generating-random-numbers-1"><i class="fa fa-check"></i><b>21.4.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="21.4.2" data-path="parallel-computation.html"><a href="parallel-computation.html#using-the-boot-package"><i class="fa fa-check"></i><b>21.4.2</b> Using the <code>boot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="21.5" data-path="parallel-computation.html"><a href="parallel-computation.html#building-a-socket-cluster"><i class="fa fa-check"></i><b>21.5</b> Building a Socket Cluster</a></li>
+<li class="chapter" data-level="21.6" data-path="parallel-computation.html"><a href="parallel-computation.html#summary-9"><i class="fa fa-check"></i><b>21.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i><b>22</b> About the Author</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Programming for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="history-and-overview-of-r" class="section level1">
+<h1><span class="header-section-number">3</span> History and Overview of R</h1>
+<blockquote>
+<p>There are only two kinds of languages: the ones people complain about and the ones nobody uses —<em>Bjarne Stroustrup</em></p>
+</blockquote>
+<p><a href="https://youtu.be/STihTnVSZnI">Watch a video of this chapter</a></p>
+<div id="what-is-r" class="section level2">
+<h2><span class="header-section-number">3.1</span> What is R?</h2>
+<p>This is an easy question to answer. R is a dialect of S.</p>
+</div>
+<div id="what-is-s" class="section level2">
+<h2><span class="header-section-number">3.2</span> What is S?</h2>
+<p>S is a language that was developed by John Chambers and others at the old Bell Telephone Laboratories, originally part of AT&amp;T Corp. S was <a href="http://cm.bell-labs.com/stat/doc/94.11.ps">initiated in 1976</a> as an internal statistical analysis environment—originally implemented as Fortran libraries. Early versions of the language did not even contain functions for statistical modeling.</p>
+<p>In 1988 the system was rewritten in C and began to resemble the system that we have today (this was Version 3 of the language). The book <em>Statistical Models in S</em> by Chambers and Hastie (the white book) documents the statistical analysis functionality. Version 4 of the S language was released in 1998 and is the version we use today. The book <em>Programming with Data</em> by John Chambers (the green book) documents this version of the language.</p>
+<p>Since the early 90’s the life of the S language has gone down a rather winding path. In 1993 Bell Labs gave StatSci (later Insightful Corp.) an exclusive license to develop and sell the S language. In 2004 Insightful purchased the S language from Lucent for $2 million. In 2006, Alcatel purchased Lucent Technologies and is now called Alcatel-Lucent.</p>
+<p>Insightful sold its implementation of the S language under the product name S-PLUS and built a number of fancy features (GUIs, mostly) on top of it—hence the “PLUS”. In 2008 Insightful was acquired by TIBCO for $25 million. As of this writing TIBCO is the current owner of the S language and is its exclusive developer.</p>
+<p>The fundamentals of the S language itself has not changed dramatically since the publication of the Green Book by John Chambers in 1998. In 1998, S won the Association for Computing Machinery’s Software System Award, a highly prestigious award in the computer science field.</p>
+</div>
+<div id="the-s-philosophy" class="section level2">
+<h2><span class="header-section-number">3.3</span> The S Philosophy</h2>
+<p>The general S philosophy is important to understand for users of S and R because it sets the stage for the design of the language itself, which many programming veterans find a bit odd and confusing. In particular, it’s important to realize that the S language had its roots in data analysis, and did not come from a traditional programming language background. Its inventors were focused on figuring out how to make data analysis easier, first for themselves, and then eventually for others.</p>
+<p>In <a href="http://www.stat.bell-labs.com/S/history.html">Stages in the Evolution of S</a>, John Chambers writes:</p>
+<blockquote>
+<p>“[W]e wanted users to be able to begin in an interactive environment, where they did not consciously think of themselves as programming. Then as their needs became clearer and their sophistication increased, they should be able to slide gradually into programming, when the language and system aspects would become more important.”</p>
+</blockquote>
+<p>The key part here was the transition from <em>user</em> to <em>developer</em>. They wanted to build a language that could easily service both “people”. More technically, they needed to build language that would be suitable for interactive data analysis (more command-line based) as well as for writing longer programs (more traditional programming language-like).</p>
+</div>
+<div id="back-to-r" class="section level2">
+<h2><span class="header-section-number">3.4</span> Back to R</h2>
+<p>The R language came to use quite a bit after S had been developed. One key limitation of the S language was that it was only available in a commericial package, S-PLUS. In 1991, R was created by Ross Ihaka and Robert Gentleman in the Department of Statistics at the University of Auckland. In 1993 the first announcement of R was made to the public. Ross’s and Robert’s experience developing R is documented in a 1996 paper in the <em>Journal of Computational and Graphical Statistics</em>:</p>
+<blockquote>
+<p>Ross Ihaka and Robert Gentleman. R: A language for data analysis and graphics. Journal of Computational and Graphical Statistics, 5(3):299–314, 1996</p>
+</blockquote>
+<p>In 1995, Martin Mächler made an important contribution by convincing Ross and Robert to use the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License</a> to make R free software. This was critical because it allowed for the source code for the entire R system to be accessible to anyone who wanted to tinker with it (more on free software later).</p>
+<p>In 1996, a public mailing list was created (the R-help and R-devel lists) and in 1997 the R Core Group was formed, containing some people associated with S and S-PLUS. Currently, the core group controls the source code for R and is solely able to check in changes to the main R source tree. Finally, in 2000 R version 1.0.0 was released to the public.</p>
+</div>
+<div id="basic-features-of-r" class="section level2">
+<h2><span class="header-section-number">3.5</span> Basic Features of R</h2>
+<p>In the early days, a key feature of R was that its syntax is very similar to S, making it easy for S-PLUS users to switch over. While the R’s syntax is nearly identical to that of S’s, R’s semantics, while superficially similar to S, are quite different. In fact, R is technically much closer to the Scheme language than it is to the original S language when it comes to how R works under the hood.</p>
+<p>Today R runs on almost any standard computing platform and operating system. Its open source nature means that anyone is free to adapt the software to whatever platform they choose. Indeed, R has been reported to be running on modern tablets, phones, PDAs, and game consoles.</p>
+<p>One nice feature that R shares with many popular open source projects is frequent releases. These days there is a major annual release, typically in October, where major new features are incorporated and released to the public. Throughout the year, smaller-scale bugfix releases will be made as needed. The frequent releases and regular release cycle indicates active development of the software and ensures that bugs will be addressed in a timely manner. Of course, while the core developers control the primary source tree for R, many people around the world make contributions in the form of new feature, bug fixes, or both.</p>
+<p>Another key advantage that R has over many other statistical packages (even today) is its sophisticated graphics capabilities. R’s ability to create “publication quality” graphics has existed since the very beginning and has generally been better than competing packages. Today, with many more visualization packages available than before, that trend continues. R’s base graphics system allows for very fine control over essentially every aspect of a plot or graph. Other newer graphics systems, like lattice and ggplot2 allow for complex and sophisticated visualizations of high-dimensional data.</p>
+<p>R has maintained the original S philosophy, which is that it provides a language that is both useful for interactive work, but contains a powerful programming language for developing new tools. This allows the user, who takes existing tools and applies them to data, to slowly but surely become a developer who is creating new tools.</p>
+<p>Finally, one of the joys of using R has nothing to do with the language itself, but rather with the active and vibrant user community. In many ways, a language is successful inasmuch as it creates a platform with which many people can create new things. R is that platform and thousands of people around the world have come together to make contributions to R, to develop packages, and help each other use R for all kinds of applications. The R-help and R-devel mailing lists have been highly active for over a decade now and there is considerable activity on web sites like Stack Overflow.</p>
+</div>
+<div id="free-software" class="section level2">
+<h2><span class="header-section-number">3.6</span> Free Software</h2>
+<p>A major advantage that R has over many other statistical packages and is that it’s free in the sense of free software (it’s also free in the sense of free beer). The copyright for the primary source code for R is held by the <a href="http://www.r-project.org/foundation/">R Foundation</a> and is published under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License version 2.0</a>.</p>
+<p>According to the Free Software Foundation, with <em>free software</em>, you are granted the following <a href="http://www.gnu.org/philosophy/free-sw.html">four freedoms</a></p>
+<ul>
+<li><p>The freedom to run the program, for any purpose (freedom 0).</p></li>
+<li><p>The freedom to study how the program works, and adapt it to your needs (freedom 1). Access to the source code is a precondition for this.</p></li>
+<li><p>The freedom to redistribute copies so you can help your neighbor (freedom 2).</p></li>
+<li><p>The freedom to improve the program, and release your improvements to the public, so that the whole community benefits (freedom 3). Access to the source code is a precondition for this.</p></li>
+</ul>
+<p>You can visit the <a href="http://www.fsf.org">Free Software Foundation’s web site</a> to learn a lot more about free software. The Free Software Foundation was founded by Richard Stallman in 1985 and <a href="https://stallman.org">Stallman’s personal web site</a> is an interesting read if you happen to have some spare time.</p>
+</div>
+<div id="design-of-the-r-system" class="section level2">
+<h2><span class="header-section-number">3.7</span> Design of the R System</h2>
+<p>The primary R system is available from the <a href="http://cran.r-project.org">Comprehensive R Archive Network</a>, also known as CRAN. CRAN also hosts many add-on packages that can be used to extend the functionality of R.</p>
+<p>The R system is divided into 2 conceptual parts:</p>
+<ol style="list-style-type: decimal">
+<li><p>The “base” R system that you download from CRAN: <a href="http://cran.r-project.org/bin/linux/">Linux</a> <a href="http://cran.r-project.org/bin/windows/">Windows</a> <a href="http://cran.r-project.org/bin/macosx/">Mac</a> <a href="http://cran.r-project.org/src/base/R-3/R-3.1.3.tar.gz">Source Code</a></p></li>
+<li><p>Everything else.</p></li>
+</ol>
+<p>R functionality is divided into a number of <em>packages</em>.</p>
+<ul>
+<li><p>The “base” R system contains, among other things, the <code>base</code> package which is required to run R and contains the most fundamental functions.</p></li>
+<li><p>The other packages contained in the “base” system include <code>utils</code>, <code>stats</code>, <code>datasets</code>, <code>graphics</code>, <code>grDevices</code>, <code>grid</code>, <code>methods</code>, <code>tools</code>, <code>parallel</code>, <code>compiler</code>, <code>splines</code>, <code>tcltk</code>, <code>stats4</code>.</p></li>
+<li><p>There are also “Recommended” packages: <code>boot</code>, <code>class</code>, <code>cluster</code>, <code>codetools</code>, <code>foreign</code>, <code>KernSmooth</code>, <code>lattice</code>, <code>mgcv</code>, <code>nlme</code>, <code>rpart</code>, <code>survival</code>, <code>MASS</code>, <code>spatial</code>, <code>nnet</code>, <code>Matrix</code>.</p></li>
+</ul>
+<p>When you download a fresh installation of R from CRAN, you get all of the above, which represents a substantial amount of functionality. However, there are many other packages available:</p>
+<ul>
+<li><p>There are over 4000 packages on CRAN that have been developed by users and programmers around the world.</p></li>
+<li><p>There are also many packages associated with the <a href="http://bioconductor.org">Bioconductor project</a>.</p></li>
+<li><p>People often make packages available on their personal websites; there is no reliable way to keep track of how many packages are available in this fashion.</p></li>
+<li><p>There are a number of packages being developed on repositories like GitHub and BitBucket but there is no reliable listing of all these packages.</p></li>
+</ul>
+</div>
+<div id="limitations-of-r" class="section level2">
+<h2><span class="header-section-number">3.8</span> Limitations of R</h2>
+<p>No programming language or statistical analysis system is perfect. R certainly has a number of drawbacks. For starters, R is essentially based on almost 50 year old technology, going back to the original S system developed at Bell Labs. There was originally little built in support for dynamic or 3-D graphics (but things have improved greatly since the “old days”).</p>
+<p>Another commonly cited limitation of R is that objects must generally be stored in physical memory. This is in part due to the scoping rules of the language, but R generally is more of a memory hog than other statistical packages. However, there have been a number of advancements to deal with this, both in the R core and also in a number of packages developed by contributors. Also, computing power and capacity has continued to grow over time and amount of physical memory that can be installed on even a consumer-level laptop is substantial. While we will likely never have enough physical memory on a computer to handle the increasingly large datasets that are being generated, the situation has gotten quite a bit easier over time.</p>
+<p>At a higher level one “limitation” of R is that its functionality is based on consumer demand and (voluntary) user contributions. If no one feels like implementing your favorite method, then it’s <em>your</em> job to implement it (or you need to pay someone to do it). The capabilities of the R system generally reflect the interests of the R user community. As the community has ballooned in size over the past 10 years, the capabilities have similarly increased. When I first started using R, there was very little in the way of functionality for the physical sciences (physics, astronomy, etc.). However, now some of those communities have adopted R and we are seeing more code being written for those kinds of applications.</p>
+<p>If you want to know my general views on the usefulness of R, you can see them here in the following exchange on the R-help mailing list with Douglas Bates and Brian Ripley in June 2004:</p>
+<blockquote>
+<p><strong>Roger D. Peng</strong>: I don’t think anyone actually believes that R is designed to make <em>everyone</em> happy. For me, R does about 99% of the things I need to do, but sadly, when I need to order a pizza, I still have to pick up the telephone.</p>
+</blockquote>
+<blockquote>
+<p><strong>Douglas Bates</strong>: There are several chains of pizzerias in the U.S. that provide for Internet-based ordering (e.g. www.papajohnsonline.com) so, with the Internet modules in R, it’s only a matter of time before you will have a pizza-ordering function available.</p>
+</blockquote>
+<blockquote>
+<p><strong>Brian D. Ripley</strong>: Indeed, the GraphApp toolkit (used for the RGui interface under R for Windows, but Guido forgot to include it) provides one (for use in Sydney, Australia, we presume as that is where the GraphApp author hails from). Alternatively, a Padovian has no need of ordering pizzas with both home and neighbourhood restaurants ….</p>
+</blockquote>
+<p>At this point in time, I think it would be fairly straightforward to build a pizza ordering R package using something like the <code>RCurl</code> or <code>httr</code> packages. Any takers?</p>
+</div>
+<div id="r-resources" class="section level2">
+<h2><span class="header-section-number">3.9</span> R Resources</h2>
+<div id="official-manuals" class="section level3">
+<h3><span class="header-section-number">3.9.1</span> Official Manuals</h3>
+<p>As far as getting started with R by reading stuff, there is of course this book. Also, available from <a href="http://cran.r-project.org">CRAN</a> are</p>
+<ul>
+<li><p><a href="http://cran.r-project.org/doc/manuals/r-release/R-intro.html">An Introduction to R</a></p></li>
+<li><p><a href="http://cran.r-project.org/doc/manuals/r-release/R-data.html">R Data Import/Export</a></p></li>
+<li><p><a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions</a>: Discusses how to write and organize R packages</p></li>
+<li><p><a href="http://cran.r-project.org/doc/manuals/r-release/R-admin.html">R Installation and Administration</a>: This is mostly for building R from the source code)</p></li>
+<li><p><a href="http://cran.r-project.org/doc/manuals/r-release/R-ints.html">R Internals</a>: This manual describes the low level structure of R and is primarily for developers and R core members</p></li>
+<li><p><a href="http://cran.r-project.org/doc/manuals/r-release/R-lang.html">R Language Definition</a>: This documents the R language and, again, is primarily for developers</p></li>
+</ul>
+</div>
+<div id="useful-standard-texts-on-s-and-r" class="section level3">
+<h3><span class="header-section-number">3.9.2</span> Useful Standard Texts on S and R</h3>
+<ul>
+<li><p>Chambers (2008). <em>Software for Data Analysis</em>, Springer</p></li>
+<li><p>Chambers (1998). <em>Programming with Data</em>, Springer: This book is <em>not</em> about R, but it describes the organization and philosophy of the current version of the S language, and is a useful reference.</p></li>
+<li><p>Venables &amp; Ripley (2002). <em>Modern Applied Statistics with S</em>, Springer: This is a standard textbook in statistics and describes how to use many statistical methods in R. This book has an associated R package (the <code>MASS</code> package) that comes with every installation of R.</p></li>
+<li><p>Venables &amp; Ripley (2000). <em>S Programming</em>, Springer: This book is a little old but is still relevant and accurate. Despite its title, this book is useful for R also.</p></li>
+<li><p>Murrell (2005). <em>R Graphics</em>, Chapman &amp; Hall/CRC Press: Paul Murrell wrote and designed much of the graphics system in R and this book essentially documents the underlying details. This is not so much a “user-level” book as a developer-level book. But it is an important book for anyone interested in designing new types of graphics or visualizations.</p></li>
+<li><p>Wickham (2014). <em>Advanced R</em>, Chapman &amp; Hall/CRC Press: This book by Hadley Wickham covers a number of areas including object-oriented programming, functional programming, profiling and other advanced topics.</p></li>
+</ul>
+</div>
+<div id="other-resources" class="section level3">
+<h3><span class="header-section-number">3.9.3</span> Other Resources</h3>
+<ul>
+<li><p>Major technical publishers like Springer, Chapman &amp; Hall/CRC have entire series of books dedicated to using R in various applications. For example, Springer has a series of books called <em>Use R!</em>.</p></li>
+<li><p>A longer list of books can be found on the <a href="http://www.r-project.org/doc/bib/R-books.html">CRAN web site</a>.</p></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="preface.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="getting-started-with-r.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R Programming for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="R Programming for Data Science">
+  <meta name="generator" content="bookdown 0.0.73 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R Programming for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="title_page.png" />
+  
+  <meta name="github-repo" content="rdpeng/rprogdatascience" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Programming for Data Science" />
+  
+  
+  <meta name="twitter:image" content="title_page.png" />
+
+<meta name="author" content="Roger D. Peng">
+
+<meta name="date" content="2016-06-28">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="dates-and-times.html">
+<link rel="next" href="control-structures.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Stay in Touch!</a></li>
+<li class="chapter" data-level="2" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i><b>2</b> Preface</a></li>
+<li class="chapter" data-level="3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html"><i class="fa fa-check"></i><b>3</b> History and Overview of R</a><ul>
+<li class="chapter" data-level="3.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-r"><i class="fa fa-check"></i><b>3.1</b> What is R?</a></li>
+<li class="chapter" data-level="3.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-s"><i class="fa fa-check"></i><b>3.2</b> What is S?</a></li>
+<li class="chapter" data-level="3.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#the-s-philosophy"><i class="fa fa-check"></i><b>3.3</b> The S Philosophy</a></li>
+<li class="chapter" data-level="3.4" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#back-to-r"><i class="fa fa-check"></i><b>3.4</b> Back to R</a></li>
+<li class="chapter" data-level="3.5" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#basic-features-of-r"><i class="fa fa-check"></i><b>3.5</b> Basic Features of R</a></li>
+<li class="chapter" data-level="3.6" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#free-software"><i class="fa fa-check"></i><b>3.6</b> Free Software</a></li>
+<li class="chapter" data-level="3.7" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#design-of-the-r-system"><i class="fa fa-check"></i><b>3.7</b> Design of the R System</a></li>
+<li class="chapter" data-level="3.8" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#limitations-of-r"><i class="fa fa-check"></i><b>3.8</b> Limitations of R</a></li>
+<li class="chapter" data-level="3.9" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#r-resources"><i class="fa fa-check"></i><b>3.9</b> R Resources</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#official-manuals"><i class="fa fa-check"></i><b>3.9.1</b> Official Manuals</a></li>
+<li class="chapter" data-level="3.9.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#useful-standard-texts-on-s-and-r"><i class="fa fa-check"></i><b>3.9.2</b> Useful Standard Texts on S and R</a></li>
+<li class="chapter" data-level="3.9.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#other-resources"><i class="fa fa-check"></i><b>3.9.3</b> Other Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>4</b> Getting Started with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installation"><i class="fa fa-check"></i><b>4.1</b> Installation</a></li>
+<li class="chapter" data-level="4.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-started-with-the-r-interface"><i class="fa fa-check"></i><b>4.2</b> Getting started with the R interface</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html"><i class="fa fa-check"></i><b>5</b> R Nuts and Bolts</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#entering-input"><i class="fa fa-check"></i><b>5.1</b> Entering Input</a></li>
+<li class="chapter" data-level="5.2" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#evaluation"><i class="fa fa-check"></i><b>5.2</b> Evaluation</a></li>
+<li class="chapter" data-level="5.3" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#r-objects"><i class="fa fa-check"></i><b>5.3</b> R Objects</a></li>
+<li class="chapter" data-level="5.4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#numbers"><i class="fa fa-check"></i><b>5.4</b> Numbers</a></li>
+<li class="chapter" data-level="5.5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#attributes"><i class="fa fa-check"></i><b>5.5</b> Attributes</a></li>
+<li class="chapter" data-level="5.6" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#creating-vectors"><i class="fa fa-check"></i><b>5.6</b> Creating Vectors</a></li>
+<li class="chapter" data-level="5.7" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#mixing-objects"><i class="fa fa-check"></i><b>5.7</b> Mixing Objects</a></li>
+<li class="chapter" data-level="5.8" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#explicit-coercion"><i class="fa fa-check"></i><b>5.8</b> Explicit Coercion</a></li>
+<li class="chapter" data-level="5.9" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#matrices"><i class="fa fa-check"></i><b>5.9</b> Matrices</a></li>
+<li class="chapter" data-level="5.10" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#lists"><i class="fa fa-check"></i><b>5.10</b> Lists</a></li>
+<li class="chapter" data-level="5.11" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#factors"><i class="fa fa-check"></i><b>5.11</b> Factors</a></li>
+<li class="chapter" data-level="5.12" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#missing-values"><i class="fa fa-check"></i><b>5.12</b> Missing Values</a></li>
+<li class="chapter" data-level="5.13" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#data-frames"><i class="fa fa-check"></i><b>5.13</b> Data Frames</a></li>
+<li class="chapter" data-level="5.14" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#names"><i class="fa fa-check"></i><b>5.14</b> Names</a></li>
+<li class="chapter" data-level="5.15" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#summary"><i class="fa fa-check"></i><b>5.15</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html"><i class="fa fa-check"></i><b>6</b> Getting Data In and Out of R</a><ul>
+<li class="chapter" data-level="6.1" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-and-writing-data"><i class="fa fa-check"></i><b>6.1</b> Reading and Writing Data</a></li>
+<li class="chapter" data-level="6.2" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-data-files-with-read.table"><i class="fa fa-check"></i><b>6.2</b> Reading Data Files with <code>read.table()</code></a></li>
+<li class="chapter" data-level="6.3" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-in-larger-datasets-with-read.table"><i class="fa fa-check"></i><b>6.3</b> Reading in Larger Datasets with read.table</a></li>
+<li class="chapter" data-level="6.4" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#calculating-memory-requirements-for-r-objects"><i class="fa fa-check"></i><b>6.4</b> Calculating Memory Requirements for R Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="using-the-readr-package.html"><a href="using-the-readr-package.html"><i class="fa fa-check"></i><b>7</b> Using the <code>readr</code> Package</a></li>
+<li class="chapter" data-level="8" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html"><i class="fa fa-check"></i><b>8</b> Using Textual and Binary Formats for Storing Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#using-dput-and-dump"><i class="fa fa-check"></i><b>8.1</b> Using <code>dput()</code> and <code>dump()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#binary-formats"><i class="fa fa-check"></i><b>8.2</b> Binary Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html"><i class="fa fa-check"></i><b>9</b> Interfaces to the Outside World</a><ul>
+<li class="chapter" data-level="9.1" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#file-connections"><i class="fa fa-check"></i><b>9.1</b> File Connections</a></li>
+<li class="chapter" data-level="9.2" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-lines-of-a-text-file"><i class="fa fa-check"></i><b>9.2</b> Reading Lines of a Text File</a></li>
+<li class="chapter" data-level="9.3" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-from-a-url-connection"><i class="fa fa-check"></i><b>9.3</b> Reading From a URL Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Subsetting R Objects</a><ul>
+<li class="chapter" data-level="10.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-vector"><i class="fa fa-check"></i><b>10.1</b> Subsetting a Vector</a></li>
+<li class="chapter" data-level="10.2" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-matrix"><i class="fa fa-check"></i><b>10.2</b> Subsetting a Matrix</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#dropping-matrix-dimensions"><i class="fa fa-check"></i><b>10.2.1</b> Dropping matrix dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-lists"><i class="fa fa-check"></i><b>10.3</b> Subsetting Lists</a></li>
+<li class="chapter" data-level="10.4" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-nested-elements-of-a-list"><i class="fa fa-check"></i><b>10.4</b> Subsetting Nested Elements of a List</a></li>
+<li class="chapter" data-level="10.5" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#extracting-multiple-elements-of-a-list"><i class="fa fa-check"></i><b>10.5</b> Extracting Multiple Elements of a List</a></li>
+<li class="chapter" data-level="10.6" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#partial-matching"><i class="fa fa-check"></i><b>10.6</b> Partial Matching</a></li>
+<li class="chapter" data-level="10.7" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#removing-na-values"><i class="fa fa-check"></i><b>10.7</b> Removing NA Values</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="vectorized-operations.html"><a href="vectorized-operations.html"><i class="fa fa-check"></i><b>11</b> Vectorized Operations</a><ul>
+<li class="chapter" data-level="11.1" data-path="vectorized-operations.html"><a href="vectorized-operations.html#vectorized-matrix-operations"><i class="fa fa-check"></i><b>11.1</b> Vectorized Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
+<li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#dates-in-r"><i class="fa fa-check"></i><b>12.1</b> Dates in R</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#times-in-r"><i class="fa fa-check"></i><b>12.2</b> Times in R</a></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#operations-on-dates-and-times"><i class="fa fa-check"></i><b>12.3</b> Operations on Dates and Times</a></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#summary-1"><i class="fa fa-check"></i><b>12.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html"><i class="fa fa-check"></i><b>13</b> Managing Data Frames with the <code>dplyr</code> package</a><ul>
+<li class="chapter" data-level="13.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#data-frames-1"><i class="fa fa-check"></i><b>13.1</b> Data Frames</a></li>
+<li class="chapter" data-level="13.2" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#the-dplyr-package"><i class="fa fa-check"></i><b>13.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="13.3" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#dplyr-grammar"><i class="fa fa-check"></i><b>13.3</b> <code>dplyr</code> Grammar</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#common-dplyr-function-properties"><i class="fa fa-check"></i><b>13.3.1</b> Common <code>dplyr</code> Function Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#installing-the-dplyr-package"><i class="fa fa-check"></i><b>13.4</b> Installing the <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="13.5" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>13.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="13.6" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>13.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="13.7" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>13.7</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="13.8" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#rename"><i class="fa fa-check"></i><b>13.8</b> <code>rename()</code></a></li>
+<li class="chapter" data-level="13.9" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>13.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="13.10" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>13.10</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="13.11" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#section"><i class="fa fa-check"></i><b>13.11</b> <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="13.12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#summary-2"><i class="fa fa-check"></i><b>13.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="control-structures.html"><a href="control-structures.html"><i class="fa fa-check"></i><b>14</b> Control Structures</a><ul>
+<li class="chapter" data-level="14.1" data-path="control-structures.html"><a href="control-structures.html#if-else"><i class="fa fa-check"></i><b>14.1</b> <code>if</code>-<code>else</code></a></li>
+<li class="chapter" data-level="14.2" data-path="control-structures.html"><a href="control-structures.html#for-loops"><i class="fa fa-check"></i><b>14.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="14.3" data-path="control-structures.html"><a href="control-structures.html#nested-for-loops"><i class="fa fa-check"></i><b>14.3</b> Nested <code>for</code> loops</a></li>
+<li class="chapter" data-level="14.4" data-path="control-structures.html"><a href="control-structures.html#while-loops"><i class="fa fa-check"></i><b>14.4</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="14.5" data-path="control-structures.html"><a href="control-structures.html#repeat-loops"><i class="fa fa-check"></i><b>14.5</b> <code>repeat</code> Loops</a></li>
+<li class="chapter" data-level="14.6" data-path="control-structures.html"><a href="control-structures.html#next-break"><i class="fa fa-check"></i><b>14.6</b> <code>next</code>, <code>break</code></a></li>
+<li class="chapter" data-level="14.7" data-path="control-structures.html"><a href="control-structures.html#summary-3"><i class="fa fa-check"></i><b>14.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="loop-functions.html"><a href="loop-functions.html"><i class="fa fa-check"></i><b>15</b> Loop Functions</a><ul>
+<li class="chapter" data-level="15.1" data-path="loop-functions.html"><a href="loop-functions.html#looping-on-the-command-line"><i class="fa fa-check"></i><b>15.1</b> Looping on the Command Line</a></li>
+<li class="chapter" data-level="15.2" data-path="loop-functions.html"><a href="loop-functions.html#lapply"><i class="fa fa-check"></i><b>15.2</b> <code>lapply()</code></a></li>
+<li class="chapter" data-level="15.3" data-path="loop-functions.html"><a href="loop-functions.html#sapply"><i class="fa fa-check"></i><b>15.3</b> <code>sapply()</code></a></li>
+<li class="chapter" data-level="15.4" data-path="loop-functions.html"><a href="loop-functions.html#split"><i class="fa fa-check"></i><b>15.4</b> <code>split()</code></a></li>
+<li class="chapter" data-level="15.5" data-path="loop-functions.html"><a href="loop-functions.html#splitting-a-data-frame"><i class="fa fa-check"></i><b>15.5</b> Splitting a Data Frame</a></li>
+<li class="chapter" data-level="15.6" data-path="loop-functions.html"><a href="loop-functions.html#tapply"><i class="fa fa-check"></i><b>15.6</b> tapply</a></li>
+<li class="chapter" data-level="15.7" data-path="loop-functions.html"><a href="loop-functions.html#apply"><i class="fa fa-check"></i><b>15.7</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="15.8" data-path="loop-functions.html"><a href="loop-functions.html#colrow-sums-and-means"><i class="fa fa-check"></i><b>15.8</b> Col/Row Sums and Means</a></li>
+<li class="chapter" data-level="15.9" data-path="loop-functions.html"><a href="loop-functions.html#other-ways-to-apply"><i class="fa fa-check"></i><b>15.9</b> Other Ways to Apply</a></li>
+<li class="chapter" data-level="15.10" data-path="loop-functions.html"><a href="loop-functions.html#mapply"><i class="fa fa-check"></i><b>15.10</b> <code>mapply()</code></a></li>
+<li class="chapter" data-level="15.11" data-path="loop-functions.html"><a href="loop-functions.html#vectorizing-a-function"><i class="fa fa-check"></i><b>15.11</b> Vectorizing a Function</a></li>
+<li class="chapter" data-level="15.12" data-path="loop-functions.html"><a href="loop-functions.html#summary-4"><i class="fa fa-check"></i><b>15.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="regular-expressions.html"><a href="regular-expressions.html"><i class="fa fa-check"></i><b>16</b> Regular Expressions</a><ul>
+<li class="chapter" data-level="16.1" data-path="regular-expressions.html"><a href="regular-expressions.html#before-you-begin"><i class="fa fa-check"></i><b>16.1</b> Before You Begin</a></li>
+<li class="chapter" data-level="16.2" data-path="regular-expressions.html"><a href="regular-expressions.html#primary-r-functions"><i class="fa fa-check"></i><b>16.2</b> Primary R Functions</a></li>
+<li class="chapter" data-level="16.3" data-path="regular-expressions.html"><a href="regular-expressions.html#grep"><i class="fa fa-check"></i><b>16.3</b> <code>grep()</code></a></li>
+<li class="chapter" data-level="16.4" data-path="regular-expressions.html"><a href="regular-expressions.html#grepl"><i class="fa fa-check"></i><b>16.4</b> <code>grepl()</code></a></li>
+<li class="chapter" data-level="16.5" data-path="regular-expressions.html"><a href="regular-expressions.html#regexpr"><i class="fa fa-check"></i><b>16.5</b> <code>regexpr()</code></a></li>
+<li class="chapter" data-level="16.6" data-path="regular-expressions.html"><a href="regular-expressions.html#sub-and-gsub"><i class="fa fa-check"></i><b>16.6</b> <code>sub()</code> and <code>gsub()</code></a></li>
+<li class="chapter" data-level="16.7" data-path="regular-expressions.html"><a href="regular-expressions.html#regexec"><i class="fa fa-check"></i><b>16.7</b> <code>regexec()</code></a></li>
+<li class="chapter" data-level="16.8" data-path="regular-expressions.html"><a href="regular-expressions.html#summary-5"><i class="fa fa-check"></i><b>16.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>17</b> Debugging</a><ul>
+<li class="chapter" data-level="17.1" data-path="debugging.html"><a href="debugging.html#somethings-wrong"><i class="fa fa-check"></i><b>17.1</b> Something’s Wrong!</a></li>
+<li class="chapter" data-level="17.2" data-path="debugging.html"><a href="debugging.html#figuring-out-whats-wrong"><i class="fa fa-check"></i><b>17.2</b> Figuring Out What’s Wrong</a></li>
+<li class="chapter" data-level="17.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>17.3</b> Debugging Tools in R</a></li>
+<li class="chapter" data-level="17.4" data-path="debugging.html"><a href="debugging.html#using-traceback"><i class="fa fa-check"></i><b>17.4</b> Using <code>traceback()</code></a></li>
+<li class="chapter" data-level="17.5" data-path="debugging.html"><a href="debugging.html#using-debug"><i class="fa fa-check"></i><b>17.5</b> Using <code>debug()</code></a></li>
+<li class="chapter" data-level="17.6" data-path="debugging.html"><a href="debugging.html#using-recover"><i class="fa fa-check"></i><b>17.6</b> Using <code>recover()</code></a></li>
+<li class="chapter" data-level="17.7" data-path="debugging.html"><a href="debugging.html#summary-6"><i class="fa fa-check"></i><b>17.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="profiling-r-code.html"><a href="profiling-r-code.html"><i class="fa fa-check"></i><b>18</b> Profiling R Code</a><ul>
+<li class="chapter" data-level="18.1" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-system.time"><i class="fa fa-check"></i><b>18.1</b> Using <code>system.time()</code></a></li>
+<li class="chapter" data-level="18.2" data-path="profiling-r-code.html"><a href="profiling-r-code.html#timing-longer-expressions"><i class="fa fa-check"></i><b>18.2</b> Timing Longer Expressions</a></li>
+<li class="chapter" data-level="18.3" data-path="profiling-r-code.html"><a href="profiling-r-code.html#the-r-profiler"><i class="fa fa-check"></i><b>18.3</b> The R Profiler</a></li>
+<li class="chapter" data-level="18.4" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-summaryrprof"><i class="fa fa-check"></i><b>18.4</b> Using <code>summaryRprof()</code></a></li>
+<li class="chapter" data-level="18.5" data-path="profiling-r-code.html"><a href="profiling-r-code.html#summary-7"><i class="fa fa-check"></i><b>18.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>19</b> Simulation</a><ul>
+<li class="chapter" data-level="19.1" data-path="simulation.html"><a href="simulation.html#generating-random-numbers"><i class="fa fa-check"></i><b>19.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="19.2" data-path="simulation.html"><a href="simulation.html#setting-the-random-number-seed"><i class="fa fa-check"></i><b>19.2</b> Setting the random number seed</a></li>
+<li class="chapter" data-level="19.3" data-path="simulation.html"><a href="simulation.html#simulating-a-linear-model"><i class="fa fa-check"></i><b>19.3</b> Simulating a Linear Model</a></li>
+<li class="chapter" data-level="19.4" data-path="simulation.html"><a href="simulation.html#random-sampling"><i class="fa fa-check"></i><b>19.4</b> Random Sampling</a></li>
+<li class="chapter" data-level="19.5" data-path="simulation.html"><a href="simulation.html#summary-8"><i class="fa fa-check"></i><b>19.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><i class="fa fa-check"></i><b>20</b> Data Analysis Case Study: Changes in Fine Particle Air Pollution in the U.S.</a><ul>
+<li class="chapter" data-level="20.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#synopsis"><i class="fa fa-check"></i><b>20.1</b> Synopsis</a></li>
+<li class="chapter" data-level="20.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#loading-and-processing-the-raw-data"><i class="fa fa-check"></i><b>20.2</b> Loading and Processing the Raw Data</a><ul>
+<li class="chapter" data-level="20.2.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#reading-in-the-1999-data"><i class="fa fa-check"></i><b>20.2.1</b> Reading in the 1999 data</a></li>
+<li class="chapter" data-level="20.2.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#reading-in-the-2012-data"><i class="fa fa-check"></i><b>20.2.2</b> Reading in the 2012 data</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#results"><i class="fa fa-check"></i><b>20.3</b> Results</a><ul>
+<li class="chapter" data-level="20.3.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#entire-u.s.-analysis"><i class="fa fa-check"></i><b>20.3.1</b> Entire U.S. analysis</a></li>
+<li class="chapter" data-level="20.3.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#changes-in-pm-levels-at-an-individual-monitor"><i class="fa fa-check"></i><b>20.3.2</b> Changes in PM levels at an individual monitor</a></li>
+<li class="chapter" data-level="20.3.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u-s-.html#changes-in-state-wide-pm-levels"><i class="fa fa-check"></i><b>20.3.3</b> Changes in state-wide PM levels</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="parallel-computation.html"><a href="parallel-computation.html"><i class="fa fa-check"></i><b>21</b> Parallel Computation</a><ul>
+<li class="chapter" data-level="21.1" data-path="parallel-computation.html"><a href="parallel-computation.html#hidden-parallelism"><i class="fa fa-check"></i><b>21.1</b> Hidden Parallelism</a><ul>
+<li class="chapter" data-level="21.1.1" data-path="parallel-computation.html"><a href="parallel-computation.html#parallel-blas"><i class="fa fa-check"></i><b>21.1.1</b> Parallel BLAS</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="parallel-computation.html"><a href="parallel-computation.html#embarrassing-parallelism"><i class="fa fa-check"></i><b>21.2</b> Embarrassing Parallelism</a></li>
+<li class="chapter" data-level="21.3" data-path="parallel-computation.html"><a href="parallel-computation.html#the-parallel-package"><i class="fa fa-check"></i><b>21.3</b> The Parallel Package</a><ul>
+<li class="chapter" data-level="21.3.1" data-path="parallel-computation.html"><a href="parallel-computation.html#mclapply"><i class="fa fa-check"></i><b>21.3.1</b> <code>mclapply()</code></a></li>
+<li class="chapter" data-level="21.3.2" data-path="parallel-computation.html"><a href="parallel-computation.html#error-handling"><i class="fa fa-check"></i><b>21.3.2</b> Error Handling</a></li>
+</ul></li>
+<li class="chapter" data-level="21.4" data-path="parallel-computation.html"><a href="parallel-computation.html#example-bootstrapping-a-statistic"><i class="fa fa-check"></i><b>21.4</b> Example: Bootstrapping a Statistic</a><ul>
+<li class="chapter" data-level="21.4.1" data-path="parallel-computation.html"><a href="parallel-computation.html#generating-random-numbers-1"><i class="fa fa-check"></i><b>21.4.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="21.4.2" data-path="parallel-computation.html"><a href="parallel-computation.html#using-the-boot-package"><i class="fa fa-check"></i><b>21.4.2</b> Using the <code>boot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="21.5" data-path="parallel-computation.html"><a href="parallel-computation.html#building-a-socket-cluster"><i class="fa fa-check"></i><b>21.5</b> Building a Socket Cluster</a></li>
+<li class="chapter" data-level="21.6" data-path="parallel-computation.html"><a href="parallel-computation.html#summary-9"><i class="fa fa-check"></i><b>21.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i><b>22</b> About the Author</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Programming for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="managing-data-frames-with-the-dplyr-package" class="section level1">
+<h1><span class="header-section-number">13</span> Managing Data Frames with the <code>dplyr</code> package</h1>
+<p><a href="https://youtu.be/aywFompr1F4">Watch a video of this chapter</a></p>
+<div id="data-frames-1" class="section level2">
+<h2><span class="header-section-number">13.1</span> Data Frames</h2>
+<p>The <em>data frame</em> is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column represents a variable, a measure, feature, or characteristic of that observation. R has an internal implementation of data frames that is likely the one you will use most often. However, there are packages on CRAN that implement data frames via things like relational databases that allow you to operate on very very large data frames (but we won’t discuss them here).</p>
+<p>Given the importance of managing data frames, it’s important that we have good tools for dealing with them. In previous chapters we have already discussed some tools like the <code>subset()</code> function and the use of <code>[</code> and <code>$</code> operators to extract subsets of data frames. However, other operations, like filtering, re-ordering, and collapsing, can often be tedious operations in R whose syntax is not very intuitive. The <code>dplyr</code> package is designed to mitigate a lot of these problems and to provide a highly optimized set of routines specifically for dealing with data frames.</p>
+</div>
+<div id="the-dplyr-package" class="section level2">
+<h2><span class="header-section-number">13.2</span> The <code>dplyr</code> Package</h2>
+<p>The <code>dplyr</code> package was developed by Hadley Wickham of RStudio and is an optimized and distilled version of his <code>plyr</code> package. The <code>dplyr</code> package does not provide any “new” functionality to R per se, in the sense that everything <code>dplyr</code> does could already be done with base R, but it <em>greatly</em> simplifies existing functionality in R.</p>
+<p>One important contribution of the <code>dplyr</code> package is that it provides a “grammar” (in particular, verbs) for data manipulation and for operating on data frames. With this grammar, you can sensibly communicate what it is that you are doing to a data frame that other people can understand (assuming they also know the grammar). This is useful because it provides an abstraction for data manipulation that previously did not exist. Another useful contribution is that the <code>dplyr</code> functions are <strong>very</strong> fast, as many key operations are coded in C++.</p>
+</div>
+<div id="dplyr-grammar" class="section level2">
+<h2><span class="header-section-number">13.3</span> <code>dplyr</code> Grammar</h2>
+<p>Some of the key “verbs” provided by the <code>dplyr</code> package are</p>
+<ul>
+<li><p><code>select</code>: return a subset of the columns of a data frame, using a flexible notation</p></li>
+<li><p><code>filter</code>: extract a subset of rows from a data frame based on logical conditions</p></li>
+<li><p><code>arrange</code>: reorder rows of a data frame</p></li>
+<li><p><code>rename</code>: rename variables in a data frame</p></li>
+<li><p><code>mutate</code>: add new variables/columns or transform existing variables</p></li>
+<li><p><code>summarise</code> / <code>summarize</code>: generate summary statistics of different variables in the data frame, possibly within strata</p></li>
+<li><p><code>%&gt;%</code>: the “pipe” operator is used to connect multiple verb actions together into a pipeline</p></li>
+</ul>
+<p>The <code>dplyr</code> package as a number of its own data types that it takes advantage of. For example, there is a handy <code>print</code> method that prevents you from printing a lot of data to the console. Most of the time, these additional data types are transparent to the user and do not need to be worried about.</p>
+<div id="common-dplyr-function-properties" class="section level3">
+<h3><span class="header-section-number">13.3.1</span> Common <code>dplyr</code> Function Properties</h3>
+<p>All of the functions that we will discuss in this Chapter will have a few common characteristics. In particular,</p>
+<ol style="list-style-type: decimal">
+<li><p>The first argument is a data frame.</p></li>
+<li><p>The subsequent arguments describe what to do with the data frame specified in the first argument, and you can refer to columns in the data frame directly without using the $ operator (just use the column names).</p></li>
+<li><p>The return result of a function is a new data frame</p></li>
+<li><p>Data frames must be properly formatted and annotated for this to all be useful. In particular, the data must be <a href="http://www.jstatsoft.org/v59/i10/paper">tidy</a>. In short, there should be one observation per row, and each column should represent a feature or characteristic of that observation.</p></li>
+</ol>
+</div>
+</div>
+<div id="installing-the-dplyr-package" class="section level2">
+<h2><span class="header-section-number">13.4</span> Installing the <code>dplyr</code> package</h2>
+<p>The <code>dplyr</code> package can be installed from CRAN or from GitHub using the <code>devtools</code> package and the <code>install_github()</code> function. The GitHub repository will usually contain the latest updates to the package and the development version.</p>
+<p>To install from CRAN, just run</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
+<p>To install from GitHub you can run</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">install_github</span>(<span class="st">&quot;hadley/dplyr&quot;</span>)</code></pre></div>
+<p>After installing the package it is important that you load it into your R session with the <code>library()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(dplyr)
+
+Attaching package:<span class="st"> &#39;dplyr&#39;</span>
+The following objects are masked from <span class="st">&#39;package:stats&#39;</span>:
+
+<span class="st">    </span>filter, lag
+The following objects are masked from <span class="st">&#39;package:base&#39;</span>:
+
+<span class="st">    </span>intersect, setdiff, setequal, union</code></pre></div>
+<p>You may get some warnings when the package is loaded because there are functions in the <code>dplyr</code> package that have the same name as functions in other packages. For now you can ignore the warnings.</p>
+</div>
+<div id="select" class="section level2">
+<h2><span class="header-section-number">13.5</span> <code>select()</code></h2>
+<p>For the examples in this chapter we will be using a dataset containing air pollution and temperature data for the <a href="http://www.biostat.jhsph.edu/~rpeng/leanpub/rprog/chicago_data.zip">city of Chicago</a> in the U.S. The dataset is available from my web site.</p>
+<p>After unzipping the archive, you can load the data into R using the <code>readRDS()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;chicago.rds&quot;</span>)</code></pre></div>
+<p>You can see some basic characteristics of the dataset with the <code>dim()</code> and <code>str()</code> functions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">dim</span>(chicago)
+[<span class="dv">1</span>] <span class="dv">6940</span>    <span class="dv">8</span>
+&gt;<span class="st"> </span><span class="kw">str</span>(chicago)
+<span class="st">&#39;data.frame&#39;</span>:<span class="st">   </span><span class="dv">6940</span> obs. of  <span class="dv">8</span> variables:
+<span class="st"> </span><span class="er">$</span><span class="st"> </span>city      :<span class="st"> </span>chr  <span class="st">&quot;chic&quot;</span> <span class="st">&quot;chic&quot;</span> <span class="st">&quot;chic&quot;</span> <span class="st">&quot;chic&quot;</span> ...
+ $<span class="st"> </span>tmpd      :<span class="st"> </span>num  <span class="fl">31.5</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">29</span> <span class="dv">32</span> <span class="dv">40</span> <span class="fl">34.5</span> <span class="dv">29</span> <span class="fl">26.5</span> <span class="fl">32.5</span> ...
+ $<span class="st"> </span>dptp      :<span class="st"> </span>num  <span class="fl">31.5</span> <span class="fl">29.9</span> <span class="fl">27.4</span> <span class="fl">28.6</span> <span class="fl">28.9</span> ...
+ $<span class="st"> </span>date      :<span class="st"> </span>Date, format:<span class="st"> &quot;1987-01-01&quot;</span> <span class="st">&quot;1987-01-02&quot;</span> ...
+ $<span class="st"> </span>pm25tmean2:<span class="st"> </span>num  <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> ...
+ $<span class="st"> </span>pm10tmean2:<span class="st"> </span>num  <span class="dv">34</span> <span class="ot">NA</span> <span class="fl">34.2</span> <span class="dv">47</span> <span class="ot">NA</span> ...
+ $<span class="st"> </span>o3tmean2  :<span class="st"> </span>num  <span class="fl">4.25</span> <span class="fl">3.3</span> <span class="fl">3.33</span> <span class="fl">4.38</span> <span class="fl">4.75</span> ...
+ $<span class="st"> </span>no2tmean2 :<span class="st"> </span>num  <span class="dv">20</span> <span class="fl">23.2</span> <span class="fl">23.8</span> <span class="fl">30.4</span> <span class="fl">30.3</span> ...</code></pre></div>
+<p>The <code>select()</code> function can be used to select columns of a data frame that you want to focus on. Often you’ll have a large data frame containing “all” of the data, but any <em>given</em> analysis might only use a subset of variables or observations. The <code>select()</code> function allows you to get the few columns you might need.</p>
+<p>Suppose we wanted to take the first 3 columns only. There are a few ways to do this. We could for example use numerical indices. But we can also use the names directly.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">names</span>(chicago)[<span class="dv">1</span>:<span class="dv">3</span>]
+[<span class="dv">1</span>] <span class="st">&quot;city&quot;</span> <span class="st">&quot;tmpd&quot;</span> <span class="st">&quot;dptp&quot;</span>
+&gt;<span class="st"> </span>subset &lt;-<span class="st"> </span><span class="kw">select</span>(chicago, city:dptp)
+&gt;<span class="st"> </span><span class="kw">head</span>(subset)
+  city tmpd   dptp
+<span class="dv">1</span> chic <span class="fl">31.5</span> <span class="fl">31.500</span>
+<span class="dv">2</span> chic <span class="fl">33.0</span> <span class="fl">29.875</span>
+<span class="dv">3</span> chic <span class="fl">33.0</span> <span class="fl">27.375</span>
+<span class="dv">4</span> chic <span class="fl">29.0</span> <span class="fl">28.625</span>
+<span class="dv">5</span> chic <span class="fl">32.0</span> <span class="fl">28.875</span>
+<span class="dv">6</span> chic <span class="fl">40.0</span> <span class="fl">35.125</span></code></pre></div>
+<p>Note that the <code>:</code> normally cannot be used with names or strings, but inside the <code>select()</code> function you can use it to specify a range of variable names.</p>
+<p>You can also <em>omit</em> variables using the <code>select()</code> function by using the negative sign. With <code>select()</code> you can do</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">select</span>(chicago, -(city:dptp))</code></pre></div>
+<p>which indicates that we should include every variable <em>except</em> the variables <code>city</code> through <code>dptp</code>. The equivalent code in base R would be</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>i &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="st">&quot;city&quot;</span>, <span class="kw">names</span>(chicago))
+&gt;<span class="st"> </span>j &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="st">&quot;dptp&quot;</span>, <span class="kw">names</span>(chicago))
+&gt;<span class="st"> </span><span class="kw">head</span>(chicago[, -(i:j)])</code></pre></div>
+<p>Not super intuitive, right?</p>
+<p>The <code>select()</code> function also allows a special syntax that allows you to specify variable names based on patterns. So, for example, if you wanted to keep every variable that ends with a “2”, we could do</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>subset &lt;-<span class="st"> </span><span class="kw">select</span>(chicago, <span class="kw">ends_with</span>(<span class="st">&quot;2&quot;</span>))
+&gt;<span class="st"> </span><span class="kw">str</span>(subset)
+<span class="st">&#39;data.frame&#39;</span>:<span class="st">   </span><span class="dv">6940</span> obs. of  <span class="dv">4</span> variables:
+<span class="st"> </span><span class="er">$</span><span class="st"> </span>pm25tmean2:<span class="st"> </span>num  <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> ...
+ $<span class="st"> </span>pm10tmean2:<span class="st"> </span>num  <span class="dv">34</span> <span class="ot">NA</span> <span class="fl">34.2</span> <span class="dv">47</span> <span class="ot">NA</span> ...
+ $<span class="st"> </span>o3tmean2  :<span class="st"> </span>num  <span class="fl">4.25</span> <span class="fl">3.3</span> <span class="fl">3.33</span> <span class="fl">4.38</span> <span class="fl">4.75</span> ...
+ $<span class="st"> </span>no2tmean2 :<span class="st"> </span>num  <span class="dv">20</span> <span class="fl">23.2</span> <span class="fl">23.8</span> <span class="fl">30.4</span> <span class="fl">30.3</span> ...</code></pre></div>
+<p>Or if we wanted to keep every variable that starts with a “d”, we could do</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>subset &lt;-<span class="st"> </span><span class="kw">select</span>(chicago, <span class="kw">starts_with</span>(<span class="st">&quot;d&quot;</span>))
+&gt;<span class="st"> </span><span class="kw">str</span>(subset)
+<span class="st">&#39;data.frame&#39;</span>:<span class="st">   </span><span class="dv">6940</span> obs. of  <span class="dv">2</span> variables:
+<span class="st"> </span><span class="er">$</span><span class="st"> </span>dptp:<span class="st"> </span>num  <span class="fl">31.5</span> <span class="fl">29.9</span> <span class="fl">27.4</span> <span class="fl">28.6</span> <span class="fl">28.9</span> ...
+ $<span class="st"> </span>date:<span class="st"> </span>Date, format:<span class="st"> &quot;1987-01-01&quot;</span> <span class="st">&quot;1987-01-02&quot;</span> ...</code></pre></div>
+<p>You can also use more general regular expressions if necessary. See the help page (<code>?select</code>) for more details.</p>
+</div>
+<div id="filter" class="section level2">
+<h2><span class="header-section-number">13.6</span> <code>filter()</code></h2>
+<p>The <code>filter()</code> function is used to extract subsets of rows from a data frame. This function is similar to the existing <code>subset()</code> function in R but is quite a bit faster in my experience.</p>
+<p>Suppose we wanted to extract the rows of the <code>chicago</code> data frame where the levels of PM2.5 are greater than 30 (which is a reasonably high level), we could do</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chic.f &lt;-<span class="st"> </span><span class="kw">filter</span>(chicago, pm25tmean2 &gt;<span class="st"> </span><span class="dv">30</span>)
+&gt;<span class="st"> </span><span class="kw">str</span>(chic.f)
+<span class="st">&#39;data.frame&#39;</span>:<span class="st">   </span><span class="dv">194</span> obs. of  <span class="dv">8</span> variables:
+<span class="st"> </span><span class="er">$</span><span class="st"> </span>city      :<span class="st"> </span>chr  <span class="st">&quot;chic&quot;</span> <span class="st">&quot;chic&quot;</span> <span class="st">&quot;chic&quot;</span> <span class="st">&quot;chic&quot;</span> ...
+ $<span class="st"> </span>tmpd      :<span class="st"> </span>num  <span class="dv">23</span> <span class="dv">28</span> <span class="dv">55</span> <span class="dv">59</span> <span class="dv">57</span> <span class="dv">57</span> <span class="dv">75</span> <span class="dv">61</span> <span class="dv">73</span> <span class="dv">78</span> ...
+ $<span class="st"> </span>dptp      :<span class="st"> </span>num  <span class="fl">21.9</span> <span class="fl">25.8</span> <span class="fl">51.3</span> <span class="fl">53.7</span> <span class="dv">52</span> <span class="dv">56</span> <span class="fl">65.8</span> <span class="dv">59</span> <span class="fl">60.3</span> <span class="fl">67.1</span> ...
+ $<span class="st"> </span>date      :<span class="st"> </span>Date, format:<span class="st"> &quot;1998-01-17&quot;</span> <span class="st">&quot;1998-01-23&quot;</span> ...
+ $<span class="st"> </span>pm25tmean2:<span class="st"> </span>num  <span class="fl">38.1</span> <span class="dv">34</span> <span class="fl">39.4</span> <span class="fl">35.4</span> <span class="fl">33.3</span> ...
+ $<span class="st"> </span>pm10tmean2:<span class="st"> </span>num  <span class="fl">32.5</span> <span class="fl">38.7</span> <span class="dv">34</span> <span class="fl">28.5</span> <span class="dv">35</span> ...
+ $<span class="st"> </span>o3tmean2  :<span class="st"> </span>num  <span class="fl">3.18</span> <span class="fl">1.75</span> <span class="fl">10.79</span> <span class="fl">14.3</span> <span class="fl">20.66</span> ...
+ $<span class="st"> </span>no2tmean2 :<span class="st"> </span>num  <span class="fl">25.3</span> <span class="fl">29.4</span> <span class="fl">25.3</span> <span class="fl">31.4</span> <span class="fl">26.8</span> ...</code></pre></div>
+<p>You can see that there are now only 194 rows in the data frame and the distribution of the <code>pm25tmean2</code> values is.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summary</span>(chic.f$pm25tmean2)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  <span class="fl">30.05</span>   <span class="fl">32.12</span>   <span class="fl">35.04</span>   <span class="fl">36.63</span>   <span class="fl">39.53</span>   <span class="fl">61.50</span> </code></pre></div>
+<p>We can place an arbitrarily complex logical sequence inside of <code>filter()</code>, so we could for example extract the rows where PM2.5 is greater than 30 <em>and</em> temperature is greater than 80 degrees Fahrenheit.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chic.f &lt;-<span class="st"> </span><span class="kw">filter</span>(chicago, pm25tmean2 &gt;<span class="st"> </span><span class="dv">30</span> &amp;<span class="st"> </span>tmpd &gt;<span class="st"> </span><span class="dv">80</span>)
+&gt;<span class="st"> </span><span class="kw">select</span>(chic.f, date, tmpd, pm25tmean2)
+         date tmpd pm25tmean2
+<span class="dv">1</span>  <span class="dv">1998-08-23</span>   <span class="dv">81</span>   <span class="fl">39.60000</span>
+<span class="dv">2</span>  <span class="dv">1998-09-06</span>   <span class="dv">81</span>   <span class="fl">31.50000</span>
+<span class="dv">3</span>  <span class="dv">2001-07-20</span>   <span class="dv">82</span>   <span class="fl">32.30000</span>
+<span class="dv">4</span>  <span class="dv">2001-08-01</span>   <span class="dv">84</span>   <span class="fl">43.70000</span>
+<span class="dv">5</span>  <span class="dv">2001-08-08</span>   <span class="dv">85</span>   <span class="fl">38.83750</span>
+<span class="dv">6</span>  <span class="dv">2001-08-09</span>   <span class="dv">84</span>   <span class="fl">38.20000</span>
+<span class="dv">7</span>  <span class="dv">2002-06-20</span>   <span class="dv">82</span>   <span class="fl">33.00000</span>
+<span class="dv">8</span>  <span class="dv">2002-06-23</span>   <span class="dv">82</span>   <span class="fl">42.50000</span>
+<span class="dv">9</span>  <span class="dv">2002-07-08</span>   <span class="dv">81</span>   <span class="fl">33.10000</span>
+<span class="dv">10</span> <span class="dv">2002-07-18</span>   <span class="dv">82</span>   <span class="fl">38.85000</span>
+<span class="dv">11</span> <span class="dv">2003-06-25</span>   <span class="dv">82</span>   <span class="fl">33.90000</span>
+<span class="dv">12</span> <span class="dv">2003-07-04</span>   <span class="dv">84</span>   <span class="fl">32.90000</span>
+<span class="dv">13</span> <span class="dv">2005-06-24</span>   <span class="dv">86</span>   <span class="fl">31.85714</span>
+<span class="dv">14</span> <span class="dv">2005-06-27</span>   <span class="dv">82</span>   <span class="fl">51.53750</span>
+<span class="dv">15</span> <span class="dv">2005-06-28</span>   <span class="dv">85</span>   <span class="fl">31.20000</span>
+<span class="dv">16</span> <span class="dv">2005-07-17</span>   <span class="dv">84</span>   <span class="fl">32.70000</span>
+<span class="dv">17</span> <span class="dv">2005-08-03</span>   <span class="dv">84</span>   <span class="fl">37.90000</span></code></pre></div>
+<p>Now there are only 17 observations where both of those conditions are met.</p>
+</div>
+<div id="arrange" class="section level2">
+<h2><span class="header-section-number">13.7</span> <code>arrange()</code></h2>
+<p>The <code>arrange()</code> function is used to reorder rows of a data frame according to one of the variables/columns. Reordering rows of a data frame (while preserving corresponding order of other columns) is normally a pain to do in R. The <code>arrange()</code> function simplifies the process quite a bit.</p>
+<p>Here we can order the rows of the data frame by date, so that the first row is the earliest (oldest) observation and the last row is the latest (most recent) observation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">arrange</span>(chicago, date)</code></pre></div>
+<p>We can now check the first few rows</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(<span class="kw">select</span>(chicago, date, pm25tmean2), <span class="dv">3</span>)
+        date pm25tmean2
+<span class="dv">1</span> <span class="dv">1987-01-01</span>         <span class="ot">NA</span>
+<span class="dv">2</span> <span class="dv">1987-01-02</span>         <span class="ot">NA</span>
+<span class="dv">3</span> <span class="dv">1987-01-03</span>         <span class="ot">NA</span></code></pre></div>
+<p>and the last few rows.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">tail</span>(<span class="kw">select</span>(chicago, date, pm25tmean2), <span class="dv">3</span>)
+           date pm25tmean2
+<span class="dv">6938</span> <span class="dv">2005-12-29</span>    <span class="fl">7.45000</span>
+<span class="dv">6939</span> <span class="dv">2005-12-30</span>   <span class="fl">15.05714</span>
+<span class="dv">6940</span> <span class="dv">2005-12-31</span>   <span class="fl">15.00000</span></code></pre></div>
+<p>Columns can be arranged in descending order too by useing the special <code>desc()</code> operator.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">arrange</span>(chicago, <span class="kw">desc</span>(date))</code></pre></div>
+<p>Looking at the first three and last three rows shows the dates in descending order.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(<span class="kw">select</span>(chicago, date, pm25tmean2), <span class="dv">3</span>)
+        date pm25tmean2
+<span class="dv">1</span> <span class="dv">2005-12-31</span>   <span class="fl">15.00000</span>
+<span class="dv">2</span> <span class="dv">2005-12-30</span>   <span class="fl">15.05714</span>
+<span class="dv">3</span> <span class="dv">2005-12-29</span>    <span class="fl">7.45000</span>
+&gt;<span class="st"> </span><span class="kw">tail</span>(<span class="kw">select</span>(chicago, date, pm25tmean2), <span class="dv">3</span>)
+           date pm25tmean2
+<span class="dv">6938</span> <span class="dv">1987-01-03</span>         <span class="ot">NA</span>
+<span class="dv">6939</span> <span class="dv">1987-01-02</span>         <span class="ot">NA</span>
+<span class="dv">6940</span> <span class="dv">1987-01-01</span>         <span class="ot">NA</span></code></pre></div>
+</div>
+<div id="rename" class="section level2">
+<h2><span class="header-section-number">13.8</span> <code>rename()</code></h2>
+<p>Renaming a variable in a data frame in R is surprisingly hard to do! The <code>rename()</code> function is designed to make this process easier.</p>
+<p>Here you can see the names of the first five variables in the <code>chicago</code> data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(chicago[, <span class="dv">1</span>:<span class="dv">5</span>], <span class="dv">3</span>)
+  city tmpd dptp       date pm25tmean2
+<span class="dv">1</span> chic   <span class="dv">35</span> <span class="fl">30.1</span> <span class="dv">2005-12-31</span>   <span class="fl">15.00000</span>
+<span class="dv">2</span> chic   <span class="dv">36</span> <span class="fl">31.0</span> <span class="dv">2005-12-30</span>   <span class="fl">15.05714</span>
+<span class="dv">3</span> chic   <span class="dv">35</span> <span class="fl">29.4</span> <span class="dv">2005-12-29</span>    <span class="fl">7.45000</span></code></pre></div>
+<p>The <code>dptp</code> column is supposed to represent the dew point temperature adn the <code>pm25tmean2</code> column provides the PM2.5 data. However, these names are pretty obscure or awkward and probably be renamed to something more sensible.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">rename</span>(chicago, <span class="dt">dewpoint =</span> dptp, <span class="dt">pm25 =</span> pm25tmean2)
+&gt;<span class="st"> </span><span class="kw">head</span>(chicago[, <span class="dv">1</span>:<span class="dv">5</span>], <span class="dv">3</span>)
+  city tmpd dewpoint       date     pm25
+<span class="dv">1</span> chic   <span class="dv">35</span>     <span class="fl">30.1</span> <span class="dv">2005-12-31</span> <span class="fl">15.00000</span>
+<span class="dv">2</span> chic   <span class="dv">36</span>     <span class="fl">31.0</span> <span class="dv">2005-12-30</span> <span class="fl">15.05714</span>
+<span class="dv">3</span> chic   <span class="dv">35</span>     <span class="fl">29.4</span> <span class="dv">2005-12-29</span>  <span class="fl">7.45000</span></code></pre></div>
+<p>The syntax inside the <code>rename()</code> function is to have the new name on the left-hand side of the <code>=</code> sign and the old name on the right-hand side.</p>
+<p>I leave it as an exercise for the reader to figure how you do this in base R without <code>dplyr</code>.</p>
+</div>
+<div id="mutate" class="section level2">
+<h2><span class="header-section-number">13.9</span> <code>mutate()</code></h2>
+<p>The <code>mutate()</code> function exists to compute transformations of variables in a data frame. Often, you want to create new variables that are derived from existing variables and <code>mutate()</code> provides a clean interface for doing that.</p>
+<p>For example, with air pollution data, we often want to <em>detrend</em> the data by subtracting the mean from the data. That way we can look at whether a given day’s air pollution level is higher than or less than average (as opposed to looking at its absolute level).</p>
+<p>Here we create a <code>pm25detrend</code> variable that subtracts the mean from the <code>pm25</code> variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">pm25detrend =</span> pm25 -<span class="st"> </span><span class="kw">mean</span>(pm25, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+&gt;<span class="st"> </span><span class="kw">head</span>(chicago)
+  city tmpd dewpoint       date     pm25 pm10tmean2  o3tmean2 no2tmean2
+<span class="dv">1</span> chic   <span class="dv">35</span>     <span class="fl">30.1</span> <span class="dv">2005-12-31</span> <span class="fl">15.00000</span>       <span class="fl">23.5</span>  <span class="fl">2.531250</span>  <span class="fl">13.25000</span>
+<span class="dv">2</span> chic   <span class="dv">36</span>     <span class="fl">31.0</span> <span class="dv">2005-12-30</span> <span class="fl">15.05714</span>       <span class="fl">19.2</span>  <span class="fl">3.034420</span>  <span class="fl">22.80556</span>
+<span class="dv">3</span> chic   <span class="dv">35</span>     <span class="fl">29.4</span> <span class="dv">2005-12-29</span>  <span class="fl">7.45000</span>       <span class="fl">23.5</span>  <span class="fl">6.794837</span>  <span class="fl">19.97222</span>
+<span class="dv">4</span> chic   <span class="dv">37</span>     <span class="fl">34.5</span> <span class="dv">2005-12-28</span> <span class="fl">17.75000</span>       <span class="fl">27.5</span>  <span class="fl">3.260417</span>  <span class="fl">19.28563</span>
+<span class="dv">5</span> chic   <span class="dv">40</span>     <span class="fl">33.6</span> <span class="dv">2005-12-27</span> <span class="fl">23.56000</span>       <span class="fl">27.0</span>  <span class="fl">4.468750</span>  <span class="fl">23.50000</span>
+<span class="dv">6</span> chic   <span class="dv">35</span>     <span class="fl">29.6</span> <span class="dv">2005-12-26</span>  <span class="fl">8.40000</span>        <span class="fl">8.5</span> <span class="fl">14.041667</span>  <span class="fl">16.81944</span>
+  pm25detrend
+<span class="dv">1</span>   -<span class="fl">1.230958</span>
+<span class="dv">2</span>   -<span class="fl">1.173815</span>
+<span class="dv">3</span>   -<span class="fl">8.780958</span>
+<span class="dv">4</span>    <span class="fl">1.519042</span>
+<span class="dv">5</span>    <span class="fl">7.329042</span>
+<span class="dv">6</span>   -<span class="fl">7.830958</span></code></pre></div>
+<p>There is also the related <code>transmute()</code> function, which does the same thing as <code>mutate()</code> but then <em>drops all non-transformed variables</em>.</p>
+<p>Here we detrend the PM10 and ozone (O3) variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(<span class="kw">transmute</span>(chicago, 
++<span class="st">                </span><span class="dt">pm10detrend =</span> pm10tmean2 -<span class="st"> </span><span class="kw">mean</span>(pm10tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
++<span class="st">                </span><span class="dt">o3detrend =</span> o3tmean2 -<span class="st"> </span><span class="kw">mean</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))
+  pm10detrend  o3detrend
+<span class="dv">1</span>  -<span class="fl">10.395206</span> -<span class="fl">16.904263</span>
+<span class="dv">2</span>  -<span class="fl">14.695206</span> -<span class="fl">16.401093</span>
+<span class="dv">3</span>  -<span class="fl">10.395206</span> -<span class="fl">12.640676</span>
+<span class="dv">4</span>   -<span class="fl">6.395206</span> -<span class="fl">16.175096</span>
+<span class="dv">5</span>   -<span class="fl">6.895206</span> -<span class="fl">14.966763</span>
+<span class="dv">6</span>  -<span class="fl">25.395206</span>  -<span class="fl">5.393846</span></code></pre></div>
+<p>Note that there are only two columns in the transmuted data frame.</p>
+</div>
+<div id="group_by" class="section level2">
+<h2><span class="header-section-number">13.10</span> <code>group_by()</code></h2>
+<p>The <code>group_by()</code> function is used to generate summary statistics from the data frame within strata defined by a variable. For example, in this air pollution dataset, you might want to know what the average annual level of PM2.5 is. So the stratum is the year, and that is something we can derive from the <code>date</code> variable. In conjunction with the <code>group_by()</code> function we often use the <code>summarize()</code> function (or <code>summarise()</code> for some parts of the world).</p>
+<p>The general operation here is a combination of splitting a data frame into separate pieces defined by a variable or group of variables (<code>group_by()</code>), and then applying a summary function across those subsets (<code>summarize()</code>).</p>
+<p>First, we can create a <code>year</code> varible using <code>as.POSIXlt()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">year =</span> <span class="kw">as.POSIXlt</span>(date)$year +<span class="st"> </span><span class="dv">1900</span>)</code></pre></div>
+<p>Now we can create a separate data frame that splits the original data frame by year.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>years &lt;-<span class="st"> </span><span class="kw">group_by</span>(chicago, year)</code></pre></div>
+<p>Finally, we compute summary statistics for each year in the data frame with the <code>summarize()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summarize</span>(years, <span class="dt">pm25 =</span> <span class="kw">mean</span>(pm25, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
++<span class="st">           </span><span class="dt">o3 =</span> <span class="kw">max</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
++<span class="st">           </span><span class="dt">no2 =</span> <span class="kw">median</span>(no2tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+Source:<span class="st"> </span>local data frame [<span class="dv">19</span> x <span class="dv">4</span>]
+
+    year     pm25       o3      no2
+   &lt;dbl&gt;<span class="st">    </span><span class="er">&lt;</span>dbl&gt;<span class="st">    </span><span class="er">&lt;</span>dbl&gt;<span class="st">    </span><span class="er">&lt;</span>dbl&gt;
+<span class="dv">1</span>   <span class="dv">1987</span>      <span class="ot">NaN</span> <span class="fl">62.96966</span> <span class="fl">23.49369</span>
+<span class="dv">2</span>   <span class="dv">1988</span>      <span class="ot">NaN</span> <span class="fl">61.67708</span> <span class="fl">24.52296</span>
+<span class="dv">3</span>   <span class="dv">1989</span>      <span class="ot">NaN</span> <span class="fl">59.72727</span> <span class="fl">26.14062</span>
+<span class="dv">4</span>   <span class="dv">1990</span>      <span class="ot">NaN</span> <span class="fl">52.22917</span> <span class="fl">22.59583</span>
+<span class="dv">5</span>   <span class="dv">1991</span>      <span class="ot">NaN</span> <span class="fl">63.10417</span> <span class="fl">21.38194</span>
+<span class="dv">6</span>   <span class="dv">1992</span>      <span class="ot">NaN</span> <span class="fl">50.82870</span> <span class="fl">24.78921</span>
+<span class="dv">7</span>   <span class="dv">1993</span>      <span class="ot">NaN</span> <span class="fl">44.30093</span> <span class="fl">25.76993</span>
+<span class="dv">8</span>   <span class="dv">1994</span>      <span class="ot">NaN</span> <span class="fl">52.17844</span> <span class="fl">28.47500</span>
+<span class="dv">9</span>   <span class="dv">1995</span>      <span class="ot">NaN</span> <span class="fl">66.58750</span> <span class="fl">27.26042</span>
+<span class="dv">10</span>  <span class="dv">1996</span>      <span class="ot">NaN</span> <span class="fl">58.39583</span> <span class="fl">26.38715</span>
+<span class="dv">11</span>  <span class="dv">1997</span>      <span class="ot">NaN</span> <span class="fl">56.54167</span> <span class="fl">25.48143</span>
+<span class="dv">12</span>  <span class="dv">1998</span> <span class="fl">18.26467</span> <span class="fl">50.66250</span> <span class="fl">24.58649</span>
+<span class="dv">13</span>  <span class="dv">1999</span> <span class="fl">18.49646</span> <span class="fl">57.48864</span> <span class="fl">24.66667</span>
+<span class="dv">14</span>  <span class="dv">2000</span> <span class="fl">16.93806</span> <span class="fl">55.76103</span> <span class="fl">23.46082</span>
+<span class="dv">15</span>  <span class="dv">2001</span> <span class="fl">16.92632</span> <span class="fl">51.81984</span> <span class="fl">25.06522</span>
+<span class="dv">16</span>  <span class="dv">2002</span> <span class="fl">15.27335</span> <span class="fl">54.88043</span> <span class="fl">22.73750</span>
+<span class="dv">17</span>  <span class="dv">2003</span> <span class="fl">15.23183</span> <span class="fl">56.16608</span> <span class="fl">24.62500</span>
+<span class="dv">18</span>  <span class="dv">2004</span> <span class="fl">14.62864</span> <span class="fl">44.48240</span> <span class="fl">23.39130</span>
+<span class="dv">19</span>  <span class="dv">2005</span> <span class="fl">16.18556</span> <span class="fl">58.84126</span> <span class="fl">22.62387</span></code></pre></div>
+<p><code>summarize()</code> returns a data frame with <code>year</code> as the first column, and then the annual averages of <code>pm25</code>, <code>o3</code>, and <code>no2</code>.</p>
+<p>In a slightly more complicated example, we might want to know what are the average levels of ozone (<code>o3</code>) and nitrogen dioxide (<code>no2</code>) within quintiles of <code>pm25</code>. A slicker way to do this would be through a regression model, but we can actually do this quickly with <code>group_by()</code> and <code>summarize()</code>.</p>
+<p>First, we can create a categorical variable of <code>pm25</code> divided into quintiles.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>qq &lt;-<span class="st"> </span><span class="kw">quantile</span>(chicago$pm25, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.2</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">pm25.quint =</span> <span class="kw">cut</span>(pm25, qq))</code></pre></div>
+<p>Now we can group the data frame by the <code>pm25.quint</code> variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>quint &lt;-<span class="st"> </span><span class="kw">group_by</span>(chicago, pm25.quint)</code></pre></div>
+<p>Finally, we can compute the mean of <code>o3</code> and <code>no2</code> within quintiles of <code>pm25</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summarize</span>(quint, <span class="dt">o3 =</span> <span class="kw">mean</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
++<span class="st">           </span><span class="dt">no2 =</span> <span class="kw">mean</span>(no2tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+Source:<span class="st"> </span>local data frame [<span class="dv">6</span> x <span class="dv">3</span>]
+
+   pm25.quint       o3      no2
+       &lt;fctr&gt;<span class="st">    </span><span class="er">&lt;</span>dbl&gt;<span class="st">    </span><span class="er">&lt;</span>dbl&gt;
+<span class="dv">1</span>   (<span class="fl">1.7</span>,<span class="fl">8.7</span>] <span class="fl">21.66401</span> <span class="fl">17.99129</span>
+<span class="dv">2</span>  (<span class="fl">8.7</span>,<span class="fl">12.4</span>] <span class="fl">20.38248</span> <span class="fl">22.13004</span>
+<span class="dv">3</span> (<span class="fl">12.4</span>,<span class="fl">16.7</span>] <span class="fl">20.66160</span> <span class="fl">24.35708</span>
+<span class="dv">4</span> (<span class="fl">16.7</span>,<span class="fl">22.6</span>] <span class="fl">19.88122</span> <span class="fl">27.27132</span>
+<span class="dv">5</span> (<span class="fl">22.6</span>,<span class="fl">61.5</span>] <span class="fl">20.31775</span> <span class="fl">29.64427</span>
+<span class="dv">6</span>          <span class="ot">NA</span> <span class="fl">18.79044</span> <span class="fl">25.77585</span></code></pre></div>
+<p>From the table, it seems there isn’t a strong relationship between <code>pm25</code> and <code>o3</code>, but there appears to be a positive correlation between <code>pm25</code> and <code>no2</code>. More sophisticated statistical modeling can help to provide precise answers to these questions, but a simple application of <code>dplyr</code> functions can often get you most of the way there.</p>
+</div>
+<div id="section" class="section level2">
+<h2><span class="header-section-number">13.11</span> <code>%&gt;%</code></h2>
+<p>The pipeline operater <code>%&gt;%</code> is very handy for stringing together multiple <code>dplyr</code> functions in a sequence of operations. Notice above that every time we wanted to apply more than one function, the sequence gets buried in a sequence of nested function calls that is difficult to read, i.e.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">third</span>(<span class="kw">second</span>(<span class="kw">first</span>(x)))</code></pre></div>
+<p>This nesting is not a natural way to think about a sequence of operations. The <code>%&gt;%</code> operator allows you to string operations in a left-to-right fashion, i.e.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">first</span>(x) %&gt;%<span class="st"> </span>second %&gt;%<span class="st"> </span>third</code></pre></div>
+<p>Take the example that we just did in the last section where we computed the mean of <code>o3</code> and <code>no2</code> within quintiles of <code>pm25</code>. There we had to</p>
+<ol style="list-style-type: decimal">
+<li>create a new variable <code>pm25.quint</code></li>
+<li>split the data frame by that new variable</li>
+<li>compute the mean of <code>o3</code> and <code>no2</code> in the sub-groups defined by <code>pm25.quint</code></li>
+</ol>
+<p>That can be done with the following sequence in a single R expression.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">pm25.quint =</span> <span class="kw">cut</span>(pm25, qq)) %&gt;%<span class="st">    </span>
++<span class="st">         </span><span class="kw">group_by</span>(pm25.quint) %&gt;%<span class="st"> </span>
++<span class="st">         </span><span class="kw">summarize</span>(<span class="dt">o3 =</span> <span class="kw">mean</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
++<span class="st">                   </span><span class="dt">no2 =</span> <span class="kw">mean</span>(no2tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+Source:<span class="st"> </span>local data frame [<span class="dv">6</span> x <span class="dv">3</span>]
+
+   pm25.quint       o3      no2
+       &lt;fctr&gt;<span class="st">    </span><span class="er">&lt;</span>dbl&gt;<span class="st">    </span><span class="er">&lt;</span>dbl&gt;
+<span class="dv">1</span>   (<span class="fl">1.7</span>,<span class="fl">8.7</span>] <span class="fl">21.66401</span> <span class="fl">17.99129</span>
+<span class="dv">2</span>  (<span class="fl">8.7</span>,<span class="fl">12.4</span>] <span class="fl">20.38248</span> <span class="fl">22.13004</span>
+<span class="dv">3</span> (<span class="fl">12.4</span>,<span class="fl">16.7</span>] <span class="fl">20.66160</span> <span class="fl">24.35708</span>
+<span class="dv">4</span> (<span class="fl">16.7</span>,<span class="fl">22.6</span>] <span class="fl">19.88122</span> <span class="fl">27.27132</span>
+<span class="dv">5</span> (<span class="fl">22.6</span>,<span class="fl">61.5</span>] <span class="fl">20.31775</span> <span class="fl">29.64427</span>
+<span class="dv">6</span>          <span class="ot">NA</span> <span class="fl">18.79044</span> <span class="fl">25.77585</span></code></pre></div>
+<p>This way we don’t have to create a set of temporary variables along the way or create a massive nested sequence of function calls.</p>
+<p>Notice in the above code that I pass the <code>chicago</code> data frame to the first call to <code>mutate()</code>, but then afterwards I do not have to pass the first argument to <code>group_by()</code> or <code>summarize()</code>. Once you travel down the pipeline with <code>%&gt;%</code>, the first argument is taken to be the output of the previous element in the pipeline.</p>
+<p>Another example might be computing the average pollutant level by month. This could be useful to see if there are any seasonal trends in the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">month =</span> <span class="kw">as.POSIXlt</span>(date)$mon +<span class="st"> </span><span class="dv">1</span>) %&gt;%<span class="st"> </span>
++<span class="st">         </span><span class="kw">group_by</span>(month) %&gt;%<span class="st"> </span>
++<span class="st">         </span><span class="kw">summarize</span>(<span class="dt">pm25 =</span> <span class="kw">mean</span>(pm25, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
++<span class="st">                   </span><span class="dt">o3 =</span> <span class="kw">max</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
++<span class="st">                   </span><span class="dt">no2 =</span> <span class="kw">median</span>(no2tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+Source:<span class="st"> </span>local data frame [<span class="dv">12</span> x <span class="dv">4</span>]
+
+   month     pm25       o3      no2
+   &lt;dbl&gt;<span class="st">    </span><span class="er">&lt;</span>dbl&gt;<span class="st">    </span><span class="er">&lt;</span>dbl&gt;<span class="st">    </span><span class="er">&lt;</span>dbl&gt;
+<span class="dv">1</span>      <span class="dv">1</span> <span class="fl">17.76996</span> <span class="fl">28.22222</span> <span class="fl">25.35417</span>
+<span class="dv">2</span>      <span class="dv">2</span> <span class="fl">20.37513</span> <span class="fl">37.37500</span> <span class="fl">26.78034</span>
+<span class="dv">3</span>      <span class="dv">3</span> <span class="fl">17.40818</span> <span class="fl">39.05000</span> <span class="fl">26.76984</span>
+<span class="dv">4</span>      <span class="dv">4</span> <span class="fl">13.85879</span> <span class="fl">47.94907</span> <span class="fl">25.03125</span>
+<span class="dv">5</span>      <span class="dv">5</span> <span class="fl">14.07420</span> <span class="fl">52.75000</span> <span class="fl">24.22222</span>
+<span class="dv">6</span>      <span class="dv">6</span> <span class="fl">15.86461</span> <span class="fl">66.58750</span> <span class="fl">25.01140</span>
+<span class="dv">7</span>      <span class="dv">7</span> <span class="fl">16.57087</span> <span class="fl">59.54167</span> <span class="fl">22.38442</span>
+<span class="dv">8</span>      <span class="dv">8</span> <span class="fl">16.93380</span> <span class="fl">53.96701</span> <span class="fl">22.98333</span>
+<span class="dv">9</span>      <span class="dv">9</span> <span class="fl">15.91279</span> <span class="fl">57.48864</span> <span class="fl">24.47917</span>
+<span class="dv">10</span>    <span class="dv">10</span> <span class="fl">14.23557</span> <span class="fl">47.09275</span> <span class="fl">24.15217</span>
+<span class="dv">11</span>    <span class="dv">11</span> <span class="fl">15.15794</span> <span class="fl">29.45833</span> <span class="fl">23.56537</span>
+<span class="dv">12</span>    <span class="dv">12</span> <span class="fl">17.52221</span> <span class="fl">27.70833</span> <span class="fl">24.45773</span></code></pre></div>
+<p>Here we can see that <code>o3</code> tends to be low in the winter months and high in the summer while <code>no2</code> is higher in the winter and lower in the summer.</p>
+</div>
+<div id="summary-2" class="section level2">
+<h2><span class="header-section-number">13.12</span> Summary</h2>
+<p>The <code>dplyr</code> package provides a concise set of operations for managing data frames. With these functions we can do a number of complex operations in just a few lines of code. In particular, we can often conduct the beginnings of an exploratory analysis with the powerful combination of <code>group_by()</code> and <code>summarize()</code>.</p>
+<p>Once you learn the <code>dplyr</code> grammar there are a few additional benefits</p>
+<ul>
+<li><p><code>dplyr</code> can work with other data frame “backends” such as SQL databases. There is an SQL interface for relational databases via the DBI package</p></li>
+<li><p><code>dplyr</code> can be integrated with the <code>data.table</code> package for large fast tables</p></li>
+</ul>
+<p>The <code>dplyr</code> package is handy way to both simplify and speed up your data frame management code. It’s rare that you get such a combination at the same time!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dates-and-times.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="control-structures.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
