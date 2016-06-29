@@ -26,7 +26,6 @@ simulation.md:		simulation.Rmd
 			R --no-save --args $@ < fixmath.R
 			perl -npi -e 's/```r/{line-numbers=off}\n~~~~~~~~/' $@
 			perl -npi -e 's/```/~~~~~~~~/' $@
-			./equation.pl $@
 
 profiler.md:		profiler.Rmd
 			knit.R $<
