@@ -57,41 +57,23 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -325,55 +307,55 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><a href="https://youtu.be/ZaBtJPYYGwg">Watch a video of this section</a></p>
 <p>The <code>if</code>-<code>else</code> combination is probably the most commonly used control structure in R (or perhaps any language). This structure allows you to test a condition and act on it depending on whether it’s true or false.</p>
 <p>For starters, you can just use the <code>if</code> statement.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if(&lt;condition&gt;) {
+<pre class="sourceCode r"><code class="sourceCode r">if(&lt;condition&gt;) {
         ## do something
 } 
-## Continue with rest of code</code></pre></div>
+## Continue with rest of code</code></pre>
 <p>The above code does nothing if the condition is false. If you have an action you want to execute when the condition is false, then you need an <code>else</code> clause.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if(&lt;condition&gt;) {
+<pre class="sourceCode r"><code class="sourceCode r">if(&lt;condition&gt;) {
         ## do something
 } 
 else {
         ## do something else
-}</code></pre></div>
+}</code></pre>
 <p>You can have a series of tests by following the initial <code>if</code> with any number of <code>else if</code>s.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if(&lt;condition1&gt;) {
+<pre class="sourceCode r"><code class="sourceCode r">if(&lt;condition1&gt;) {
         ## do something
 } else if(&lt;condition2&gt;)  {
         ## do something different
 } else {
         ## do something different
-}</code></pre></div>
+}</code></pre>
 <p>Here is an example of a valid if/else structure.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Generate a uniform random number
+<pre class="sourceCode r"><code class="sourceCode r">## Generate a uniform random number
 x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">10</span>)  
 if(x &gt;<span class="st"> </span><span class="dv">3</span>) {
         y &lt;-<span class="st"> </span><span class="dv">10</span>
 } else {
         y &lt;-<span class="st"> </span><span class="dv">0</span>
-}</code></pre></div>
+}</code></pre>
 <p>The value of <code>y</code> is set depending on whether <code>x &gt; 3</code> or not. This expression can also be written a different, but equivalent, way in R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>if(x &gt;<span class="st"> </span><span class="dv">3</span>) {
+<pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>if(x &gt;<span class="st"> </span><span class="dv">3</span>) {
         <span class="dv">10</span>
 } else { 
         <span class="dv">0</span>
-}</code></pre></div>
+}</code></pre>
 <p>Neither way of writing this expression is more correct than the other. Which one you use will depend on your preference and perhaps those of the team you may be working with.</p>
 <p>Of course, the <code>else</code> clause is not necessary. You could have a series of if clauses that always get executed if their respective conditions are true.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if(&lt;condition1&gt;) {
+<pre class="sourceCode r"><code class="sourceCode r">if(&lt;condition1&gt;) {
 
 }
 
 if(&lt;condition2&gt;) {
 
-}</code></pre></div>
+}</code></pre>
 </div>
 <div id="for-loops" class="section level2">
 <h2><span class="header-section-number">14.2</span> <code>for</code> Loops</h2>
 <p><a href="https://youtu.be/FbT1dGXCCxU">Watch a video of this section</a></p>
 <p>For loops are pretty much the only looping construct that you will need in R. While you may occasionally find a need for other types of loops, in my experience doing data analysis, I’ve found very few situations where a for loop wasn’t sufficient.</p>
 <p>In R, for loops take an interator variable and assign it successive values from a sequence or vector. For loops are most commonly used for iterating over the elements of an object (list, vector, etc.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>for(i in <span class="dv">1</span>:<span class="dv">10</span>) {
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>for(i in <span class="dv">1</span>:<span class="dv">10</span>) {
 +<span class="st">         </span><span class="kw">print</span>(i)
 +<span class="st"> </span>}
 [<span class="dv">1</span>] <span class="dv">1</span>
@@ -385,10 +367,10 @@ if(&lt;condition2&gt;) {
 [<span class="dv">1</span>] <span class="dv">7</span>
 [<span class="dv">1</span>] <span class="dv">8</span>
 [<span class="dv">1</span>] <span class="dv">9</span>
-[<span class="dv">1</span>] <span class="dv">10</span></code></pre></div>
+[<span class="dv">1</span>] <span class="dv">10</span></code></pre>
 <p>This loop takes the <code>i</code> variable and in each iteration of the loop gives it values 1, 2, 3, …, 10, executes the code within the curly braces, and then the loop exits.</p>
 <p>The following three loops all have the same behavior.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)
 &gt;<span class="st"> </span>
 <span class="er">&gt;</span><span class="st"> </span>for(i in <span class="dv">1</span>:<span class="dv">4</span>) {
 +<span class="st">         </span>## Print out each element of &#39;x&#39;
@@ -397,49 +379,49 @@ if(&lt;condition2&gt;) {
 [<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>
 [<span class="dv">1</span>] <span class="st">&quot;b&quot;</span>
 [<span class="dv">1</span>] <span class="st">&quot;c&quot;</span>
-[<span class="dv">1</span>] <span class="st">&quot;d&quot;</span></code></pre></div>
+[<span class="dv">1</span>] <span class="st">&quot;d&quot;</span></code></pre>
 <p>The <code>seq_along()</code> function is commonly used in conjunction with for loops in order to generate an integer sequence based on the length of an object (in this case, the object <code>x</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Generate a sequence based on length of &#39;x&#39;
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Generate a sequence based on length of &#39;x&#39;
 <span class="er">&gt;</span><span class="st"> </span>for(i in <span class="kw">seq_along</span>(x)) {   
 +<span class="st">         </span><span class="kw">print</span>(x[i])
 +<span class="st"> </span>}
 [<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>
 [<span class="dv">1</span>] <span class="st">&quot;b&quot;</span>
 [<span class="dv">1</span>] <span class="st">&quot;c&quot;</span>
-[<span class="dv">1</span>] <span class="st">&quot;d&quot;</span></code></pre></div>
+[<span class="dv">1</span>] <span class="st">&quot;d&quot;</span></code></pre>
 <p>It is not necessary to use an index-type variable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>for(letter in x) {
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>for(letter in x) {
 +<span class="st">         </span><span class="kw">print</span>(letter)
 +<span class="st"> </span>}
 [<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>
 [<span class="dv">1</span>] <span class="st">&quot;b&quot;</span>
 [<span class="dv">1</span>] <span class="st">&quot;c&quot;</span>
-[<span class="dv">1</span>] <span class="st">&quot;d&quot;</span></code></pre></div>
+[<span class="dv">1</span>] <span class="st">&quot;d&quot;</span></code></pre>
 <p>For one line loops, the curly braces are not strictly necessary.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>for(i in <span class="dv">1</span>:<span class="dv">4</span>) <span class="kw">print</span>(x[i])
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>for(i in <span class="dv">1</span>:<span class="dv">4</span>) <span class="kw">print</span>(x[i])
 [<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>
 [<span class="dv">1</span>] <span class="st">&quot;b&quot;</span>
 [<span class="dv">1</span>] <span class="st">&quot;c&quot;</span>
-[<span class="dv">1</span>] <span class="st">&quot;d&quot;</span></code></pre></div>
+[<span class="dv">1</span>] <span class="st">&quot;d&quot;</span></code></pre>
 <p>However, I like to use curly braces even for one-line loops, because that way if you decide to expand the loop to multiple lines, you won’t be burned because you forgot to add curly braces (and you <em>will</em> be burned by this).</p>
 </div>
 <div id="nested-for-loops" class="section level2">
 <h2><span class="header-section-number">14.3</span> Nested <code>for</code> loops</h2>
 <p><code>for</code> loops can be nested inside of each other.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>)
 
 for(i in <span class="kw">seq_len</span>(<span class="kw">nrow</span>(x))) {
         for(j in <span class="kw">seq_len</span>(<span class="kw">ncol</span>(x))) {
                 <span class="kw">print</span>(x[i, j])
         }   
-}</code></pre></div>
+}</code></pre>
 <p>Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g. matrices, lists). Be careful with nesting though. Nesting beyond 2 to 3 levels often makes it difficult to read/understand the code. If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed later).</p>
 </div>
 <div id="while-loops" class="section level2">
 <h2><span class="header-section-number">14.4</span> <code>while</code> Loops</h2>
 <p><a href="https://youtu.be/VqrS1Wghq1c">Watch a video of this section</a></p>
 <p>While loops begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>count &lt;-<span class="st"> </span><span class="dv">0</span>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>count &lt;-<span class="st"> </span><span class="dv">0</span>
 &gt;<span class="st"> </span>while(count &lt;<span class="st"> </span><span class="dv">10</span>) {
 +<span class="st">         </span><span class="kw">print</span>(count)
 +<span class="st">         </span>count &lt;-<span class="st"> </span>count +<span class="st"> </span><span class="dv">1</span>
@@ -453,10 +435,10 @@ for(i in <span class="kw">seq_len</span>(<span class="kw">nrow</span>(x))) {
 [<span class="dv">1</span>] <span class="dv">6</span>
 [<span class="dv">1</span>] <span class="dv">7</span>
 [<span class="dv">1</span>] <span class="dv">8</span>
-[<span class="dv">1</span>] <span class="dv">9</span></code></pre></div>
+[<span class="dv">1</span>] <span class="dv">9</span></code></pre>
 <p>While loops can potentially result in infinite loops if not written properly. Use with care!</p>
 <p>Sometimes there will be more than one condition in the test.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>z &lt;-<span class="st"> </span><span class="dv">5</span>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>z &lt;-<span class="st"> </span><span class="dv">5</span>
 &gt;<span class="st"> </span><span class="kw">set.seed</span>(<span class="dv">1</span>)
 &gt;<span class="st"> </span>
 <span class="er">&gt;</span><span class="st"> </span>while(z &gt;=<span class="st"> </span><span class="dv">3</span> &amp;&amp;<span class="st"> </span>z &lt;=<span class="st"> </span><span class="dv">10</span>) {
@@ -469,7 +451,7 @@ for(i in <span class="kw">seq_len</span>(<span class="kw">nrow</span>(x))) {
 +<span class="st">         </span>} 
 +<span class="st"> </span>}
 &gt;<span class="st"> </span><span class="kw">print</span>(z)
-[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
+[<span class="dv">1</span>] <span class="dv">2</span></code></pre>
 <p>Conditions are always evaluated from left to right. For example, in the above code, if <code>z</code> were less than 3, the second test would not have been evaluated.</p>
 </div>
 <div id="repeat-loops" class="section level2">
@@ -477,7 +459,7 @@ for(i in <span class="kw">seq_len</span>(<span class="kw">nrow</span>(x))) {
 <p><a href="https://youtu.be/SajmdYr30SY">Watch a video of this section</a></p>
 <p><code>repeat</code> initiates an infinite loop right from the start. These are not commonly used in statistical or data analysis applications but they do have their uses. The only way to exit a <code>repeat</code> loop is to call <code>break</code>.</p>
 <p>One possible paradigm might be in an iterative algorith where you may be searching for a solution and you don’t want to stop until you’re close enough to the solution. In this kind of situation, you often don’t know in advance how many iterations it’s going to take to get “close enough” to the solution.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x0 &lt;-<span class="st"> </span><span class="dv">1</span>
+<pre class="sourceCode r"><code class="sourceCode r">x0 &lt;-<span class="st"> </span><span class="dv">1</span>
 tol &lt;-<span class="st"> </span><span class="fl">1e-8</span>
 
 repeat {
@@ -488,29 +470,29 @@ repeat {
         } else {
                 x0 &lt;-<span class="st"> </span>x1
         } 
-}</code></pre></div>
+}</code></pre>
 <p>Note that the above code will not run if the <code>computeEstimate()</code> function is not defined (I just made it up for the purposes of this demonstration).</p>
 <p>The loop above is a bit dangerous because there’s no guarantee it will stop. You could get in a situation where the values of <code>x0</code> and <code>x1</code> oscillate back and forth and never converge. Better to set a hard limit on the number of iterations by using a <code>for</code> loop and then report whether convergence was achieved or not.</p>
 </div>
 <div id="next-break" class="section level2">
 <h2><span class="header-section-number">14.6</span> <code>next</code>, <code>break</code></h2>
 <p><code>next</code> is used to skip an iteration of a loop.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(i in <span class="dv">1</span>:<span class="dv">100</span>) {
+<pre class="sourceCode r"><code class="sourceCode r">for(i in <span class="dv">1</span>:<span class="dv">100</span>) {
         if(i &lt;=<span class="st"> </span><span class="dv">20</span>) {
                 ## Skip the first 20 iterations
                 next                 
         }
         ## Do something here
-}</code></pre></div>
+}</code></pre>
 <p><code>break</code> is used to exit a loop immediately, regardless of what iteration the loop may be on.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(i in <span class="dv">1</span>:<span class="dv">100</span>) {
+<pre class="sourceCode r"><code class="sourceCode r">for(i in <span class="dv">1</span>:<span class="dv">100</span>) {
       <span class="kw">print</span>(i)
 
       if(i &gt;<span class="st"> </span><span class="dv">20</span>) {
               ## Stop loop after 20 iterations
               break  
       }     
-}</code></pre></div>
+}</code></pre>
 </div>
 <div id="summary-3" class="section level2">
 <h2><span class="header-section-number">14.7</span> Summary</h2>
@@ -519,6 +501,7 @@ repeat {
 <li><p>Infinite loops should generally be avoided, even if (you believe) they are theoretically correct.</p></li>
 <li><p>Control structures mentiond here are primarily useful for writing programs; for command-line interactive work, the “apply” functions are more useful.</p></li>
 </ul>
+
 
 </div>
 </div>

@@ -57,41 +57,23 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -308,7 +290,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="parallel-computation" class="section level1">
 <h1><span class="header-section-number">21</span> Parallel Computation</h1>
-<p>Many computations in R can be made faster by the use of parallel computation. Generally, parallel computation is the simultaneous execution of different pieces of a larger computation across multiple computing processors or cores. The basic idea is that if you can execute a computation in <span class="math inline">\(X\)</span> seconds on a single processor, then you should be able to execute it in <span class="math inline">\(X/n\)</span> seconds on <span class="math inline">\(n\)</span> proessors. Such a speed-up is generally not possible because of overhead and various barriers to splitting up a problem into <span class="math inline">\(n\)</span> pieces, but it is often possible to come close in simple problems.</p>
+<p>Many computations in R can be made faster by the use of parallel computation. Generally, parallel computation is the simultaneous execution of different pieces of a larger computation across multiple computing processors or cores. The basic idea is that if you can execute a computation in <span class="math">\(X\)</span> seconds on a single processor, then you should be able to execute it in <span class="math">\(X/n\)</span> seconds on <span class="math">\(n\)</span> proessors. Such a speed-up is generally not possible because of overhead and various barriers to splitting up a problem into <span class="math">\(n\)</span> pieces, but it is often possible to come close in simple problems.</p>
 <p>It used to be that parallel computation was squarely in the domain of “high-performance computing”, where expensive machines were linked together via high-speed networking to create large clusters of computers. In those kinds of settings, it was important to have sophisticated software to manage the communication of data between different computers in the cluster. Parallel computing in that setting was a highly tuned, and carefully customized operation and not something you could just saunter into.</p>
 <p>These days though, almost all computers contain multiple processors or cores on them. Even Apple’s iPhone 6S comes with a <a href="https://en.wikipedia.org/wiki/Apple_A9">dual-core CPU</a> as part of its A9 system-on-a-chip. Getting access to a “cluster” of CPUs, in this case all built into the same computer, is much easier than it used to be and this has opened the door to parallel computing for a wide range of people.</p>
 <p>In this chapter, we will discuss some of the basic funtionality in R for executing parallel computations. In particular, we will focus on functions that can be used on <em>multi-core</em> computers, which these days is almost all computers. It is possible to do more traditional parallel computing via the network-of-workstations style of computing, but we will not discuss that here.</p>
@@ -320,15 +302,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>A common example in R is the use of linear algebra functions. Some versions of R that you use may be linked to on optimized Basic Linear Algebra Subroutines (BLAS) library. Such libraries are custom coded for specific CPUs/chipsets to take advantage of the architecture of the chip. It’s important to realize that while R can do linear algebra out of the box, its default BLAS library is a <em>reference implementation</em> that is not necessarily optimized to any particular chipset.</p>
 <p>When possible, it’s always a good idea to install an optimized BLAS on your system because it can dramatically improve the performance of those kinds of computations. Part of the increase in performance comes from the customization of the code to a particular chipset while part of it comes from the multi-threading that many libraries use to parallelize their computations.</p>
 <p>For example, below I simulate a matrix <code>X</code> of 1 million observations by 100 predictors and generate an outcome <code>y</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="fl">1e6</span> *<span class="st"> </span><span class="dv">100</span>), <span class="fl">1e6</span>, <span class="dv">100</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="fl">1e6</span> *<span class="st"> </span><span class="dv">100</span>), <span class="fl">1e6</span>, <span class="dv">100</span>)
 &gt;<span class="st"> </span><span class="kw">dim</span>(X)
 [<span class="dv">1</span>] <span class="dv">1000000</span>     <span class="dv">100</span>
 &gt;<span class="st"> </span>b &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)
-&gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">drop</span>(X %*%<span class="st"> </span>b) +<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e6</span>)</code></pre></div>
+&gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">drop</span>(X %*%<span class="st"> </span>b) +<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e6</span>)</code></pre>
 <p>Then I compute the least squares estimates of the linear regression coefficents when regressing the response <code>y</code> on the predictor matrix <code>X</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">system.time</span>(b &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">crossprod</span>(X), <span class="kw">crossprod</span>(X, y)))
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">system.time</span>(b &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">crossprod</span>(X), <span class="kw">crossprod</span>(X, y)))
    user  system elapsed 
-  <span class="fl">0.854</span>   <span class="fl">0.002</span>   <span class="fl">0.448</span> </code></pre></div>
+  <span class="fl">0.854</span>   <span class="fl">0.002</span>   <span class="fl">0.448</span> </code></pre>
 <p>Here, you can see that the <code>user</code> time is just under 1 second while the <code>elapsed</code> time is about half that. Here, the key task, matrix inversion, was handled by the optimized BLAS and was computed in parallel so that the elapsed time was less than the user or CPU time. In this case, I was using a Mac that was linked to Apple’s Accelerate framework which contains an optimized BLAS.</p>
 <p>Here’s a summary of some of the optimized BLAS libraries out there:</p>
 <ul>
@@ -371,56 +353,55 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Because of the use of the fork mechanism, the <code>mc*</code> functions are generally not available to users of the Windows operating system.</p>
 </blockquote>
 <p>The first thing you might want to check with the <code>parallel</code> package is if your computer in fact has multiple cores that you can take advantage of.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(parallel)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(parallel)
 &gt;<span class="st"> </span><span class="kw">detectCores</span>()
-[<span class="dv">1</span>] <span class="dv">24</span></code></pre></div>
+[<span class="dv">1</span>] <span class="dv">24</span></code></pre>
 <p>The computer on which this is being written is a circa 2013 Mac Pro with 2 physical CPUs, each with 6 cores. Therefore, there are 12 physical cores. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 24 “logical” cores. This is what <code>detectCores()</code> returns. On some systems you can call <code>detectCores(logical = FALSE)</code> to return the number of physical cores.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">detectCores</span>(<span class="dt">logical =</span> <span class="ot">FALSE</span>)  ## Same answer as before on some systems?
-[<span class="dv">1</span>] <span class="dv">12</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">detectCores</span>(<span class="dt">logical =</span> <span class="ot">FALSE</span>)  ## Same answer as before on some systems?
+[<span class="dv">1</span>] <span class="dv">12</span></code></pre>
 <p>In general, the information from <code>detectCores()</code> should be used cautiously as obtaining this kind of information from Unix-like operating systems is not always reliable. If you are going down this road, it’s best if you get to know your hardware better in order to have an understanding of how many CPUs/cores are available to you.</p>
 <div id="mclapply" class="section level3">
 <h3><span class="header-section-number">21.3.1</span> <code>mclapply()</code></h3>
 <p>The simplest application of the <code>parallel</code> package is via the <code>mclapply()</code> function, which conceptually splits what might be a call to <code>lapply()</code> across multiple cores. Just to show how the function works, I’ll run some code that splits a job across 10 cores and then just sleeps for 10 seconds.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">10</span>, function(i) {
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">10</span>, function(i) {
 +<span class="st">         </span><span class="kw">Sys.sleep</span>(<span class="dv">10</span>)  ## Do nothing for 10 seconds
-+<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">10</span>)      ## Split this job across 10 cores</code></pre></div>
++<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">10</span>)      ## Split this job across 10 cores</code></pre>
 <p>While this “job” was running, I took a screen shot of the system activity monitor (“top”). Here’s what it looks like on Mac OS X.</p>
 <div class="figure">
-<img src="images/topparallel.png" alt="Multiple sub-processes spawned by mclapply()" />
-<p class="caption">Multiple sub-processes spawned by <code>mclapply()</code></p>
+<img src="images/topparallel.png" alt="Multiple sub-processes spawned by mclapply()" /><p class="caption">Multiple sub-processes spawned by <code>mclapply()</code></p>
 </div>
 <p>In case you are not used to viewing this output, each row of the table is an application or process running on your computer. You can see that there are 11 rows where the COMMAND is labelled <code>rsession</code>. One of these is my primary R session (being run through RStudio), and the other 10 are the sub-processes spawned by the <code>mclapply()</code> function.</p>
 <p>We will use as a second (slightly more realistic) example processing data from multiple files. Often this is something that can be easily parallelized.</p>
 <p>Here we have data on ambient concentrations of sulfate particulate matter (PM) and nitrate PM from 332 monitors around the United States. First, we can read in the data via a simple call to <code>lapply()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>infiles &lt;-<span class="st"> </span><span class="kw">dir</span>(<span class="st">&quot;specdata&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)
-&gt;<span class="st"> </span>specdata &lt;-<span class="st"> </span><span class="kw">lapply</span>(infiles, read.csv)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>infiles &lt;-<span class="st"> </span><span class="kw">dir</span>(<span class="st">&quot;specdata&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)
+&gt;<span class="st"> </span>specdata &lt;-<span class="st"> </span><span class="kw">lapply</span>(infiles, read.csv)</code></pre>
 <p>Now, <code>specdata</code> is a list of data frames, with each data frame corresponding to each of the 332 monitors in the dataset.</p>
 <p>One thing we might want to do is compute a summary statistic across each of the monitors. For example, we might want to compute the 90th percentile of sulfate for each of the monitors. This can easily be implemented as a serial call to <code>lapply()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">system.time</span>({
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">system.time</span>({
 +<span class="st">         </span>mn &lt;-<span class="st"> </span><span class="kw">lapply</span>(specdata, function(df) {
 +<span class="st">                 </span><span class="kw">quantile</span>(df$sulfate, <span class="fl">0.9</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 +<span class="st">         </span>})
 +<span class="st"> </span>})
 &gt;<span class="st"> </span>s
    user  system elapsed 
-  <span class="fl">0.058</span>   <span class="fl">0.007</span>   <span class="fl">0.065</span> </code></pre></div>
+  <span class="fl">0.058</span>   <span class="fl">0.007</span>   <span class="fl">0.065</span> </code></pre>
 <p>Note that in the <code>system.time()</code> output, the <code>user</code> time (0.058 seconds) and the <code>elapsed</code> time (0.065 seconds) are roughly the same, which is what we would expect because there was no parallelization.</p>
 <p>The equivalent call using <code>mclapply()</code> would be</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">system.time</span>({
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">system.time</span>({
 +<span class="st">         </span>mn &lt;-<span class="st"> </span><span class="kw">mclapply</span>(specdata, function(df) {
 +<span class="st">                 </span><span class="kw">quantile</span>(df$sulfate, <span class="fl">0.9</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 +<span class="st">         </span>}, <span class="dt">mc.cores =</span> <span class="dv">24</span>)
 +<span class="st"> </span>})
 &gt;<span class="st"> </span>s
    user  system elapsed 
-  <span class="fl">0.153</span>   <span class="fl">0.264</span>   <span class="fl">0.055</span> </code></pre></div>
+  <span class="fl">0.153</span>   <span class="fl">0.264</span>   <span class="fl">0.055</span> </code></pre>
 <p>Here, I chose to use 24 cores, just to see what would happen. You’ll notice that the the <code>elapsed</code> time is now much less than the <code>user</code> time. However, in this case, the <code>elapsed</code> time is NOT 1/24th of the <code>user</code> time, which is what we might expect with 24 cores if there were a perfect performance gain from parallelization. R keeps track of how much time is spent in the main process and how much is spent in any child processes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s[<span class="st">&quot;user.self&quot;</span>]  ## Main process
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s[<span class="st">&quot;user.self&quot;</span>]  ## Main process
 user.self 
      <span class="fl">0.01</span> 
 &gt;<span class="st"> </span>s[<span class="st">&quot;user.child&quot;</span>] ## Child processes
 user.child 
-     <span class="fl">0.143</span> </code></pre></div>
+     <span class="fl">0.143</span> </code></pre>
 <p>In the call to <code>mclapply()</code> you can see that virtually all of the <code>user</code> time is spent in the child processes. The total <code>user</code> time is the sum of the <code>self</code> and <code>child</code> times.</p>
 <p>In some cases it is possible for the parallelized version of an R expression to actually be <em>slower</em> than the serial version. This can occur if there is substantial overhead in creating the child processes. For example, time must be spent copying information over to the child processes and communicating the results back to the parent process. However, for most substantial computations, there will be some benefit in parallelization.</p>
 <p>A&gt; One advantage of serial computations is that it allows you to better keep a handle on how much <strong>memory</strong> your R job is using. When executing parallel jobs via <code>mclapply()</code> it’s important to pre-calculate how much memory <em>all</em> of the processes will require and make sure this is less than the total amount of memory on your computer.</p>
@@ -431,16 +412,16 @@ user.child
 <p>When either <code>mclapply()</code> or <code>mcmapply()</code> are called, the functions supplied will be run in the sub-process while effectively being wrapped in a call to <code>try()</code>. This allows for one of the sub-processes to fail without disrupting the entire call to <code>mclapply()</code>, possibly causing you to lose much of your work. If one sub-process fails, it may be that all of the others work just fine and produce good results.</p>
 <p>This error handling behavior is a significant difference from the usual call to <code>lapply()</code>. With <code>lapply()</code>, if the supplied function fails on one component of the list, the entire function call to <code>lapply()</code> fails and you only get an error as a result.</p>
 <p>With <code>mclapply()</code>, when a sub-process fails, the return value for that sub-process will be an R object that inherits from the class <code>&quot;try-error&quot;</code>, which is something you can test with the <code>inherits()</code> function. Conceptually, each child process is executed with the <code>try()</code> function wrapped around it. The code below deliberately causes an error in the 3 element of the list.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5</span>, function(i) {
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5</span>, function(i) {
 +<span class="st">         </span>if(i ==<span class="st"> </span>3L)
 +<span class="st">                 </span><span class="kw">stop</span>(<span class="st">&quot;error in this process!&quot;</span>)
 +<span class="st">         </span>else
 +<span class="st">                 </span><span class="kw">return</span>(<span class="st">&quot;success!&quot;</span>)
 +<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">5</span>)
 Warning in <span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5</span>, function(i) {:<span class="st"> </span>scheduled cores <span class="dv">3</span> encountered
-errors in user code, all values of the jobs will be affected</code></pre></div>
+errors in user code, all values of the jobs will be affected</code></pre>
 <p>Here we see there was a warning but no error in the running of the above code. We can check the return value.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(r)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(r)
 List of <span class="dv">5</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
@@ -451,54 +432,54 @@ List of <span class="dv">5</span>
   .. .. ..$<span class="st"> </span>call   :<span class="st"> </span>language <span class="kw">FUN</span>(X[[i]], ...)
   .. .. ..-<span class="st"> </span><span class="kw">attr</span>(*, <span class="st">&quot;class&quot;</span>)=<span class="st"> </span>chr [<span class="dv">1</span>:<span class="dv">3</span>] <span class="st">&quot;simpleError&quot;</span> <span class="st">&quot;error&quot;</span> <span class="st">&quot;condition&quot;</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span></code></pre></div>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span></code></pre>
 <p>Note that the 3rd list element in <code>r</code> is different.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">class</span>(r[[<span class="dv">3</span>]])
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">class</span>(r[[<span class="dv">3</span>]])
 [<span class="dv">1</span>] <span class="st">&quot;try-error&quot;</span>
 &gt;<span class="st"> </span><span class="kw">inherits</span>(r[[<span class="dv">3</span>]], <span class="st">&quot;try-error&quot;</span>)
-[<span class="dv">1</span>] <span class="ot">TRUE</span></code></pre></div>
+[<span class="dv">1</span>] <span class="ot">TRUE</span></code></pre>
 <p>When running code where there may be errors in some of the sub-processes, it’s useful to check afterwards to see if there are any errors in the output received.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>bad &lt;-<span class="st"> </span><span class="kw">sapply</span>(r, inherits, <span class="dt">what =</span> <span class="st">&quot;try-error&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>bad &lt;-<span class="st"> </span><span class="kw">sapply</span>(r, inherits, <span class="dt">what =</span> <span class="st">&quot;try-error&quot;</span>)
 &gt;<span class="st"> </span>bad
-[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span></code></pre></div>
+[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span></code></pre>
 <p>You can subsequently subset your return object to only keep the “good” elements.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r.good &lt;-<span class="st"> </span>r[!bad]
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r.good &lt;-<span class="st"> </span>r[!bad]
 &gt;<span class="st"> </span><span class="kw">str</span>(r.good)
 List of <span class="dv">4</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span></code></pre></div>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>chr <span class="st">&quot;success!&quot;</span></code></pre>
 </div>
 </div>
 <div id="example-bootstrapping-a-statistic" class="section level2">
 <h2><span class="header-section-number">21.4</span> Example: Bootstrapping a Statistic</h2>
 <p>One technique that is commonly used to assess the variability of a statistic is the bootstrap. Briefly, the bootstrap technique resamples the original dataset with replacement to create pseudo-datasets that are similar to, but slightly perturbed from, the original dataset. This technique is particularly useful when the statistic in question does not have a readily accessible formula for its standard error.</p>
 <p>One example of a statistic for which the bootstrap is useful is the median. Here, we plot the histogram of some of the sulfate particulate matter data from the previous example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;specdata/001.csv&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;specdata/001.csv&quot;</span>)
 &gt;<span class="st"> </span>sulf &lt;-<span class="st"> </span>dat$sulfate
 &gt;<span class="st"> </span>sulf &lt;-<span class="st"> </span>sulf[!<span class="kw">is.na</span>(sulf)]     ## Remove missing values
-&gt;<span class="st"> </span><span class="kw">hist</span>(sulf, <span class="dt">xlab =</span> <span class="kw">expression</span>(<span class="st">&quot;Sulfate PM (&quot;</span> *<span class="st"> </span>mu *<span class="st"> </span>g/m^<span class="dv">3</span> *<span class="st"> &quot;)&quot;</span>))</code></pre></div>
+&gt;<span class="st"> </span><span class="kw">hist</span>(sulf, <span class="dt">xlab =</span> <span class="kw">expression</span>(<span class="st">&quot;Sulfate PM (&quot;</span> *<span class="st"> </span>mu *<span class="st"> </span>g/m^<span class="dv">3</span> *<span class="st"> &quot;)&quot;</span>))</code></pre>
 <p><img src="images/parallel-unnamed-chunk-14-1.png" width="672" /></p>
 <p>We can see from the histogram that the distribution of sulfate is skewed to the right. Therefore, it would seem that the median might be a better summary of the distribution than the mean.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summary</span>(sulf)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summary</span>(sulf)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  <span class="fl">0.613</span>   <span class="fl">2.210</span>   <span class="fl">2.870</span>   <span class="fl">3.881</span>   <span class="fl">4.730</span>  <span class="fl">19.100</span> </code></pre></div>
+  <span class="fl">0.613</span>   <span class="fl">2.210</span>   <span class="fl">2.870</span>   <span class="fl">3.881</span>   <span class="fl">4.730</span>  <span class="fl">19.100</span> </code></pre>
 <p>How can we construct confidence interval for the median of sulfate for this monitor? The bootstrap is simple procedure that can work well. Here’s how we might do it in the usual (non-parallel) way.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">set.seed</span>(<span class="dv">1</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">set.seed</span>(<span class="dv">1</span>)
 &gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">5000</span>, {
 +<span class="st">         </span>xnew &lt;-<span class="st"> </span><span class="kw">sample</span>(sulf, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 +<span class="st">         </span><span class="kw">median</span>(xnew)
-+<span class="st"> </span>})</code></pre></div>
++<span class="st"> </span>})</code></pre>
 <p>A 95% confidence interval would then take the 2.5th and 97.5th percentiles of this distribution (this is known as the percentile method).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">quantile</span>(med.boot, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">quantile</span>(med.boot, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))
  <span class="fl">2.5</span>% 97.5%<span class="st"> </span>
-<span class="st"> </span><span class="fl">2.68</span>  <span class="fl">3.47</span> </code></pre></div>
+<span class="st"> </span><span class="fl">2.68</span>  <span class="fl">3.47</span> </code></pre>
 <p>How could be done in parallel? We could simply wrap the expression passed to <code>replicate()</code> in a function and pass it to <code>mclapply()</code>. However, one thing we need to be careful of is generating random numbers.</p>
 <div id="generating-random-numbers-1" class="section level3">
 <h3><span class="header-section-number">21.4.1</span> Generating Random Numbers</h3>
 <p>Generating random numbers in a parallel environment warrants caution because it’s possible to create a situation where each of the sub-processes are all generating the <em>exact same random numbers</em>. For the most part, the <code>mc*</code> functions do their best to avoid this.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5</span>, function(i) {
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5</span>, function(i) {
 +<span class="st">         </span><span class="kw">rnorm</span>(<span class="dv">3</span>)
 +<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">5</span>)
 &gt;<span class="st"> </span><span class="kw">str</span>(r)
@@ -507,10 +488,10 @@ List of <span class="dv">5</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">0.383</span> <span class="fl">0.192</span> -<span class="fl">0.399</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">1.18</span> -<span class="fl">1.03</span> <span class="fl">1.16</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.319</span> <span class="fl">0.133</span> -<span class="fl">0.301</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.144</span> -<span class="fl">0.769</span> <span class="fl">1.325</span></code></pre></div>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.144</span> -<span class="fl">0.769</span> <span class="fl">1.325</span></code></pre>
 <p>However, the above expression is not <strong>reproducible</strong> because the next time you run it, you will get a different set of random numbers. You cannot simply call <code>set.seed()</code> before running the expression as you might in a non-parallel version of the code.</p>
 <p>The <code>parallel</code> package provides a way to reproducibly generate random numbers in a parallel environment via the “L’Ecuyer-CMRG” random number generator. Note that this is not the default random number generator so you will have to set it explicitly.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Reproducible random numbers
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Reproducible random numbers
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">RNGkind</span>(<span class="st">&quot;L&#39;Ecuyer-CMRG&quot;</span>)
 &gt;<span class="st"> </span><span class="kw">set.seed</span>(<span class="dv">1</span>)
 &gt;<span class="st"> </span>r &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5</span>, function(i) {
@@ -522,10 +503,10 @@ List of <span class="dv">5</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">1.86</span> -<span class="fl">1.825</span> -<span class="fl">0.995</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">1.177</span> <span class="fl">1.472</span> -<span class="fl">0.988</span>
  $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.984</span> <span class="fl">1.291</span> <span class="fl">0.459</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">0.621</span> -<span class="fl">1.221</span> <span class="fl">1.541</span></code></pre></div>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">0.621</span> -<span class="fl">1.221</span> <span class="fl">1.541</span></code></pre>
 <p>Running the above code twice will generate the same random numbers in each of the sub-processes.</p>
 <p>Now we can run our parallel bootstrap in a reproducible way.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">RNGkind</span>(<span class="st">&quot;L&#39;Ecuyer-CMRG&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">RNGkind</span>(<span class="st">&quot;L&#39;Ecuyer-CMRG&quot;</span>)
 &gt;<span class="st"> </span><span class="kw">set.seed</span>(<span class="dv">1</span>)
 &gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span>:<span class="dv">5000</span>, function(i) {
 +<span class="st">         </span>xnew &lt;-<span class="st"> </span><span class="kw">sample</span>(sulf, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
@@ -534,13 +515,13 @@ List of <span class="dv">5</span>
 &gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">unlist</span>(med.boot)  ## Collapse list into vector
 &gt;<span class="st"> </span><span class="kw">quantile</span>(med.boot, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))
  <span class="fl">2.5</span>% 97.5%<span class="st"> </span>
-<span class="st"> </span><span class="fl">2.70</span>  <span class="fl">3.46</span> </code></pre></div>
+<span class="st"> </span><span class="fl">2.70</span>  <span class="fl">3.46</span> </code></pre>
 <p>A&gt; Although I’ve rarely seen it done in practice (including in my own code), it’s a good idea to explicitly set the random number generator via <code>RNGkind()</code>, in addition to setting the seed with <code>set.seed()</code>. This way, you can be sure that the appropriate random number generator is being used every time and your code will be reproducible even on a system where the default generator has been changed.</p>
 </div>
 <div id="using-the-boot-package" class="section level3">
 <h3><span class="header-section-number">21.4.2</span> Using the <code>boot</code> package</h3>
 <p>For bootstrapping in particular, you can use the <code>boot</code> package to do most of the work and the key <code>boot</code> function has an option to do the work in parallel.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(boot)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(boot)
 &gt;<span class="st"> </span>b &lt;-<span class="st"> </span><span class="kw">boot</span>(sulf, function(x, i) <span class="kw">median</span>(x[i]), <span class="dt">R =</span> <span class="dv">5000</span>, <span class="dt">parallel =</span> <span class="st">&quot;multicore&quot;</span>, <span class="dt">ncpus =</span> <span class="dv">24</span>)
 &gt;<span class="st"> </span><span class="kw">boot.ci</span>(b, <span class="dt">type =</span> <span class="st">&quot;perc&quot;</span>)
 BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
@@ -552,41 +533,42 @@ CALL :<span class="st"> </span>
 Intervals :<span class="st"> </span>
 Level     Percentile     
 <span class="dv">95</span>%   ( <span class="fl">2.70</span>,  <span class="fl">3.47</span> )  
-Calculations and Intervals on Original Scale</code></pre></div>
+Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
 <div id="building-a-socket-cluster" class="section level2">
 <h2><span class="header-section-number">21.5</span> Building a Socket Cluster</h2>
 <p>Using the forking mechanism on your computer is one way to execute parallel computation but it’s not the only way that the <code>parallel</code> package offers. Another way to build a “cluster” using the multiple cores on your computer is via <em>sockets</em>. A <a href="https://en.wikipedia.org/wiki/Network_socket">socket</a> is simply a mechanism with which multiple processes or applications running on your computer (or different computers, for that matter) can communicate with each other. With parallel computation, data and results need to be passed back and forth between the parent and child processes and sockets can be used for that purpose.</p>
 <p>Building a socket cluster is simple to do in R with the <code>makeCluster()</code> function. Here I’m initializing a cluster with 24 components.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">24</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">24</span>)</code></pre>
 <p>The <code>cl</code> object is an abstraction of the entire cluster and is what we’ll use to indicate to the various cluster functions that we want to do parallel computation.</p>
 <p>A&gt;You’ll notice that the <code>makeCluster()</code> function has a <code>type</code> argument that allows for different types of clusters beyond using sockets (although the default is a socket cluster). We will not discuss these other options here.</p>
 <p>To do an <code>lapply()</code> operation over a socket cluster we can use the <code>parLapply()</code> function. For example, we can use <code>parLapply()</code> to run our median bootstrap example described above.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="dv">1</span>:<span class="dv">5000</span>, function(i) {
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="dv">1</span>:<span class="dv">5000</span>, function(i) {
 +<span class="st">         </span>xnew &lt;-<span class="st"> </span><span class="kw">sample</span>(sulf, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 +<span class="st">         </span><span class="kw">median</span>(xnew)
 +<span class="st"> </span>})
-Error in <span class="kw">checkForRemoteErrors</span>(val):<span class="st"> </span><span class="dv">24</span> nodes produced errors; first error:<span class="st"> </span>object <span class="st">&#39;sulf&#39;</span> not found</code></pre></div>
+Error in <span class="kw">checkForRemoteErrors</span>(val):<span class="st"> </span><span class="dv">24</span> nodes produced errors; first error:<span class="st"> </span>object <span class="st">&#39;sulf&#39;</span> not found</code></pre>
 <p>You’ll notice, unfortunately, that there’s an error in running this code. The reason is that while we have loaded the sulfate data into our R session, the data is not available to the independent child processes that have been spawned by the <code>makeCluster()</code> function. The data, and any other information that the child process will need to execute your code, needs to be <strong>exported</strong> to the child process from the parent process via the <code>clusterExport()</code> function. The need to export data is a key difference in behavior between the “multicore” approach and the “socket” approach.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">clusterExport</span>(cl, <span class="st">&quot;sulf&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">clusterExport</span>(cl, <span class="st">&quot;sulf&quot;</span>)</code></pre>
 <p>The second argument to <code>clusterExport()</code> is a character vector, and so you can export an arbitrary number of R objects to the child processes. You should be judicious in choosing what you export simply because each R object will be replicated in each of the child processes, and hence take up memory on your computer.</p>
 <p>Once the data have been exported to the child processes, we can run our bootstrap code again.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="dv">1</span>:<span class="dv">5000</span>, function(i) {
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="dv">1</span>:<span class="dv">5000</span>, function(i) {
 +<span class="st">         </span>xnew &lt;-<span class="st"> </span><span class="kw">sample</span>(sulf, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 +<span class="st">         </span><span class="kw">median</span>(xnew)
 +<span class="st"> </span>})
 &gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">unlist</span>(med.boot)  ## Collapse list into vector
 &gt;<span class="st"> </span><span class="kw">quantile</span>(med.boot, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))
  <span class="fl">2.5</span>% 97.5%<span class="st"> </span>
-<span class="st"> </span><span class="fl">2.68</span>  <span class="fl">3.46</span> </code></pre></div>
+<span class="st"> </span><span class="fl">2.68</span>  <span class="fl">3.46</span> </code></pre>
 <p>Once you’ve finished working with your cluster, it’s good to clean up and stop the cluster child processes (quitting R will also stop all of the child processes).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">stopCluster</span>(cl)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">stopCluster</span>(cl)</code></pre>
 </div>
 <div id="summary-9" class="section level2">
 <h2><span class="header-section-number">21.6</span> Summary</h2>
 <p>In this chapter we reviewed two different approaches to executing parallel computations in R. Both approaches used the <code>parallel</code> package, which comes with your installation of R. The “multicore” approach, which makes use of the <code>mclapply()</code> function is perhaps the simplest and can be implemented on just about any multi-core system (which nowadays is any system). The “socket” approach is a bit more general and can be implemented on systems where the fork-ing mechanism is not available. The approach used in the “socket” type cluster can also be extended to other parallel cluster management systems which unfortunately are outside the scope of this book.</p>
-<p>In general, using parallel computation can speed up “embarrassingly parallel” computations, typically with little additional effort. However, it’s important to remember that splitting a computation across <span class="math inline">\(N\)</span> processors usually does not result in a <span class="math inline">\(N\)</span>-times speed up of your computation. This is because there is some overhead involved with initiating the sub-processes and copying the data over to those processes.</p>
+<p>In general, using parallel computation can speed up “embarrassingly parallel” computations, typically with little additional effort. However, it’s important to remember that splitting a computation across <span class="math">\(N\)</span> processors usually does not result in a <span class="math">\(N\)</span>-times speed up of your computation. This is because there is some overhead involved with initiating the sub-processes and copying the data over to those processes.</p>
+
 
 </div>
 </div>

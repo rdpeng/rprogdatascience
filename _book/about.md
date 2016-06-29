@@ -11,5 +11,5 @@ the [Simply Statistics blog](http://simplystatistics.org/) where he
 writes about statistics and data science for the general public, and
 the [Not So Standard Deviations](https://soundcloud.com/nssd-podcast)
 podcast. Roger can be found on Twitter and GitHub under the user name
-[@rdpeng](https://twitter.com/rdpeng).
+[rdpeng](https://twitter.com/rdpeng).
 

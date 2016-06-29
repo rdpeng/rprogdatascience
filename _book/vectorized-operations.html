@@ -57,41 +57,23 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -311,43 +293,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><a href="https://youtu.be/YH3qtw7mTyA">Watch a video of this chapter</a></p>
 <p>Many operations in R are <em>vectorized</em>, meaning that operations occur in parallel in certain R objects. This allows you to write code that is efficient, concise, and easier to read than in non-vectorized languages.</p>
 <p>The simplest example is when adding two vectors together.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
 &gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="dv">6</span>:<span class="dv">9</span> 
 &gt;<span class="st"> </span>z &lt;-<span class="st"> </span>x +<span class="st"> </span>y
 &gt;<span class="st"> </span>z
-[<span class="dv">1</span>]  <span class="dv">7</span>  <span class="dv">9</span> <span class="dv">11</span> <span class="dv">13</span></code></pre></div>
+[<span class="dv">1</span>]  <span class="dv">7</span>  <span class="dv">9</span> <span class="dv">11</span> <span class="dv">13</span></code></pre>
 <p>Natural, right? Without vectorization, you’d have to do something like</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="kw">length</span>(x))
+<pre class="sourceCode r"><code class="sourceCode r">z &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="kw">length</span>(x))
 for(i in <span class="kw">seq_along</span>(x)) {
       z[i] &lt;-<span class="st"> </span>x[i] +<span class="st"> </span>y[i]
 }
 z
-[<span class="dv">1</span>]  <span class="dv">7</span>  <span class="dv">9</span> <span class="dv">11</span> <span class="dv">13</span></code></pre></div>
+[<span class="dv">1</span>]  <span class="dv">7</span>  <span class="dv">9</span> <span class="dv">11</span> <span class="dv">13</span></code></pre>
 <p>If you had to do that every time you wanted to add two vectors, your hands would get very tired from all the typing.</p>
 <p>Another operation you can do in a vectorized manner is logical comparisons. So suppose you wanted to know which elements of a vector were greater than 2. You could do he following.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x
 [<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>
 &gt;<span class="st"> </span>x &gt;<span class="st"> </span><span class="dv">2</span>
-[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span></code></pre></div>
+[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span></code></pre>
 <p>Here are other vectorized logical operations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &gt;=<span class="st"> </span><span class="dv">2</span>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &gt;=<span class="st"> </span><span class="dv">2</span>
 [<span class="dv">1</span>] <span class="ot">FALSE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span>
 &gt;<span class="st"> </span>x &lt;<span class="st"> </span><span class="dv">3</span>
 [<span class="dv">1</span>]  <span class="ot">TRUE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>
 &gt;<span class="st"> </span>y ==<span class="st"> </span><span class="dv">8</span>
-[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span></code></pre></div>
+[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span></code></pre>
 <p>Notice that these logical operations return a logical vector of <code>TRUE</code> and <code>FALSE</code>.</p>
 <p>Of course, subtraction, multiplication and division are also vectorized.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x -<span class="st"> </span>y
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x -<span class="st"> </span>y
 [<span class="dv">1</span>] -<span class="dv">5</span> -<span class="dv">5</span> -<span class="dv">5</span> -<span class="dv">5</span>
 &gt;<span class="st"> </span>x *<span class="st"> </span>y
 [<span class="dv">1</span>]  <span class="dv">6</span> <span class="dv">14</span> <span class="dv">24</span> <span class="dv">36</span>
 &gt;<span class="st"> </span>x /<span class="st"> </span>y
-[<span class="dv">1</span>] <span class="fl">0.1666667</span> <span class="fl">0.2857143</span> <span class="fl">0.3750000</span> <span class="fl">0.4444444</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">0.1666667</span> <span class="fl">0.2857143</span> <span class="fl">0.3750000</span> <span class="fl">0.4444444</span></code></pre>
 <div id="vectorized-matrix-operations" class="section level2">
 <h2><span class="header-section-number">11.1</span> Vectorized Matrix Operations</h2>
 <p>Matrix operations are also vectorized, making for nicly compact notation. This way, we can do element-by-element operations on matrices without having to loop over every element.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>)
 &gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">10</span>, <span class="dv">4</span>), <span class="dv">2</span>, <span class="dv">2</span>)
 &gt;<span class="st"> </span>
 <span class="er">&gt;</span><span class="st"> </span>## element-wise multiplication
@@ -366,7 +348,8 @@ z
 <span class="er">&gt;</span><span class="st"> </span>x %*%<span class="st"> </span>y     
      [,<span class="dv">1</span>] [,<span class="dv">2</span>]
 [<span class="dv">1</span>,]   <span class="dv">40</span>   <span class="dv">40</span>
-[<span class="dv">2</span>,]   <span class="dv">60</span>   <span class="dv">60</span></code></pre></div>
+[<span class="dv">2</span>,]   <span class="dv">60</span>   <span class="dv">60</span></code></pre>
+
 
 </div>
 </div>

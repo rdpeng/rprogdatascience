@@ -57,41 +57,23 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -314,15 +296,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">12.1</span> Dates in R</h2>
 <p><a href="https://youtu.be/opYexVgjwkE">Watch a video of this section</a></p>
 <p>Dates are represented by the <code>Date</code> class and can be coerced from a character string using the <code>as.Date()</code> function. This is a common way to end up with a <code>Date</code> object in R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Coerce a &#39;Date&#39; object from character
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Coerce a &#39;Date&#39; object from character
 <span class="er">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1970-01-01&quot;</span>)   
 &gt;<span class="st"> </span>x
-[<span class="dv">1</span>] <span class="st">&quot;1970-01-01&quot;</span></code></pre></div>
+[<span class="dv">1</span>] <span class="st">&quot;1970-01-01&quot;</span></code></pre>
 <p>You can see the internal representation of a <code>Date</code> object by using the <code>unclass()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">unclass</span>(x)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">unclass</span>(x)
 [<span class="dv">1</span>] <span class="dv">0</span>
 &gt;<span class="st"> </span><span class="kw">unclass</span>(<span class="kw">as.Date</span>(<span class="st">&quot;1970-01-02&quot;</span>))
-[<span class="dv">1</span>] <span class="dv">1</span></code></pre></div>
+[<span class="dv">1</span>] <span class="dv">1</span></code></pre>
 </div>
 <div id="times-in-r" class="section level2">
 <h2><span class="header-section-number">12.2</span> Times in R</h2>
@@ -335,20 +317,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>quarters</code>: give the quarter number (“Q1”, “Q2”, “Q3”, or “Q4”)</li>
 </ul>
 <p>Times can be coerced from a character string using the <code>as.POSIXlt</code> or <code>as.POSIXct</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
 &gt;<span class="st"> </span>x
 [<span class="dv">1</span>] <span class="st">&quot;2016-06-28 10:12:56 EDT&quot;</span>
 &gt;<span class="st"> </span><span class="kw">class</span>(x)   ## &#39;POSIXct&#39; object
-[<span class="dv">1</span>] <span class="st">&quot;POSIXct&quot;</span> <span class="st">&quot;POSIXt&quot;</span> </code></pre></div>
+[<span class="dv">1</span>] <span class="st">&quot;POSIXct&quot;</span> <span class="st">&quot;POSIXt&quot;</span> </code></pre>
 <p>The <code>POSIXlt</code> object contains some useful metadata.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>p &lt;-<span class="st"> </span><span class="kw">as.POSIXlt</span>(x)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>p &lt;-<span class="st"> </span><span class="kw">as.POSIXlt</span>(x)
 &gt;<span class="st"> </span><span class="kw">names</span>(<span class="kw">unclass</span>(p))
  [<span class="dv">1</span>] <span class="st">&quot;sec&quot;</span>    <span class="st">&quot;min&quot;</span>    <span class="st">&quot;hour&quot;</span>   <span class="st">&quot;mday&quot;</span>   <span class="st">&quot;mon&quot;</span>    <span class="st">&quot;year&quot;</span>   <span class="st">&quot;wday&quot;</span>  
  [<span class="dv">8</span>] <span class="st">&quot;yday&quot;</span>   <span class="st">&quot;isdst&quot;</span>  <span class="st">&quot;zone&quot;</span>   <span class="st">&quot;gmtoff&quot;</span>
 &gt;<span class="st"> </span>p$wday     ## day of the week
-[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
+[<span class="dv">1</span>] <span class="dv">2</span></code></pre>
 <p>You can also use the <code>POSIXct</code> format.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
 &gt;<span class="st"> </span>x             ## Already in ‘POSIXct’ format
 [<span class="dv">1</span>] <span class="st">&quot;2016-06-28 10:12:56 EDT&quot;</span>
 &gt;<span class="st"> </span><span class="kw">unclass</span>(x)    ## Internal representation
@@ -357,40 +339,40 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 Error in x$sec:<span class="st"> </span><span class="er">$</span><span class="st"> </span>operator is invalid for atomic vectors
 &gt;<span class="st"> </span>p &lt;-<span class="st"> </span><span class="kw">as.POSIXlt</span>(x)
 &gt;<span class="st"> </span>p$sec         ## That&#39;s better
-[<span class="dv">1</span>] <span class="fl">56.61196</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">56.61196</span></code></pre>
 <p>Finally, there is the <code>strptime()</code> function in case your dates are written in a different format. <code>strptime()</code> takes a character vector that has dates and times and converts them into to a <code>POSIXlt</code> object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>datestring &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;January 10, 2012 10:40&quot;</span>, <span class="st">&quot;December 9, 2011 9:10&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>datestring &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;January 10, 2012 10:40&quot;</span>, <span class="st">&quot;December 9, 2011 9:10&quot;</span>)
 &gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">strptime</span>(datestring, <span class="st">&quot;%B %d, %Y %H:%M&quot;</span>)
 &gt;<span class="st"> </span>x
 [<span class="dv">1</span>] <span class="st">&quot;2012-01-10 10:40:00 EST&quot;</span> <span class="st">&quot;2011-12-09 09:10:00 EST&quot;</span>
 &gt;<span class="st"> </span><span class="kw">class</span>(x)
-[<span class="dv">1</span>] <span class="st">&quot;POSIXlt&quot;</span> <span class="st">&quot;POSIXt&quot;</span> </code></pre></div>
+[<span class="dv">1</span>] <span class="st">&quot;POSIXlt&quot;</span> <span class="st">&quot;POSIXt&quot;</span> </code></pre>
 <p>The weird-looking symbols that start with the <code>%</code> symbol are the formatting strings for dates and times. I can <em>never</em> remember the formatting strings. Check <code>?strptime</code> for details. It’s probably not worth memorizing this stuff.</p>
 </div>
 <div id="operations-on-dates-and-times" class="section level2">
 <h2><span class="header-section-number">12.3</span> Operations on Dates and Times</h2>
 <p><a href="https://youtu.be/vEmWJrpP1KM">Watch a video of this section</a></p>
 <p>You can use mathematical operations on dates and times. Well, really just + and -. You can do comparisons too (i.e. ==, &lt;=)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2012-01-01&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2012-01-01&quot;</span>)
 &gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">strptime</span>(<span class="st">&quot;9 Jan 2011 11:34:21&quot;</span>, <span class="st">&quot;%d %b %Y %H:%M:%S&quot;</span>) 
 &gt;<span class="st"> </span>x-y
 Warning:<span class="st"> </span>Incompatible <span class="kw">methods</span> (<span class="st">&quot;-.Date&quot;</span>, <span class="st">&quot;-.POSIXt&quot;</span>) for <span class="st">&quot;-&quot;</span>
 Error in x -<span class="st"> </span>y:<span class="st"> </span>non-numeric argument to binary operator
 &gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">as.POSIXlt</span>(x) 
 &gt;<span class="st"> </span>x-y
-Time difference of <span class="fl">356.3095</span> days</code></pre></div>
+Time difference of <span class="fl">356.3095</span> days</code></pre>
 <p>The nice thing about the date/time classes is that they keep track of all the annoying things about dates and times, like leap years, leap seconds, daylight savings, and time zones.</p>
 <p>Here’s an example where a leap year gets involved.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2012-03-01&quot;</span>) 
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2012-03-01&quot;</span>) 
 &gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2012-02-28&quot;</span>) 
 &gt;<span class="st"> </span>x-y
-Time difference of <span class="dv">2</span> days</code></pre></div>
+Time difference of <span class="dv">2</span> days</code></pre>
 <p>Here’s an example where two different time zones are in play (unless you live in GMT timezone, in which case they will be the same!).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## My local time zone
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## My local time zone
 <span class="er">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="st">&quot;2012-10-25 01:00:00&quot;</span>)     
 &gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="st">&quot;2012-10-25 06:00:00&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;GMT&quot;</span>) 
 &gt;<span class="st"> </span>y-x
-Time difference of <span class="dv">1</span> hours</code></pre></div>
+Time difference of <span class="dv">1</span> hours</code></pre>
 </div>
 <div id="summary-1" class="section level2">
 <h2><span class="header-section-number">12.4</span> Summary</h2>
@@ -400,6 +382,7 @@ Time difference of <span class="dv">1</span> hours</code></pre></div>
 <li>Times use the <code>POSIXct</code> and <code>POSIXlt</code> class</li>
 <li>Character strings can be coerced to Date/Time classes using the <code>strptime</code> function or the <code>as.Date</code>, <code>as.POSIXlt</code>, or <code>as.POSIXct</code></li>
 </ul>
+
 
 </div>
 </div>

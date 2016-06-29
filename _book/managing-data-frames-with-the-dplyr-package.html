@@ -57,41 +57,23 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -347,11 +329,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">13.4</span> Installing the <code>dplyr</code> package</h2>
 <p>The <code>dplyr</code> package can be installed from CRAN or from GitHub using the <code>devtools</code> package and the <code>install_github()</code> function. The GitHub repository will usually contain the latest updates to the package and the development version.</p>
 <p>To install from CRAN, just run</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre>
 <p>To install from GitHub you can run</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">install_github</span>(<span class="st">&quot;hadley/dplyr&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">install_github</span>(<span class="st">&quot;hadley/dplyr&quot;</span>)</code></pre>
 <p>After installing the package it is important that you load it into your R session with the <code>library()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(dplyr)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(dplyr)
 
 Attaching package:<span class="st"> &#39;dplyr&#39;</span>
 The following objects are masked from <span class="st">&#39;package:stats&#39;</span>:
@@ -359,16 +341,16 @@ The following objects are masked from <span class="st">&#39;package:stats&#39;</
 <span class="st">    </span>filter, lag
 The following objects are masked from <span class="st">&#39;package:base&#39;</span>:
 
-<span class="st">    </span>intersect, setdiff, setequal, union</code></pre></div>
+<span class="st">    </span>intersect, setdiff, setequal, union</code></pre>
 <p>You may get some warnings when the package is loaded because there are functions in the <code>dplyr</code> package that have the same name as functions in other packages. For now you can ignore the warnings.</p>
 </div>
 <div id="select" class="section level2">
 <h2><span class="header-section-number">13.5</span> <code>select()</code></h2>
 <p>For the examples in this chapter we will be using a dataset containing air pollution and temperature data for the <a href="http://www.biostat.jhsph.edu/~rpeng/leanpub/rprog/chicago_data.zip">city of Chicago</a> in the U.S. The dataset is available from my web site.</p>
 <p>After unzipping the archive, you can load the data into R using the <code>readRDS()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;chicago.rds&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;chicago.rds&quot;</span>)</code></pre>
 <p>You can see some basic characteristics of the dataset with the <code>dim()</code> and <code>str()</code> functions.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">dim</span>(chicago)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">dim</span>(chicago)
 [<span class="dv">1</span>] <span class="dv">6940</span>    <span class="dv">8</span>
 &gt;<span class="st"> </span><span class="kw">str</span>(chicago)
 <span class="st">&#39;data.frame&#39;</span>:<span class="st">   </span><span class="dv">6940</span> obs. of  <span class="dv">8</span> variables:
@@ -379,10 +361,10 @@ The following objects are masked from <span class="st">&#39;package:base&#39;</s
  $<span class="st"> </span>pm25tmean2:<span class="st"> </span>num  <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> ...
  $<span class="st"> </span>pm10tmean2:<span class="st"> </span>num  <span class="dv">34</span> <span class="ot">NA</span> <span class="fl">34.2</span> <span class="dv">47</span> <span class="ot">NA</span> ...
  $<span class="st"> </span>o3tmean2  :<span class="st"> </span>num  <span class="fl">4.25</span> <span class="fl">3.3</span> <span class="fl">3.33</span> <span class="fl">4.38</span> <span class="fl">4.75</span> ...
- $<span class="st"> </span>no2tmean2 :<span class="st"> </span>num  <span class="dv">20</span> <span class="fl">23.2</span> <span class="fl">23.8</span> <span class="fl">30.4</span> <span class="fl">30.3</span> ...</code></pre></div>
+ $<span class="st"> </span>no2tmean2 :<span class="st"> </span>num  <span class="dv">20</span> <span class="fl">23.2</span> <span class="fl">23.8</span> <span class="fl">30.4</span> <span class="fl">30.3</span> ...</code></pre>
 <p>The <code>select()</code> function can be used to select columns of a data frame that you want to focus on. Often you’ll have a large data frame containing “all” of the data, but any <em>given</em> analysis might only use a subset of variables or observations. The <code>select()</code> function allows you to get the few columns you might need.</p>
 <p>Suppose we wanted to take the first 3 columns only. There are a few ways to do this. We could for example use numerical indices. But we can also use the names directly.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">names</span>(chicago)[<span class="dv">1</span>:<span class="dv">3</span>]
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">names</span>(chicago)[<span class="dv">1</span>:<span class="dv">3</span>]
 [<span class="dv">1</span>] <span class="st">&quot;city&quot;</span> <span class="st">&quot;tmpd&quot;</span> <span class="st">&quot;dptp&quot;</span>
 &gt;<span class="st"> </span>subset &lt;-<span class="st"> </span><span class="kw">select</span>(chicago, city:dptp)
 &gt;<span class="st"> </span><span class="kw">head</span>(subset)
@@ -392,36 +374,36 @@ The following objects are masked from <span class="st">&#39;package:base&#39;</s
 <span class="dv">3</span> chic <span class="fl">33.0</span> <span class="fl">27.375</span>
 <span class="dv">4</span> chic <span class="fl">29.0</span> <span class="fl">28.625</span>
 <span class="dv">5</span> chic <span class="fl">32.0</span> <span class="fl">28.875</span>
-<span class="dv">6</span> chic <span class="fl">40.0</span> <span class="fl">35.125</span></code></pre></div>
+<span class="dv">6</span> chic <span class="fl">40.0</span> <span class="fl">35.125</span></code></pre>
 <p>Note that the <code>:</code> normally cannot be used with names or strings, but inside the <code>select()</code> function you can use it to specify a range of variable names.</p>
 <p>You can also <em>omit</em> variables using the <code>select()</code> function by using the negative sign. With <code>select()</code> you can do</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">select</span>(chicago, -(city:dptp))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">select</span>(chicago, -(city:dptp))</code></pre>
 <p>which indicates that we should include every variable <em>except</em> the variables <code>city</code> through <code>dptp</code>. The equivalent code in base R would be</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>i &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="st">&quot;city&quot;</span>, <span class="kw">names</span>(chicago))
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>i &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="st">&quot;city&quot;</span>, <span class="kw">names</span>(chicago))
 &gt;<span class="st"> </span>j &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="st">&quot;dptp&quot;</span>, <span class="kw">names</span>(chicago))
-&gt;<span class="st"> </span><span class="kw">head</span>(chicago[, -(i:j)])</code></pre></div>
+&gt;<span class="st"> </span><span class="kw">head</span>(chicago[, -(i:j)])</code></pre>
 <p>Not super intuitive, right?</p>
 <p>The <code>select()</code> function also allows a special syntax that allows you to specify variable names based on patterns. So, for example, if you wanted to keep every variable that ends with a “2”, we could do</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>subset &lt;-<span class="st"> </span><span class="kw">select</span>(chicago, <span class="kw">ends_with</span>(<span class="st">&quot;2&quot;</span>))
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>subset &lt;-<span class="st"> </span><span class="kw">select</span>(chicago, <span class="kw">ends_with</span>(<span class="st">&quot;2&quot;</span>))
 &gt;<span class="st"> </span><span class="kw">str</span>(subset)
 <span class="st">&#39;data.frame&#39;</span>:<span class="st">   </span><span class="dv">6940</span> obs. of  <span class="dv">4</span> variables:
 <span class="st"> </span><span class="er">$</span><span class="st"> </span>pm25tmean2:<span class="st"> </span>num  <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> ...
  $<span class="st"> </span>pm10tmean2:<span class="st"> </span>num  <span class="dv">34</span> <span class="ot">NA</span> <span class="fl">34.2</span> <span class="dv">47</span> <span class="ot">NA</span> ...
  $<span class="st"> </span>o3tmean2  :<span class="st"> </span>num  <span class="fl">4.25</span> <span class="fl">3.3</span> <span class="fl">3.33</span> <span class="fl">4.38</span> <span class="fl">4.75</span> ...
- $<span class="st"> </span>no2tmean2 :<span class="st"> </span>num  <span class="dv">20</span> <span class="fl">23.2</span> <span class="fl">23.8</span> <span class="fl">30.4</span> <span class="fl">30.3</span> ...</code></pre></div>
+ $<span class="st"> </span>no2tmean2 :<span class="st"> </span>num  <span class="dv">20</span> <span class="fl">23.2</span> <span class="fl">23.8</span> <span class="fl">30.4</span> <span class="fl">30.3</span> ...</code></pre>
 <p>Or if we wanted to keep every variable that starts with a “d”, we could do</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>subset &lt;-<span class="st"> </span><span class="kw">select</span>(chicago, <span class="kw">starts_with</span>(<span class="st">&quot;d&quot;</span>))
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>subset &lt;-<span class="st"> </span><span class="kw">select</span>(chicago, <span class="kw">starts_with</span>(<span class="st">&quot;d&quot;</span>))
 &gt;<span class="st"> </span><span class="kw">str</span>(subset)
 <span class="st">&#39;data.frame&#39;</span>:<span class="st">   </span><span class="dv">6940</span> obs. of  <span class="dv">2</span> variables:
 <span class="st"> </span><span class="er">$</span><span class="st"> </span>dptp:<span class="st"> </span>num  <span class="fl">31.5</span> <span class="fl">29.9</span> <span class="fl">27.4</span> <span class="fl">28.6</span> <span class="fl">28.9</span> ...
- $<span class="st"> </span>date:<span class="st"> </span>Date, format:<span class="st"> &quot;1987-01-01&quot;</span> <span class="st">&quot;1987-01-02&quot;</span> ...</code></pre></div>
+ $<span class="st"> </span>date:<span class="st"> </span>Date, format:<span class="st"> &quot;1987-01-01&quot;</span> <span class="st">&quot;1987-01-02&quot;</span> ...</code></pre>
 <p>You can also use more general regular expressions if necessary. See the help page (<code>?select</code>) for more details.</p>
 </div>
 <div id="filter" class="section level2">
 <h2><span class="header-section-number">13.6</span> <code>filter()</code></h2>
 <p>The <code>filter()</code> function is used to extract subsets of rows from a data frame. This function is similar to the existing <code>subset()</code> function in R but is quite a bit faster in my experience.</p>
 <p>Suppose we wanted to extract the rows of the <code>chicago</code> data frame where the levels of PM2.5 are greater than 30 (which is a reasonably high level), we could do</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chic.f &lt;-<span class="st"> </span><span class="kw">filter</span>(chicago, pm25tmean2 &gt;<span class="st"> </span><span class="dv">30</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chic.f &lt;-<span class="st"> </span><span class="kw">filter</span>(chicago, pm25tmean2 &gt;<span class="st"> </span><span class="dv">30</span>)
 &gt;<span class="st"> </span><span class="kw">str</span>(chic.f)
 <span class="st">&#39;data.frame&#39;</span>:<span class="st">   </span><span class="dv">194</span> obs. of  <span class="dv">8</span> variables:
 <span class="st"> </span><span class="er">$</span><span class="st"> </span>city      :<span class="st"> </span>chr  <span class="st">&quot;chic&quot;</span> <span class="st">&quot;chic&quot;</span> <span class="st">&quot;chic&quot;</span> <span class="st">&quot;chic&quot;</span> ...
@@ -431,13 +413,13 @@ The following objects are masked from <span class="st">&#39;package:base&#39;</s
  $<span class="st"> </span>pm25tmean2:<span class="st"> </span>num  <span class="fl">38.1</span> <span class="dv">34</span> <span class="fl">39.4</span> <span class="fl">35.4</span> <span class="fl">33.3</span> ...
  $<span class="st"> </span>pm10tmean2:<span class="st"> </span>num  <span class="fl">32.5</span> <span class="fl">38.7</span> <span class="dv">34</span> <span class="fl">28.5</span> <span class="dv">35</span> ...
  $<span class="st"> </span>o3tmean2  :<span class="st"> </span>num  <span class="fl">3.18</span> <span class="fl">1.75</span> <span class="fl">10.79</span> <span class="fl">14.3</span> <span class="fl">20.66</span> ...
- $<span class="st"> </span>no2tmean2 :<span class="st"> </span>num  <span class="fl">25.3</span> <span class="fl">29.4</span> <span class="fl">25.3</span> <span class="fl">31.4</span> <span class="fl">26.8</span> ...</code></pre></div>
+ $<span class="st"> </span>no2tmean2 :<span class="st"> </span>num  <span class="fl">25.3</span> <span class="fl">29.4</span> <span class="fl">25.3</span> <span class="fl">31.4</span> <span class="fl">26.8</span> ...</code></pre>
 <p>You can see that there are now only 194 rows in the data frame and the distribution of the <code>pm25tmean2</code> values is.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summary</span>(chic.f$pm25tmean2)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summary</span>(chic.f$pm25tmean2)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  <span class="fl">30.05</span>   <span class="fl">32.12</span>   <span class="fl">35.04</span>   <span class="fl">36.63</span>   <span class="fl">39.53</span>   <span class="fl">61.50</span> </code></pre></div>
+  <span class="fl">30.05</span>   <span class="fl">32.12</span>   <span class="fl">35.04</span>   <span class="fl">36.63</span>   <span class="fl">39.53</span>   <span class="fl">61.50</span> </code></pre>
 <p>We can place an arbitrarily complex logical sequence inside of <code>filter()</code>, so we could for example extract the rows where PM2.5 is greater than 30 <em>and</em> temperature is greater than 80 degrees Fahrenheit.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chic.f &lt;-<span class="st"> </span><span class="kw">filter</span>(chicago, pm25tmean2 &gt;<span class="st"> </span><span class="dv">30</span> &amp;<span class="st"> </span>tmpd &gt;<span class="st"> </span><span class="dv">80</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chic.f &lt;-<span class="st"> </span><span class="kw">filter</span>(chicago, pm25tmean2 &gt;<span class="st"> </span><span class="dv">30</span> &amp;<span class="st"> </span>tmpd &gt;<span class="st"> </span><span class="dv">80</span>)
 &gt;<span class="st"> </span><span class="kw">select</span>(chic.f, date, tmpd, pm25tmean2)
          date tmpd pm25tmean2
 <span class="dv">1</span>  <span class="dv">1998-08-23</span>   <span class="dv">81</span>   <span class="fl">39.60000</span>
@@ -456,30 +438,30 @@ The following objects are masked from <span class="st">&#39;package:base&#39;</s
 <span class="dv">14</span> <span class="dv">2005-06-27</span>   <span class="dv">82</span>   <span class="fl">51.53750</span>
 <span class="dv">15</span> <span class="dv">2005-06-28</span>   <span class="dv">85</span>   <span class="fl">31.20000</span>
 <span class="dv">16</span> <span class="dv">2005-07-17</span>   <span class="dv">84</span>   <span class="fl">32.70000</span>
-<span class="dv">17</span> <span class="dv">2005-08-03</span>   <span class="dv">84</span>   <span class="fl">37.90000</span></code></pre></div>
+<span class="dv">17</span> <span class="dv">2005-08-03</span>   <span class="dv">84</span>   <span class="fl">37.90000</span></code></pre>
 <p>Now there are only 17 observations where both of those conditions are met.</p>
 </div>
 <div id="arrange" class="section level2">
 <h2><span class="header-section-number">13.7</span> <code>arrange()</code></h2>
 <p>The <code>arrange()</code> function is used to reorder rows of a data frame according to one of the variables/columns. Reordering rows of a data frame (while preserving corresponding order of other columns) is normally a pain to do in R. The <code>arrange()</code> function simplifies the process quite a bit.</p>
 <p>Here we can order the rows of the data frame by date, so that the first row is the earliest (oldest) observation and the last row is the latest (most recent) observation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">arrange</span>(chicago, date)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">arrange</span>(chicago, date)</code></pre>
 <p>We can now check the first few rows</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(<span class="kw">select</span>(chicago, date, pm25tmean2), <span class="dv">3</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(<span class="kw">select</span>(chicago, date, pm25tmean2), <span class="dv">3</span>)
         date pm25tmean2
 <span class="dv">1</span> <span class="dv">1987-01-01</span>         <span class="ot">NA</span>
 <span class="dv">2</span> <span class="dv">1987-01-02</span>         <span class="ot">NA</span>
-<span class="dv">3</span> <span class="dv">1987-01-03</span>         <span class="ot">NA</span></code></pre></div>
+<span class="dv">3</span> <span class="dv">1987-01-03</span>         <span class="ot">NA</span></code></pre>
 <p>and the last few rows.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">tail</span>(<span class="kw">select</span>(chicago, date, pm25tmean2), <span class="dv">3</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">tail</span>(<span class="kw">select</span>(chicago, date, pm25tmean2), <span class="dv">3</span>)
            date pm25tmean2
 <span class="dv">6938</span> <span class="dv">2005-12-29</span>    <span class="fl">7.45000</span>
 <span class="dv">6939</span> <span class="dv">2005-12-30</span>   <span class="fl">15.05714</span>
-<span class="dv">6940</span> <span class="dv">2005-12-31</span>   <span class="fl">15.00000</span></code></pre></div>
+<span class="dv">6940</span> <span class="dv">2005-12-31</span>   <span class="fl">15.00000</span></code></pre>
 <p>Columns can be arranged in descending order too by useing the special <code>desc()</code> operator.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">arrange</span>(chicago, <span class="kw">desc</span>(date))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">arrange</span>(chicago, <span class="kw">desc</span>(date))</code></pre>
 <p>Looking at the first three and last three rows shows the dates in descending order.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(<span class="kw">select</span>(chicago, date, pm25tmean2), <span class="dv">3</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(<span class="kw">select</span>(chicago, date, pm25tmean2), <span class="dv">3</span>)
         date pm25tmean2
 <span class="dv">1</span> <span class="dv">2005-12-31</span>   <span class="fl">15.00000</span>
 <span class="dv">2</span> <span class="dv">2005-12-30</span>   <span class="fl">15.05714</span>
@@ -488,24 +470,24 @@ The following objects are masked from <span class="st">&#39;package:base&#39;</s
            date pm25tmean2
 <span class="dv">6938</span> <span class="dv">1987-01-03</span>         <span class="ot">NA</span>
 <span class="dv">6939</span> <span class="dv">1987-01-02</span>         <span class="ot">NA</span>
-<span class="dv">6940</span> <span class="dv">1987-01-01</span>         <span class="ot">NA</span></code></pre></div>
+<span class="dv">6940</span> <span class="dv">1987-01-01</span>         <span class="ot">NA</span></code></pre>
 </div>
 <div id="rename" class="section level2">
 <h2><span class="header-section-number">13.8</span> <code>rename()</code></h2>
 <p>Renaming a variable in a data frame in R is surprisingly hard to do! The <code>rename()</code> function is designed to make this process easier.</p>
 <p>Here you can see the names of the first five variables in the <code>chicago</code> data frame.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(chicago[, <span class="dv">1</span>:<span class="dv">5</span>], <span class="dv">3</span>)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(chicago[, <span class="dv">1</span>:<span class="dv">5</span>], <span class="dv">3</span>)
   city tmpd dptp       date pm25tmean2
 <span class="dv">1</span> chic   <span class="dv">35</span> <span class="fl">30.1</span> <span class="dv">2005-12-31</span>   <span class="fl">15.00000</span>
 <span class="dv">2</span> chic   <span class="dv">36</span> <span class="fl">31.0</span> <span class="dv">2005-12-30</span>   <span class="fl">15.05714</span>
-<span class="dv">3</span> chic   <span class="dv">35</span> <span class="fl">29.4</span> <span class="dv">2005-12-29</span>    <span class="fl">7.45000</span></code></pre></div>
+<span class="dv">3</span> chic   <span class="dv">35</span> <span class="fl">29.4</span> <span class="dv">2005-12-29</span>    <span class="fl">7.45000</span></code></pre>
 <p>The <code>dptp</code> column is supposed to represent the dew point temperature adn the <code>pm25tmean2</code> column provides the PM2.5 data. However, these names are pretty obscure or awkward and probably be renamed to something more sensible.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">rename</span>(chicago, <span class="dt">dewpoint =</span> dptp, <span class="dt">pm25 =</span> pm25tmean2)
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">rename</span>(chicago, <span class="dt">dewpoint =</span> dptp, <span class="dt">pm25 =</span> pm25tmean2)
 &gt;<span class="st"> </span><span class="kw">head</span>(chicago[, <span class="dv">1</span>:<span class="dv">5</span>], <span class="dv">3</span>)
   city tmpd dewpoint       date     pm25
 <span class="dv">1</span> chic   <span class="dv">35</span>     <span class="fl">30.1</span> <span class="dv">2005-12-31</span> <span class="fl">15.00000</span>
 <span class="dv">2</span> chic   <span class="dv">36</span>     <span class="fl">31.0</span> <span class="dv">2005-12-30</span> <span class="fl">15.05714</span>
-<span class="dv">3</span> chic   <span class="dv">35</span>     <span class="fl">29.4</span> <span class="dv">2005-12-29</span>  <span class="fl">7.45000</span></code></pre></div>
+<span class="dv">3</span> chic   <span class="dv">35</span>     <span class="fl">29.4</span> <span class="dv">2005-12-29</span>  <span class="fl">7.45000</span></code></pre>
 <p>The syntax inside the <code>rename()</code> function is to have the new name on the left-hand side of the <code>=</code> sign and the old name on the right-hand side.</p>
 <p>I leave it as an exercise for the reader to figure how you do this in base R without <code>dplyr</code>.</p>
 </div>
@@ -514,7 +496,7 @@ The following objects are masked from <span class="st">&#39;package:base&#39;</s
 <p>The <code>mutate()</code> function exists to compute transformations of variables in a data frame. Often, you want to create new variables that are derived from existing variables and <code>mutate()</code> provides a clean interface for doing that.</p>
 <p>For example, with air pollution data, we often want to <em>detrend</em> the data by subtracting the mean from the data. That way we can look at whether a given day’s air pollution level is higher than or less than average (as opposed to looking at its absolute level).</p>
 <p>Here we create a <code>pm25detrend</code> variable that subtracts the mean from the <code>pm25</code> variable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">pm25detrend =</span> pm25 -<span class="st"> </span><span class="kw">mean</span>(pm25, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">pm25detrend =</span> pm25 -<span class="st"> </span><span class="kw">mean</span>(pm25, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
 &gt;<span class="st"> </span><span class="kw">head</span>(chicago)
   city tmpd dewpoint       date     pm25 pm10tmean2  o3tmean2 no2tmean2
 <span class="dv">1</span> chic   <span class="dv">35</span>     <span class="fl">30.1</span> <span class="dv">2005-12-31</span> <span class="fl">15.00000</span>       <span class="fl">23.5</span>  <span class="fl">2.531250</span>  <span class="fl">13.25000</span>
@@ -529,10 +511,10 @@ The following objects are masked from <span class="st">&#39;package:base&#39;</s
 <span class="dv">3</span>   -<span class="fl">8.780958</span>
 <span class="dv">4</span>    <span class="fl">1.519042</span>
 <span class="dv">5</span>    <span class="fl">7.329042</span>
-<span class="dv">6</span>   -<span class="fl">7.830958</span></code></pre></div>
+<span class="dv">6</span>   -<span class="fl">7.830958</span></code></pre>
 <p>There is also the related <code>transmute()</code> function, which does the same thing as <code>mutate()</code> but then <em>drops all non-transformed variables</em>.</p>
 <p>Here we detrend the PM10 and ozone (O3) variables.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(<span class="kw">transmute</span>(chicago, 
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(<span class="kw">transmute</span>(chicago, 
 +<span class="st">                </span><span class="dt">pm10detrend =</span> pm10tmean2 -<span class="st"> </span><span class="kw">mean</span>(pm10tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
 +<span class="st">                </span><span class="dt">o3detrend =</span> o3tmean2 -<span class="st"> </span><span class="kw">mean</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))
   pm10detrend  o3detrend
@@ -541,7 +523,7 @@ The following objects are masked from <span class="st">&#39;package:base&#39;</s
 <span class="dv">3</span>  -<span class="fl">10.395206</span> -<span class="fl">12.640676</span>
 <span class="dv">4</span>   -<span class="fl">6.395206</span> -<span class="fl">16.175096</span>
 <span class="dv">5</span>   -<span class="fl">6.895206</span> -<span class="fl">14.966763</span>
-<span class="dv">6</span>  -<span class="fl">25.395206</span>  -<span class="fl">5.393846</span></code></pre></div>
+<span class="dv">6</span>  -<span class="fl">25.395206</span>  -<span class="fl">5.393846</span></code></pre>
 <p>Note that there are only two columns in the transmuted data frame.</p>
 </div>
 <div id="group_by" class="section level2">
@@ -549,11 +531,11 @@ The following objects are masked from <span class="st">&#39;package:base&#39;</s
 <p>The <code>group_by()</code> function is used to generate summary statistics from the data frame within strata defined by a variable. For example, in this air pollution dataset, you might want to know what the average annual level of PM2.5 is. So the stratum is the year, and that is something we can derive from the <code>date</code> variable. In conjunction with the <code>group_by()</code> function we often use the <code>summarize()</code> function (or <code>summarise()</code> for some parts of the world).</p>
 <p>The general operation here is a combination of splitting a data frame into separate pieces defined by a variable or group of variables (<code>group_by()</code>), and then applying a summary function across those subsets (<code>summarize()</code>).</p>
 <p>First, we can create a <code>year</code> varible using <code>as.POSIXlt()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">year =</span> <span class="kw">as.POSIXlt</span>(date)$year +<span class="st"> </span><span class="dv">1900</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">year =</span> <span class="kw">as.POSIXlt</span>(date)$year +<span class="st"> </span><span class="dv">1900</span>)</code></pre>
 <p>Now we can create a separate data frame that splits the original data frame by year.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>years &lt;-<span class="st"> </span><span class="kw">group_by</span>(chicago, year)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>years &lt;-<span class="st"> </span><span class="kw">group_by</span>(chicago, year)</code></pre>
 <p>Finally, we compute summary statistics for each year in the data frame with the <code>summarize()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summarize</span>(years, <span class="dt">pm25 =</span> <span class="kw">mean</span>(pm25, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summarize</span>(years, <span class="dt">pm25 =</span> <span class="kw">mean</span>(pm25, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
 +<span class="st">           </span><span class="dt">o3 =</span> <span class="kw">max</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
 +<span class="st">           </span><span class="dt">no2 =</span> <span class="kw">median</span>(no2tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
 Source:<span class="st"> </span>local data frame [<span class="dv">19</span> x <span class="dv">4</span>]
@@ -578,16 +560,16 @@ Source:<span class="st"> </span>local data frame [<span class="dv">19</span> x <
 <span class="dv">16</span>  <span class="dv">2002</span> <span class="fl">15.27335</span> <span class="fl">54.88043</span> <span class="fl">22.73750</span>
 <span class="dv">17</span>  <span class="dv">2003</span> <span class="fl">15.23183</span> <span class="fl">56.16608</span> <span class="fl">24.62500</span>
 <span class="dv">18</span>  <span class="dv">2004</span> <span class="fl">14.62864</span> <span class="fl">44.48240</span> <span class="fl">23.39130</span>
-<span class="dv">19</span>  <span class="dv">2005</span> <span class="fl">16.18556</span> <span class="fl">58.84126</span> <span class="fl">22.62387</span></code></pre></div>
+<span class="dv">19</span>  <span class="dv">2005</span> <span class="fl">16.18556</span> <span class="fl">58.84126</span> <span class="fl">22.62387</span></code></pre>
 <p><code>summarize()</code> returns a data frame with <code>year</code> as the first column, and then the annual averages of <code>pm25</code>, <code>o3</code>, and <code>no2</code>.</p>
 <p>In a slightly more complicated example, we might want to know what are the average levels of ozone (<code>o3</code>) and nitrogen dioxide (<code>no2</code>) within quintiles of <code>pm25</code>. A slicker way to do this would be through a regression model, but we can actually do this quickly with <code>group_by()</code> and <code>summarize()</code>.</p>
 <p>First, we can create a categorical variable of <code>pm25</code> divided into quintiles.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>qq &lt;-<span class="st"> </span><span class="kw">quantile</span>(chicago$pm25, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.2</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
-&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">pm25.quint =</span> <span class="kw">cut</span>(pm25, qq))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>qq &lt;-<span class="st"> </span><span class="kw">quantile</span>(chicago$pm25, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.2</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+&gt;<span class="st"> </span>chicago &lt;-<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">pm25.quint =</span> <span class="kw">cut</span>(pm25, qq))</code></pre>
 <p>Now we can group the data frame by the <code>pm25.quint</code> variable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>quint &lt;-<span class="st"> </span><span class="kw">group_by</span>(chicago, pm25.quint)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>quint &lt;-<span class="st"> </span><span class="kw">group_by</span>(chicago, pm25.quint)</code></pre>
 <p>Finally, we can compute the mean of <code>o3</code> and <code>no2</code> within quintiles of <code>pm25</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summarize</span>(quint, <span class="dt">o3 =</span> <span class="kw">mean</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summarize</span>(quint, <span class="dt">o3 =</span> <span class="kw">mean</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
 +<span class="st">           </span><span class="dt">no2 =</span> <span class="kw">mean</span>(no2tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
 Source:<span class="st"> </span>local data frame [<span class="dv">6</span> x <span class="dv">3</span>]
 
@@ -598,15 +580,15 @@ Source:<span class="st"> </span>local data frame [<span class="dv">6</span> x <s
 <span class="dv">3</span> (<span class="fl">12.4</span>,<span class="fl">16.7</span>] <span class="fl">20.66160</span> <span class="fl">24.35708</span>
 <span class="dv">4</span> (<span class="fl">16.7</span>,<span class="fl">22.6</span>] <span class="fl">19.88122</span> <span class="fl">27.27132</span>
 <span class="dv">5</span> (<span class="fl">22.6</span>,<span class="fl">61.5</span>] <span class="fl">20.31775</span> <span class="fl">29.64427</span>
-<span class="dv">6</span>          <span class="ot">NA</span> <span class="fl">18.79044</span> <span class="fl">25.77585</span></code></pre></div>
+<span class="dv">6</span>          <span class="ot">NA</span> <span class="fl">18.79044</span> <span class="fl">25.77585</span></code></pre>
 <p>From the table, it seems there isn’t a strong relationship between <code>pm25</code> and <code>o3</code>, but there appears to be a positive correlation between <code>pm25</code> and <code>no2</code>. More sophisticated statistical modeling can help to provide precise answers to these questions, but a simple application of <code>dplyr</code> functions can often get you most of the way there.</p>
 </div>
 <div id="section" class="section level2">
 <h2><span class="header-section-number">13.11</span> <code>%&gt;%</code></h2>
 <p>The pipeline operater <code>%&gt;%</code> is very handy for stringing together multiple <code>dplyr</code> functions in a sequence of operations. Notice above that every time we wanted to apply more than one function, the sequence gets buried in a sequence of nested function calls that is difficult to read, i.e.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">third</span>(<span class="kw">second</span>(<span class="kw">first</span>(x)))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">third</span>(<span class="kw">second</span>(<span class="kw">first</span>(x)))</code></pre>
 <p>This nesting is not a natural way to think about a sequence of operations. The <code>%&gt;%</code> operator allows you to string operations in a left-to-right fashion, i.e.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">first</span>(x) %&gt;%<span class="st"> </span>second %&gt;%<span class="st"> </span>third</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">first</span>(x) %&gt;%<span class="st"> </span>second %&gt;%<span class="st"> </span>third</code></pre>
 <p>Take the example that we just did in the last section where we computed the mean of <code>o3</code> and <code>no2</code> within quintiles of <code>pm25</code>. There we had to</p>
 <ol style="list-style-type: decimal">
 <li>create a new variable <code>pm25.quint</code></li>
@@ -614,7 +596,7 @@ Source:<span class="st"> </span>local data frame [<span class="dv">6</span> x <s
 <li>compute the mean of <code>o3</code> and <code>no2</code> in the sub-groups defined by <code>pm25.quint</code></li>
 </ol>
 <p>That can be done with the following sequence in a single R expression.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">pm25.quint =</span> <span class="kw">cut</span>(pm25, qq)) %&gt;%<span class="st">    </span>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">pm25.quint =</span> <span class="kw">cut</span>(pm25, qq)) %&gt;%<span class="st">    </span>
 +<span class="st">         </span><span class="kw">group_by</span>(pm25.quint) %&gt;%<span class="st"> </span>
 +<span class="st">         </span><span class="kw">summarize</span>(<span class="dt">o3 =</span> <span class="kw">mean</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
 +<span class="st">                   </span><span class="dt">no2 =</span> <span class="kw">mean</span>(no2tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
@@ -627,11 +609,11 @@ Source:<span class="st"> </span>local data frame [<span class="dv">6</span> x <s
 <span class="dv">3</span> (<span class="fl">12.4</span>,<span class="fl">16.7</span>] <span class="fl">20.66160</span> <span class="fl">24.35708</span>
 <span class="dv">4</span> (<span class="fl">16.7</span>,<span class="fl">22.6</span>] <span class="fl">19.88122</span> <span class="fl">27.27132</span>
 <span class="dv">5</span> (<span class="fl">22.6</span>,<span class="fl">61.5</span>] <span class="fl">20.31775</span> <span class="fl">29.64427</span>
-<span class="dv">6</span>          <span class="ot">NA</span> <span class="fl">18.79044</span> <span class="fl">25.77585</span></code></pre></div>
+<span class="dv">6</span>          <span class="ot">NA</span> <span class="fl">18.79044</span> <span class="fl">25.77585</span></code></pre>
 <p>This way we don’t have to create a set of temporary variables along the way or create a massive nested sequence of function calls.</p>
 <p>Notice in the above code that I pass the <code>chicago</code> data frame to the first call to <code>mutate()</code>, but then afterwards I do not have to pass the first argument to <code>group_by()</code> or <code>summarize()</code>. Once you travel down the pipeline with <code>%&gt;%</code>, the first argument is taken to be the output of the previous element in the pipeline.</p>
 <p>Another example might be computing the average pollutant level by month. This could be useful to see if there are any seasonal trends in the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">month =</span> <span class="kw">as.POSIXlt</span>(date)$mon +<span class="st"> </span><span class="dv">1</span>) %&gt;%<span class="st"> </span>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mutate</span>(chicago, <span class="dt">month =</span> <span class="kw">as.POSIXlt</span>(date)$mon +<span class="st"> </span><span class="dv">1</span>) %&gt;%<span class="st"> </span>
 +<span class="st">         </span><span class="kw">group_by</span>(month) %&gt;%<span class="st"> </span>
 +<span class="st">         </span><span class="kw">summarize</span>(<span class="dt">pm25 =</span> <span class="kw">mean</span>(pm25, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
 +<span class="st">                   </span><span class="dt">o3 =</span> <span class="kw">max</span>(o3tmean2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
@@ -651,7 +633,7 @@ Source:<span class="st"> </span>local data frame [<span class="dv">12</span> x <
 <span class="dv">9</span>      <span class="dv">9</span> <span class="fl">15.91279</span> <span class="fl">57.48864</span> <span class="fl">24.47917</span>
 <span class="dv">10</span>    <span class="dv">10</span> <span class="fl">14.23557</span> <span class="fl">47.09275</span> <span class="fl">24.15217</span>
 <span class="dv">11</span>    <span class="dv">11</span> <span class="fl">15.15794</span> <span class="fl">29.45833</span> <span class="fl">23.56537</span>
-<span class="dv">12</span>    <span class="dv">12</span> <span class="fl">17.52221</span> <span class="fl">27.70833</span> <span class="fl">24.45773</span></code></pre></div>
+<span class="dv">12</span>    <span class="dv">12</span> <span class="fl">17.52221</span> <span class="fl">27.70833</span> <span class="fl">24.45773</span></code></pre>
 <p>Here we can see that <code>o3</code> tends to be low in the winter months and high in the summer while <code>no2</code> is higher in the winter and lower in the summer.</p>
 </div>
 <div id="summary-2" class="section level2">
@@ -663,6 +645,7 @@ Source:<span class="st"> </span>local data frame [<span class="dv">12</span> x <
 <li><p><code>dplyr</code> can be integrated with the <code>data.table</code> package for large fast tables</p></li>
 </ul>
 <p>The <code>dplyr</code> package is handy way to both simplify and speed up your data frame management code. It’s rare that you get such a combination at the same time!</p>
+
 
 </div>
 </div>
