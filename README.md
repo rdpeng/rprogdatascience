@@ -4,7 +4,7 @@
 This repository contains the files for the book *R Programming for
 Data Science*, as it is built on [bookdown.org]() and on
 [Leanpub](https://leanpub.com/rprogramming/). This book was originally
-published on Leanpub(and still is). The two versions are identical.
+published on Leanpub (and still is). The two versions are identical.
 
 Currently, there are two branches:
 
@@ -12,7 +12,7 @@ Currently, there are two branches:
 
 * `bookdown`: used to build the Bookdown version of the book
 
-At some point these two will hopefully be merged together.
+At some point these two may be merged together, but probably not anytime soon.
 
 
 ### Before You Start
