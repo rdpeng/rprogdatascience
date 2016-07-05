@@ -3,7 +3,7 @@ title: "R Programming for Data Science"
 author: "Roger D. Peng"
 date: "`r Sys.Date()`"
 knit: "bookdown::render_book"
-cover-image: title_page.png
+cover-image: cover.png
 github-repo: rdpeng/rprogdatascience
 site: bookdown::bookdown_site
 ---
@@ -12,7 +12,7 @@ site: bookdown::bookdown_site
 
 # Welcome
 
-<img src="title_page_sm.png" />
+<img src="cover_sm.png" />
 
 
 Data science has taken the world by storm. Every field of study and area of business has been affected as people increasingly realize the value of the incredible quantities of data being generated. But to extract value from those data, one needs to be trained in the proper data science skills. The R programming language has become the *de facto* programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. 
