@@ -3,7 +3,7 @@ title: "R Programming for Data Science"
 author: "Roger D. Peng"
 date: "2016-07-05"
 knit: "bookdown::render_book"
-cover-image: cover.png
+cover-image: "cover_sm.png"
 github-repo: rdpeng/rprogdatascience
 site: bookdown::bookdown_site
 ---
