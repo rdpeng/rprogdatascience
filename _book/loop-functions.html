@@ -57,23 +57,41 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -313,7 +331,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ol>
 <p>This function takes three arguments: (1) a list <code>X</code>; (2) a function (or the name of a function) <code>FUN</code>; (3) other arguments via its <code>...</code> argument. If <code>X</code> is not a list, it will be coerced to a list using <code>as.list()</code>.</p>
 <p>The body of the <code>lapply()</code> function can be seen here.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>lapply
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>lapply
 function (X, FUN, ...) 
 {
     FUN &lt;-<span class="st"> </span><span class="kw">match.fun</span>(FUN)
@@ -322,20 +340,20 @@ function (X, FUN, ...)
     <span class="kw">.Internal</span>(<span class="kw">lapply</span>(X, FUN))
 }
 &lt;bytecode:<span class="st"> </span><span class="dv">0x7fafcb141dc0</span>&gt;
-<span class="er">&lt;</span>environment:<span class="st"> </span>namespace:base&gt;</code></pre>
+<span class="er">&lt;</span>environment:<span class="st"> </span>namespace:base&gt;</code></pre></div>
 <p>Note that the actual looping is done internally in C code for efficiency reasons.</p>
 <p>It’s important to remember that <code>lapply()</code> always returns a list, regardless of the class of the input.</p>
 <p>Here’s an example of applying the <code>mean()</code> function to all elements of a list. If the original list has names, the the names will be preserved in the output.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">5</span>, <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">5</span>, <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>))
 &gt;<span class="st"> </span><span class="kw">lapply</span>(x, mean)
 $a
 [<span class="dv">1</span>] <span class="dv">3</span>
 
 $b
-[<span class="dv">1</span>] <span class="fl">0.1322028</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">0.1322028</span></code></pre></div>
 <p>Notice that here we are passing the <code>mean()</code> function as an argument to the <code>lapply()</code> function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses <code>()</code> like you do when you are <em>calling</em> a function.</p>
 <p>Here is another example of using <code>lapply()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>), <span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>), <span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>))
 &gt;<span class="st"> </span><span class="kw">lapply</span>(x, mean)
 $a
 [<span class="dv">1</span>] <span class="fl">2.5</span>
@@ -347,9 +365,9 @@ $c
 [<span class="dv">1</span>] <span class="fl">0.9935285</span>
 
 $d
-[<span class="dv">1</span>] <span class="fl">5.051388</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">5.051388</span></code></pre></div>
 <p>You can use <code>lapply()</code> to evaluate a function multiple times each with a different argument. Below, is an example where I call the <code>runif()</code> function (to generate uniformly distributed random variables) four times, each time generating a different number of random numbers.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
 &gt;<span class="st"> </span><span class="kw">lapply</span>(x, runif)
 [[<span class="dv">1</span>]]
 [<span class="dv">1</span>] <span class="fl">0.02778712</span>
@@ -361,12 +379,12 @@ $d
 [<span class="dv">1</span>] <span class="fl">0.37306337</span> <span class="fl">0.04795913</span> <span class="fl">0.13862825</span>
 
 [[<span class="dv">4</span>]]
-[<span class="dv">1</span>] <span class="fl">0.3214921</span> <span class="fl">0.1548316</span> <span class="fl">0.1322282</span> <span class="fl">0.2213059</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">0.3214921</span> <span class="fl">0.1548316</span> <span class="fl">0.1322282</span> <span class="fl">0.2213059</span></code></pre></div>
 <p>When you pass a function to <code>lapply()</code>, <code>lapply()</code> takes elements of the list and passes them as the <em>first argument</em> of the function you are applying. In the above example, the first argument of <code>runif()</code> is <code>n</code>, and so the elements of the sequence <code>1:4</code> all got passed to the <code>n</code> argument of <code>runif()</code>.</p>
 <p>Functions that you pass to <code>lapply()</code> may have other arguments. For example, the <code>runif()</code> function has a <code>min</code> and <code>max</code> argument too. In the example above I used the default values for <code>min</code> and <code>max</code>. How would you be able to specify different values for that in the context of <code>lapply()</code>?</p>
 <p>Here is where the <code>...</code> argument to <code>lapply()</code> comes into play. Any arguments that you place in the <code>...</code> argument will get passed down to the function being applied to the elements of the list.</p>
 <p>Here, the <code>min = 0</code> and <code>max = 10</code> arguments are passed down to <code>runif()</code> every time it gets called.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
 &gt;<span class="st"> </span><span class="kw">lapply</span>(x, runif, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">10</span>)
 [[<span class="dv">1</span>]]
 [<span class="dv">1</span>] <span class="fl">2.263808</span>
@@ -378,11 +396,11 @@ $d
 [<span class="dv">1</span>] <span class="fl">3.270137</span> <span class="fl">5.069395</span> <span class="fl">6.814425</span>
 
 [[<span class="dv">4</span>]]
-[<span class="dv">1</span>] <span class="fl">0.9916910</span> <span class="fl">1.1890256</span> <span class="fl">0.5043966</span> <span class="fl">9.2925392</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">0.9916910</span> <span class="fl">1.1890256</span> <span class="fl">0.5043966</span> <span class="fl">9.2925392</span></code></pre></div>
 <p>So now, instead of the random numbers being between 0 and 1 (the default), the are all between 0 and 10.</p>
 <p>The <code>lapply()</code> function and its friends make heavy use of <em>anonymous</em> functions. Anonymous functions are like members of <a href="http://en.wikipedia.org/wiki/Fight_Club">Project Mayhem</a>—they have no names. These are functions are generated “on the fly” as you are using <code>lapply()</code>. Once the call to <code>lapply()</code> is finished, the function disappears and does not appear in the workspace.</p>
 <p>Here I am creating a list that contains two matrices.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">b =</span> <span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">2</span>)) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">b =</span> <span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">2</span>)) 
 &gt;<span class="st"> </span>x
 $a
      [,<span class="dv">1</span>] [,<span class="dv">2</span>]
@@ -393,17 +411,17 @@ $b
      [,<span class="dv">1</span>] [,<span class="dv">2</span>]
 [<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">4</span>
 [<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">5</span>
-[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">6</span></code></pre>
+[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">6</span></code></pre></div>
 <p>Suppose I wanted to extract the first column of each matrix in the list. I could write an anonymous function for extracting the first column of each matrix.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lapply</span>(x, function(elt) { elt[,<span class="dv">1</span>] })
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lapply</span>(x, function(elt) { elt[,<span class="dv">1</span>] })
 $a
 [<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span>
 
 $b
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></code></pre>
+[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></code></pre></div>
 <p>Notice that I put the <code>function()</code> definition right in the call to <code>lapply()</code>. This is perfectly legal and acceptable. You can put an arbitrarily complicated function definition inside <code>lapply()</code>, but if it’s going to be more complicated, it’s probably a better idea to define the function separately.</p>
 <p>For example, I could have done the following.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function(elt) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function(elt) {
 +<span class="st">         </span>elt[, <span class="dv">1</span>]
 +<span class="st"> </span>}
 &gt;<span class="st"> </span><span class="kw">lapply</span>(x, f)
@@ -411,7 +429,7 @@ $a
 [<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span>
 
 $b
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></code></pre>
+[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></code></pre></div>
 <p>Now the function is no longer anonymous; it’s name is <code>f</code>. Whether you use an anonymous function or you define a function first depends on your context. If you think the function <code>f</code> is something you’re going to need a lot in other parts of your code, you might want to define it separately. But if you’re just going to use it for this call to <code>lapply()</code>, then it’s probably simpler to use an anonymous function.</p>
 </div>
 <div id="sapply" class="section level2">
@@ -423,7 +441,7 @@ $b
 <li><p>If it can’t figure things out, a list is returned</p></li>
 </ul>
 <p>Here’s the result of calling <code>lapply()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>), <span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>), <span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>))
 &gt;<span class="st"> </span><span class="kw">lapply</span>(x, mean)
 $a
 [<span class="dv">1</span>] <span class="fl">2.5</span>
@@ -435,12 +453,12 @@ $c
 [<span class="dv">1</span>] <span class="fl">1.481246</span>
 
 $d
-[<span class="dv">1</span>] <span class="fl">4.968715</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">4.968715</span></code></pre></div>
 <p>Notice that <code>lapply()</code> returns a list (as usual), but that each element of the list has length 1.</p>
 <p>Here’s the result of calling <code>sapply()</code> on the same list.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sapply</span>(x, mean) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sapply</span>(x, mean) 
         a         b         c         d 
- <span class="fl">2.500000</span> -<span class="fl">0.251483</span>  <span class="fl">1.481246</span>  <span class="fl">4.968715</span> </code></pre>
+ <span class="fl">2.500000</span> -<span class="fl">0.251483</span>  <span class="fl">1.481246</span>  <span class="fl">4.968715</span> </code></pre></div>
 <p>Because the result of <code>lapply()</code> was a list where each element had length 1, <code>sapply()</code> collapsed the output into a numeric vector, which is often more useful than a list.</p>
 </div>
 <div id="split" class="section level2">
@@ -448,8 +466,8 @@ $d
 <p><a href="https://youtu.be/TjwE5b0fOcs">Watch a video of this section</a></p>
 <p>The <code>split()</code> function takes a vector or other objects and splits it into groups determined by a factor or list of factors.</p>
 <p>The arguments to <code>split()</code> are</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(split)
-function (x, f, <span class="dt">drop =</span> <span class="ot">FALSE</span>, ...)  </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(split)
+function (x, f, <span class="dt">drop =</span> <span class="ot">FALSE</span>, ...)  </code></pre></div>
 <p>where</p>
 <ul>
 <li><code>x</code> is a vector (or list) or data frame</li>
@@ -458,7 +476,7 @@ function (x, f, <span class="dt">drop =</span> <span class="ot">FALSE</span>, ..
 </ul>
 <p>The combination of <code>split()</code> and a function like <code>lapply()</code> or <code>sapply()</code> is a common paradigm in R. The basic idea is that you can take a data structure, split it into subsets defined by another variable, and apply a function over those subsets. The results of applying tha function over the subsets are then collated and returned as an object. This sequence of operations is sometimes referred to as “map-reduce” in other contexts.</p>
 <p>Here we simulate some data and split it according to a factor variable. Note that we use the <code>gl()</code> function to “generate levels” in a factor variable.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="kw">runif</span>(<span class="dv">10</span>), <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="kw">runif</span>(<span class="dv">10</span>), <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>))
 &gt;<span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>)
 &gt;<span class="st"> </span><span class="kw">split</span>(x, f)
 $<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
@@ -471,9 +489,9 @@ $<span class="st">`</span><span class="dt">2</span><span class="st">`</span>
 
 $<span class="st">`</span><span class="dt">3</span><span class="st">`</span>
  [<span class="dv">1</span>]  <span class="fl">1.13444766</span>  <span class="fl">1.76559900</span>  <span class="fl">1.95513668</span>  <span class="fl">0.94943430</span>  <span class="fl">0.69418458</span>
- [<span class="dv">6</span>]  <span class="fl">1.89367370</span> -<span class="fl">0.04729815</span>  <span class="fl">2.97133739</span>  <span class="fl">0.61636789</span>  <span class="fl">2.65414530</span></code></pre>
+ [<span class="dv">6</span>]  <span class="fl">1.89367370</span> -<span class="fl">0.04729815</span>  <span class="fl">2.97133739</span>  <span class="fl">0.61636789</span>  <span class="fl">2.65414530</span></code></pre></div>
 <p>A common idiom is <code>split</code> followed by an <code>lapply</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">split</span>(x, f), mean)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">split</span>(x, f), mean)
 $<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
 [<span class="dv">1</span>] <span class="fl">0.07478098</span>
 
@@ -481,11 +499,11 @@ $<span class="st">`</span><span class="dt">2</span><span class="st">`</span>
 [<span class="dv">1</span>] <span class="fl">0.5266905</span>
 
 $<span class="st">`</span><span class="dt">3</span><span class="st">`</span>
-[<span class="dv">1</span>] <span class="fl">1.458703</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">1.458703</span></code></pre></div>
 </div>
 <div id="splitting-a-data-frame" class="section level2">
 <h2><span class="header-section-number">15.5</span> Splitting a Data Frame</h2>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(datasets)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(datasets)
 &gt;<span class="st"> </span><span class="kw">head</span>(airquality)
   Ozone Solar.R Wind Temp Month Day
 <span class="dv">1</span>    <span class="dv">41</span>     <span class="dv">190</span>  <span class="fl">7.4</span>   <span class="dv">67</span>     <span class="dv">5</span>   <span class="dv">1</span>
@@ -493,9 +511,9 @@ $<span class="st">`</span><span class="dt">3</span><span class="st">`</span>
 <span class="dv">3</span>    <span class="dv">12</span>     <span class="dv">149</span> <span class="fl">12.6</span>   <span class="dv">74</span>     <span class="dv">5</span>   <span class="dv">3</span>
 <span class="dv">4</span>    <span class="dv">18</span>     <span class="dv">313</span> <span class="fl">11.5</span>   <span class="dv">62</span>     <span class="dv">5</span>   <span class="dv">4</span>
 <span class="dv">5</span>    <span class="ot">NA</span>      <span class="ot">NA</span> <span class="fl">14.3</span>   <span class="dv">56</span>     <span class="dv">5</span>   <span class="dv">5</span>
-<span class="dv">6</span>    <span class="dv">28</span>      <span class="ot">NA</span> <span class="fl">14.9</span>   <span class="dv">66</span>     <span class="dv">5</span>   <span class="dv">6</span></code></pre>
+<span class="dv">6</span>    <span class="dv">28</span>      <span class="ot">NA</span> <span class="fl">14.9</span>   <span class="dv">66</span>     <span class="dv">5</span>   <span class="dv">6</span></code></pre></div>
 <p>We can split the <code>airquality</code> data frame by the <code>Month</code> variable so that we have separate sub-data frames for each month.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">split</span>(airquality, airquality$Month)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">split</span>(airquality, airquality$Month)
 &gt;<span class="st"> </span><span class="kw">str</span>(s)
 List of <span class="dv">5</span>
  $<span class="st"> </span><span class="dv">5</span>:<span class="st">&#39;data.frame&#39;</span>:<span class="st">  </span><span class="dv">31</span> obs. of  <span class="dv">6</span> variables:
@@ -532,9 +550,9 @@ List of <span class="dv">5</span>
   ..$<span class="st"> </span>Wind   :<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">30</span>] <span class="fl">6.9</span> <span class="fl">5.1</span> <span class="fl">2.8</span> <span class="fl">4.6</span> <span class="fl">7.4</span> <span class="fl">15.5</span> <span class="fl">10.9</span> <span class="fl">10.3</span> <span class="fl">10.9</span> <span class="fl">9.7</span> ...
   ..$<span class="st"> </span>Temp   :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">91</span> <span class="dv">92</span> <span class="dv">93</span> <span class="dv">93</span> <span class="dv">87</span> <span class="dv">84</span> <span class="dv">80</span> <span class="dv">78</span> <span class="dv">75</span> <span class="dv">73</span> ...
   ..$<span class="st"> </span>Month  :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> ...
-  ..$<span class="st"> </span>Day    :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> ...</code></pre>
+  ..$<span class="st"> </span>Day    :<span class="st"> </span>int [<span class="dv">1</span>:<span class="dv">30</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> ...</code></pre></div>
 <p>Then we can take the column means for <code>Ozone</code>, <code>Solar.R</code>, and <code>Wind</code> for each sub-data frame.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lapply</span>(s, function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lapply</span>(s, function(x) {
 +<span class="st">         </span><span class="kw">colMeans</span>(x[, <span class="kw">c</span>(<span class="st">&quot;Ozone&quot;</span>, <span class="st">&quot;Solar.R&quot;</span>, <span class="st">&quot;Wind&quot;</span>)])
 +<span class="st"> </span>})
 $<span class="st">`</span><span class="dt">5</span><span class="st">`</span>
@@ -555,26 +573,26 @@ $<span class="st">`</span><span class="dt">8</span><span class="st">`</span>
 
 $<span class="st">`</span><span class="dt">9</span><span class="st">`</span>
    Ozone  Solar.R     Wind 
-      <span class="ot">NA</span> <span class="fl">167.4333</span>  <span class="fl">10.1800</span> </code></pre>
+      <span class="ot">NA</span> <span class="fl">167.4333</span>  <span class="fl">10.1800</span> </code></pre></div>
 <p>Using <code>sapply()</code> might be better here for a more readable output.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sapply</span>(s, function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sapply</span>(s, function(x) {
 +<span class="st">         </span><span class="kw">colMeans</span>(x[, <span class="kw">c</span>(<span class="st">&quot;Ozone&quot;</span>, <span class="st">&quot;Solar.R&quot;</span>, <span class="st">&quot;Wind&quot;</span>)])
 +<span class="st"> </span>})
                <span class="dv">5</span>         <span class="dv">6</span>          <span class="dv">7</span>        <span class="dv">8</span>        <span class="dv">9</span>
 Ozone         <span class="ot">NA</span>        <span class="ot">NA</span>         <span class="ot">NA</span>       <span class="ot">NA</span>       <span class="ot">NA</span>
 Solar.R       <span class="ot">NA</span> <span class="fl">190.16667</span> <span class="fl">216.483871</span>       <span class="ot">NA</span> <span class="fl">167.4333</span>
-Wind    <span class="fl">11.62258</span>  <span class="fl">10.26667</span>   <span class="fl">8.941935</span> <span class="fl">8.793548</span>  <span class="fl">10.1800</span></code></pre>
+Wind    <span class="fl">11.62258</span>  <span class="fl">10.26667</span>   <span class="fl">8.941935</span> <span class="fl">8.793548</span>  <span class="fl">10.1800</span></code></pre></div>
 <p>Unfortunately, there are <code>NA</code>s in the data so we cannot simply take the means of those variables. However, we can tell the <code>colMeans</code> function to remove the <code>NA</code>s before computing the mean.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sapply</span>(s, function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sapply</span>(s, function(x) {
 +<span class="st">         </span><span class="kw">colMeans</span>(x[, <span class="kw">c</span>(<span class="st">&quot;Ozone&quot;</span>, <span class="st">&quot;Solar.R&quot;</span>, <span class="st">&quot;Wind&quot;</span>)], 
 +<span class="st">                  </span><span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 +<span class="st"> </span>})
                 <span class="dv">5</span>         <span class="dv">6</span>          <span class="dv">7</span>          <span class="dv">8</span>         <span class="dv">9</span>
 Ozone    <span class="fl">23.61538</span>  <span class="fl">29.44444</span>  <span class="fl">59.115385</span>  <span class="fl">59.961538</span>  <span class="fl">31.44828</span>
 Solar.R <span class="fl">181.29630</span> <span class="fl">190.16667</span> <span class="fl">216.483871</span> <span class="fl">171.857143</span> <span class="fl">167.43333</span>
-Wind     <span class="fl">11.62258</span>  <span class="fl">10.26667</span>   <span class="fl">8.941935</span>   <span class="fl">8.793548</span>  <span class="fl">10.18000</span></code></pre>
+Wind     <span class="fl">11.62258</span>  <span class="fl">10.26667</span>   <span class="fl">8.941935</span>   <span class="fl">8.793548</span>  <span class="fl">10.18000</span></code></pre></div>
 <p>Occasionally, we may want to split an R object according to levels defined in more than one variable. We can do this by creating an interaction of the variables with the <code>interaction()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)
 &gt;<span class="st"> </span>f1 &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">2</span>, <span class="dv">5</span>)
 &gt;<span class="st"> </span>f2 &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">5</span>, <span class="dv">2</span>)
 &gt;<span class="st"> </span>f1
@@ -586,9 +604,9 @@ Levels:<span class="st"> </span><span class="dv">1</span> <span class="dv">2</sp
 &gt;<span class="st"> </span>## Create interaction of two factors
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">interaction</span>(f1, f2)
  [<span class="dv">1</span>] <span class="fl">1.1</span> <span class="fl">1.1</span> <span class="fl">1.2</span> <span class="fl">1.2</span> <span class="fl">1.3</span> <span class="fl">2.3</span> <span class="fl">2.4</span> <span class="fl">2.4</span> <span class="fl">2.5</span> <span class="fl">2.5</span>
-Levels:<span class="st"> </span><span class="fl">1.1</span> <span class="fl">2.1</span> <span class="fl">1.2</span> <span class="fl">2.2</span> <span class="fl">1.3</span> <span class="fl">2.3</span> <span class="fl">1.4</span> <span class="fl">2.4</span> <span class="fl">1.5</span> <span class="fl">2.5</span></code></pre>
+Levels:<span class="st"> </span><span class="fl">1.1</span> <span class="fl">2.1</span> <span class="fl">1.2</span> <span class="fl">2.2</span> <span class="fl">1.3</span> <span class="fl">2.3</span> <span class="fl">1.4</span> <span class="fl">2.4</span> <span class="fl">1.5</span> <span class="fl">2.5</span></code></pre></div>
 <p>With multiple factors and many levels, creating an interaction can result in many levels that are empty.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(<span class="kw">split</span>(x, <span class="kw">list</span>(f1, f2)))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(<span class="kw">split</span>(x, <span class="kw">list</span>(f1, f2)))
 List of <span class="dv">10</span>
  $<span class="st"> </span><span class="fl">1.1</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">1.512</span> <span class="fl">0.083</span>
  $<span class="st"> </span><span class="fl">2.1</span>:<span class="st"> </span><span class="kw">num</span>(<span class="dv">0</span>) 
@@ -599,23 +617,23 @@ List of <span class="dv">10</span>
  $<span class="st"> </span><span class="fl">1.4</span>:<span class="st"> </span><span class="kw">num</span>(<span class="dv">0</span>) 
  $<span class="st"> </span><span class="fl">2.4</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">0.0991</span> -<span class="fl">0.4541</span>
  $<span class="st"> </span><span class="fl">1.5</span>:<span class="st"> </span><span class="kw">num</span>(<span class="dv">0</span>) 
- $<span class="st"> </span><span class="fl">2.5</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] -<span class="fl">0.6558</span> -<span class="fl">0.0359</span></code></pre>
+ $<span class="st"> </span><span class="fl">2.5</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] -<span class="fl">0.6558</span> -<span class="fl">0.0359</span></code></pre></div>
 <p>Notice that there are 4 categories with no data. But we can drop empty levels when we call the <code>split()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(<span class="kw">split</span>(x, <span class="kw">list</span>(f1, f2), <span class="dt">drop =</span> <span class="ot">TRUE</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(<span class="kw">split</span>(x, <span class="kw">list</span>(f1, f2), <span class="dt">drop =</span> <span class="ot">TRUE</span>))
 List of <span class="dv">6</span>
  $<span class="st"> </span><span class="fl">1.1</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">1.512</span> <span class="fl">0.083</span>
  $<span class="st"> </span><span class="fl">1.2</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">0.567</span> -<span class="fl">1.025</span>
  $<span class="st"> </span><span class="fl">1.3</span>:<span class="st"> </span>num <span class="fl">0.323</span>
  $<span class="st"> </span><span class="fl">2.3</span>:<span class="st"> </span>num <span class="fl">1.04</span>
  $<span class="st"> </span><span class="fl">2.4</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] <span class="fl">0.0991</span> -<span class="fl">0.4541</span>
- $<span class="st"> </span><span class="fl">2.5</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] -<span class="fl">0.6558</span> -<span class="fl">0.0359</span></code></pre>
+ $<span class="st"> </span><span class="fl">2.5</span>:<span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">2</span>] -<span class="fl">0.6558</span> -<span class="fl">0.0359</span></code></pre></div>
 </div>
 <div id="tapply" class="section level2">
 <h2><span class="header-section-number">15.6</span> tapply</h2>
 <p><a href="https://youtu.be/6YEPWjbk3GA">Watch a video of this section</a></p>
 <p><code>tapply()</code> is used to apply a function over subsets of a vector. It can be thought of as a combination of <code>split()</code> and <code>sapply()</code> for vectors only. I’ve been told that the “t” in <code>tapply()</code> refers to “table”, but that is unconfirmed.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(tapply)
-function (X, INDEX, <span class="dt">FUN =</span> <span class="ot">NULL</span>, ..., <span class="dt">simplify =</span> <span class="ot">TRUE</span>)  </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(tapply)
+function (X, INDEX, <span class="dt">FUN =</span> <span class="ot">NULL</span>, ..., <span class="dt">simplify =</span> <span class="ot">TRUE</span>)  </code></pre></div>
 <p>The arguments to <code>tapply()</code> are as follows:</p>
 <ul>
 <li><code>X</code> is a vector</li>
@@ -625,7 +643,7 @@ function (X, INDEX, <span class="dt">FUN =</span> <span class="ot">NULL</span>, 
 <li><code>simplify</code>, should we simplify the result?</li>
 </ul>
 <p>Given a vector of numbers, one simple operation is to take group means.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Simulate some data
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Simulate some data
 <span class="er">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="kw">runif</span>(<span class="dv">10</span>), <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>))
 &gt;<span class="st"> </span>## Define some groups with a factor variable
 <span class="er">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>)   
@@ -634,9 +652,9 @@ function (X, INDEX, <span class="dt">FUN =</span> <span class="ot">NULL</span>, 
 Levels:<span class="st"> </span><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>
 &gt;<span class="st"> </span><span class="kw">tapply</span>(x, f, mean)
         <span class="dv">1</span>         <span class="dv">2</span>         <span class="dv">3</span> 
-<span class="fl">0.1896235</span> <span class="fl">0.5336667</span> <span class="fl">0.9568236</span> </code></pre>
+<span class="fl">0.1896235</span> <span class="fl">0.5336667</span> <span class="fl">0.9568236</span> </code></pre></div>
 <p>We can also take the group means without simplifying the result, which will give us a list. For functions that return a single value, usually, this is not what we want, but it can be done.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">tapply</span>(x, f, mean, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">tapply</span>(x, f, mean, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)
 $<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
 [<span class="dv">1</span>] <span class="fl">0.1896235</span>
 
@@ -644,9 +662,9 @@ $<span class="st">`</span><span class="dt">2</span><span class="st">`</span>
 [<span class="dv">1</span>] <span class="fl">0.5336667</span>
 
 $<span class="st">`</span><span class="dt">3</span><span class="st">`</span>
-[<span class="dv">1</span>] <span class="fl">0.9568236</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">0.9568236</span></code></pre></div>
 <p>We can also apply functions that return more than a single value. In this case, <code>tapply()</code> will not simplify the result and will return a list. Here’s an example of finding the range of each sub-group.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">tapply</span>(x, f, range)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">tapply</span>(x, f, range)
 $<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
 [<span class="dv">1</span>] -<span class="fl">1.869789</span>  <span class="fl">1.497041</span>
 
@@ -654,14 +672,14 @@ $<span class="st">`</span><span class="dt">2</span><span class="st">`</span>
 [<span class="dv">1</span>] <span class="fl">0.09515213</span> <span class="fl">0.86723879</span>
 
 $<span class="st">`</span><span class="dt">3</span><span class="st">`</span>
-[<span class="dv">1</span>] -<span class="fl">0.5690822</span>  <span class="fl">2.3644349</span></code></pre>
+[<span class="dv">1</span>] -<span class="fl">0.5690822</span>  <span class="fl">2.3644349</span></code></pre></div>
 </div>
 <div id="apply" class="section level2">
 <h2><span class="header-section-number">15.7</span> <code>apply()</code></h2>
 <p><a href="https://youtu.be/F54ixFPq_xQ">Watch a video of this section</a></p>
 <p>The <code>apply()</code> function is used to a evaluate a function (often an anonymous one) over the margins of an array. It is most often used to apply a function to the rows or columns of a matrix (which is just a 2-dimensional array). However, it can be used with general arrays, for example, to take the average of an array of matrices. Using <code>apply()</code> is not really faster than writing a loop, but it works in one line and is highly compact.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(apply)
-function (X, MARGIN, FUN, ...)  </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(apply)
+function (X, MARGIN, FUN, ...)  </code></pre></div>
 <p>The arguments to <code>apply()</code> are</p>
 <ul>
 <li><code>X</code> is an array</li>
@@ -670,22 +688,22 @@ function (X, MARGIN, FUN, ...)  </code></pre>
 <li><code>...</code> is for other arguments to be passed to <code>FUN</code></li>
 </ul>
 <p>Here I create a 20 by 10 matrix of Normal random numbers. I then compute the mean of each column.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">200</span>), <span class="dv">20</span>, <span class="dv">10</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">200</span>), <span class="dv">20</span>, <span class="dv">10</span>)
 &gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">2</span>, mean)  ## Take the mean of each column
  [<span class="dv">1</span>]  <span class="fl">0.02218266</span> -<span class="fl">0.15932850</span>  <span class="fl">0.09021391</span>  <span class="fl">0.14723035</span> -<span class="fl">0.22431309</span>
- [<span class="dv">6</span>] -<span class="fl">0.49657847</span>  <span class="fl">0.30095015</span>  <span class="fl">0.07703985</span> -<span class="fl">0.20818099</span>  <span class="fl">0.06809774</span></code></pre>
+ [<span class="dv">6</span>] -<span class="fl">0.49657847</span>  <span class="fl">0.30095015</span>  <span class="fl">0.07703985</span> -<span class="fl">0.20818099</span>  <span class="fl">0.06809774</span></code></pre></div>
 <p>I can also compute the sum of each row.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">1</span>, sum)   ## Take the mean of each row
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">1</span>, sum)   ## Take the mean of each row
  [<span class="dv">1</span>] -<span class="fl">0.48483448</span>  <span class="fl">5.33222301</span> -<span class="fl">3.33862932</span> -<span class="fl">1.39998450</span>  <span class="fl">2.37859098</span>
  [<span class="dv">6</span>]  <span class="fl">0.01082604</span> -<span class="fl">6.29457190</span> -<span class="fl">0.26287700</span>  <span class="fl">0.71133578</span> -<span class="fl">3.38125293</span>
 [<span class="dv">11</span>] -<span class="fl">4.67522818</span>  <span class="fl">3.01900232</span> -<span class="fl">2.39466347</span> -<span class="fl">2.16004389</span>  <span class="fl">5.33063755</span>
-[<span class="dv">16</span>] -<span class="fl">2.92024635</span>  <span class="fl">3.52026401</span> -<span class="fl">1.84880901</span> -<span class="fl">4.10213912</span>  <span class="fl">5.30667310</span></code></pre>
+[<span class="dv">16</span>] -<span class="fl">2.92024635</span>  <span class="fl">3.52026401</span> -<span class="fl">1.84880901</span> -<span class="fl">4.10213912</span>  <span class="fl">5.30667310</span></code></pre></div>
 <p>Note that in both calls to <code>apply()</code>, the return value was a vector of numbers.</p>
 <p>You’ve probably noticed that the second argument is either a 1 or a 2, depending on whether we want row statistics or column statistics. What exactly <em>is</em> the second argument to <code>apply()</code>?</p>
 <p>The <code>MARGIN</code> argument essentially indicates to <code>apply()</code> which dimension of the array you want to preserve or retain. So when taking the mean of each column, I specify</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">2</span>, mean)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">2</span>, mean)</code></pre></div>
 <p>because I want to collapse the first dimension (the rows) by taking the mean and I want to preserve the number of columns. Similarly, when I want the row sums, I run</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">1</span>, mean)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">1</span>, mean)</code></pre></div>
 <p>because I want to collapse the columns (the second dimension) and preserve the number of rows (the first dimension).</p>
 </div>
 <div id="colrow-sums-and-means" class="section level2">
@@ -702,7 +720,7 @@ function (X, MARGIN, FUN, ...)  </code></pre>
 <div id="other-ways-to-apply" class="section level2">
 <h2><span class="header-section-number">15.9</span> Other Ways to Apply</h2>
 <p>You can do more than take sums and means with the <code>apply()</code> function. For example, you can compute quantiles of the rows of a matrix using the <code>quantile()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">200</span>), <span class="dv">20</span>, <span class="dv">10</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">200</span>), <span class="dv">20</span>, <span class="dv">10</span>)
 &gt;<span class="st"> </span>## Get row quantiles
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">1</span>, quantile, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))    
           [,<span class="dv">1</span>]       [,<span class="dv">2</span>]      [,<span class="dv">3</span>]       [,<span class="dv">4</span>]       [,<span class="dv">5</span>]        [,<span class="dv">6</span>]
@@ -716,28 +734,28 @@ function (X, MARGIN, FUN, ...)  </code></pre>
 <span class="dv">75</span>%  <span class="fl">0.5448777</span> -<span class="fl">0.5396766</span>  <span class="fl">0.7795571</span>  <span class="fl">0.002908451</span>  <span class="fl">0.4323192</span>  <span class="fl">0.7542638</span>
          [,<span class="dv">19</span>]      [,<span class="dv">20</span>]
 <span class="dv">25</span>% -<span class="fl">0.8557544</span> -<span class="fl">0.7000363</span>
-<span class="dv">75</span>%  <span class="fl">0.5440158</span>  <span class="fl">0.5432995</span></code></pre>
+<span class="dv">75</span>%  <span class="fl">0.5440158</span>  <span class="fl">0.5432995</span></code></pre></div>
 <p>Notice that I had to pass the <code>probs = c(0.25, 0.75)</code> argument to <code>quantile()</code> via the <code>...</code> argument to <code>apply()</code>.</p>
-<p>For a higher dimensional example, I can create an array of <span class="math">\(2\times2\)</span> matrices and the compute the average of the matrices in the array.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">rnorm</span>(<span class="dv">2</span> *<span class="st"> </span><span class="dv">2</span> *<span class="st"> </span><span class="dv">10</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">10</span>))
+<p>For a higher dimensional example, I can create an array of <span class="math inline">\(2\times2\)</span> matrices and the compute the average of the matrices in the array.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">rnorm</span>(<span class="dv">2</span> *<span class="st"> </span><span class="dv">2</span> *<span class="st"> </span><span class="dv">10</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">10</span>))
 &gt;<span class="st"> </span><span class="kw">apply</span>(a, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), mean)
           [,<span class="dv">1</span>]       [,<span class="dv">2</span>]
 [<span class="dv">1</span>,] <span class="fl">0.1681387</span> -<span class="fl">0.1039673</span>
-[<span class="dv">2</span>,] <span class="fl">0.3519741</span> -<span class="fl">0.4029737</span></code></pre>
+[<span class="dv">2</span>,] <span class="fl">0.3519741</span> -<span class="fl">0.4029737</span></code></pre></div>
 <p>In the call to <code>apply()</code> here, I indicated via the <code>MARGIN</code> argument that I wanted to preserve the first and second dimensions and to collapse the third dimension by taking the mean.</p>
 <p>There is a faster way to do this specific operation via the <code>colMeans()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">rowMeans</span>(a, <span class="dt">dims =</span> <span class="dv">2</span>)    ## Faster
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">rowMeans</span>(a, <span class="dt">dims =</span> <span class="dv">2</span>)    ## Faster
           [,<span class="dv">1</span>]       [,<span class="dv">2</span>]
 [<span class="dv">1</span>,] <span class="fl">0.1681387</span> -<span class="fl">0.1039673</span>
-[<span class="dv">2</span>,] <span class="fl">0.3519741</span> -<span class="fl">0.4029737</span></code></pre>
+[<span class="dv">2</span>,] <span class="fl">0.3519741</span> -<span class="fl">0.4029737</span></code></pre></div>
 <p>In this situation, I might argue that the use of <code>rowMeans()</code> is less readable, but it is substantially faster with large arrays.</p>
 </div>
 <div id="mapply" class="section level2">
 <h2><span class="header-section-number">15.10</span> <code>mapply()</code></h2>
 <p><a href="https://youtu.be/z8jC_h7S0VE">Watch a video of this section</a></p>
 <p>The <code>mapply()</code> function is a multivariate apply of sorts which applies a function in parallel over a set of arguments. Recall that <code>lapply()</code> and friends only iterate over a single R object. What if you want to iterate over multiple R objects in parallel? This is what <code>mapply()</code> is for.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(mapply)
-function (FUN, ..., <span class="dt">MoreArgs =</span> <span class="ot">NULL</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">TRUE</span>, <span class="dt">USE.NAMES =</span> <span class="ot">TRUE</span>)  </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(mapply)
+function (FUN, ..., <span class="dt">MoreArgs =</span> <span class="ot">NULL</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">TRUE</span>, <span class="dt">USE.NAMES =</span> <span class="ot">TRUE</span>)  </code></pre></div>
 <p>The arguments to <code>mapply()</code> are</p>
 <ul>
 <li><code>FUN</code> is a function to apply</li>
@@ -749,7 +767,7 @@ function (FUN, ..., <span class="dt">MoreArgs =</span> <span class="ot">NULL</sp
 <p>For example, the following is tedious to type</p>
 <p><code>list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1))</code></p>
 <p>With <code>mapply()</code>, instead we can do</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st">  </span><span class="kw">mapply</span>(rep, <span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">4</span>:<span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st">  </span><span class="kw">mapply</span>(rep, <span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">4</span>:<span class="dv">1</span>)
 [[<span class="dv">1</span>]]
 [<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>
 
@@ -760,10 +778,10 @@ function (FUN, ..., <span class="dt">MoreArgs =</span> <span class="ot">NULL</sp
 [<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">3</span>
 
 [[<span class="dv">4</span>]]
-[<span class="dv">1</span>] <span class="dv">4</span></code></pre>
+[<span class="dv">1</span>] <span class="dv">4</span></code></pre></div>
 <p>This passes the sequence <code>1:4</code> to the first argument of <code>rep()</code> and the sequence <code>4:1</code> to the second argument.</p>
 <p>Here’s another example for simulating randon Normal variables.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>noise &lt;-<span class="st"> </span>function(n, mean, sd) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>noise &lt;-<span class="st"> </span>function(n, mean, sd) {
 +<span class="st">       </span><span class="kw">rnorm</span>(n, mean, sd)
 +<span class="st"> </span>}
 &gt;<span class="st"> </span>## Simulate 5 randon numbers
@@ -772,9 +790,9 @@ function (FUN, ..., <span class="dt">MoreArgs =</span> <span class="ot">NULL</sp
 &gt;<span class="st"> </span>
 <span class="er">&gt;</span><span class="st"> </span>## This only simulates 1 set of numbers, not 5
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">noise</span>(<span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">2</span>)    
-[<span class="dv">1</span>] -<span class="fl">1.670517</span>  <span class="fl">2.796247</span>  <span class="fl">2.776826</span>  <span class="fl">5.351488</span>  <span class="fl">3.422804</span></code></pre>
+[<span class="dv">1</span>] -<span class="fl">1.670517</span>  <span class="fl">2.796247</span>  <span class="fl">2.776826</span>  <span class="fl">5.351488</span>  <span class="fl">3.422804</span></code></pre></div>
 <p>Here we can use <code>mapply()</code> to pass the sequence <code>1:5</code> separately to the <code>noise()</code> function so that we can get 5 sets of random numbers, each with a different length and mean.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mapply</span>(noise, <span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mapply</span>(noise, <span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">2</span>)
 [[<span class="dv">1</span>]]
 [<span class="dv">1</span>] <span class="fl">0.8260273</span>
 
@@ -788,9 +806,9 @@ function (FUN, ..., <span class="dt">MoreArgs =</span> <span class="ot">NULL</sp
 [<span class="dv">1</span>]  <span class="fl">3.978149</span>  <span class="fl">1.550018</span> -<span class="fl">1.192223</span>  <span class="fl">6.338245</span>
 
 [[<span class="dv">5</span>]]
-[<span class="dv">1</span>] <span class="fl">2.826182</span> <span class="fl">1.347834</span> <span class="fl">6.990564</span> <span class="fl">4.976276</span> <span class="fl">3.800743</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">2.826182</span> <span class="fl">1.347834</span> <span class="fl">6.990564</span> <span class="fl">4.976276</span> <span class="fl">3.800743</span></code></pre></div>
 <p>The above call to <code>mapply()</code> is the same as</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">list</span>(<span class="kw">noise</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">noise</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>),
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">list</span>(<span class="kw">noise</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">noise</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>),
 +<span class="st">      </span><span class="kw">noise</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>), <span class="kw">noise</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>),
 +<span class="st">      </span><span class="kw">noise</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">2</span>))
 [[<span class="dv">1</span>]]
@@ -806,30 +824,30 @@ function (FUN, ..., <span class="dt">MoreArgs =</span> <span class="ot">NULL</sp
 [<span class="dv">1</span>]  <span class="fl">5.4536273</span>  <span class="fl">5.3365220</span> -<span class="fl">0.8486346</span>  <span class="fl">3.5292851</span>
 
 [[<span class="dv">5</span>]]
-[<span class="dv">1</span>] <span class="fl">8.959267</span> <span class="fl">6.593589</span> <span class="fl">1.581448</span> <span class="fl">1.672663</span> <span class="fl">5.982219</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">8.959267</span> <span class="fl">6.593589</span> <span class="fl">1.581448</span> <span class="fl">1.672663</span> <span class="fl">5.982219</span></code></pre></div>
 </div>
 <div id="vectorizing-a-function" class="section level2">
 <h2><span class="header-section-number">15.11</span> Vectorizing a Function</h2>
 <p>The <code>mapply()</code> function can be use to automatically “vectorize” a function. What this means is that it can be used to take a function that typically only takes single arguments and create a new function that can take vector arguments. This is often needed when you want to plot functions.</p>
-<p>Here’s an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is <span class="math">\(\sum_{i=1}^n(x_i-\mu)^2/\sigma^2\)</span>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>sumsq &lt;-<span class="st"> </span>function(mu, sigma, x) {
+<p>Here’s an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is <span class="math inline">\(\sum_{i=1}^n(x_i-\mu)^2/\sigma^2\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>sumsq &lt;-<span class="st"> </span>function(mu, sigma, x) {
 +<span class="st">         </span><span class="kw">sum</span>(((x -<span class="st"> </span>mu) /<span class="st"> </span>sigma)^<span class="dv">2</span>)
-+<span class="st"> </span>}</code></pre>
++<span class="st"> </span>}</code></pre></div>
 <p>This function takes a mean <code>mu</code>, a standard deviation <code>sigma</code>, and some data in a vector <code>x</code>.</p>
 <p>In many statistical applications, we want to minimize the sum of squares to find the optimal <code>mu</code> and <code>sigma</code>. Before we do that, we may want to evaluate or plot the function for many different values of <code>mu</code> or <code>sigma</code>. However, passing a vector of <code>mu</code>s or <code>sigma</code>s won’t work with this function because it’s not vectorized.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)       ## Generate some data
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)       ## Generate some data
 &gt;<span class="st"> </span><span class="kw">sumsq</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>, x)  ## This is not what we want
-[<span class="dv">1</span>] <span class="fl">110.2594</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">110.2594</span></code></pre></div>
 <p>Note that the call to <code>sumsq()</code> only produced one value instead of 10 values.</p>
 <p>However, we can do what we want to do by using <code>mapply()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mapply</span>(sumsq, <span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">MoreArgs =</span> <span class="kw">list</span>(<span class="dt">x =</span> x))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mapply</span>(sumsq, <span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">MoreArgs =</span> <span class="kw">list</span>(<span class="dt">x =</span> x))
  [<span class="dv">1</span>] <span class="fl">196.2289</span> <span class="fl">121.4765</span> <span class="fl">108.3981</span> <span class="fl">104.0788</span> <span class="fl">102.1975</span> <span class="fl">101.2393</span> <span class="fl">100.6998</span>
- [<span class="dv">8</span>] <span class="fl">100.3745</span> <span class="fl">100.1685</span> <span class="fl">100.0332</span></code></pre>
+ [<span class="dv">8</span>] <span class="fl">100.3745</span> <span class="fl">100.1685</span> <span class="fl">100.0332</span></code></pre></div>
 <p>There’s even a function in R called <code>Vectorize()</code> that automatically can create a vectorized version of your function. So we could create a <code>vsumsq()</code> function that is fully vectorized as follows.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>vsumsq &lt;-<span class="st"> </span><span class="kw">Vectorize</span>(sumsq, <span class="kw">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;sigma&quot;</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>vsumsq &lt;-<span class="st"> </span><span class="kw">Vectorize</span>(sumsq, <span class="kw">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;sigma&quot;</span>))
 &gt;<span class="st"> </span><span class="kw">vsumsq</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>, x)
  [<span class="dv">1</span>] <span class="fl">196.2289</span> <span class="fl">121.4765</span> <span class="fl">108.3981</span> <span class="fl">104.0788</span> <span class="fl">102.1975</span> <span class="fl">101.2393</span> <span class="fl">100.6998</span>
- [<span class="dv">8</span>] <span class="fl">100.3745</span> <span class="fl">100.1685</span> <span class="fl">100.0332</span></code></pre>
+ [<span class="dv">8</span>] <span class="fl">100.3745</span> <span class="fl">100.1685</span> <span class="fl">100.0332</span></code></pre></div>
 <p>Pretty cool, right?</p>
 </div>
 <div id="summary-4" class="section level2">
@@ -840,7 +858,6 @@ function (FUN, ..., <span class="dt">MoreArgs =</span> <span class="ot">NULL</sp
 <li><p>Loop functions make heavy use of anonymous functions, which exist for the life of the loop function but are not stored anywhere</p></li>
 <li><p>The <code>split()</code> function can be used to divide an R object in to subsets determined by another variable which can subsequently be looped over using loop functions.</p></li>
 </ul>
-
 
 </div>
 </div>

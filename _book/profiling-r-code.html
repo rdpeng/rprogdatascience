@@ -57,23 +57,41 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -319,13 +337,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Usually, the user time and elapsed time are relatively close, for straight computing tasks. But there are a few situations where the two can diverge, sometimes dramatically. The elapsed time may be <em>greater than</em> the user time if the CPU spends a lot of time waiting around. This commonly happens if your R expression involes some input or output, which depends on the activity of the file system and the disk (or the Internet, if using a network connection).</p>
 <p>The elapsed time may be <em>smaller than</em> the user time if your machine has multiple cores/processors (and is capable of using them). For example, multi-threaded BLAS libraries (vecLib/Accelerate, ATLAS, ACML, MKL) can greatly speed up linear algebra calculations and are commonly installed on even desktop systems these days. Also, parallel processing done via something like the <code>parallell</code> package can make the elapsed time smaller than the user time. When you have multiple processors/cores/machines working in parallel, the amount of time that the collection of CPUs spends working on a problem is the same as with a single CPU, but because they are operating in parallel, there is a savings in elapsed time.</p>
 <p>Here’s an example of where the elapsed time is greater than the user time.</p>
-<pre class="sourceCode r"><code class="sourceCode r">## Elapsed time &gt; user time
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Elapsed time &gt; user time
 <span class="kw">system.time</span>(<span class="kw">readLines</span>(<span class="st">&quot;http://www.jhsph.edu&quot;</span>))
    user  system elapsed 
-  <span class="fl">0.004</span>   <span class="fl">0.002</span>   <span class="fl">0.431</span> </code></pre>
+  <span class="fl">0.004</span>   <span class="fl">0.002</span>   <span class="fl">0.431</span> </code></pre></div>
 <p>Most of the time in this expression is spent waiting for the connection to the web server and waiting for the data to travel back to my computer. This doesn’t involve the CPU and so the CPU simply waits around for things to get done. Hence, the user time is small.</p>
 <p>In this example, the elapsed time is smaller than the user time.</p>
-<pre class="sourceCode r"><code class="sourceCode r">## Elapsed time &lt; user time
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Elapsed time &lt; user time
 &gt;<span class="st"> </span>hilbert &lt;-<span class="st"> </span>function(n) { 
 +<span class="st">         </span>i &lt;-<span class="st"> </span><span class="dv">1</span>:n
 +<span class="st">         </span><span class="dv">1</span> /<span class="st"> </span><span class="kw">outer</span>(i -<span class="st"> </span><span class="dv">1</span>, i, <span class="st">&quot;+&quot;</span>)
@@ -333,13 +351,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 &gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">hilbert</span>(<span class="dv">1000</span>)
 &gt;<span class="st"> </span><span class="kw">system.time</span>(<span class="kw">svd</span>(x))
    user  system elapsed 
-  <span class="fl">1.035</span>   <span class="fl">0.255</span>   <span class="fl">0.462</span> </code></pre>
+  <span class="fl">1.035</span>   <span class="fl">0.255</span>   <span class="fl">0.462</span> </code></pre></div>
 <p>In this case I ran a singular value decomposition on the matrix in <code>x</code>, which is a common linear algebra procedure. Because my computer is able to split the work across multiple processors, the elapsed time is about half the user time.</p>
 </div>
 <div id="timing-longer-expressions" class="section level2">
 <h2><span class="header-section-number">18.2</span> Timing Longer Expressions</h2>
 <p>You can time longer expressions by wrapping them in curly braces within the call to <code>system.time()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">system.time</span>({
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">system.time</span>({
 +<span class="st">         </span>n &lt;-<span class="st"> </span><span class="dv">1000</span>
 +<span class="st">         </span>r &lt;-<span class="st"> </span><span class="kw">numeric</span>(n)
 +<span class="st">         </span>for(i in <span class="dv">1</span>:n) {
@@ -348,7 +366,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 +<span class="st">         </span>}
 +<span class="st"> </span>})
    user  system elapsed 
-  <span class="fl">0.095</span>   <span class="fl">0.003</span>   <span class="fl">0.097</span> </code></pre>
+  <span class="fl">0.095</span>   <span class="fl">0.003</span>   <span class="fl">0.097</span> </code></pre></div>
 <p>If your expression is getting pretty long (more than 2 or 3 lines), it might be better to either break it into smaller pieces or to use the profiler. The problem is that if the expression is too long, you won’t be able to identify which part of the code is causing the bottleneck.</p>
 </div>
 <div id="the-r-profiler" class="section level2">
@@ -358,13 +376,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>This is where the profiler comes in handy. The <code>Rprof()</code> function starts the profiler in R. Note that R must be compiled with profiler support (but this is usually the case). In conjunction with <code>Rprof()</code>, we will use the <code>summaryRprof()</code> function which summarizes the output from <code>Rprof()</code> (otherwise it’s not really readable). Note that you should NOT use <code>system.time()</code> and <code>Rprof()</code> together, or you will be sad.</p>
 <p><code>Rprof()</code> keeps track of the function call stack at regularly sampled intervals and tabulates how much time is spent inside each function. By default, the profiler samples the function call stack every 0.02 seconds. This means that if your code runs very quickly (say, under 0.02 seconds), the profiler is not useful. But of your code runs that fast, you probably don’t need the profiler.</p>
 <p>The profiler is started by calling the <code>Rprof()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">Rprof</span>()    ## Turn on the profiler</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">Rprof</span>()    ## Turn on the profiler</code></pre></div>
 <p>You don’t need any other arguments. By default it will write its output to a file called <code>Rprof.out</code>. You can specify the name of the output file if you don’t want to use this default.</p>
 <p>Once you call the <code>Rprof()</code> function, everything that you do from then on will be measured by the profiler. Therefore, you usually only want to run a single R function or expression once you turn on the profiler and then immediately turn it off. The reason is that if you mix too many function calls together when running the profiler, all of the results will be mixed together and you won’t be able to sort out where the bottlenecks are. In reality, I usually only run a single function with the profiler on.</p>
 <p>The profiler can be turned off by passing <code>NULL</code> to <code>Rprof()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">Rprof</span>(<span class="ot">NULL</span>)    ## Turn off the profiler</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">Rprof</span>(<span class="ot">NULL</span>)    ## Turn off the profiler</code></pre></div>
 <p>The raw output from the profiler looks something like this. Here I’m calling the <code>lm()</code> function on some data with the profiler running.</p>
-<pre class="sourceCode r"><code class="sourceCode r">## lm(y ~ x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## lm(y ~ x)
 
 sample.interval=<span class="dv">10000</span>
 <span class="st">&quot;list&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> 
@@ -380,7 +398,7 @@ sample.interval=<span class="dv">10000</span>
 <span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> 
 <span class="st">&quot;lm.fit&quot;</span> <span class="st">&quot;lm&quot;</span> 
 <span class="st">&quot;lm.fit&quot;</span> <span class="st">&quot;lm&quot;</span> 
-<span class="st">&quot;lm.fit&quot;</span> <span class="st">&quot;lm&quot;</span> </code></pre>
+<span class="st">&quot;lm.fit&quot;</span> <span class="st">&quot;lm&quot;</span> </code></pre></div>
 <p>At each line of the output, the profiler writes out the function call stack. For example, on the very first line of the output you can see that the code is 8 levels deep in the call stack. This is where you need the <code>summaryRprof()</code> function to help you interpret this data.</p>
 </div>
 <div id="using-summaryrprof" class="section level2">
@@ -391,7 +409,7 @@ sample.interval=<span class="dv">10000</span>
 <li><p>“by.self” does the same as “by.total” but first subtracts out time spent in functions above the current function in the call stack. I personally find this output to be much more useful.</p></li>
 </ul>
 <p>Here is what <code>summaryRprof()</code> reports in the “by.total” output.</p>
-<pre class="sourceCode r"><code class="sourceCode r">$by.total
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">$by.total
                         total.time total.pct self.time self.pct
 <span class="st">&quot;lm&quot;</span>                          <span class="fl">7.41</span>    <span class="fl">100.00</span>      <span class="fl">0.30</span>     <span class="fl">4.05</span>
 <span class="st">&quot;lm.fit&quot;</span>                      <span class="fl">3.50</span>     <span class="fl">47.23</span>      <span class="fl">2.99</span>    <span class="fl">40.35</span>
@@ -404,10 +422,10 @@ sample.interval=<span class="dv">10000</span>
 <span class="st">&quot;[.data.frame&quot;</span>                <span class="fl">1.03</span>     <span class="fl">13.90</span>      <span class="fl">0.79</span>    <span class="fl">10.66</span>
 <span class="st">&quot;[&quot;</span>                           <span class="fl">1.03</span>     <span class="fl">13.90</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span>
 <span class="st">&quot;as.list.data.frame&quot;</span>          <span class="fl">0.82</span>     <span class="fl">11.07</span>      <span class="fl">0.82</span>    <span class="fl">11.07</span>
-<span class="st">&quot;as.list&quot;</span>                     <span class="fl">0.82</span>     <span class="fl">11.07</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></code></pre>
+<span class="st">&quot;as.list&quot;</span>                     <span class="fl">0.82</span>     <span class="fl">11.07</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></code></pre></div>
 <p>Because <code>lm()</code> is the function that I called from the command line, of course 100% of the time is spent somewhere in that function. However, what this doesn’t show is that if <code>lm()</code> immediately calls another function (like <code>lm.fit()</code>, which does most of the heavy lifting), then in reality, most of the time is spent in <em>that</em> function, rather than in the top-level <code>lm()</code> function.</p>
 <p>The “by.self” output corrects for this discrepancy.</p>
-<pre class="sourceCode r"><code class="sourceCode r">$by.self
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">$by.self
                         self.time self.pct total.time total.pct
 <span class="st">&quot;lm.fit&quot;</span>                     <span class="fl">2.99</span>    <span class="fl">40.35</span>       <span class="fl">3.50</span>     <span class="fl">47.23</span>
 <span class="st">&quot;as.list.data.frame&quot;</span>         <span class="fl">0.82</span>    <span class="fl">11.07</span>       <span class="fl">0.82</span>     <span class="fl">11.07</span>
@@ -420,15 +438,15 @@ sample.interval=<span class="dv">10000</span>
 <span class="st">&quot;na.omit&quot;</span>                    <span class="fl">0.24</span>     <span class="fl">3.24</span>       <span class="fl">1.54</span>     <span class="fl">20.78</span>
 <span class="st">&quot;as.character&quot;</span>               <span class="fl">0.18</span>     <span class="fl">2.43</span>       <span class="fl">0.18</span>      <span class="fl">2.43</span>
 <span class="st">&quot;model.frame.default&quot;</span>        <span class="fl">0.12</span>     <span class="fl">1.62</span>       <span class="fl">2.24</span>     <span class="fl">30.23</span>
-<span class="st">&quot;anyDuplicated.default&quot;</span>      <span class="fl">0.02</span>     <span class="fl">0.27</span>       <span class="fl">0.02</span>      <span class="fl">0.27</span></code></pre>
+<span class="st">&quot;anyDuplicated.default&quot;</span>      <span class="fl">0.02</span>     <span class="fl">0.27</span>       <span class="fl">0.02</span>      <span class="fl">0.27</span></code></pre></div>
 <p>Now you can see that only about 4% of the runtime is spent in the actual <code>lm()</code> function, whereas over 40% of the time is spent in <code>lm.fit()</code>. In this case, this is no surprise since the <code>lm.fit()</code> function is the function that actually fits the linear model.</p>
 <p>You can see that a reasonable amount of time is spent in functions not necessarily associated with linear modeling (i.e. <code>as.list.data.frame</code>, <code>[.data.frame</code>). This is because the <code>lm()</code> function does a bit of pre-processing and checking before it actually fits the model. This is common with modeling functions—the preprocessing and checking is useful to see if there are any errors. But those two functions take up over 1.5 seconds of runtime. What if you want to fit this model 10,000 times? You’re going to be spending a lot of time in preprocessing and checking.</p>
 <p>The final bit of output that <code>summaryRprof()</code> provides is the sampling interval and the total runtime.</p>
-<pre class="sourceCode r"><code class="sourceCode r">$sample.interval
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">$sample.interval
 [<span class="dv">1</span>] <span class="fl">0.02</span>
 
 $sampling.time
-[<span class="dv">1</span>] <span class="fl">7.41</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">7.41</span></code></pre></div>
 </div>
 <div id="summary-7" class="section level2">
 <h2><span class="header-section-number">18.5</span> Summary</h2>
@@ -438,7 +456,6 @@ $sampling.time
 <li><p>Good to break your code into functions so that the profiler can give useful information about where time is being spent</p></li>
 <li><p>C or Fortran code is not profiled</p></li>
 </ul>
-
 
 </div>
 </div>

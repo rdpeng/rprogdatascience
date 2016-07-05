@@ -57,23 +57,41 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -302,9 +320,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="reading-in-the-1999-data" class="section level3">
 <h3><span class="header-section-number">20.2.1</span> Reading in the 1999 data</h3>
 <p>We first read in the 1999 data from the raw text file included in the zip archive. The data is a delimited file were fields are delimited with the <code>|</code> character and missing values are coded as blank fields. We skip some commented lines in the beginning of the file and initially we do not read the header data.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>pm0 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;pm25_data/RD_501_88101_1999-0.txt&quot;</span>, <span class="dt">comment.char =</span> <span class="st">&quot;#&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>pm0 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;pm25_data/RD_501_88101_1999-0.txt&quot;</span>, <span class="dt">comment.char =</span> <span class="st">&quot;#&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
 <p>After reading in the 1999 we check the first few rows (there are 117,421) rows in this dataset.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">dim</span>(pm0)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">dim</span>(pm0)
 [<span class="dv">1</span>] <span class="dv">117421</span>     <span class="dv">28</span>
 &gt;<span class="st"> </span><span class="kw">head</span>(pm0[, <span class="dv">1</span>:<span class="dv">13</span>])
   V1 V2 V3 V4 V5    V6 V7 V8  V9 V10      V11   V12    V13
@@ -313,9 +331,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="dv">3</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990109</span> <span class="dv">00</span>:<span class="dv">00</span>     <span class="ot">NA</span>
 <span class="dv">4</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990112</span> <span class="dv">00</span>:<span class="dv">00</span>  <span class="fl">8.841</span>
 <span class="dv">5</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990115</span> <span class="dv">00</span>:<span class="dv">00</span> <span class="fl">14.920</span>
-<span class="dv">6</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990118</span> <span class="dv">00</span>:<span class="dv">00</span>  <span class="fl">3.878</span></code></pre>
+<span class="dv">6</span> RD  I  <span class="dv">1</span> <span class="dv">27</span>  <span class="dv">1</span> <span class="dv">88101</span>  <span class="dv">1</span>  <span class="dv">7</span> <span class="dv">105</span> <span class="dv">120</span> <span class="dv">19990118</span> <span class="dv">00</span>:<span class="dv">00</span>  <span class="fl">3.878</span></code></pre></div>
 <p>We then attach the column headers to the dataset and make sure that they are properly formated for R data frames.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>cnames &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&quot;pm25_data/RD_501_88101_1999-0.txt&quot;</span>, <span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>cnames &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&quot;pm25_data/RD_501_88101_1999-0.txt&quot;</span>, <span class="dv">1</span>)
 &gt;<span class="st"> </span>cnames &lt;-<span class="st"> </span><span class="kw">strsplit</span>(cnames, <span class="st">&quot;|&quot;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)
 &gt;<span class="st"> </span>## Ensure names are properly formatted
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">names</span>(pm0) &lt;-<span class="st"> </span><span class="kw">make.names</span>(cnames[[<span class="dv">1</span>]])  
@@ -333,25 +351,25 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="dv">3</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990109</span>      <span class="dv">00</span>:<span class="dv">00</span>           <span class="ot">NA</span>
 <span class="dv">4</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990112</span>      <span class="dv">00</span>:<span class="dv">00</span>        <span class="fl">8.841</span>
 <span class="dv">5</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990115</span>      <span class="dv">00</span>:<span class="dv">00</span>       <span class="fl">14.920</span>
-<span class="dv">6</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990118</span>      <span class="dv">00</span>:<span class="dv">00</span>        <span class="fl">3.878</span></code></pre>
+<span class="dv">6</span>               <span class="dv">7</span>  <span class="dv">105</span>    <span class="dv">120</span> <span class="dv">19990118</span>      <span class="dv">00</span>:<span class="dv">00</span>        <span class="fl">3.878</span></code></pre></div>
 <p>The column we are interested in is the <code>Sample.Value</code> column which contains the PM2.5 measurements. Here we extract that column and print a brief summary.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x0 &lt;-<span class="st"> </span>pm0$Sample.Value
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x0 &lt;-<span class="st"> </span>pm0$Sample.Value
 &gt;<span class="st"> </span><span class="kw">summary</span>(x0)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA<span class="st">&#39;s </span>
-<span class="st">   0.00    7.20   11.50   13.74   17.90  157.10   13217 </span></code></pre>
+<span class="st">   0.00    7.20   11.50   13.74   17.90  157.10   13217 </span></code></pre></div>
 <p>Missing values are a common problem with environmental data and so we check to se what proportion of the observations are missing (i.e. coded as <code>NA</code>).</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mean</span>(<span class="kw">is.na</span>(x0))  ## Are missing values important here?
-[<span class="dv">1</span>] <span class="fl">0.1125608</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mean</span>(<span class="kw">is.na</span>(x0))  ## Are missing values important here?
+[<span class="dv">1</span>] <span class="fl">0.1125608</span></code></pre></div>
 <p>Because the proportion of missing values is relatively low (0.1125608), we choose to ignore missing values for now.</p>
 </div>
 <div id="reading-in-the-2012-data" class="section level3">
 <h3><span class="header-section-number">20.2.2</span> Reading in the 2012 data</h3>
 <p>We then read in the 2012 data in the same manner in which we read the 1999 data (the data files are in the same format).</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>pm1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;pm25_data/RD_501_88101_2012-0.txt&quot;</span>, <span class="dt">comment.char =</span> <span class="st">&quot;#&quot;</span>, 
-+<span class="st">                   </span><span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>, <span class="dt">nrow =</span> <span class="dv">1304290</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>pm1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;pm25_data/RD_501_88101_2012-0.txt&quot;</span>, <span class="dt">comment.char =</span> <span class="st">&quot;#&quot;</span>, 
++<span class="st">                   </span><span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>, <span class="dt">nrow =</span> <span class="dv">1304290</span>)</code></pre></div>
 <p>We also set the column names (they are the same as the 1999 dataset) and extract the <code>Sample.Value</code> column from this dataset.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">names</span>(pm1) &lt;-<span class="st"> </span><span class="kw">make.names</span>(cnames[[<span class="dv">1</span>]])
-&gt;<span class="st"> </span>x1 &lt;-<span class="st"> </span>pm1$Sample.Value</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">names</span>(pm1) &lt;-<span class="st"> </span><span class="kw">make.names</span>(cnames[[<span class="dv">1</span>]])
+&gt;<span class="st"> </span>x1 &lt;-<span class="st"> </span>pm1$Sample.Value</code></pre></div>
 </div>
 </div>
 <div id="results" class="section level2">
@@ -359,63 +377,63 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="entire-u.s.-analysis" class="section level3">
 <h3><span class="header-section-number">20.3.1</span> Entire U.S. analysis</h3>
 <p>In order to show aggregate changes in PM across the entire monitoring network, we can make boxplots of all monitor values in 1999 and 2012. Here, we take the log of the PM values to adjust for the skew in the data.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">boxplot</span>(<span class="kw">log2</span>(x0), <span class="kw">log2</span>(x1))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">boxplot</span>(<span class="kw">log2</span>(x0), <span class="kw">log2</span>(x1))
 Warning in <span class="kw">boxplot.default</span>(<span class="kw">log2</span>(x0), <span class="kw">log2</span>(x1)):<span class="st"> </span>NaNs produced
 Warning in <span class="kw">bplt</span>(at[i], <span class="dt">wid =</span> width[i], <span class="dt">stats =</span> z$stats[, i], <span class="dt">out =</span> z$out[z
 $group ==<span class="st"> </span><span class="er">:</span><span class="st"> </span><span class="kw">Outlier</span> (-<span class="ot">Inf</span>) in boxplot <span class="dv">1</span> is not drawn
 Warning in <span class="kw">bplt</span>(at[i], <span class="dt">wid =</span> width[i], <span class="dt">stats =</span> z$stats[, i], <span class="dt">out =</span> z$out[z
-$group ==<span class="st"> </span><span class="er">:</span><span class="st"> </span><span class="kw">Outlier</span> (-<span class="ot">Inf</span>) in boxplot <span class="dv">2</span> is not drawn</code></pre>
+$group ==<span class="st"> </span><span class="er">:</span><span class="st"> </span><span class="kw">Outlier</span> (-<span class="ot">Inf</span>) in boxplot <span class="dv">2</span> is not drawn</code></pre></div>
 <p><img src="images/unnamed-chunk-5-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summary</span>(x0)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">summary</span>(x0)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA<span class="st">&#39;s </span>
 <span class="st">   0.00    7.20   11.50   13.74   17.90  157.10   13217 </span>
 <span class="st">&gt; summary(x1)</span>
 <span class="st">   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;</span>s 
- -<span class="fl">10.00</span>    <span class="fl">4.00</span>    <span class="fl">7.63</span>    <span class="fl">9.14</span>   <span class="fl">12.00</span>  <span class="fl">909.00</span>   <span class="dv">73133</span> </code></pre>
+ -<span class="fl">10.00</span>    <span class="fl">4.00</span>    <span class="fl">7.63</span>    <span class="fl">9.14</span>   <span class="fl">12.00</span>  <span class="fl">909.00</span>   <span class="dv">73133</span> </code></pre></div>
 <p>Interestingly, from the summary of <code>x1</code> it appears there are some negative values of PM, which in general should not occur. We can investigate that somewhat to see if there is anything we should worry about.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>negative &lt;-<span class="st"> </span>x1 &lt;<span class="st"> </span><span class="dv">0</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>negative &lt;-<span class="st"> </span>x1 &lt;<span class="st"> </span><span class="dv">0</span>
 &gt;<span class="st"> </span><span class="kw">mean</span>(negative, <span class="dt">na.rm =</span> T)
-[<span class="dv">1</span>] <span class="fl">0.0215034</span></code></pre>
+[<span class="dv">1</span>] <span class="fl">0.0215034</span></code></pre></div>
 <p>There is a relatively small proportion of values that are negative, which is perhaps reassuring. In order to investigate this a step further we can extract the date of each measurement from the original data frame. The idea here is that perhaps negative values occur more often in some parts of the year than other parts. However, the original data are formatted as character strings so we convert them to R’s <code>Date</code> format for easier manipulation.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dates &lt;-<span class="st"> </span>pm1$Date
-&gt;<span class="st"> </span>dates &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">as.character</span>(dates), <span class="st">&quot;%Y%m%d&quot;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dates &lt;-<span class="st"> </span>pm1$Date
+&gt;<span class="st"> </span>dates &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">as.character</span>(dates), <span class="st">&quot;%Y%m%d&quot;</span>)</code></pre></div>
 <p>We can then extract the month from each of the dates with negative values and attempt to identify when negative values occur most often.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>missing.months &lt;-<span class="st"> </span>month.name[<span class="kw">as.POSIXlt</span>(dates)$mon +<span class="st"> </span><span class="dv">1</span>]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>missing.months &lt;-<span class="st"> </span>month.name[<span class="kw">as.POSIXlt</span>(dates)$mon +<span class="st"> </span><span class="dv">1</span>]
 &gt;<span class="st"> </span>tab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="kw">factor</span>(missing.months, <span class="dt">levels =</span> month.name))
 &gt;<span class="st"> </span><span class="kw">round</span>(<span class="dv">100</span> *<span class="st"> </span>tab /<span class="st"> </span><span class="kw">sum</span>(tab))
 
   January  February     March     April       May      June      July 
        <span class="dv">15</span>        <span class="dv">13</span>        <span class="dv">15</span>        <span class="dv">13</span>        <span class="dv">14</span>        <span class="dv">13</span>         <span class="dv">8</span> 
    August September   October  November  December 
-        <span class="dv">6</span>         <span class="dv">3</span>         <span class="dv">0</span>         <span class="dv">0</span>         <span class="dv">0</span> </code></pre>
+        <span class="dv">6</span>         <span class="dv">3</span>         <span class="dv">0</span>         <span class="dv">0</span>         <span class="dv">0</span> </code></pre></div>
 <p>From the table above it appears that bulk of the negative values occur in the first six months of the year (January–June). However, beyond that simple observation, it is not clear why the negative values occur. That said, given the relatively low proportion of negative values, we will ignore them for now.</p>
 </div>
 <div id="changes-in-pm-levels-at-an-individual-monitor" class="section level3">
 <h3><span class="header-section-number">20.3.2</span> Changes in PM levels at an individual monitor</h3>
 <p>So far we have examined the change in PM levels on average across the country. One issue with the previous analysis is that the monitoring network could have changed in the time period between 1999 and 2012. So if for some reason in 2012 there are more monitors concentrated in cleaner parts of the country than there were in 1999, it might appear the PM levels decreased when in fact they didn’t. In this section we will focus on a single monitor in New York State to see if PM levels <em>at that monitor</em> decreased from 1999 to 2012.</p>
 <p>Our first task is to identify a monitor in New York State that has data in 1999 and 2012 (not all monitors operated during both time periods). First we subset the data frames to only include data from New York (<code>State.Code == 36</code>) and only include the <code>County.Code</code> and the <code>Site.ID</code> (i.e. monitor number) variables.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>site0 &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">subset</span>(pm0, State.Code ==<span class="st"> </span><span class="dv">36</span>, <span class="kw">c</span>(County.Code, Site.ID)))
-&gt;<span class="st"> </span>site1 &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">subset</span>(pm1, State.Code ==<span class="st"> </span><span class="dv">36</span>, <span class="kw">c</span>(County.Code, Site.ID)))</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>site0 &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">subset</span>(pm0, State.Code ==<span class="st"> </span><span class="dv">36</span>, <span class="kw">c</span>(County.Code, Site.ID)))
+&gt;<span class="st"> </span>site1 &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">subset</span>(pm1, State.Code ==<span class="st"> </span><span class="dv">36</span>, <span class="kw">c</span>(County.Code, Site.ID)))</code></pre></div>
 <p>Then we create a new variable that combines the county code and the site ID into a single string.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>site0 &lt;-<span class="st"> </span><span class="kw">paste</span>(site0[,<span class="dv">1</span>], site0[,<span class="dv">2</span>], <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>site0 &lt;-<span class="st"> </span><span class="kw">paste</span>(site0[,<span class="dv">1</span>], site0[,<span class="dv">2</span>], <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>)
 &gt;<span class="st"> </span>site1 &lt;-<span class="st"> </span><span class="kw">paste</span>(site1[,<span class="dv">1</span>], site1[,<span class="dv">2</span>], <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>)
 &gt;<span class="st"> </span><span class="kw">str</span>(site0)
  chr [<span class="dv">1</span>:<span class="dv">33</span>] <span class="st">&quot;1.5&quot;</span> <span class="st">&quot;1.12&quot;</span> <span class="st">&quot;5.73&quot;</span> <span class="st">&quot;5.80&quot;</span> <span class="st">&quot;5.83&quot;</span> <span class="st">&quot;5.110&quot;</span> ...
 &gt;<span class="st"> </span><span class="kw">str</span>(site1)
- chr [<span class="dv">1</span>:<span class="dv">18</span>] <span class="st">&quot;1.5&quot;</span> <span class="st">&quot;1.12&quot;</span> <span class="st">&quot;5.80&quot;</span> <span class="st">&quot;5.133&quot;</span> <span class="st">&quot;13.11&quot;</span> <span class="st">&quot;29.5&quot;</span> ...</code></pre>
+ chr [<span class="dv">1</span>:<span class="dv">18</span>] <span class="st">&quot;1.5&quot;</span> <span class="st">&quot;1.12&quot;</span> <span class="st">&quot;5.80&quot;</span> <span class="st">&quot;5.133&quot;</span> <span class="st">&quot;13.11&quot;</span> <span class="st">&quot;29.5&quot;</span> ...</code></pre></div>
 <p>Finaly, we want the intersection between the sites present in 1999 and 2012 so that we might choose a monitor that has data in both periods.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>both &lt;-<span class="st"> </span><span class="kw">intersect</span>(site0, site1)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>both &lt;-<span class="st"> </span><span class="kw">intersect</span>(site0, site1)
 &gt;<span class="st"> </span><span class="kw">print</span>(both)
  [<span class="dv">1</span>] <span class="st">&quot;1.5&quot;</span>     <span class="st">&quot;1.12&quot;</span>    <span class="st">&quot;5.80&quot;</span>    <span class="st">&quot;13.11&quot;</span>   <span class="st">&quot;29.5&quot;</span>    <span class="st">&quot;31.3&quot;</span>    <span class="st">&quot;63.2008&quot;</span>
- [<span class="dv">8</span>] <span class="st">&quot;67.1015&quot;</span> <span class="st">&quot;85.55&quot;</span>   <span class="st">&quot;101.3&quot;</span>  </code></pre>
+ [<span class="dv">8</span>] <span class="st">&quot;67.1015&quot;</span> <span class="st">&quot;85.55&quot;</span>   <span class="st">&quot;101.3&quot;</span>  </code></pre></div>
 <p>Here (above) we can see that there are 10 monitors that were operating in both time periods. However, rather than choose one at random, it might best to choose one that had a reasonable amount of data in each year.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Find how many observations available at each monitor
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Find how many observations available at each monitor
 <span class="er">&gt;</span><span class="st"> </span>pm0$county.site &lt;-<span class="st"> </span><span class="kw">with</span>(pm0, <span class="kw">paste</span>(County.Code, Site.ID, <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>))
 &gt;<span class="st"> </span>pm1$county.site &lt;-<span class="st"> </span><span class="kw">with</span>(pm1, <span class="kw">paste</span>(County.Code, Site.ID, <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>))
 &gt;<span class="st"> </span>cnt0 &lt;-<span class="st"> </span><span class="kw">subset</span>(pm0, State.Code ==<span class="st"> </span><span class="dv">36</span> &amp;<span class="st"> </span>county.site %in%<span class="st"> </span>both)
-&gt;<span class="st"> </span>cnt1 &lt;-<span class="st"> </span><span class="kw">subset</span>(pm1, State.Code ==<span class="st"> </span><span class="dv">36</span> &amp;<span class="st"> </span>county.site %in%<span class="st"> </span>both)</code></pre>
+&gt;<span class="st"> </span>cnt1 &lt;-<span class="st"> </span><span class="kw">subset</span>(pm1, State.Code ==<span class="st"> </span><span class="dv">36</span> &amp;<span class="st"> </span>county.site %in%<span class="st"> </span>both)</code></pre></div>
 <p>Now that we have subsetted the original data frames to only include the data from the monitors that overlap between 1999 and 2012, we can split the data frames and count the number of observations at each monitor to see which ones have the most observations.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## 1999
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## 1999
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">sapply</span>(<span class="kw">split</span>(cnt0, cnt0$county.site), nrow)  
    <span class="fl">1.12</span>     <span class="fl">1.5</span>   <span class="fl">101.3</span>   <span class="fl">13.11</span>    <span class="fl">29.5</span>    <span class="fl">31.3</span>    <span class="fl">5.80</span> <span class="fl">63.2008</span> <span class="fl">67.1015</span> 
      <span class="dv">61</span>     <span class="dv">122</span>     <span class="dv">152</span>      <span class="dv">61</span>      <span class="dv">61</span>     <span class="dv">183</span>      <span class="dv">61</span>     <span class="dv">122</span>     <span class="dv">122</span> 
@@ -426,16 +444,16 @@ $group ==<span class="st"> </span><span class="er">:</span><span class="st"> </s
    <span class="fl">1.12</span>     <span class="fl">1.5</span>   <span class="fl">101.3</span>   <span class="fl">13.11</span>    <span class="fl">29.5</span>    <span class="fl">31.3</span>    <span class="fl">5.80</span> <span class="fl">63.2008</span> <span class="fl">67.1015</span> 
      <span class="dv">31</span>      <span class="dv">64</span>      <span class="dv">31</span>      <span class="dv">31</span>      <span class="dv">33</span>      <span class="dv">15</span>      <span class="dv">31</span>      <span class="dv">30</span>      <span class="dv">31</span> 
   <span class="fl">85.55</span> 
-     <span class="dv">31</span> </code></pre>
+     <span class="dv">31</span> </code></pre></div>
 <p>A number of monitors seem suitable from the output, but we will focus here on County 63 and site ID 2008.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>both.county &lt;-<span class="st"> </span><span class="dv">63</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>both.county &lt;-<span class="st"> </span><span class="dv">63</span>
 &gt;<span class="st"> </span>both.id &lt;-<span class="st"> </span><span class="dv">2008</span>
 &gt;<span class="st"> </span>
 <span class="er">&gt;</span><span class="st"> </span>## Choose county 63 and side ID 2008
 <span class="er">&gt;</span><span class="st"> </span>pm1sub &lt;-<span class="st"> </span><span class="kw">subset</span>(pm1, State.Code ==<span class="st"> </span><span class="dv">36</span> &amp;<span class="st"> </span>County.Code ==<span class="st"> </span>both.county &amp;<span class="st"> </span>Site.ID ==<span class="st"> </span>both.id)
-&gt;<span class="st"> </span>pm0sub &lt;-<span class="st"> </span><span class="kw">subset</span>(pm0, State.Code ==<span class="st"> </span><span class="dv">36</span> &amp;<span class="st"> </span>County.Code ==<span class="st"> </span>both.county &amp;<span class="st"> </span>Site.ID ==<span class="st"> </span>both.id)</code></pre>
+&gt;<span class="st"> </span>pm0sub &lt;-<span class="st"> </span><span class="kw">subset</span>(pm0, State.Code ==<span class="st"> </span><span class="dv">36</span> &amp;<span class="st"> </span>County.Code ==<span class="st"> </span>both.county &amp;<span class="st"> </span>Site.ID ==<span class="st"> </span>both.id)</code></pre></div>
 <p>Now we plot the time series data of PM for the monitor in both years.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dates1 &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">as.character</span>(pm1sub$Date), <span class="st">&quot;%Y%m%d&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dates1 &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">as.character</span>(pm1sub$Date), <span class="st">&quot;%Y%m%d&quot;</span>)
 &gt;<span class="st"> </span>x1sub &lt;-<span class="st"> </span>pm1sub$Sample.Value
 &gt;<span class="st"> </span>dates0 &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">as.character</span>(pm0sub$Date), <span class="st">&quot;%Y%m%d&quot;</span>)
 &gt;<span class="st"> </span>x0sub &lt;-<span class="st"> </span>pm0sub$Sample.Value
@@ -446,7 +464,7 @@ $group ==<span class="st"> </span><span class="er">:</span><span class="st"> </s
 &gt;<span class="st"> </span><span class="kw">plot</span>(dates0, x0sub, <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">ylim =</span> rng, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="kw">expression</span>(PM[<span class="fl">2.5</span>] *<span class="st"> &quot; (&quot;</span> *<span class="st"> </span>mu *<span class="st"> </span>g/m^<span class="dv">3</span> *<span class="st"> &quot;)&quot;</span>))
 &gt;<span class="st"> </span><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">median</span>(x0sub, <span class="dt">na.rm =</span> T))
 &gt;<span class="st"> </span><span class="kw">plot</span>(dates1, x1sub, <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">ylim =</span> rng, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="kw">expression</span>(PM[<span class="fl">2.5</span>] *<span class="st"> &quot; (&quot;</span> *<span class="st"> </span>mu *<span class="st"> </span>g/m^<span class="dv">3</span> *<span class="st"> &quot;)&quot;</span>))
-&gt;<span class="st"> </span><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">median</span>(x1sub, <span class="dt">na.rm =</span> T))</code></pre>
+&gt;<span class="st"> </span><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">median</span>(x1sub, <span class="dt">na.rm =</span> T))</code></pre></div>
 <p><img src="images/unnamed-chunk-12-1.png" width="768" /></p>
 <p>From the plot above, we can that median levels of PM (horizontal solid line) have decreased a little from 10.45 in 1999 to 8.29 in 2012. However, perhaps more interesting is that the variation (spread) in the PM values in 2012 is much smaller than it was in 1999. This suggest that not only are median levels of PM lower in 2012, but that there are fewer large spikes from day to day. One issue with the data here is that the 1999 data are from July through December while the 2012 data are recorded in January through April. It would have been better if we’d had full-year data for both years as there could be some seasonal confounding going on.</p>
 </div>
@@ -454,7 +472,7 @@ $group ==<span class="st"> </span><span class="er">:</span><span class="st"> </s
 <h3><span class="header-section-number">20.3.3</span> Changes in state-wide PM levels</h3>
 <p>Although ambient air quality standards are set at the federal level in the U.S. and hence affect the entire country, the actual reduction and management of PM is left to the individual states. States that are not “in attainment” have to develop a plan to reduce PM so that that the are in attainment (eventually). Therefore, it might be useful to examine changes in PM at the state level. This analysis falls somewhere in between looking at the entire country all at once and looking at an individual monitor.</p>
 <p>What we do here is calculate the mean of PM for each state in 1999 and 2012.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## 1999
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## 1999
 <span class="er">&gt;</span><span class="st"> </span>mn0 &lt;-<span class="st"> </span><span class="kw">with</span>(pm0, <span class="kw">tapply</span>(Sample.Value, State.Code, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))  
 &gt;<span class="st"> </span>## 2012
 <span class="er">&gt;</span><span class="st"> </span>mn1 &lt;-<span class="st"> </span><span class="kw">with</span>(pm1, <span class="kw">tapply</span>(Sample.Value, State.Code, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))  
@@ -470,17 +488,16 @@ $group ==<span class="st"> </span><span class="er">:</span><span class="st"> </s
 <span class="dv">3</span>    <span class="dv">11</span> <span class="fl">15.786507</span> <span class="fl">11.991697</span>
 <span class="dv">4</span>    <span class="dv">12</span> <span class="fl">11.137139</span>  <span class="fl">8.239690</span>
 <span class="dv">5</span>    <span class="dv">13</span> <span class="fl">19.943240</span> <span class="fl">11.321364</span>
-<span class="dv">6</span>    <span class="dv">15</span>  <span class="fl">4.861821</span>  <span class="fl">8.749336</span></code></pre>
+<span class="dv">6</span>    <span class="dv">15</span>  <span class="fl">4.861821</span>  <span class="fl">8.749336</span></code></pre></div>
 <p>Now make a plot that shows the 1999 state-wide means in one “column” and the 2012 state-wide means in another columns. We then draw a line connecting the means for each year in the same state to highlight the trend.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))
 &gt;<span class="st"> </span>rng &lt;-<span class="st"> </span><span class="kw">range</span>(mrg[,<span class="dv">2</span>], mrg[,<span class="dv">3</span>])
 &gt;<span class="st"> </span><span class="kw">with</span>(mrg, <span class="kw">plot</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">52</span>), mrg[, <span class="dv">2</span>], <span class="dt">xlim =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">2.5</span>), <span class="dt">ylim =</span> rng, <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;State-wide Mean PM&quot;</span>))
 &gt;<span class="st"> </span><span class="kw">with</span>(mrg, <span class="kw">points</span>(<span class="kw">rep</span>(<span class="dv">2</span>, <span class="dv">52</span>), mrg[, <span class="dv">3</span>]))
 &gt;<span class="st"> </span><span class="kw">segments</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">52</span>), mrg[, <span class="dv">2</span>], <span class="kw">rep</span>(<span class="dv">2</span>, <span class="dv">52</span>), mrg[, <span class="dv">3</span>])
-&gt;<span class="st"> </span><span class="kw">axis</span>(<span class="dv">1</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="st">&quot;1999&quot;</span>, <span class="st">&quot;2012&quot;</span>))</code></pre>
+&gt;<span class="st"> </span><span class="kw">axis</span>(<span class="dv">1</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="st">&quot;1999&quot;</span>, <span class="st">&quot;2012&quot;</span>))</code></pre></div>
 <p><img src="images/unnamed-chunk-14-1.png" width="864" /></p>
 <p>From the plot above we can see that many states have decreased the average PM levels from 1999 to 2012 (although a few states actually increased their levels).</p>
-
 
 </div>
 </div>

@@ -57,23 +57,41 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -294,31 +312,31 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2><span class="header-section-number">5.1</span> Entering Input</h2>
 <p><a href="https://youtu.be/vGY5i_J2c-c?t=4m43s">Watch a video of this section</a></p>
 <p>At the R prompt we type expressions. The <code>&lt;-</code> symbol is the assignment operator.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>
 &gt;<span class="st"> </span><span class="kw">print</span>(x)
 [<span class="dv">1</span>] <span class="dv">1</span>
 &gt;<span class="st"> </span>x
 [<span class="dv">1</span>] <span class="dv">1</span>
-&gt;<span class="st"> </span>msg &lt;-<span class="st"> &quot;hello&quot;</span></code></pre>
+&gt;<span class="st"> </span>msg &lt;-<span class="st"> &quot;hello&quot;</span></code></pre></div>
 <p>The grammar of the language determines whether an expression is complete or not.</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st">  </span>## Incomplete expression</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st">  </span>## Incomplete expression</code></pre></div>
 <p>The # character indicates a comment. Anything to the right of the # (including the # itself) is ignored. This is the only comment character in R. Unlike some other languages, R does not support multi-line comments or comment blocks.</p>
 </div>
 <div id="evaluation" class="section level2">
 <h2><span class="header-section-number">5.2</span> Evaluation</h2>
 <p>When a complete expression is entered at the prompt, it is evaluated and the result of the evaluated expression is returned. The result may be <em>auto-printed</em>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">5</span>  ## nothing printed
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">5</span>  ## nothing printed
 &gt;<span class="st"> </span>x       ## auto-printing occurs
 [<span class="dv">1</span>] <span class="dv">5</span>
 &gt;<span class="st"> </span><span class="kw">print</span>(x)  ## explicit printing
-[<span class="dv">1</span>] <span class="dv">5</span></code></pre>
+[<span class="dv">1</span>] <span class="dv">5</span></code></pre></div>
 <p>The <code>[1]</code> shown in the output indicates that <code>x</code> is a vector and <code>5</code> is its first element.</p>
 <p>Typically with interactive work, we do not explicitly print objects with the <code>print</code> function; it is much easier to just auto-print them by typing the name of the object and hitting return/enter. However, when writing scripts, functions, or longer programs, there is sometimes a need to explicitly print objects because auto-printing does not work in those settings.</p>
 <p>When an R vector is printed you will notice that an index for the vector is printed in square brackets <code>[]</code> on the side. For example, see this integer sequence of length 20.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">11</span>:<span class="dv">30</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">11</span>:<span class="dv">30</span>
 &gt;<span class="st"> </span>x
  [<span class="dv">1</span>] <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">16</span> <span class="dv">17</span> <span class="dv">18</span> <span class="dv">19</span> <span class="dv">20</span> <span class="dv">21</span> <span class="dv">22</span>
-[<span class="dv">13</span>] <span class="dv">23</span> <span class="dv">24</span> <span class="dv">25</span> <span class="dv">26</span> <span class="dv">27</span> <span class="dv">28</span> <span class="dv">29</span> <span class="dv">30</span></code></pre>
+[<span class="dv">13</span>] <span class="dv">23</span> <span class="dv">24</span> <span class="dv">25</span> <span class="dv">26</span> <span class="dv">27</span> <span class="dv">28</span> <span class="dv">29</span> <span class="dv">30</span></code></pre></div>
 <p>The numbers in the square brackets are not part of the vector itself, they are merely part of the <em>printed output</em>.</p>
 <p>With R, it’s important that one understand that there is a difference between the actual R object and the manner in which that R object is printed to the console. Often, the printed output may have additional bells and whistles to make the output more friendly to the users. However, these bells and whistles are not inherently part of the object.</p>
 <p>Note that the <code>:</code> operator is used to create integer sequences.</p>
@@ -361,31 +379,31 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2><span class="header-section-number">5.6</span> Creating Vectors</h2>
 <p><a href="https://youtu.be/w8_XdYI3reU">Watch a video of this section</a></p>
 <p>The <code>c()</code> function can be used to create vectors of objects by concatenating things together.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.6</span>)       ## numeric
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.6</span>)       ## numeric
 &gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)    ## logical
 &gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(T, F)           ## logical
 &gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)  ## character
 &gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">9</span>:<span class="dv">29</span>              ## integer
-&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>+0i, <span class="dv">2</span>+4i)     ## complex</code></pre>
+&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>+0i, <span class="dv">2</span>+4i)     ## complex</code></pre></div>
 <p>Note that in the above example, <code>T</code> and <code>F</code> are short-hand ways to specify <code>TRUE</code> and <code>FALSE</code>. However, in general one should try to use the explicit <code>TRUE</code> and <code>FALSE</code> values when indicating logical values. The <code>T</code> and <code>F</code> values are primarily there for when you’re feeling lazy.</p>
 <p>You can also use the <code>vector()</code> function to initialize vectors.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="dv">10</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="dv">10</span>) 
 &gt;<span class="st"> </span>x
- [<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></code></pre>
+ [<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></code></pre></div>
 </div>
 <div id="mixing-objects" class="section level2">
 <h2><span class="header-section-number">5.7</span> Mixing Objects</h2>
 <p>There are occasions when different classes of R objects get mixed together. Sometimes this happens by accident but it can also happen on purpose. So what happens with the following code?</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.7</span>, <span class="st">&quot;a&quot;</span>)   ## character
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.7</span>, <span class="st">&quot;a&quot;</span>)   ## character
 &gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="dv">2</span>)    ## numeric
-&gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="ot">TRUE</span>)  ## character</code></pre>
+&gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="ot">TRUE</span>)  ## character</code></pre></div>
 <p>In each case above, we are mixing objects of two different classes in a vector. But remember that the only rule about vectors says this is not allowed. When different objects are mixed in a vector, <em>coercion</em> occurs so that every element in the vector is of the same class.</p>
 <p>In the example above, we see the effect of <em>implicit coercion</em>. What R tries to do is find a way to represent all of the objects in the vector in a reasonable fashion. Sometimes this does exactly what you want and…sometimes not. For example, combining a numeric object with a character object will create a character vector, because numbers can usually be easily represented as strings.</p>
 </div>
 <div id="explicit-coercion" class="section level2">
 <h2><span class="header-section-number">5.8</span> Explicit Coercion</h2>
 <p>Objects can be explicitly coerced from one class to another using the <code>as.*</code> functions, if available.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">0</span>:<span class="dv">6</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">0</span>:<span class="dv">6</span>
 &gt;<span class="st"> </span><span class="kw">class</span>(x)
 [<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span>
 &gt;<span class="st"> </span><span class="kw">as.numeric</span>(x)
@@ -393,9 +411,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 &gt;<span class="st"> </span><span class="kw">as.logical</span>(x)
 [<span class="dv">1</span>] <span class="ot">FALSE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span>
 &gt;<span class="st"> </span><span class="kw">as.character</span>(x)
-[<span class="dv">1</span>] <span class="st">&quot;0&quot;</span> <span class="st">&quot;1&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;3&quot;</span> <span class="st">&quot;4&quot;</span> <span class="st">&quot;5&quot;</span> <span class="st">&quot;6&quot;</span></code></pre>
+[<span class="dv">1</span>] <span class="st">&quot;0&quot;</span> <span class="st">&quot;1&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;3&quot;</span> <span class="st">&quot;4&quot;</span> <span class="st">&quot;5&quot;</span> <span class="st">&quot;6&quot;</span></code></pre></div>
 <p>Sometimes, R can’t figure out how to coerce an object and this can result in <code>NA</code>s being produced.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)
 &gt;<span class="st"> </span><span class="kw">as.numeric</span>(x)
 Warning:<span class="st"> </span>NAs introduced by coercion
 [<span class="dv">1</span>] <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span>
@@ -403,13 +421,13 @@ Warning:<span class="st"> </span>NAs introduced by coercion
 [<span class="dv">1</span>] <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span>
 &gt;<span class="st"> </span><span class="kw">as.complex</span>(x)
 Warning:<span class="st"> </span>NAs introduced by coercion
-[<span class="dv">1</span>] <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span></code></pre>
+[<span class="dv">1</span>] <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span></code></pre></div>
 <p>When nonsensical coercion takes place, you will usually get a warning from R.</p>
 </div>
 <div id="matrices" class="section level2">
 <h2><span class="header-section-number">5.9</span> Matrices</h2>
 <p>Matrices are vectors with a <em>dimension</em> attribute. The dimension attribute is itself an integer vector of length 2 (number of rows, number of columns)</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>) 
 &gt;<span class="st"> </span>m
      [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
 [<span class="dv">1</span>,]   <span class="ot">NA</span>   <span class="ot">NA</span>   <span class="ot">NA</span>
@@ -418,24 +436,24 @@ Warning:<span class="st"> </span>NAs introduced by coercion
 [<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span>
 &gt;<span class="st"> </span><span class="kw">attributes</span>(m)
 $dim
-[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span></code></pre>
+[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span></code></pre></div>
 <p>Matrices are constructed <em>column-wise</em>, so entries can be thought of starting in the “upper left” corner and running down the columns.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>) 
 &gt;<span class="st"> </span>m
      [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
 [<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>
-[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span></code></pre>
+[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span></code></pre></div>
 <p>Matrices can also be created directly from vectors by adding a dimension attribute.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>m &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span> 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>m &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span> 
 &gt;<span class="st"> </span>m
  [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span>
 &gt;<span class="st"> </span><span class="kw">dim</span>(m) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>)
 &gt;<span class="st"> </span>m
      [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>] [,<span class="dv">5</span>]
 [<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span>    <span class="dv">9</span>
-[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span>    <span class="dv">8</span>   <span class="dv">10</span></code></pre>
+[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span>    <span class="dv">8</span>   <span class="dv">10</span></code></pre></div>
 <p>Matrices can be created by <em>column-binding</em> or <em>row-binding</em> with the <code>cbind()</code> and <code>rbind()</code> functions.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">3</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">3</span>
 &gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="dv">10</span>:<span class="dv">12</span>
 &gt;<span class="st"> </span><span class="kw">cbind</span>(x, y)
      x  y
@@ -445,13 +463,13 @@ $dim
 &gt;<span class="st"> </span><span class="kw">rbind</span>(x, y) 
   [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
 x    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span>
-y   <span class="dv">10</span>   <span class="dv">11</span>   <span class="dv">12</span></code></pre>
+y   <span class="dv">10</span>   <span class="dv">11</span>   <span class="dv">12</span></code></pre></div>
 </div>
 <div id="lists" class="section level2">
 <h2><span class="header-section-number">5.10</span> Lists</h2>
 <p>Lists are a special type of vector that can contain elements of different classes. Lists are a very important data type in R and you should get to know them well. Lists, in combination with the various “apply” functions discussed later, make for a powerful combination.</p>
 <p>Lists can be explicitly created using the <code>list()</code> function, which takes an arbitrary number of arguments.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&quot;a&quot;</span>, <span class="ot">TRUE</span>, <span class="dv">1</span> +<span class="st"> </span>4i) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&quot;a&quot;</span>, <span class="ot">TRUE</span>, <span class="dv">1</span> +<span class="st"> </span>4i) 
 &gt;<span class="st"> </span>x
 [[<span class="dv">1</span>]]
 [<span class="dv">1</span>] <span class="dv">1</span>
@@ -463,9 +481,9 @@ y   <span class="dv">10</span>   <span class="dv">11</span>   <span class="dv">1
 [<span class="dv">1</span>] <span class="ot">TRUE</span>
 
 [[<span class="dv">4</span>]]
-[<span class="dv">1</span>] <span class="dv">1</span>+4i</code></pre>
+[<span class="dv">1</span>] <span class="dv">1</span>+4i</code></pre></div>
 <p>We can also create an empty list of a prespecified length with the <code>vector()</code> function</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> <span class="dv">5</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> <span class="dv">5</span>)
 &gt;<span class="st"> </span>x
 [[<span class="dv">1</span>]]
 <span class="ot">NULL</span>
@@ -480,7 +498,7 @@ y   <span class="dv">10</span>   <span class="dv">11</span>   <span class="dv">1
 <span class="ot">NULL</span>
 
 [[<span class="dv">5</span>]]
-<span class="ot">NULL</span></code></pre>
+<span class="ot">NULL</span></code></pre></div>
 </div>
 <div id="factors" class="section level2">
 <h2><span class="header-section-number">5.11</span> Factors</h2>
@@ -488,7 +506,7 @@ y   <span class="dv">10</span>   <span class="dv">11</span>   <span class="dv">1
 <p>Factors are used to represent categorical data and can be unordered or ordered. One can think of a factor as an integer vector where each integer has a <em>label</em>. Factors are important in statistical modeling and are treated specially by modelling functions like <code>lm()</code> and <code>glm()</code>.</p>
 <p>Using factors with labels is <em>better</em> than using integers because factors are self-describing. Having a variable that has values “Male” and “Female” is better than a variable that has values 1 and 2.</p>
 <p>Factor objects can be created with the <code>factor()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)) 
 &gt;<span class="st"> </span>x
 [<span class="dv">1</span>] yes yes no  yes no 
 Levels:<span class="st"> </span>no yes
@@ -500,10 +518,10 @@ x
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">unclass</span>(x)  
 [<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span>
 <span class="kw">attr</span>(,<span class="st">&quot;levels&quot;</span>)
-[<span class="dv">1</span>] <span class="st">&quot;no&quot;</span>  <span class="st">&quot;yes&quot;</span></code></pre>
+[<span class="dv">1</span>] <span class="st">&quot;no&quot;</span>  <span class="st">&quot;yes&quot;</span></code></pre></div>
 <p>Often factors will be automatically created for you when you read a dataset in using a function like <code>read.table()</code>. Those functions often default to creating factors when they encounter data that look like characters or strings.</p>
 <p>The order of the levels of a factor can be set using the <code>levels</code> argument to <code>factor()</code>. This can be important in linear modelling because the first level is used as the baseline level.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))
 &gt;<span class="st"> </span>x  ## Levels are put in alphabetical order
 [<span class="dv">1</span>] yes yes no  yes no 
 Levels:<span class="st"> </span>no yes
@@ -511,7 +529,7 @@ Levels:<span class="st"> </span>no yes
 +<span class="st">             </span><span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))
 &gt;<span class="st"> </span>x
 [<span class="dv">1</span>] yes yes no  yes no 
-Levels:<span class="st"> </span>yes no</code></pre>
+Levels:<span class="st"> </span>yes no</code></pre></div>
 </div>
 <div id="missing-values" class="section level2">
 <h2><span class="header-section-number">5.12</span> Missing Values</h2>
@@ -522,20 +540,20 @@ Levels:<span class="st"> </span>yes no</code></pre>
 <li><p><code>NA</code> values have a class also, so there are integer <code>NA</code>, character <code>NA</code>, etc.</p></li>
 <li><p>A <code>NaN</code> value is also <code>NA</code> but the converse is not true</p></li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Create a vector with NAs in it
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Create a vector with NAs in it
 <span class="er">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">10</span>, <span class="dv">3</span>)  
 &gt;<span class="st"> </span>## Return a logical vector indicating which elements are NA
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">is.na</span>(x)    
 [<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>
 &gt;<span class="st"> </span>## Return a logical vector indicating which elements are NaN
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">is.nan</span>(x)   
-[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span></code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Now create a vector with both NA and NaN values
+[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Now create a vector with both NA and NaN values
 <span class="er">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NaN</span>, <span class="ot">NA</span>, <span class="dv">4</span>)
 &gt;<span class="st"> </span><span class="kw">is.na</span>(x)
 [<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span>
 &gt;<span class="st"> </span><span class="kw">is.nan</span>(x)
-[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span></code></pre>
+[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span></code></pre></div>
 </div>
 <div id="data-frames" class="section level2">
 <h2><span class="header-section-number">5.13</span> Data Frames</h2>
@@ -545,7 +563,7 @@ Levels:<span class="st"> </span>yes no</code></pre>
 <p>In addition to column names, indicating the names of the variables or predictors, data frames have a special attribute called <code>row.names</code> which indicate information about each row of the data frame.</p>
 <p>Data frames are usually created by reading in a dataset using the <code>read.table()</code> or <code>read.csv()</code>. However, data frames can also be created explicitly with the <code>data.frame()</code> function or they can be coerced from other types of objects like lists.</p>
 <p>Data frames can be converted to a matrix by calling <code>data.matrix()</code>. While it might seem that the <code>as.matrix()</code> function should be used to coerce a data frame to a matrix, almost always, what you want is the result of <code>data.matrix()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">foo =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">bar =</span> <span class="kw">c</span>(T, T, F, F)) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">foo =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">bar =</span> <span class="kw">c</span>(T, T, F, F)) 
 &gt;<span class="st"> </span>x
   foo   bar
 <span class="dv">1</span>   <span class="dv">1</span>  <span class="ot">TRUE</span>
@@ -555,12 +573,12 @@ Levels:<span class="st"> </span>yes no</code></pre>
 &gt;<span class="st"> </span><span class="kw">nrow</span>(x)
 [<span class="dv">1</span>] <span class="dv">4</span>
 &gt;<span class="st"> </span><span class="kw">ncol</span>(x)
-[<span class="dv">1</span>] <span class="dv">2</span></code></pre>
+[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
 </div>
 <div id="names" class="section level2">
 <h2><span class="header-section-number">5.14</span> Names</h2>
 <p>R objects can have names, which is very useful for writing readable code and self-describing objects. Here is an example of assigning names to an integer vector.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">3</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">3</span>
 &gt;<span class="st"> </span><span class="kw">names</span>(x)
 <span class="ot">NULL</span>
 &gt;<span class="st"> </span><span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Seattle&quot;</span>, <span class="st">&quot;Los Angeles&quot;</span>) 
@@ -568,9 +586,9 @@ Levels:<span class="st"> </span>yes no</code></pre>
    New York     Seattle Los Angeles 
           <span class="dv">1</span>           <span class="dv">2</span>           <span class="dv">3</span> 
 &gt;<span class="st"> </span><span class="kw">names</span>(x)
-[<span class="dv">1</span>] <span class="st">&quot;New York&quot;</span>    <span class="st">&quot;Seattle&quot;</span>     <span class="st">&quot;Los Angeles&quot;</span></code></pre>
+[<span class="dv">1</span>] <span class="st">&quot;New York&quot;</span>    <span class="st">&quot;Seattle&quot;</span>     <span class="st">&quot;Los Angeles&quot;</span></code></pre></div>
 <p>Lists can also have names, which is often very useful.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Los Angeles&quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="dt">Boston =</span> <span class="dv">2</span>, <span class="dt">London =</span> <span class="dv">3</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Los Angeles&quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="dt">Boston =</span> <span class="dv">2</span>, <span class="dt">London =</span> <span class="dv">3</span>) 
 &gt;<span class="st"> </span>x
 $<span class="st">`</span><span class="dt">Los Angeles</span><span class="st">`</span>
 [<span class="dv">1</span>] <span class="dv">1</span>
@@ -581,40 +599,40 @@ $Boston
 $London
 [<span class="dv">1</span>] <span class="dv">3</span>
 &gt;<span class="st"> </span><span class="kw">names</span>(x)
-[<span class="dv">1</span>] <span class="st">&quot;Los Angeles&quot;</span> <span class="st">&quot;Boston&quot;</span>      <span class="st">&quot;London&quot;</span>     </code></pre>
+[<span class="dv">1</span>] <span class="st">&quot;Los Angeles&quot;</span> <span class="st">&quot;Boston&quot;</span>      <span class="st">&quot;London&quot;</span>     </code></pre></div>
 <p>Matrices can have both column and row names.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)
 &gt;<span class="st"> </span><span class="kw">dimnames</span>(m) &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)) 
 &gt;<span class="st"> </span>m
   c d
 a <span class="dv">1</span> <span class="dv">3</span>
-b <span class="dv">2</span> <span class="dv">4</span></code></pre>
+b <span class="dv">2</span> <span class="dv">4</span></code></pre></div>
 <p>Column names and row names can be set separately using the <code>colnames()</code> and <code>rownames()</code> functions.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">colnames</span>(m) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;h&quot;</span>, <span class="st">&quot;f&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">colnames</span>(m) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;h&quot;</span>, <span class="st">&quot;f&quot;</span>)
 &gt;<span class="st"> </span><span class="kw">rownames</span>(m) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;z&quot;</span>)
 &gt;<span class="st"> </span>m
   h f
 x <span class="dv">1</span> <span class="dv">3</span>
-z <span class="dv">2</span> <span class="dv">4</span></code></pre>
+z <span class="dv">2</span> <span class="dv">4</span></code></pre></div>
 <p>Note that for data frames, there is a separate function for setting the row names, the <code>row.names()</code> function. Also, data frames do not have column names, they just have names (like lists). So to set the column names of a data frame just use the <code>names()</code> function. Yes, I know its confusing. Here’s a quick summary:</p>
 <table>
 <thead>
 <tr class="header">
-<th align="left">Object</th>
-<th align="left">Set column names</th>
-<th align="left">Set row names</th>
+<th>Object</th>
+<th>Set column names</th>
+<th>Set row names</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">data frame</td>
-<td align="left"><code>names()</code></td>
-<td align="left"><code>row.names()</code></td>
+<td>data frame</td>
+<td><code>names()</code></td>
+<td><code>row.names()</code></td>
 </tr>
 <tr class="even">
-<td align="left">matrix</td>
-<td align="left"><code>colnames()</code></td>
-<td align="left"><code>rownames()</code></td>
+<td>matrix</td>
+<td><code>colnames()</code></td>
+<td><code>rownames()</code></td>
 </tr>
 </tbody>
 </table>
@@ -630,7 +648,6 @@ z <span class="dv">2</span> <span class="dv">4</span></code></pre>
 <li><p>data frames and matrices</p></li>
 </ul>
 <p>All R objects can have attributes that help to describe what is in the object. Perhaps the most useful attribute is names, such as column and row names in a data frame, or simply names in a vector or list. Attributes like dimensions are also important as they can modify the behavior of objects, like turning a vector into a matrix.</p>
-
 
 </div>
 </div>

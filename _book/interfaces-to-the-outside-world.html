@@ -57,23 +57,41 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -302,9 +320,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="file-connections" class="section level2">
 <h2><span class="header-section-number">9.1</span> File Connections</h2>
 <p>Connections to text files can be created with the <code>file()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(file)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(file)
 function (<span class="dt">description =</span> <span class="st">&quot;&quot;</span>, <span class="dt">open =</span> <span class="st">&quot;&quot;</span>, <span class="dt">blocking =</span> <span class="ot">TRUE</span>, <span class="dt">encoding =</span> <span class="kw">getOption</span>(<span class="st">&quot;encoding&quot;</span>), 
-    <span class="dt">raw =</span> <span class="ot">FALSE</span>, <span class="dt">method =</span> <span class="kw">getOption</span>(<span class="st">&quot;url.method&quot;</span>, <span class="st">&quot;default&quot;</span>))  </code></pre>
+    <span class="dt">raw =</span> <span class="ot">FALSE</span>, <span class="dt">method =</span> <span class="kw">getOption</span>(<span class="st">&quot;url.method&quot;</span>, <span class="st">&quot;default&quot;</span>))  </code></pre></div>
 <p>The <code>file()</code> function has a number of arguments that are common to many other connection functions so it’s worth going into a little detail here.</p>
 <ul>
 <li><code>description</code> is the name of the file</li>
@@ -319,7 +337,7 @@ function (<span class="dt">description =</span> <span class="st">&quot;&quot;</s
 </ul>
 <p>In practice, we often don’t need to deal with the connection interface directly as many functions for reading and writing data just deal with it in the background.</p>
 <p>For example, if one were to explicitly use connections to read a CSV file in to R, it might look like this,</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Create a connection to &#39;foo.txt&#39;
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Create a connection to &#39;foo.txt&#39;
 <span class="er">&gt;</span><span class="st"> </span>con &lt;-<span class="st"> </span><span class="kw">file</span>(<span class="st">&quot;foo.txt&quot;</span>)       
 &gt;<span class="st"> </span>
 <span class="er">&gt;</span><span class="st"> </span>## Open connection to &#39;foo.txt&#39; in read-only mode
@@ -329,21 +347,21 @@ function (<span class="dt">description =</span> <span class="st">&quot;&quot;</s
 <span class="er">&gt;</span><span class="st"> </span>data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(con)        
 &gt;<span class="st"> </span>
 <span class="er">&gt;</span><span class="st"> </span>## Close the connection
-<span class="er">&gt;</span><span class="st"> </span><span class="kw">close</span>(con)                   </code></pre>
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">close</span>(con)                   </code></pre></div>
 <p>which is the same as</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;foo.txt&quot;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;foo.txt&quot;</span>)</code></pre></div>
 <p>In the background, <code>read.csv()</code> opens a connection to the file <code>foo.txt</code>, reads from it, and closes the connection when it’s done.</p>
 <p>The above example shows the basic approach to using connections. Connections must be opened, then the are read from or written to, and then they are closed.</p>
 </div>
 <div id="reading-lines-of-a-text-file" class="section level2">
 <h2><span class="header-section-number">9.2</span> Reading Lines of a Text File</h2>
 <p>Text files can be read line by line using the <code>readLines()</code> function. This function is useful for reading text files that may be unstructured or contain non-standard data.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Open connection to gz-compressed text file
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Open connection to gz-compressed text file
 <span class="er">&gt;</span><span class="st"> </span>con &lt;-<span class="st"> </span><span class="kw">gzfile</span>(<span class="st">&quot;words.gz&quot;</span>)   
 &gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">readLines</span>(con, <span class="dv">10</span>) 
 &gt;<span class="st"> </span>x
  [<span class="dv">1</span>] <span class="st">&quot;1080&quot;</span>     <span class="st">&quot;10-point&quot;</span> <span class="st">&quot;10th&quot;</span>     <span class="st">&quot;11-point&quot;</span> <span class="st">&quot;12-point&quot;</span> <span class="st">&quot;16-point&quot;</span>
- [<span class="dv">7</span>] <span class="st">&quot;18-point&quot;</span> <span class="st">&quot;1st&quot;</span>      <span class="st">&quot;2&quot;</span>        <span class="st">&quot;20-point&quot;</span></code></pre>
+ [<span class="dv">7</span>] <span class="st">&quot;18-point&quot;</span> <span class="st">&quot;1st&quot;</span>      <span class="st">&quot;2&quot;</span>        <span class="st">&quot;20-point&quot;</span></code></pre></div>
 <p>For more structured text data like CSV files or tab-delimited files, there are other functions like <code>read.csv()</code> or <code>read.table()</code>.</p>
 <p>The above example used the <code>gzfile()</code> function which is used to create a connection to files compressed using the gzip algorithm. This approach is useful because it allows you to read from a file without having to uncompress the file first, which would be a waste of space and time.</p>
 <p>There is a complementary function <code>writeLines()</code> that takes a character vector and writes each element of the vector one line at a time to a text file.</p>
@@ -352,7 +370,7 @@ function (<span class="dt">description =</span> <span class="st">&quot;&quot;</s
 <h2><span class="header-section-number">9.3</span> Reading From a URL Connection</h2>
 <p>The <code>readLines()</code> function can be useful for reading in lines of webpages. Since web pages are basically text files that are stored on a remote server, there is conceptually not much difference between a web page and a local text file. However, we need R to negotiate the communication between your computer and the web server. This is what the <code>url()</code> function can do for you, by creating a <code>url</code> connection to a web server.</p>
 <p>This code might take time depending on your connection speed.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Open a URL connection for reading
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Open a URL connection for reading
 <span class="er">&gt;</span><span class="st"> </span>con &lt;-<span class="st"> </span><span class="kw">url</span>(<span class="st">&quot;http://www.jhsph.edu&quot;</span>, <span class="st">&quot;r&quot;</span>)  
 &gt;<span class="st"> </span>
 <span class="er">&gt;</span><span class="st"> </span>## Read the web page
@@ -365,10 +383,9 @@ function (<span class="dt">description =</span> <span class="st">&quot;&quot;</s
 [<span class="dv">3</span>] <span class="st">&quot;&quot;</span>                                                              
 [<span class="dv">4</span>] <span class="st">&quot;&lt;head&gt;&quot;</span>                                                        
 [<span class="dv">5</span>] <span class="st">&quot;&lt;meta charset=</span><span class="ch">\&quot;</span><span class="st">utf-8</span><span class="ch">\&quot;</span><span class="st"> /&gt;&quot;</span>                                    
-[<span class="dv">6</span>] <span class="st">&quot;&lt;title&gt;Johns Hopkins Bloomberg School of Public Health&lt;/title&gt;&quot;</span></code></pre>
+[<span class="dv">6</span>] <span class="st">&quot;&lt;title&gt;Johns Hopkins Bloomberg School of Public Health&lt;/title&gt;&quot;</span></code></pre></div>
 <p>While reading in a simple web page is sometimes useful, particularly if data are embedded in the web page somewhere. However, more commonly we can use URL connection to read in specific data files that are stored on web servers.</p>
 <p>Using URL connections can be useful for producing a reproducible analysis, because the code essentially documents where the data came from and how they were obtained. This is approach is preferable to opening a web browser and downloading a dataset by hand. Of course, the code you write with connections may not be executable at a later date if things on the server side are changed or reorganized.</p>
-
 
 </div>
 </div>

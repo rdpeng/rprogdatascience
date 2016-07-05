@@ -57,23 +57,41 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -301,30 +319,30 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><code>condition</code>: A generic concept for indicating that something unexpected has occurred; programmers can create their own custom conditions if they want.</li>
 </ul>
 <p>Here is an example of a warning that you might receive in the course of using R.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">log</span>(-<span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">log</span>(-<span class="dv">1</span>)
 Warning in <span class="kw">log</span>(-<span class="dv">1</span>):<span class="st"> </span>NaNs produced
-[<span class="dv">1</span>] <span class="ot">NaN</span></code></pre>
+[<span class="dv">1</span>] <span class="ot">NaN</span></code></pre></div>
 <p>This warning lets you know that taking the log of a negative number results in a <code>NaN</code> value because you can’t take the log of negative numbers. Nevertheless, R doesn’t give an error, because it has a useful value that it can return, the <code>NaN</code> value. The warning is just there to let you know that something unexpected happen. Depending on what you are programming, you may have intentionally taken the log of a negative number in order to move on to another section of code.</p>
 <p>Here is another function that is designed to print a message to the console depending on the nature of its input.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>printmessage &lt;-<span class="st"> </span>function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>printmessage &lt;-<span class="st"> </span>function(x) {
 +<span class="st">         </span>if(x &gt;<span class="st"> </span><span class="dv">0</span>)
 +<span class="st">                 </span><span class="kw">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>)
 +<span class="st">         </span>else
 +<span class="st">                 </span><span class="kw">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)
 +<span class="st">         </span><span class="kw">invisible</span>(x)        
-+<span class="st"> </span>}</code></pre>
++<span class="st"> </span>}</code></pre></div>
 <p>This function is simple—it prints a message telling you whether <code>x</code> is greater than zero or less than or equal to zero. It also returns its input <em>invisibly</em>, which is a common practice with “print” functions. Returning an object invisibly means that the return value does not get auto-printed when the function is called.</p>
 <p>Take a hard look at the function above and see if you can identify any bugs or problems.</p>
 <p>We can execute the function as follows.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">printmessage</span>(<span class="dv">1</span>)
-[<span class="dv">1</span>] <span class="st">&quot;x is greater than zero&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">printmessage</span>(<span class="dv">1</span>)
+[<span class="dv">1</span>] <span class="st">&quot;x is greater than zero&quot;</span></code></pre></div>
 <p>The function seems to work fine at this point. No errors, warnings, or messages.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">printmessage</span>(<span class="ot">NA</span>)
-Error in if (x &gt;<span class="st"> </span><span class="dv">0</span>) <span class="kw">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>) else <span class="kw">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>):<span class="st"> </span>missing value where <span class="ot">TRUE</span>/<span class="ot">FALSE</span> needed</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">printmessage</span>(<span class="ot">NA</span>)
+Error in if (x &gt;<span class="st"> </span><span class="dv">0</span>) <span class="kw">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>) else <span class="kw">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>):<span class="st"> </span>missing value where <span class="ot">TRUE</span>/<span class="ot">FALSE</span> needed</code></pre></div>
 <p>What happened?</p>
 <p>Well, the first thing the function does is test if <code>x &gt; 0</code>. But you can’t do that test if <code>x</code> is a <code>NA</code> or <code>NaN</code> value. R doesn’t know what to do in this case so it stops with a fatal error.</p>
 <p>We can fix this problem by anticipating the possibility of <code>NA</code> values and checking to see if the input is <code>NA</code> with the <code>is.na()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>printmessage2 &lt;-<span class="st"> </span>function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>printmessage2 &lt;-<span class="st"> </span>function(x) {
 +<span class="st">         </span>if(<span class="kw">is.na</span>(x))
 +<span class="st">                 </span><span class="kw">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>)
 +<span class="st">         </span>else if(x &gt;<span class="st"> </span><span class="dv">0</span>)
@@ -332,25 +350,25 @@ Error in if (x &gt;<span class="st"> </span><span class="dv">0</span>) <span cla
 +<span class="st">         </span>else
 +<span class="st">                 </span><span class="kw">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)
 +<span class="st">         </span><span class="kw">invisible</span>(x)
-+<span class="st"> </span>}</code></pre>
++<span class="st"> </span>}</code></pre></div>
 <p>Now we can run the following.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">printmessage2</span>(<span class="ot">NA</span>)
-[<span class="dv">1</span>] <span class="st">&quot;x is a missing value!&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">printmessage2</span>(<span class="ot">NA</span>)
+[<span class="dv">1</span>] <span class="st">&quot;x is a missing value!&quot;</span></code></pre></div>
 <p>And all is fine.</p>
 <p>Now what about the following situation.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="kw">c</span>(-<span class="dv">1</span>, <span class="dv">2</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="kw">c</span>(-<span class="dv">1</span>, <span class="dv">2</span>))
 Warning in <span class="kw">log</span>(<span class="kw">c</span>(-<span class="dv">1</span>, <span class="dv">2</span>)):<span class="st"> </span>NaNs produced
 &gt;<span class="st"> </span><span class="kw">printmessage2</span>(x)
 Warning in if (<span class="kw">is.na</span>(x)) <span class="kw">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>) else if (x &gt;<span class="st"> </span><span class="dv">0</span>)
 <span class="kw">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>) else <span class="kw">print</span>(<span class="st">&quot;x is less than or equal to</span>
 <span class="st">zero&quot;</span>):<span class="st"> </span>the condition has length &gt;<span class="st"> </span><span class="dv">1</span> and only the first element will be
 used
-[<span class="dv">1</span>] <span class="st">&quot;x is a missing value!&quot;</span></code></pre>
+[<span class="dv">1</span>] <span class="st">&quot;x is a missing value!&quot;</span></code></pre></div>
 <p>Now what?? Why are we getting this warning? The warning says “the condition has length &gt; 1 and only the first element will be used”.</p>
 <p>The problem here is that I passed <code>printmessage2()</code> a vector <code>x</code> that was of length 2 rather then length 1. Inside the body of <code>printmessage2()</code> the expression <code>is.na(x)</code> returns a vector that is tested in the <code>if</code> statement. However, <code>if</code> cannot take vector arguments so you get a warning. The fundamental problem here is that <code>printmessage2()</code> is not <em>vectorized</em>.</p>
 <p>We can solve this problem two ways. One is by simply not allowing vector arguments. The other way is to vectorize the <code>printmessage2()</code> function to allow it to take vector arguments.</p>
 <p>For the first way, we simply need to check the length of the input.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>printmessage3 &lt;-<span class="st"> </span>function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>printmessage3 &lt;-<span class="st"> </span>function(x) {
 +<span class="st">         </span>if(<span class="kw">length</span>(x) &gt;<span class="st"> </span>1L)
 +<span class="st">                 </span><span class="kw">stop</span>(<span class="st">&quot;&#39;x&#39; has length &gt; 1&quot;</span>)
 +<span class="st">         </span>if(<span class="kw">is.na</span>(x))
@@ -360,15 +378,15 @@ used
 +<span class="st">         </span>else
 +<span class="st">                 </span><span class="kw">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)
 +<span class="st">         </span><span class="kw">invisible</span>(x)
-+<span class="st"> </span>}</code></pre>
++<span class="st"> </span>}</code></pre></div>
 <p>Now when we pass <code>printmessage3()</code> a vector we should get an error.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">printmessage3</span>(<span class="dv">1</span>:<span class="dv">2</span>)
-Error in <span class="kw">printmessage3</span>(<span class="dv">1</span>:<span class="dv">2</span>):<span class="st"> &#39;x&#39;</span> has length &gt;<span class="st"> </span><span class="dv">1</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">printmessage3</span>(<span class="dv">1</span>:<span class="dv">2</span>)
+Error in <span class="kw">printmessage3</span>(<span class="dv">1</span>:<span class="dv">2</span>):<span class="st"> &#39;x&#39;</span> has length &gt;<span class="st"> </span><span class="dv">1</span></code></pre></div>
 <p>Vectorizing the function can be accomplished easily with the <code>Vectorize()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>printmessage4 &lt;-<span class="st"> </span><span class="kw">Vectorize</span>(printmessage2)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>printmessage4 &lt;-<span class="st"> </span><span class="kw">Vectorize</span>(printmessage2)
 &gt;<span class="st"> </span>out &lt;-<span class="st"> </span><span class="kw">printmessage4</span>(<span class="kw">c</span>(-<span class="dv">1</span>, <span class="dv">2</span>))
 [<span class="dv">1</span>] <span class="st">&quot;x is less than or equal to zero&quot;</span>
-[<span class="dv">1</span>] <span class="st">&quot;x is greater than zero&quot;</span></code></pre>
+[<span class="dv">1</span>] <span class="st">&quot;x is greater than zero&quot;</span></code></pre></div>
 <p>You can see now that the correct messages are printed without any warning or error. Note that I stored the return value of <code>printmessage4()</code> in a separate R object called <code>out</code>. This is because when I use the <code>Vectorize()</code> function it no longer preserves the invisibility of the return value.</p>
 </div>
 <div id="figuring-out-whats-wrong" class="section level2">
@@ -402,14 +420,14 @@ Error in <span class="kw">printmessage3</span>(<span class="dv">1</span>:<span c
 <p><a href="https://youtu.be/VT9ZxCp6o-I">Watch a video of this section</a></p>
 <p>The <code>traceback()</code> function prints out the <em>function call stack</em> after an error has occurred. The function call stack is the sequence of functions that was called before the error occurred.</p>
 <p>For example, you may have a function <code>a()</code> which subsequently calls function <code>b()</code> which calls <code>c()</code> and then <code>d()</code>. If an error occurs, it may not be immediately clear in which function the error occurred. The <code>traceback()</code> function shows you how many levels deep you were when the error occurred.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mean</span>(x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">mean</span>(x)
 Error in <span class="kw">mean</span>(x) :<span class="st"> </span>object <span class="st">&#39;x&#39;</span> not found
 &gt;<span class="st"> </span><span class="kw">traceback</span>()
-<span class="dv">1</span>:<span class="st"> </span><span class="kw">mean</span>(x)</code></pre>
+<span class="dv">1</span>:<span class="st"> </span><span class="kw">mean</span>(x)</code></pre></div>
 <p>Here, it’s clear that the error occurred inside the <code>mean()</code> function because the object <code>x</code> does not exist.</p>
 <p>The <code>traceback()</code> function must be called immediately after an error occurs. Once another function is called, you lose the traceback.</p>
 <p>Here is a slightly more complicated example using the <code>lm()</code> function for linear modeling.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x)
 Error in <span class="kw">eval</span>(expr, envir, enclos) :<span class="st"> </span>object ’y’ not found
 &gt;<span class="st"> </span><span class="kw">traceback</span>()
 <span class="dv">7</span>:<span class="st"> </span><span class="kw">eval</span>(expr, envir, enclos)
@@ -418,7 +436,7 @@ Error in <span class="kw">eval</span>(expr, envir, enclos) :<span class="st"> </
 <span class="dv">4</span>:<span class="st"> </span><span class="kw">model.frame</span>(<span class="dt">formula =</span> y ~<span class="st"> </span>x, <span class="dt">drop.unused.levels =</span> <span class="ot">TRUE</span>)
 <span class="dv">3</span>:<span class="st"> </span><span class="kw">eval</span>(expr, envir, enclos)
 <span class="dv">2</span>:<span class="st"> </span><span class="kw">eval</span>(mf, <span class="kw">parent.frame</span>())
-<span class="dv">1</span>:<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x)</code></pre>
+<span class="dv">1</span>:<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x)</code></pre></div>
 <p>You can see now that the error did not get thrown until the 7th level of the function call stack, in which case the <code>eval()</code> function tried to evaluate the formula <code>y ~ x</code> and realized the object <code>y</code> did not exist.</p>
 <p>Looking at the traceback is useful for figuring out roughly where an error occurred but it’s not useful for more detailed debugging. For that you might turn to the <code>debug()</code> function.</p>
 </div>
@@ -426,7 +444,7 @@ Error in <span class="kw">eval</span>(expr, envir, enclos) :<span class="st"> </
 <h2><span class="header-section-number">17.5</span> Using <code>debug()</code></h2>
 <p>The <code>debug()</code> function initiates an interactive debugger (also known as the “browser” in R) for a function. With the debugger, you can step through an R function one expression at a time to pinpoint exactly where an error occurs.</p>
 <p>The <code>debug()</code> function takes a function as its first argument. Here is an example of debugging the <code>lm()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">debug</span>(lm)      ## Flag the &#39;lm()&#39; function for interactive debugging
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">debug</span>(lm)      ## Flag the &#39;lm()&#39; function for interactive debugging
 &gt;<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x)
 debugging in:<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x)
 debug:<span class="st"> </span>{
@@ -438,7 +456,7 @@ debug:<span class="st"> </span>{
         z$qr &lt;-<span class="st"> </span><span class="ot">NULL</span> 
     z
 } 
-Browse[<span class="dv">2</span>]&gt;</code></pre>
+Browse[<span class="dv">2</span>]&gt;</code></pre></div>
 <p>Now, every time you call the <code>lm()</code> function it will launch the interactive debugger. To turn this behavior off you need to call the <code>undebug()</code> function.</p>
 <p>The debugger calls the browser at the very top level of the function body. From there you can step through each expression in the body. There are a few special commands you can call in the browser:</p>
 <ul>
@@ -447,7 +465,7 @@ Browse[<span class="dv">2</span>]&gt;</code></pre>
 <li><code>Q</code> quits the browser</li>
 </ul>
 <p>Here’s an example of a browser session with the <code>lm()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">Browse[<span class="dv">2</span>]&gt;<span class="st"> </span>n   ## Evalute this expression and move to the next one
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Browse[<span class="dv">2</span>]&gt;<span class="st"> </span>n   ## Evalute this expression and move to the next one
 debug:<span class="st"> </span>ret.x &lt;-<span class="st"> </span>x
 Browse[<span class="dv">2</span>]&gt;<span class="st"> </span>n
 debug:<span class="st"> </span>ret.y &lt;-<span class="st"> </span>y
@@ -457,16 +475,16 @@ Browse[<span class="dv">2</span>]&gt;<span class="st"> </span>n
 debug:<span class="st"> </span>mf &lt;-<span class="st"> </span><span class="kw">match.call</span>(<span class="dt">expand.dots =</span> <span class="ot">FALSE</span>)
 Browse[<span class="dv">2</span>]&gt;<span class="st"> </span>n
 debug:<span class="st"> </span>m &lt;-<span class="st"> </span><span class="kw">match</span>(<span class="kw">c</span>(<span class="st">&quot;formula&quot;</span>, <span class="st">&quot;data&quot;</span>, <span class="st">&quot;subset&quot;</span>, <span class="st">&quot;weights&quot;</span>, <span class="st">&quot;na.action&quot;</span>,
-    <span class="st">&quot;offset&quot;</span>), <span class="kw">names</span>(mf), 0L)</code></pre>
+    <span class="st">&quot;offset&quot;</span>), <span class="kw">names</span>(mf), 0L)</code></pre></div>
 <p>While you are in the browser you can execute any other R function that might be available to you in a regular session. In particular, you can use <code>ls()</code> to see what is in your current environment (the function environment) and <code>print()</code> to print out the values of R objects in the function environment.</p>
 <p>You can turn off interactive debugging with the <code>undebug()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">undebug</span>(lm)    ## Unflag the &#39;lm()&#39; function for debugging</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">undebug</span>(lm)    ## Unflag the &#39;lm()&#39; function for debugging</code></pre></div>
 </div>
 <div id="using-recover" class="section level2">
 <h2><span class="header-section-number">17.6</span> Using <code>recover()</code></h2>
 <p>The <code>recover()</code> function can be used to modify the error behavior of R when an error occurs. Normally, when an error occurs in a function, R will print out an error message, exit out of the function, and return you to your workspace to await further commands.</p>
 <p>With <code>recover()</code> you can tell R that when an error occurs, it should halt execution at the exact point at which the error occurred. That can give you the opportunity to poke around in the environment in which the error occurred. This can be useful to see if there are any R objects or data that have been corrupted or mistakenly modified.</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">options</span>(<span class="dt">error =</span> recover)    ## Change default R error behavior
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">options</span>(<span class="dt">error =</span> recover)    ## Change default R error behavior
 &gt;<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;nosuchfile&quot;</span>)      ## This code doesn&#39;t work
 Error in <span class="kw">file</span>(file, <span class="st">&quot;rt&quot;</span>) :<span class="st"> </span>cannot open the connection
 In addition:<span class="st"> </span>Warning message:
@@ -479,7 +497,7 @@ Enter a frame number, or <span class="dv">0</span> to exit
 <span class="dv">2</span>:<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file =</span> file, <span class="dt">header =</span> header, <span class="dt">sep =</span> sep, <span class="dt">quote =</span> quote, <span class="dt">dec =</span>
 <span class="dv">3</span>:<span class="st"> </span><span class="kw">file</span>(file, <span class="st">&quot;rt&quot;</span>)
 
-Selection:</code></pre>
+Selection:</code></pre></div>
 <p>The <code>recover()</code> function will first print out the function call stack when an error occurrs. Then, you can choose to jump around the call stack and investigate the problem. When you choose a frame number, you will be put in the browser (just like the interactive debugger triggered with <code>debug()</code>) and will have the ability to poke around.</p>
 </div>
 <div id="summary-6" class="section level2">
@@ -490,7 +508,6 @@ Selection:</code></pre>
 <li>Interactive debugging tools <code>traceback</code>, <code>debug</code>, <code>browser</code>, <code>trace</code>, and <code>recover</code> can be used to find problematic code in functions</li>
 <li>Debugging tools are not a substitute for thinking!</li>
 </ul>
-
 
 </div>
 </div>
