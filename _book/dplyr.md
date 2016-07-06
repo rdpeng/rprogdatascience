@@ -412,8 +412,7 @@ Finally, we compute summary statistics for each year in the data frame with the 
 > summarize(years, pm25 = mean(pm25, na.rm = TRUE), 
 +           o3 = max(o3tmean2, na.rm = TRUE), 
 +           no2 = median(no2tmean2, na.rm = TRUE))
-Source: local data frame [19 x 4]
-
+# A tibble: 19 x 4
     year     pm25       o3      no2
    <dbl>    <dbl>    <dbl>    <dbl>
 1   1987      NaN 62.96966 23.49369
@@ -462,8 +461,7 @@ Finally, we can compute the mean of `o3` and `no2` within quintiles of `pm25`.
 ```r
 > summarize(quint, o3 = mean(o3tmean2, na.rm = TRUE), 
 +           no2 = mean(no2tmean2, na.rm = TRUE))
-Source: local data frame [6 x 3]
-
+# A tibble: 6 x 3
    pm25.quint       o3      no2
        <fctr>    <dbl>    <dbl>
 1   (1.7,8.7] 21.66401 17.99129
@@ -506,8 +504,7 @@ That can be done with the following sequence in a single R expression.
 +         group_by(pm25.quint) %>% 
 +         summarize(o3 = mean(o3tmean2, na.rm = TRUE), 
 +                   no2 = mean(no2tmean2, na.rm = TRUE))
-Source: local data frame [6 x 3]
-
+# A tibble: 6 x 3
    pm25.quint       o3      no2
        <fctr>    <dbl>    <dbl>
 1   (1.7,8.7] 21.66401 17.99129
@@ -532,8 +529,7 @@ Another example might be computing the average pollutant level by month. This co
 +         summarize(pm25 = mean(pm25, na.rm = TRUE), 
 +                   o3 = max(o3tmean2, na.rm = TRUE), 
 +                   no2 = median(no2tmean2, na.rm = TRUE))
-Source: local data frame [12 x 4]
-
+# A tibble: 12 x 4
    month     pm25       o3      no2
    <dbl>    <dbl>    <dbl>    <dbl>
 1      1 17.76996 28.22222 25.35417

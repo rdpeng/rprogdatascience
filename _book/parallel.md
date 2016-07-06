@@ -57,7 +57,9 @@ Detailed instructions on how to use R with optimized BLAS libraries can be found
 
 Many problems in statistics and data science can be executed in an "embarrassingly parallel" way, whereby multiple independent pieces of a problem are executed simultaneously because the different pieces of the problem never really have to communicate with each other (except perhaps at the end when all the results are assembled). Despite the name, there's nothing really "embarrassing" about taking advantage of the structure of the problem and using it speed up your computation. In fact, embarrassingly parallel computation is a common paradigm in statistics and data science.
 
-> In general, it is NOT a good idea to use the functions described in this chapter with graphical user interfaces (GUIs) because, to summarize the help page for `mclapply()`, bad things can happen. That said, the functions in the `parallel` package seem two work okay in RStudio.
+<div class="rmdwarning">
+<p>In general, it is NOT a good idea to use the functions described in this chapter with graphical user interfaces (GUIs) because, to summarize the help page for <code>mclapply()</code>, bad things can happen. That said, the functions in the <code>parallel</code> package seem two work okay in RStudio.</p>
+</div>
 
 The basic mode of an embarrassingly parallel operation can be seen with the `lapply()` function, which we have reviewed in a [previous chapter](#loop-functions). Recall that the `lapply()` function has two arguments:
 
@@ -89,7 +91,9 @@ The `mclapply()` function essentially parallelizes calls to `lapply()`. The firs
 
 The `mclapply()` function (and related `mc*` functions) works via the fork mechanism on Unix-style operating systems. Briefly, your R session is the main process and when you call a function like `mclapply()`, you fork a series of sub-processes that operate independently from the main process (although they share a few low-level features). These sub-processes then execute your function on their subsets of the data, presumably on separate cores of your CPU. Once the computation is complete, each sub-process returns its results and then the sub-process is killed. The `parallel` package manages the logistics of forking the sub-processes and handling them once they've finished.
 
-> Because of the use of the fork mechanism, the `mc*` functions are generally not available to users of the Windows operating system.
+<div class="rmdnote">
+<p>Because of the use of the fork mechanism, the <code>mc*</code> functions are generally not available to users of the Windows operating system.</p>
+</div>
 
 The first thing you might want to check with the `parallel` package is if your computer in fact has multiple cores that you can take advantage of.
 
@@ -150,10 +154,10 @@ One thing we might want to do is compute a summary statistic across each of the 
 + })
 > s
    user  system elapsed 
-      0       0       0 
+  0.054   0.007   0.061 
 ```
 
-Note that in the `system.time()` output, the `user` time (0 seconds) and the `elapsed` time (0 seconds) are roughly the same, which is what we would expect because there was no parallelization.
+Note that in the `system.time()` output, the `user` time (0.054 seconds) and the `elapsed` time (0.061 seconds) are roughly the same, which is what we would expect because there was no parallelization.
 
 The equivalent call using `mclapply()` would be
 
@@ -166,7 +170,7 @@ The equivalent call using `mclapply()` would be
 + })
 > s
    user  system elapsed 
-  0.001   0.000   0.000 
+  0.141   0.268   0.054 
 ```
 
 Here, I chose to use 24 cores, just to see what would happen. You'll notice that the the `elapsed` time is now much less than the `user` time. However, in this case, the `elapsed` time is NOT 1/24th of the `user` time, which is what we might expect with 24 cores if there were a perfect performance gain from parallelization. R keeps track of how much time is spent in the main process and how much is spent in any child processes.
@@ -175,17 +179,19 @@ Here, I chose to use 24 cores, just to see what would happen. You'll notice that
 ```r
 > s["user.self"]  ## Main process
 user.self 
-    0.001 
+    0.009 
 > s["user.child"] ## Child processes
 user.child 
-         0 
+     0.132 
 ```
 
 In the call to `mclapply()` you can see that virtually all of the `user` time is spent in the child processes. The total `user` time is the sum of the `self` and `child` times. 
 
 In some cases it is possible for the parallelized version of an R expression to actually be *slower* than the serial version. This can occur if there is substantial overhead in creating the child processes. For example, time must be spent copying information over to the child processes and communicating the results back to the parent process. However, for most substantial computations, there will be some benefit in parallelization.
 
-A> One advantage of serial computations is that it allows you to better keep a handle on how much **memory** your R job is using. When executing parallel jobs via `mclapply()` it's important to pre-calculate how much memory *all* of the processes will require and make sure this is less than the total amount of memory on your computer.
+<div class="rmdnote">
+<p>One advantage of serial computations is that it allows you to better keep a handle on how much <strong>memory</strong> your R job is using. When executing parallel jobs via <code>mclapply()</code> it's important to pre-calculate how much memory <em>all</em> of the processes will require and make sure this is less than the total amount of memory on your computer.</p>
+</div>
 
 The `mclapply()` function is useful for iterating over a single list or list-like object. If you have to iterate over multiple objects together, you can use `mcmapply()`, which is the the multi-core equivalent of the `mapply()` function.
 
@@ -274,7 +280,7 @@ One example of a statistic for which the bootstrap is useful is the median. Here
 > hist(sulf, xlab = expression("Sulfate PM (" * mu * g/m^3 * ")"))
 ```
 
-<img src="images/parallel-unnamed-chunk-14-1.png" width="672" />
+<img src="images/parallel-unnamed-chunk-17-1.png" width="672" />
 
 We can see from the histogram that the distribution of sulfate is skewed to the right. Therefore, it would seem that the median might be a better summary of the distribution than the mean.
 
@@ -318,11 +324,11 @@ Generating random numbers in a parallel environment warrants caution because it'
 + }, mc.cores = 5)
 > str(r)
 List of 5
- $ : num [1:3] 0.626 1.223 -1.295
- $ : num [1:3] -1.05 0.347 0.502
- $ : num [1:3] 0.133 -1.096 -0.916
- $ : num [1:3] 1.176 0.154 -0.245
- $ : num [1:3] -0.605 -1.067 0.87
+ $ : num [1:3] 0.0172 0.7232 0.4252
+ $ : num [1:3] -0.288 -0.812 -0.681
+ $ : num [1:3] 0.205 -0.364 -0.935
+ $ : num [1:3] 0.759 -0.685 0.981
+ $ : num [1:3] -1.578 0.338 -0.527
 ```
 
 However, the above expression is not **reproducible** because the next time you run it, you will get a different set of random numbers. You cannot simply call `set.seed()` before running the expression as you might in a non-parallel version of the code. 
@@ -364,7 +370,9 @@ Now we can run our parallel bootstrap in a reproducible way.
  2.70  3.46 
 ```
 
-> Although I've rarely seen it done in practice (including in my own code), it's a good idea to explicitly set the random number generator via `RNGkind()`, in addition to setting the seed with `set.seed()`. This way, you can be sure that the appropriate random number generator is being used every time and your code will be reproducible even on a system where the default generator has been changed.
+<div class="rmdnote">
+<p>Although I've rarely seen it done in practice (including in my own code), it's a good idea to explicitly set the random number generator via <code>RNGkind()</code>, in addition to setting the seed with <code>set.seed()</code>. This way, you can be sure that the appropriate random number generator is being used every time and your code will be reproducible even on a system where the default generator has been changed.</p>
+</div>
 
 ### Using the `boot` package
 
@@ -400,7 +408,9 @@ Building a socket cluster is simple to do in R with the `makeCluster()` function
 
 The `cl` object is an abstraction of the entire cluster and is what we'll use to indicate to the various cluster functions that we want to do parallel computation.
 
-A>You'll notice that the `makeCluster()` function has a `type` argument that allows for different types of clusters beyond using sockets (although the default is a socket cluster). We will not discuss these other options here.
+<div class="rmdnote">
+<p>You'll notice that the <code>makeCluster()</code> function has a <code>type</code> argument that allows for different types of clusters beyond using sockets (although the default is a socket cluster). We will not discuss these other options here.</p>
+</div>
 
 To do an `lapply()` operation over a socket cluster we can use the `parLapply()` function. For example, we can use `parLapply()` to run our median bootstrap example described above.
 
@@ -432,8 +442,8 @@ Once the data have been exported to the child processes, we can run our bootstra
 + })
 > med.boot <- unlist(med.boot)  ## Collapse list into vector
 > quantile(med.boot, c(0.025, 0.975))
-   2.5%   97.5% 
-2.68000 3.46025 
+  2.5%  97.5% 
+2.6995 3.4700 
 ```
 
 Once you've finished working with your cluster, it's good to clean up and stop the cluster child processes (quitting R will also stop all of the child processes).
