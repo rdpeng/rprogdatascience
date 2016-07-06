@@ -50,7 +50,7 @@ Times can be coerced from a character string using the `as.POSIXlt` or `as.POSIX
 ```r
 > x <- Sys.time()
 > x
-[1] "2016-07-06 15:34:19 EDT"
+[1] "2016-07-06 15:39:06 EDT"
 > class(x)   ## 'POSIXct' object
 [1] "POSIXct" "POSIXt" 
 ```
@@ -73,14 +73,14 @@ You can also use the `POSIXct` format.
 ```r
 > x <- Sys.time()
 > x             ## Already in ‘POSIXct’ format
-[1] "2016-07-06 15:34:19 EDT"
+[1] "2016-07-06 15:39:06 EDT"
 > unclass(x)    ## Internal representation
-[1] 1467833659
+[1] 1467833947
 > x$sec         ## Can't do this with 'POSIXct'!
 Error in x$sec: $ operator is invalid for atomic vectors
 > p <- as.POSIXlt(x)
 > p$sec         ## That's better
-[1] 19.29509
+[1] 6.600845
 ```
 
 Finally, there is the `strptime()` function in case your dates are

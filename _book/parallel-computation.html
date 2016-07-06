@@ -407,8 +407,8 @@ Because of the use of the fork mechanism, the <code>mc*</code> functions are gen
 +<span class="st"> </span>})
 &gt;<span class="st"> </span>s
    user  system elapsed 
-  <span class="fl">0.054</span>   <span class="fl">0.007</span>   <span class="fl">0.061</span> </code></pre></div>
-<p>Note that in the <code>system.time()</code> output, the <code>user</code> time (0.054 seconds) and the <code>elapsed</code> time (0.061 seconds) are roughly the same, which is what we would expect because there was no parallelization.</p>
+  <span class="fl">0.054</span>   <span class="fl">0.007</span>   <span class="fl">0.062</span> </code></pre></div>
+<p>Note that in the <code>system.time()</code> output, the <code>user</code> time (0.054 seconds) and the <code>elapsed</code> time (0.062 seconds) are roughly the same, which is what we would expect because there was no parallelization.</p>
 <p>The equivalent call using <code>mclapply()</code> would be</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">system.time</span>({
 +<span class="st">         </span>mn &lt;-<span class="st"> </span><span class="kw">mclapply</span>(specdata, function(df) {
@@ -417,14 +417,14 @@ Because of the use of the fork mechanism, the <code>mc*</code> functions are gen
 +<span class="st"> </span>})
 &gt;<span class="st"> </span>s
    user  system elapsed 
-  <span class="fl">0.141</span>   <span class="fl">0.268</span>   <span class="fl">0.054</span> </code></pre></div>
+  <span class="fl">0.145</span>   <span class="fl">0.289</span>   <span class="fl">0.054</span> </code></pre></div>
 <p>Here, I chose to use 24 cores, just to see what would happen. You’ll notice that the the <code>elapsed</code> time is now much less than the <code>user</code> time. However, in this case, the <code>elapsed</code> time is NOT 1/24th of the <code>user</code> time, which is what we might expect with 24 cores if there were a perfect performance gain from parallelization. R keeps track of how much time is spent in the main process and how much is spent in any child processes.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>s[<span class="st">&quot;user.self&quot;</span>]  ## Main process
 user.self 
-    <span class="fl">0.009</span> 
+     <span class="fl">0.01</span> 
 &gt;<span class="st"> </span>s[<span class="st">&quot;user.child&quot;</span>] ## Child processes
 user.child 
-     <span class="fl">0.132</span> </code></pre></div>
+     <span class="fl">0.135</span> </code></pre></div>
 <p>In the call to <code>mclapply()</code> you can see that virtually all of the <code>user</code> time is spent in the child processes. The total <code>user</code> time is the sum of the <code>self</code> and <code>child</code> times.</p>
 <p>In some cases it is possible for the parallelized version of an R expression to actually be <em>slower</em> than the serial version. This can occur if there is substantial overhead in creating the child processes. For example, time must be spent copying information over to the child processes and communicating the results back to the parent process. However, for most substantial computations, there will be some benefit in parallelization.</p>
 <div class="rmdnote">
@@ -511,11 +511,11 @@ List of <span class="dv">4</span>
 +<span class="st"> </span>}, <span class="dt">mc.cores =</span> <span class="dv">5</span>)
 &gt;<span class="st"> </span><span class="kw">str</span>(r)
 List of <span class="dv">5</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.0172</span> <span class="fl">0.7232</span> <span class="fl">0.4252</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">0.288</span> -<span class="fl">0.812</span> -<span class="fl">0.681</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.205</span> -<span class="fl">0.364</span> -<span class="fl">0.935</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.759</span> -<span class="fl">0.685</span> <span class="fl">0.981</span>
- $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">1.578</span> <span class="fl">0.338</span> -<span class="fl">0.527</span></code></pre></div>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">0.759</span> -<span class="fl">0.595</span> <span class="fl">0.828</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">0.344</span> <span class="fl">0.824</span> -<span class="fl">0.353</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">0.133</span> <span class="fl">0.376</span> <span class="dv">1</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] -<span class="fl">0.161</span> -<span class="fl">1.681</span> <span class="fl">0.398</span>
+ $<span class="st"> </span><span class="er">:</span><span class="st"> </span>num [<span class="dv">1</span>:<span class="dv">3</span>] <span class="fl">2.163</span> -<span class="fl">1.106</span> -<span class="fl">0.137</span></code></pre></div>
 <p>However, the above expression is not <strong>reproducible</strong> because the next time you run it, you will get a different set of random numbers. You cannot simply call <code>set.seed()</code> before running the expression as you might in a non-parallel version of the code.</p>
 <p>The <code>parallel</code> package provides a way to reproducibly generate random numbers in a parallel environment via the “L’Ecuyer-CMRG” random number generator. Note that this is not the default random number generator so you will have to set it explicitly.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Reproducible random numbers
@@ -594,8 +594,8 @@ Error in <span class="kw">checkForRemoteErrors</span>(val):<span class="st"> </s
 +<span class="st"> </span>})
 &gt;<span class="st"> </span>med.boot &lt;-<span class="st"> </span><span class="kw">unlist</span>(med.boot)  ## Collapse list into vector
 &gt;<span class="st"> </span><span class="kw">quantile</span>(med.boot, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))
-  <span class="fl">2.5</span>%  97.5%<span class="st"> </span>
-<span class="fl">2.6995</span> <span class="fl">3.4700</span> </code></pre></div>
+ <span class="fl">2.5</span>% 97.5%<span class="st"> </span>
+<span class="st"> </span><span class="fl">2.70</span>  <span class="fl">3.47</span> </code></pre></div>
 <p>Once you’ve finished working with your cluster, it’s good to clean up and stop the cluster child processes (quitting R will also stop all of the child processes).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">stopCluster</span>(cl)</code></pre></div>
 </div>
