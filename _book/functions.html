@@ -38,8 +38,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="interfaces-to-the-outside-world.html">
-<link rel="next" href="vectorized-operations.html">
+<link rel="prev" href="control-structures.html">
+<link rel="next" href="loop-functions.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -315,194 +315,220 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="subsetting-r-objects" class="section level1">
-<h1><span class="header-section-number">10</span> Subsetting R Objects</h1>
-<p><a href="https://youtu.be/VfZUZGUgHqg">Watch a video of this section</a></p>
-<p>There are three operators that can be used to extract subsets of R objects.</p>
+<div id="functions" class="section level1">
+<h1><span class="header-section-number">15</span> Functions</h1>
+<p>Writing functions is a core activity of an R programmer. It represents the key step of the transition from a mere “user” to a developer who creates new functionality for R. Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. Functions are also often written when code must be shared with others or the public.</p>
+<p>The writing of a function allows a developer to create an interface to the code, that is explicitly specified with a set of parameters. This interface provides an abstraction of the code to potential users. This abstraction simplifies the users’ lives because it relieves them from having to know every detail of how the code operates. In addition, the creation of an interface allows the developer to communicate to the user the aspects of the code that are important or are most relevant.</p>
+<div id="functions-in-r" class="section level2">
+<h2><span class="header-section-number">15.1</span> Functions in R</h2>
+<p>Functions in R are “first class objects”, which means that they can be treated much like any other R object. Importantly,</p>
 <ul>
-<li><p>The <code>[</code> operator always returns an object of the same class as the original. It can be used to select multiple elements of an object</p></li>
-<li><p>The <code>[[</code> operator is used to extract elements of a list or a data frame. It can only be used to extract a single element and the class of the returned object will not necessarily be a list or data frame.</p></li>
-<li><p>The <code>$</code> operator is used to extract elements of a list or data frame by literal name. Its semantics are similar to that of <code>[[</code>.</p></li>
+<li><p>Functions can be passed as arguments to other functions. This is very handy for the various apply funtions, like <code>lapply()</code> and <code>sapply()</code>.</p></li>
+<li><p>Functions can be nested, so that you can define a function inside of another function</p></li>
 </ul>
-<div id="subsetting-a-vector" class="section level2">
-<h2><span class="header-section-number">10.1</span> Subsetting a Vector</h2>
-<p>Vectors are basic objects in R and they can be subsetted using the <code>[</code> operator.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;a&quot;</span>)  
-&gt;<span class="st"> </span>x[<span class="dv">1</span>]    ## Extract the first element
-[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>
-&gt;<span class="st"> </span>x[<span class="dv">2</span>]    ## Extract the second element
-[<span class="dv">1</span>] <span class="st">&quot;b&quot;</span></code></pre></div>
-<p>The <code>[</code> operator can be used to extract multiple elements of a vector by passing the operator an integer sequence. Here we extract the first four elements of the vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[<span class="dv">1</span>:<span class="dv">4</span>]
-[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span> <span class="st">&quot;c&quot;</span></code></pre></div>
-<p>The sequence does not have to be in order; you can specify any arbitrary integer vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>)]
-[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span> <span class="st">&quot;c&quot;</span> <span class="st">&quot;c&quot;</span></code></pre></div>
-<p>We can also pass a logical sequence to the <code>[</code> operator to extract elements of a vector that satisfy a given condition. For example, here we want the elements of <code>x</code> that come lexicographically <em>after</em> the letter “a”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>u &lt;-<span class="st"> </span>x &gt;<span class="st"> &quot;a&quot;</span>
-&gt;<span class="st"> </span>u
-[<span class="dv">1</span>] <span class="ot">FALSE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span>
-&gt;<span class="st"> </span>x[u]
-[<span class="dv">1</span>] <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span> <span class="st">&quot;c&quot;</span> <span class="st">&quot;d&quot;</span></code></pre></div>
-<p>Another, more compact, way to do this would be to skip the creation of a logical vector and just subset the vector directly with the logical expression.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[x &gt;<span class="st"> &quot;a&quot;</span>]
-[<span class="dv">1</span>] <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span> <span class="st">&quot;c&quot;</span> <span class="st">&quot;d&quot;</span></code></pre></div>
+<p>If you’re familiar with common language like C, these features might appear a bit strange. However, they are really important in R and can be useful for data analysis.</p>
 </div>
-<div id="subsetting-a-matrix" class="section level2">
-<h2><span class="header-section-number">10.2</span> Subsetting a Matrix</h2>
-<p><a href="https://youtu.be/FzjXesh9tRw">Watch a video of this section</a></p>
-<p>Matrices can be subsetted in the usual way with (<em>i,j</em>) type indices. Here, we create simple <span class="math inline">\(2\times3\)</span> matrix with the <code>matrix</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>)
-&gt;<span class="st"> </span>x
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>
-[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span></code></pre></div>
-<p>We can access the <span class="math inline">\((1,2)\)</span> or the <span class="math inline">\((2,1)\)</span> element of this matrix using the appropriate indices.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[<span class="dv">1</span>, <span class="dv">2</span>]
-[<span class="dv">1</span>] <span class="dv">3</span>
-&gt;<span class="st"> </span>x[<span class="dv">2</span>, <span class="dv">1</span>]
-[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
-<p>Indices can also be missing. This behavior is used to access entire rows or columns of a matrix.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[<span class="dv">1</span>, ]  ## Extract the first row
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span>
-&gt;<span class="st"> </span>x[, <span class="dv">2</span>]  ## Extract the second column
-[<span class="dv">1</span>] <span class="dv">3</span> <span class="dv">4</span></code></pre></div>
-<div id="dropping-matrix-dimensions" class="section level3">
-<h3><span class="header-section-number">10.2.1</span> Dropping matrix dimensions</h3>
-<p>By default, when a single element of a matrix is retrieved, it is returned as a vector of length 1 rather than a <span class="math inline">\(1\times1\)</span> matrix. Often, this is exactly what we want, but this behavior can be turned off by setting <code>drop = FALSE</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>)
-&gt;<span class="st"> </span>x[<span class="dv">1</span>, <span class="dv">2</span>]
-[<span class="dv">1</span>] <span class="dv">3</span>
-&gt;<span class="st"> </span>x[<span class="dv">1</span>, <span class="dv">2</span>, drop =<span class="st"> </span><span class="ot">FALSE</span>]
-     [,<span class="dv">1</span>]
-[<span class="dv">1</span>,]    <span class="dv">3</span></code></pre></div>
-<p>Similarly, when we extract a single row or column of a matrix, R by default drops the dimension of length 1, so instead of getting a <span class="math inline">\(1\times3\)</span> matrix after extracting the first row, we get a vector of length 3. This behavior can similarly be turned off with the <code>drop = FALSE</code> option.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>)
-&gt;<span class="st"> </span>x[<span class="dv">1</span>, ]
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span>
-&gt;<span class="st"> </span>x[<span class="dv">1</span>, , drop =<span class="st"> </span><span class="ot">FALSE</span>]
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span></code></pre></div>
-<p><strong>Be careful of R’s automatic dropping of dimensions</strong>. This is a feature that is often quite useful during interactive work, but can later come back to bite you when you are writing longer programs or functions.</p>
-</div>
-</div>
-<div id="subsetting-lists" class="section level2">
-<h2><span class="header-section-number">10.3</span> Subsetting Lists</h2>
-<p><a href="https://youtu.be/DStKguVpuDI">Watch a video of this section</a></p>
-<p>Lists in R can be subsetted using all three of the operators mentioned above, and all three are used for different purposes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">foo =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">bar =</span> <span class="fl">0.6</span>)
-&gt;<span class="st"> </span>x
-$foo
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>
-
-$bar
-[<span class="dv">1</span>] <span class="fl">0.6</span></code></pre></div>
-<p>The <code>[[</code> operator can be used to extract <em>single</em> elements from a list. Here we extract the first element of the list.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[[<span class="dv">1</span>]]
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></code></pre></div>
-<p>The <code>[[</code> operator can also use named indices so that you don’t have to remember the exact ordering of every element of the list. You can also use the <code>$</code> operator to extract elements by name.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x[[<span class="st">&quot;bar&quot;</span>]]
-[<span class="dv">1</span>] <span class="fl">0.6</span>
-&gt;<span class="st"> </span>x$bar
-[<span class="dv">1</span>] <span class="fl">0.6</span></code></pre></div>
-<p>Notice you don’t need the quotes when you use the <code>$</code> operator.</p>
-<p>One thing that differentiates the <code>[[</code> operator from the <code>$</code> is that the <code>[[</code> operator can be used with <em>computed</em> indices. The <code>$</code> operator can only be used with literal names.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">foo =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">bar =</span> <span class="fl">0.6</span>, <span class="dt">baz =</span> <span class="st">&quot;hello&quot;</span>)
-&gt;<span class="st"> </span>name &lt;-<span class="st"> &quot;foo&quot;</span>
-&gt;<span class="st"> </span>
-<span class="er">&gt;</span><span class="st"> </span>## computed index for &quot;foo&quot;
-<span class="er">&gt;</span><span class="st"> </span>x[[name]]  
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>
-&gt;<span class="st"> </span>
-<span class="er">&gt;</span><span class="st"> </span>## element &quot;name&quot; doesn’t exist! (but no error here)
-<span class="er">&gt;</span><span class="st"> </span>x$name     
-<span class="ot">NULL</span>
-&gt;<span class="st"> </span>
-<span class="er">&gt;</span><span class="st"> </span>## element &quot;foo&quot; does exist
-<span class="er">&gt;</span><span class="st"> </span>x$foo      
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></code></pre></div>
-</div>
-<div id="subsetting-nested-elements-of-a-list" class="section level2">
-<h2><span class="header-section-number">10.4</span> Subsetting Nested Elements of a List</h2>
-<p>The <code>[[</code> operator can take an integer sequence if you want to extract a nested element of a list.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">list</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">14</span>), <span class="dt">b =</span> <span class="kw">c</span>(<span class="fl">3.14</span>, <span class="fl">2.81</span>))
-&gt;<span class="st"> </span>
-<span class="er">&gt;</span><span class="st"> </span>## Get the 3rd element of the 1st element
-<span class="er">&gt;</span><span class="st"> </span>x[[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]]  
+<div id="your-first-function" class="section level2">
+<h2><span class="header-section-number">15.2</span> Your First Function</h2>
+<p>Functions are defined using the <code>function()</code> directive and are stored as R objects just like anything else. In particular, they are R objects of class “function”.</p>
+<p>Here’s a simple function that takes no arguments and does nothing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function() {
++<span class="st">         </span>## This is an empty function
++<span class="st"> </span>}
+&gt;<span class="st"> </span>## Functions have their own class
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">class</span>(f)  
+[<span class="dv">1</span>] <span class="st">&quot;function&quot;</span>
+&gt;<span class="st"> </span>## Execute this function
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">f</span>()       
+<span class="ot">NULL</span></code></pre></div>
+<p>Not very interesting, but it’s a start. The next thing we can do is create a function that actually has a non-trivial <em>function body</em>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function() {
++<span class="st">         </span><span class="kw">cat</span>(<span class="st">&quot;Hello, world!</span><span class="ch">\n</span><span class="st">&quot;</span>)
++<span class="st"> </span>}
+&gt;<span class="st"> </span><span class="kw">f</span>()
+Hello, world!</code></pre></div>
+<p>The last aspect of a basic function is the <em>function arguments</em>. These are the options that you can specify to the user that the user may explicity set. For this basic function, we can add an argument that determines how many times “Hello, world!” is printed to the console.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function(num) {
++<span class="st">         </span>for(i in <span class="kw">seq_len</span>(num)) {
++<span class="st">                 </span><span class="kw">cat</span>(<span class="st">&quot;Hello, world!</span><span class="ch">\n</span><span class="st">&quot;</span>)
++<span class="st">         </span>}
++<span class="st"> </span>}
+&gt;<span class="st"> </span><span class="kw">f</span>(<span class="dv">3</span>)
+Hello, world!
+Hello, world!
+Hello, world!</code></pre></div>
+<p>Obviously, we could have just cut-and-pasted the <code>cat(&quot;Hello, world!\n&quot;)</code> code three times to achieve the same effect, but then we wouldn’t be programming, would we? Also, it would be un-neighborly of you to give your code to someone else and force them to cut-and-paste the code however many times the need to see “Hello, world!”.</p>
+<blockquote>
+<p>In general, if you find yourself doing a lot of cutting and pasting, that’s usually a good sign that you might need to write a function.</p>
+</blockquote>
+<p>Finally, the function above doesn’t <em>return</em> anything. It just prints “Hello, world!” to the console <code>num</code> number of times and then exits. But often it is useful if a function returns something that perhaps can be fed into another section of code.</p>
+<p>This next function returns the total number of characters printed to the console.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function(num) {
++<span class="st">         </span>hello &lt;-<span class="st"> &quot;Hello, world!</span><span class="ch">\n</span><span class="st">&quot;</span>
++<span class="st">         </span>for(i in <span class="kw">seq_len</span>(num)) {
++<span class="st">                 </span><span class="kw">cat</span>(hello)
++<span class="st">         </span>}
++<span class="st">         </span>chars &lt;-<span class="st"> </span><span class="kw">nchar</span>(hello) *<span class="st"> </span>num
++<span class="st">         </span>chars
++<span class="st"> </span>}
+&gt;<span class="st"> </span>meaningoflife &lt;-<span class="st"> </span><span class="kw">f</span>(<span class="dv">3</span>)
+Hello, world!
+Hello, world!
+Hello, world!
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">print</span>(meaningoflife)
+[<span class="dv">1</span>] <span class="dv">42</span></code></pre></div>
+<p>In the above function, we didn’t have to indicate anything special in order for the function to return the number of characters. In R, the return value of a function is always the very last expression that is evaluated. Because the <code>chars</code> variable is the last expression that is evaluated in this function, that becomes the return value of the function.</p>
+<p>Note that there is a <code>return()</code> function that can be used to return an explicity value from a function, but it is rarely used in R (we will discuss it a bit later in this chapter).</p>
+<p>Finally, in the above function, the user must specify the value of the argument <code>num</code>. If it is not specified by the user, R will throw an error.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">f</span>()
+Error in <span class="kw">f</span>():<span class="st"> </span>argument <span class="st">&quot;num&quot;</span> is missing, with no default</code></pre></div>
+<p>We can modify this behavior by setting a <em>default value</em> for the argument <code>num</code>. Any function argument can have a default value, if you wish to specify it. Sometimes, argument values are rarely modified (except in special cases) and it makes sense to set a default value for that argument. This relieves the user from having to specify the value of that argument every single time the function is called.</p>
+<p>Here, for example, we could set the default value for <code>num</code> to be 1, so that if the function is called without the <code>num</code> argument being explicitly specified, then it will print “Hello, world!” to the console once.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function(<span class="dt">num =</span> <span class="dv">1</span>) {
++<span class="st">         </span>hello &lt;-<span class="st"> &quot;Hello, world!</span><span class="ch">\n</span><span class="st">&quot;</span>
++<span class="st">         </span>for(i in <span class="kw">seq_len</span>(num)) {
++<span class="st">                 </span><span class="kw">cat</span>(hello)
++<span class="st">         </span>}
++<span class="st">         </span>chars &lt;-<span class="st"> </span><span class="kw">nchar</span>(hello) *<span class="st"> </span>num
++<span class="st">         </span>chars
++<span class="st"> </span>}
+&gt;<span class="st"> </span><span class="kw">f</span>()    ## Use default value for &#39;num&#39;
+Hello, world!
 [<span class="dv">1</span>] <span class="dv">14</span>
-&gt;<span class="st"> </span>
-<span class="er">&gt;</span><span class="st"> </span>## Same as above
-<span class="er">&gt;</span><span class="st"> </span>x[[<span class="dv">1</span>]][[<span class="dv">3</span>]]   
-[<span class="dv">1</span>] <span class="dv">14</span>
-&gt;<span class="st"> </span>
-<span class="er">&gt;</span><span class="st"> </span>## 1st element of the 2nd element
-<span class="er">&gt;</span><span class="st"> </span>x[[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)]]  
-[<span class="dv">1</span>] <span class="fl">3.14</span></code></pre></div>
+&gt;<span class="st"> </span><span class="kw">f</span>(<span class="dv">2</span>)   ## Use user-specified value
+Hello, world!
+Hello, world!
+[<span class="dv">1</span>] <span class="dv">28</span></code></pre></div>
+<p>Remember that the function still returns the number of characters printed to the console.</p>
+<p>At this point, we have written a function that</p>
+<ul>
+<li><p>has one <em>formal argument</em> named <code>num</code> with a <em>default value</em> of 1. The <em>formal arguments</em> are the arguments included in the function definition. The <code>formals()</code> function returns a list of all the formal arguments of a function</p></li>
+<li><p>prints the message “Hello, world!” to the console a number of times indicated by the argument <code>num</code></p></li>
+<li><p><em>returns</em> the number of characters printed to the console</p></li>
+</ul>
+<p>Functions have <em>named arguments</em> which can optionally have default values. Because all function arguments have names, they can be specified using their name.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">f</span>(<span class="dt">num =</span> <span class="dv">2</span>)
+Hello, world!
+Hello, world!
+[<span class="dv">1</span>] <span class="dv">28</span></code></pre></div>
+<p>Specifying an argument by its name is sometimes useful if a function has many arguments and it may not always be clear which argument is being specified. Here, our function only has one argument so there’s no confusion.</p>
 </div>
-<div id="extracting-multiple-elements-of-a-list" class="section level2">
-<h2><span class="header-section-number">10.5</span> Extracting Multiple Elements of a List</h2>
-<p>The <code>[</code> operator can be used to extract <em>multiple</em> elements from a list. For example, if you wanted to extract the first and third elements of a list, you would do the following</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">foo =</span> <span class="dv">1</span>:<span class="dv">4</span>, <span class="dt">bar =</span> <span class="fl">0.6</span>, <span class="dt">baz =</span> <span class="st">&quot;hello&quot;</span>)
-&gt;<span class="st"> </span>x[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]
-$foo
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>
+<div id="argument-matching" class="section level2">
+<h2><span class="header-section-number">15.3</span> Argument Matching</h2>
+<p>Calling an R function with arguments can be done in a variety of ways. This may be confusing at first, but it’s really handing when doing interactive work at the command line. R functions arguments can be matched <em>positionally</em> or by name. Positional matching just means that R assigns the first value to the first argument, the second value to second argument, etc. So in the following call to <code>rnorm()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(rnorm)
+function (n, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)  
+&gt;<span class="st"> </span>mydata &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">1</span>)              ## Generate some data</code></pre></div>
+<p>100 is assigned to the <code>n</code> argument, 2 is assigned to the <code>mean</code> argument, and 1 is assigned to the <code>sd</code> argument, all by positional matching.</p>
+<p>The following calls to the <code>sd()</code> function (which computes the empirical standard deviation of a vector of numbers) are all equivalent. Note that <code>sd()</code> has two arguments: <code>x</code> indicates the vector of numbers and <code>na.rm</code> is a logical indicating whether missing values should be removed or not.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Positional match first argument, default for &#39;na.rm&#39;
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">sd</span>(mydata)                     
+[<span class="dv">1</span>] <span class="fl">0.9722602</span>
+&gt;<span class="st"> </span>## Specify &#39;x&#39; argument by name, default for &#39;na.rm&#39;
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">sd</span>(<span class="dt">x =</span> mydata)                 
+[<span class="dv">1</span>] <span class="fl">0.9722602</span>
+&gt;<span class="st"> </span>## Specify both arguments by name
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">sd</span>(<span class="dt">x =</span> mydata, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>)  
+[<span class="dv">1</span>] <span class="fl">0.9722602</span></code></pre></div>
+<p>When specifying the function arguments by name, it doesn’t matter in what order you specify them. In the example below, we specify the <code>na.rm</code> argument first, followed by <code>x</code>, even though <code>x</code> is the first argument defined in the function definition.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Specify both arguments by name
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">sd</span>(<span class="dt">na.rm =</span> <span class="ot">FALSE</span>, <span class="dt">x =</span> mydata)     
+[<span class="dv">1</span>] <span class="fl">0.9722602</span></code></pre></div>
+<p>You can mix positional matching with matching by name. When an argument is matched by name, it is “taken out” of the argument list and the remaining unnamed arguments are matched in the order that they are listed in the function definition.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sd</span>(<span class="dt">na.rm =</span> <span class="ot">FALSE</span>, mydata)
+[<span class="dv">1</span>] <span class="fl">0.9722602</span></code></pre></div>
+<p>Here, the <code>mydata</code> object is assigned to the <code>x</code> argument, because it’s the only argument not yet specified.</p>
+<p>Below is the argument list for the <code>lm()</code> function, which fits linear models to a dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">args</span>(lm)
+function (formula, data, subset, weights, na.action, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, 
+    <span class="dt">model =</span> <span class="ot">TRUE</span>, <span class="dt">x =</span> <span class="ot">FALSE</span>, <span class="dt">y =</span> <span class="ot">FALSE</span>, <span class="dt">qr =</span> <span class="ot">TRUE</span>, <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, 
+    <span class="dt">contrasts =</span> <span class="ot">NULL</span>, offset, ...) 
+<span class="ot">NULL</span></code></pre></div>
+<p>The following two calls are equivalent.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(<span class="dt">data =</span> mydata, y ~<span class="st"> </span>x, <span class="dt">model =</span> <span class="ot">FALSE</span>, <span class="dv">1</span>:<span class="dv">100</span>)
+<span class="kw">lm</span>(y ~<span class="st"> </span>x, mydata, <span class="dv">1</span>:<span class="dv">100</span>, <span class="dt">model =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Even though it’s legal, I don’t recommend messing around with the order of the arguments too much, since it can lead to some confusion.</p>
+<p>Most of the time, named arguments are useful on the command line when you have a long argument list and you want to use the defaults for everything except for an argument near the end of the list. Named arguments also help if you can remember the name of the argument and not its position on the argument list. For example, plotting functions often have a lot of options to allow for customization, but this makes it difficult to remember exactly the position of every argument on the argument list.</p>
+<p>Function arguments can also be <em>partially</em> matched, which is useful for interactive work. The order of operations when given an argument is</p>
+<ol style="list-style-type: decimal">
+<li>Check for exact match for a named argument</li>
+<li>Check for a partial match</li>
+<li>Check for a positional match</li>
+</ol>
+<p>Partial matching should be avoided when writing longer code or programs, because it may lead to confusion if someone is reading the code. However, partial matching is very useful when calling functions interactively that have very long argument names.</p>
+<p>In addition to not specifying a default value, you can also set an argument value to <code>NULL</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span>function(a, <span class="dt">b =</span> <span class="dv">1</span>, <span class="dt">c =</span> <span class="dv">2</span>, <span class="dt">d =</span> <span class="ot">NULL</span>) {
 
-$baz
-[<span class="dv">1</span>] <span class="st">&quot;hello&quot;</span></code></pre></div>
-<p>Note that <code>x[c(1, 3)]</code> is NOT the same as <code>x[[c(1, 3)]]</code>.</p>
-<p>Remember that the <code>[</code> operator always returns an object of the same class as the original. Since the original object was a list, the <code>[</code> operator returns a list. In the above code, we returned a list with two elements (the first and the third).</p>
+}</code></pre></div>
+<p>You can check to see whether an R object is <code>NULL</code> with the <code>is.null()</code> function. It is sometimes useful to allow an argument to take the <code>NULL</code> value, which might indicate that the function should take some specific action.</p>
 </div>
-<div id="partial-matching" class="section level2">
-<h2><span class="header-section-number">10.6</span> Partial Matching</h2>
-<p><a href="https://youtu.be/q3BNhHHVCu4">Watch a video of this section</a></p>
-<p>Partial matching of names is allowed with <code>[[</code> and <code>$</code>. This is often very useful during interactive work if the object you’re working with has very long element names. You can just abbreviate those names and R will figure out what element you’re referring to.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">aardvark =</span> <span class="dv">1</span>:<span class="dv">5</span>)
-&gt;<span class="st"> </span>x$a
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>
-&gt;<span class="st"> </span>x[[<span class="st">&quot;a&quot;</span>]]
+<div id="lazy-evaluation" class="section level2">
+<h2><span class="header-section-number">15.4</span> Lazy Evaluation</h2>
+<p>Arguments to functions are evaluated <em>lazily</em>, so they are evaluated only as needed in the body of the function.</p>
+<p>In this example, the function <code>f()</code> has two arguments: <code>a</code> and <code>b</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function(a, b) {
++<span class="st">         </span>a^<span class="dv">2</span>
++<span class="st"> </span>} 
+&gt;<span class="st"> </span><span class="kw">f</span>(<span class="dv">2</span>)
+[<span class="dv">1</span>] <span class="dv">4</span></code></pre></div>
+<p>This function never actually uses the argument <code>b</code>, so calling <code>f(2)</code> will not produce an error because the 2 gets positionally matched to <code>a</code>. This behavior can be good or bad. It’s common to write a function that doesn’t use an argument and not notice it simply because R never throws an error.</p>
+<p>This example also shows lazy evaluation at work, but does eventually result in an error.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function(a, b) {
++<span class="st">         </span><span class="kw">print</span>(a)
++<span class="st">         </span><span class="kw">print</span>(b)
++<span class="st"> </span>}
+&gt;<span class="st"> </span><span class="kw">f</span>(<span class="dv">45</span>)
+[<span class="dv">1</span>] <span class="dv">45</span>
+Error in <span class="kw">print</span>(b):<span class="st"> </span>argument <span class="st">&quot;b&quot;</span> is missing, with no default</code></pre></div>
+<p>Notice that “45” got printed first before the error was triggered. This is because <code>b</code> did not have to be evaluated until after <code>print(a)</code>. Once the function tried to evaluate <code>print(b)</code> the function had to throw an error.</p>
+</div>
+<div id="the-...-argument" class="section level2">
+<h2><span class="header-section-number">15.5</span> The <code>...</code> Argument</h2>
+<p>There is a special argument in R known as the <code>...</code> argument, which indicate a variable number of arguments that are usually passed on to other functions. The <code>...</code> argument is often used when extending another function and you don’t want to copy the entire argument list of the original function</p>
+<p>For example, a custom plotting function may want to make use of the default <code>plot()</code> function along with its entire argument list. The function below changes the default for the <code>type</code> argument to the value <code>type = &quot;l&quot;</code> (the original default was <code>type = &quot;p&quot;</code>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myplot &lt;-<span class="st"> </span>function(x, y, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, ...) {
+        <span class="kw">plot</span>(x, y, <span class="dt">type =</span> type, ...)         ## Pass &#39;...&#39; to &#39;plot&#39; function
+}</code></pre></div>
+<p>Generic functions use <code>...</code> so that extra arguments can be passed to methods.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>mean
+function (x, ...) 
+<span class="kw">UseMethod</span>(<span class="st">&quot;mean&quot;</span>)
+&lt;bytecode:<span class="st"> </span><span class="dv">0x7ff14e8fcd88</span>&gt;
+<span class="er">&lt;</span>environment:<span class="st"> </span>namespace:base&gt;</code></pre></div>
+<p>The <code>...</code> argument is necessary when the number of arguments passed to the function cannot be known in advance. This is clear in functions like <code>paste()</code> and <code>cat()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">args</span>(paste)
+function (..., <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span>) 
 <span class="ot">NULL</span>
-&gt;<span class="st"> </span>x[[<span class="st">&quot;a&quot;</span>, exact =<span class="st"> </span><span class="ot">FALSE</span>]]
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></code></pre></div>
-<p>In general, this is fine for interactive work, but you shouldn’t resort to partial matching if you are writing longer scripts, functions, or programs. In those cases, you should refer to the full element name if possible. That way there’s no ambiguity in your code.</p>
+&gt;<span class="st"> </span><span class="kw">args</span>(cat)
+function (..., <span class="dt">file =</span> <span class="st">&quot;&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>, <span class="dt">fill =</span> <span class="ot">FALSE</span>, <span class="dt">labels =</span> <span class="ot">NULL</span>, 
+    <span class="dt">append =</span> <span class="ot">FALSE</span>) 
+<span class="ot">NULL</span></code></pre></div>
+<p>Because both <code>paste()</code> and <code>cat()</code> print out text to the console by combining multiple character vectors together, it is impossible for those functions to know in advance how many character vectors will be passed to the function by the user. So the first argument to either function is <code>...</code>.</p>
 </div>
-<div id="removing-na-values" class="section level2">
-<h2><span class="header-section-number">10.7</span> Removing NA Values</h2>
-<p><a href="https://youtu.be/TtJxmwXbwo0">Watch a video of this section</a></p>
-<p>A common task in data analysis is removing missing values (<code>NA</code>s).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="ot">NA</span>, <span class="dv">5</span>)
-&gt;<span class="st"> </span>bad &lt;-<span class="st"> </span><span class="kw">is.na</span>(x)
-&gt;<span class="st"> </span><span class="kw">print</span>(bad)
-[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span>
-&gt;<span class="st"> </span>x[!bad]
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">5</span></code></pre></div>
-<p>What if there are multiple R objects and you want to take the subset with no missing values in any of those objects?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="ot">NA</span>, <span class="dv">5</span>)
-&gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;d&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;f&quot;</span>)
-&gt;<span class="st"> </span>good &lt;-<span class="st"> </span><span class="kw">complete.cases</span>(x, y)
-&gt;<span class="st"> </span>good
-[<span class="dv">1</span>]  <span class="ot">TRUE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span>
-&gt;<span class="st"> </span>x[good]
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">5</span>
-&gt;<span class="st"> </span>y[good]
-[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;d&quot;</span> <span class="st">&quot;f&quot;</span></code></pre></div>
-<p>You can use <code>complete.cases</code> on data frames too.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">head</span>(airquality)
-  Ozone Solar.R Wind Temp Month Day
-<span class="dv">1</span>    <span class="dv">41</span>     <span class="dv">190</span>  <span class="fl">7.4</span>   <span class="dv">67</span>     <span class="dv">5</span>   <span class="dv">1</span>
-<span class="dv">2</span>    <span class="dv">36</span>     <span class="dv">118</span>  <span class="fl">8.0</span>   <span class="dv">72</span>     <span class="dv">5</span>   <span class="dv">2</span>
-<span class="dv">3</span>    <span class="dv">12</span>     <span class="dv">149</span> <span class="fl">12.6</span>   <span class="dv">74</span>     <span class="dv">5</span>   <span class="dv">3</span>
-<span class="dv">4</span>    <span class="dv">18</span>     <span class="dv">313</span> <span class="fl">11.5</span>   <span class="dv">62</span>     <span class="dv">5</span>   <span class="dv">4</span>
-<span class="dv">5</span>    <span class="ot">NA</span>      <span class="ot">NA</span> <span class="fl">14.3</span>   <span class="dv">56</span>     <span class="dv">5</span>   <span class="dv">5</span>
-<span class="dv">6</span>    <span class="dv">28</span>      <span class="ot">NA</span> <span class="fl">14.9</span>   <span class="dv">66</span>     <span class="dv">5</span>   <span class="dv">6</span>
-&gt;<span class="st"> </span>good &lt;-<span class="st"> </span><span class="kw">complete.cases</span>(airquality)
-&gt;<span class="st"> </span><span class="kw">head</span>(airquality[good, ])
-  Ozone Solar.R Wind Temp Month Day
-<span class="dv">1</span>    <span class="dv">41</span>     <span class="dv">190</span>  <span class="fl">7.4</span>   <span class="dv">67</span>     <span class="dv">5</span>   <span class="dv">1</span>
-<span class="dv">2</span>    <span class="dv">36</span>     <span class="dv">118</span>  <span class="fl">8.0</span>   <span class="dv">72</span>     <span class="dv">5</span>   <span class="dv">2</span>
-<span class="dv">3</span>    <span class="dv">12</span>     <span class="dv">149</span> <span class="fl">12.6</span>   <span class="dv">74</span>     <span class="dv">5</span>   <span class="dv">3</span>
-<span class="dv">4</span>    <span class="dv">18</span>     <span class="dv">313</span> <span class="fl">11.5</span>   <span class="dv">62</span>     <span class="dv">5</span>   <span class="dv">4</span>
-<span class="dv">7</span>    <span class="dv">23</span>     <span class="dv">299</span>  <span class="fl">8.6</span>   <span class="dv">65</span>     <span class="dv">5</span>   <span class="dv">7</span>
-<span class="dv">8</span>    <span class="dv">19</span>      <span class="dv">99</span> <span class="fl">13.8</span>   <span class="dv">59</span>     <span class="dv">5</span>   <span class="dv">8</span></code></pre></div>
+<div id="arguments-coming-after-the-...-argument" class="section level2">
+<h2><span class="header-section-number">15.6</span> Arguments Coming After the <code>...</code> Argument</h2>
+<p>One catch with <code>...</code> is that any arguments that appear <em>after</em> <code>...</code> on the argument list must be named explicitly and cannot be partially matched or matched positionally.</p>
+<p>Take a look at the arguments to the <code>paste()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">args</span>(paste)
+function (..., <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span>) 
+<span class="ot">NULL</span></code></pre></div>
+<p>With the <code>paste()</code> function, the arguments <code>sep</code> and <code>collapse</code> must be named explicitly and in full if the default values are not going to be used.</p>
+<p>Here I specify that I want “a” and “b” to be pasted together and separated by a colon.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;:&quot;</span>)
+[<span class="dv">1</span>] <span class="st">&quot;a:b&quot;</span></code></pre></div>
+<p>If I don’t specify the <code>sep</code> argument in full and attempt to rely on partial matching, I don’t get the expected result.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="dt">se =</span> <span class="st">&quot;:&quot;</span>)
+[<span class="dv">1</span>] <span class="st">&quot;a b :&quot;</span></code></pre></div>
+</div>
+<div id="summary-4" class="section level2">
+<h2><span class="header-section-number">15.7</span> Summary</h2>
+<ul>
+<li><p>Functions can be defined using the <code>function()</code> directive and are assigned to R objects just like any other R object</p></li>
+<li><p>Functions have can be defined with named arguments; these function arguments can have default values</p></li>
+<li><p>Functions arguments can be specified by name or by position in the argument list</p></li>
+<li><p>Functions always return the last expression evaluated in the function body</p></li>
+<li><p>A variable number of arguments can be specified using the special <code>...</code> argument in a function definition.</p></li>
+</ul>
 
 </div>
 </div>
@@ -511,8 +537,8 @@ $baz
           </div>
         </div>
       </div>
-<a href="interfaces-to-the-outside-world.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="vectorized-operations.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="control-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="loop-functions.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -539,7 +565,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/subsetting.Rmd",
+"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/functions.Rmd",
 "text": null
 },
 "download": null,
