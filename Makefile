@@ -4,7 +4,7 @@ book_codefiles.zip:	all
 			./codefiles.R
 			cat codefiles_output.txt |xargs zip $@
 
-book_datasets.zip:	chicago.rds homicides.txt book_datasets/pm25_data/RD_501_88101_1999-0.txt book_datasets/pm25_data/RD_501_88101_2012-0.txt book_datasets/words.gz specdata/*.csv
+book_datasets.zip:	chicago.rds homicides.txt pm25_data/RD_501_88101_1999-0.txt pm25_data/RD_501_88101_2012-0.txt words.gz specdata/*.csv data/*
 			zip -r $@ $^
 
 parallel.md:		parallel.Rmd
