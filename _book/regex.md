@@ -139,8 +139,9 @@ Here we can see that the index vector `j` has two entries that are not in `i`: e
 
 Here we can see that the word "shooting" appears in the narrative text that accompanies the data, but the ultimate cause of death was in fact blunt force. 
 
-A> When developing a regular expression to extract entries from a large dataset, it's important that you understand the formatting of the dataset well enough so that you can develop a specific expression that doesn't accidentally grep data out of context.
-
+<div class="rmdwarning">
+<p>When developing a regular expression to extract entries from a large dataset, it's important that you understand the formatting of the dataset well enough so that you can develop a specific expression that doesn't accidentally grep data out of context.</p>
+</div>
 
 Sometimes we want to identify elements of a character vector that match a pattern, but instead of returning their indices we want the actual values that satisfy the match. For example, we may want to identify all of the states in the United States whose names start with "New".
 
@@ -409,7 +410,7 @@ Finally, we can convert the date strings into the `Date` class and make a histog
 > hist(dates, "month", freq = TRUE, main = "Monthly Homicides in Baltimore")
 ```
 
-<img src="images/regex-unnamed-chunk-35-1.png" width="672" />
+<img src="images/regex-unnamed-chunk-36-1.png" width="672" />
 
 We can see from the picture that homicides do not occur uniformly throughout the year and appear to have some seasonality to them.
 

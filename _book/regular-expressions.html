@@ -387,7 +387,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>homicides[<span class="dv">859</span>]
 [<span class="dv">1</span>] <span class="st">&quot;39.33743900000, -76.66316500000, icon_homicide_bluntforce, &#39;p914&#39;, &#39;&lt;dl&gt;&lt;dt&gt;&lt;a href=</span><span class="ch">\&quot;</span><span class="st">http://essentials.baltimoresun.com/micro_sun/homicides/victim/914/steven-harris</span><span class="ch">\&quot;</span><span class="st">&gt;Steven Harris&lt;/a&gt;&lt;/dt&gt;&lt;dd class=</span><span class="ch">\&quot;</span><span class="st">address</span><span class="ch">\&quot;</span><span class="st">&gt;4200 Pimlico Road&lt;br /&gt;Baltimore, MD 21215&lt;/dd&gt;&lt;dd&gt;Race: Black&lt;br /&gt;Gender: male&lt;br /&gt;Age: 38 years old&lt;/dd&gt;&lt;dd&gt;Found on July 29, 2010&lt;/dd&gt;&lt;dd&gt;Victim died at Scene&lt;/dd&gt;&lt;dd&gt;Cause: Blunt Force&lt;/dd&gt;&lt;dd class=</span><span class="ch">\&quot;</span><span class="st">popup-note</span><span class="ch">\&quot;</span><span class="st">&gt;&lt;p&gt;Harris was found dead July 22 and ruled a shooting victim; an autopsy subsequently showed that he had not been shot,...&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></code></pre></div>
 <p>Here we can see that the word “shooting” appears in the narrative text that accompanies the data, but the ultimate cause of death was in fact blunt force.</p>
-<p>A&gt; When developing a regular expression to extract entries from a large dataset, it’s important that you understand the formatting of the dataset well enough so that you can develop a specific expression that doesn’t accidentally grep data out of context.</p>
+<div class="rmdwarning">
+<p>
+When developing a regular expression to extract entries from a large dataset, it’s important that you understand the formatting of the dataset well enough so that you can develop a specific expression that doesn’t accidentally grep data out of context.
+</p>
+</div>
 <p>Sometimes we want to identify elements of a character vector that match a pattern, but instead of returning their indices we want the actual values that satisfy the match. For example, we may want to identify all of the states in the United States whose names start with “New”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">grep</span>(<span class="st">&quot;^New&quot;</span>, state.name)
 [<span class="dv">1</span>] <span class="dv">29</span> <span class="dv">30</span> <span class="dv">31</span> <span class="dv">32</span></code></pre></div>
@@ -526,7 +530,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Finally, we can convert the date strings into the <code>Date</code> class and make a histogram of the counts.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>dates &lt;-<span class="st"> </span><span class="kw">as.Date</span>(dates, <span class="st">&quot;%B %d, %Y&quot;</span>)
 &gt;<span class="st"> </span><span class="kw">hist</span>(dates, <span class="st">&quot;month&quot;</span>, <span class="dt">freq =</span> <span class="ot">TRUE</span>, <span class="dt">main =</span> <span class="st">&quot;Monthly Homicides in Baltimore&quot;</span>)</code></pre></div>
-<p><img src="images/regex-unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="images/regex-unnamed-chunk-36-1.png" width="672" /></p>
 <p>We can see from the picture that homicides do not occur uniformly throughout the year and appear to have some seasonality to them.</p>
 </div>
 <div id="summary-6" class="section level2">

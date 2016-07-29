@@ -319,6 +319,110 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">7</span> Using the <code>readr</code> Package</h1>
 <p>The <code>readr</code> package is recently developed by Hadley Wickham to deal with reading in large flat files quickly. The package provides replacements for functions like <code>read.table()</code> and <code>read.csv()</code>. The analogous functions in <code>readr</code> are <code>read_table()</code> and <code>read_csv()</code>. These functions are often <em>much</em> faster than their base R analogues and provide a few other nice features such as progress meters.</p>
 <p>For the most part, you can read use <code>read_table()</code> and <code>read_csv()</code> pretty much anywhere you might use <code>read.table()</code> and <code>read.csv()</code>. In addition, if there are non-fatal problems that occur while reading in the data, you will get a warning and the returned data frame will have some information about which rows/observations triggered the warning. This can be very helpful for “debugging” problems with your data before you get neck deep in data analysis.</p>
+<p>The importance of the <code>read_csv</code> function is perhaps better understood from an historical perspective. R’s built in <code>read.csv</code> function similarly reads CSV files, but the <code>read_csv</code> function in <code>readr</code> builds on that by removing some of the quirks and “gotchas” of <code>read.csv</code> as well as dramatically optimizing the speed with which it can read data into R. The <code>read_csv</code> function also adds some nice user-oriented features like a progress meter and a compact method for specifying column types.</p>
+<p>A typical call to <code>read_csv</code> will look as follows.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(readr)
+&gt;<span class="st"> </span>teams &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/team_standings.csv&quot;</span>)
+&gt;<span class="st"> </span>teams
+   Standing         Team
+<span class="dv">1</span>         <span class="dv">1</span>        Spain
+<span class="dv">2</span>         <span class="dv">2</span>  Netherlands
+<span class="dv">3</span>         <span class="dv">3</span>      Germany
+<span class="dv">4</span>         <span class="dv">4</span>      Uruguay
+<span class="dv">5</span>         <span class="dv">5</span>    Argentina
+<span class="dv">6</span>         <span class="dv">6</span>       Brazil
+<span class="dv">7</span>         <span class="dv">7</span>        Ghana
+<span class="dv">8</span>         <span class="dv">8</span>     Paraguay
+<span class="dv">9</span>         <span class="dv">9</span>        Japan
+<span class="dv">10</span>       <span class="dv">10</span>        Chile
+<span class="dv">11</span>       <span class="dv">11</span>     Portugal
+<span class="dv">12</span>       <span class="dv">12</span>          USA
+<span class="dv">13</span>       <span class="dv">13</span>      England
+<span class="dv">14</span>       <span class="dv">14</span>       Mexico
+<span class="dv">15</span>       <span class="dv">15</span>  South Korea
+<span class="dv">16</span>       <span class="dv">16</span>     Slovakia
+<span class="dv">17</span>       <span class="dv">17</span>  Ivory Coast
+<span class="dv">18</span>       <span class="dv">18</span>     Slovenia
+<span class="dv">19</span>       <span class="dv">19</span>  Switzerland
+<span class="dv">20</span>       <span class="dv">20</span> South Africa
+<span class="dv">21</span>       <span class="dv">21</span>    Australia
+<span class="dv">22</span>       <span class="dv">22</span>  New Zealand
+<span class="dv">23</span>       <span class="dv">23</span>       Serbia
+<span class="dv">24</span>       <span class="dv">24</span>      Denmark
+<span class="dv">25</span>       <span class="dv">25</span>       Greece
+<span class="dv">26</span>       <span class="dv">26</span>        Italy
+<span class="dv">27</span>       <span class="dv">27</span>      Nigeria
+<span class="dv">28</span>       <span class="dv">28</span>      Algeria
+<span class="dv">29</span>       <span class="dv">29</span>       France
+<span class="dv">30</span>       <span class="dv">30</span>     Honduras
+<span class="dv">31</span>       <span class="dv">31</span>     Cameroon
+<span class="dv">32</span>       <span class="dv">32</span>  North Korea</code></pre></div>
+<p>By default, <code>read_csv</code> will open a CSV file and read it in line-by-line. It will also (by default), read in the first few rows of the table in order to figure out the type of each column (i.e. integer, character, etc.). From the <code>read_csv</code> help page:</p>
+<blockquote>
+<p>If ‘NULL’, all column types will be imputed from the first 1000 rows on the input. This is convenient (and fast), but not robust. If the imputation fails, you’ll need to supply the correct types yourself.</p>
+</blockquote>
+<p>You can specify the type of each column with the <code>col_types</code> argument.</p>
+<p>In general, it’s a good idea to specify the column types explicitly. This rules out any possible guessing errors on the part of <code>read_csv</code>. Also, specifying the column types explicitly provides a useful safety check in case anything about the dataset should change without you knowing about it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>teams &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/team_standings.csv&quot;</span>, <span class="dt">col_types =</span> <span class="st">&quot;cc&quot;</span>)</code></pre></div>
+<p>Note that the <code>col_types</code> argument accepts a compact representation. Here <code>&quot;cc&quot;</code> indicates that the first column is <code>character</code> and the second column is <code>character</code> (there are only two columns). Using the <code>col_types</code> argument is useful because often it is not easy to automatically figure out the type of a column by looking at a few rows (especially if a column has many missing values).</p>
+<p>The <code>read_csv</code> function will also read compressed files automatically. There is no need to decompress the file first or use the <code>gzfile</code> connection function. The following call reads a gzip-compressed CSV file containing download logs from the RStudio CRAN mirror.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>logs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/2016-07-19.csv.bz2&quot;</span>, <span class="dt">n_max =</span> <span class="dv">10</span>)
+Warning:<span class="st"> </span><span class="dv">11</span> parsing failures.
+row       col   expected   actual
+  <span class="dv">1</span> time      valid date <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">00</span>
+  <span class="dv">1</span> r_version valid date <span class="fl">3.3.0</span>   
+  <span class="dv">2</span> time      valid date <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">05</span>
+  <span class="dv">3</span> time      valid date <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">03</span>
+  <span class="dv">4</span> time      valid date <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">05</span>
+... ......... .......... ........
+.See <span class="kw">problems</span>(...) for more details.</code></pre></div>
+<p>Note that the warnings indicate that <code>read_csv</code> may have had some difficulty identifying the type of each column. This can be solved by using the <code>col_types</code> argument.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>logs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/2016-07-19.csv.bz2&quot;</span>, <span class="dt">col_types =</span> <span class="st">&quot;ccicccccci&quot;</span>, <span class="dt">n_max =</span> <span class="dv">10</span>)
+&gt;<span class="st"> </span>logs
+         date     time     size r_version r_arch         r_os    package
+<span class="dv">1</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">00</span>  <span class="dv">1887881</span>     <span class="fl">3.3.0</span> x86_64      mingw32 data.table
+<span class="dv">2</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">05</span>    <span class="dv">45436</span>     <span class="fl">3.3.1</span> x86_64      mingw32 assertthat
+<span class="dv">3</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">03</span> <span class="dv">14259016</span>     <span class="fl">3.3.1</span> x86_64      mingw32    stringi
+<span class="dv">4</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">05</span>  <span class="dv">1887881</span>     <span class="fl">3.3.1</span> x86_64      mingw32 data.table
+<span class="dv">5</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">06</span>   <span class="dv">389615</span>     <span class="fl">3.3.1</span> x86_64      mingw32    foreach
+<span class="dv">6</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">08</span>    <span class="dv">48842</span>     <span class="fl">3.3.1</span> x86_64    linux-gnu       tree
+<span class="dv">7</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">12</span>      <span class="dv">525</span>     <span class="fl">3.3.1</span> x86_64 darwin13<span class="fl">.4.0</span>   survival
+<span class="dv">8</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">08</span>  <span class="dv">3225980</span>     <span class="fl">3.3.1</span> x86_64      mingw32       Rcpp
+<span class="dv">9</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">09</span>   <span class="dv">556091</span>     <span class="fl">3.3.1</span> x86_64      mingw32     tibble
+<span class="dv">10</span> <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">10</span>   <span class="dv">151527</span>     <span class="fl">3.3.1</span> x86_64      mingw32   magrittr
+   version country ip_id
+<span class="dv">1</span>    <span class="fl">1.9.6</span>      US     <span class="dv">1</span>
+<span class="dv">2</span>      <span class="fl">0.1</span>      US     <span class="dv">2</span>
+<span class="dv">3</span>    <span class="fl">1.1.1</span>      DE     <span class="dv">3</span>
+<span class="dv">4</span>    <span class="fl">1.9.6</span>      US     <span class="dv">4</span>
+<span class="dv">5</span>    <span class="fl">1.4.3</span>      US     <span class="dv">4</span>
+<span class="dv">6</span>   <span class="fl">1.0</span><span class="dv">-37</span>      CO     <span class="dv">5</span>
+<span class="dv">7</span>   <span class="fl">2.39</span><span class="dv">-5</span>      US     <span class="dv">6</span>
+<span class="dv">8</span>   <span class="fl">0.12.5</span>      US     <span class="dv">2</span>
+<span class="dv">9</span>      <span class="fl">1.1</span>      US     <span class="dv">2</span>
+<span class="dv">10</span>     <span class="fl">1.5</span>      US     <span class="dv">2</span></code></pre></div>
+<p>You can specify the column type in a more detailed fashion by using the various <code>col_*</code> functions. For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a Date variable. If we wanted to just read in that first column, we could do</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>logdates &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/2016-07-19.csv.bz2&quot;</span>, 
++<span class="st">                      </span><span class="dt">col_types =</span> <span class="kw">cols_only</span>(<span class="dt">date =</span> <span class="kw">col_date</span>()),
++<span class="st">                      </span><span class="dt">n_max =</span> <span class="dv">10</span>)
+&gt;<span class="st"> </span>logdates
+         date
+<span class="dv">1</span>  <span class="dv">2016-07-19</span>
+<span class="dv">2</span>  <span class="dv">2016-07-19</span>
+<span class="dv">3</span>  <span class="dv">2016-07-19</span>
+<span class="dv">4</span>  <span class="dv">2016-07-19</span>
+<span class="dv">5</span>  <span class="dv">2016-07-19</span>
+<span class="dv">6</span>  <span class="dv">2016-07-19</span>
+<span class="dv">7</span>  <span class="dv">2016-07-19</span>
+<span class="dv">8</span>  <span class="dv">2016-07-19</span>
+<span class="dv">9</span>  <span class="dv">2016-07-19</span>
+<span class="dv">10</span> <span class="dv">2016-07-19</span></code></pre></div>
+<p>Now the <code>date</code> column is stored as a <code>Date</code> object which can be used for relevant date-related computations (for example, see the <code>lubridate</code> package).</p>
+<div class="rmdnote">
+<p>
+The <code>read_csv</code> function has a <code>progress</code> option that defaults to TRUE. This options provides a nice progress meter while the CSV file is being read. However, if you are using <code>read_csv</code> in a function, or perhaps embedding it in a loop, it’s probably best to set <code>progress = FALSE</code>.
+</p>
+</div>
 </div>
             </section>
 
