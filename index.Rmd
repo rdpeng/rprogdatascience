@@ -12,7 +12,7 @@ site: bookdown::bookdown_site
 
 
 
-# Welcome
+# Welcome {-}
 
 <img src="cover_sm.png" />
 
