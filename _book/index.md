@@ -21,7 +21,7 @@ Data science has taken the world by storm. Every field of study and area of busi
 
 This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox.
 
-## Stay in Touch!
+## Stay in Touch! {-}
 
 If you are interested in hearing more from me about things that I'm working on (books, data
 science courses, podcast, etc.), you can do two things:
