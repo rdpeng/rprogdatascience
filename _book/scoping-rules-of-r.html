@@ -38,8 +38,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="getting-data-in-and-out-of-r.html">
-<link rel="next" href="using-textual-and-binary-formats-for-storing-data.html">
+<link rel="prev" href="functions.html">
+<link rel="next" href="loop-functions.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -324,113 +324,218 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="using-the-readr-package" class="section level1">
-<h1><span class="header-section-number">7</span> Using the <code>readr</code> Package</h1>
-<p>The <code>readr</code> package is recently developed by Hadley Wickham to deal with reading in large flat files quickly. The package provides replacements for functions like <code>read.table()</code> and <code>read.csv()</code>. The analogous functions in <code>readr</code> are <code>read_table()</code> and <code>read_csv()</code>. These functions are often <em>much</em> faster than their base R analogues and provide a few other nice features such as progress meters.</p>
-<p>For the most part, you can read use <code>read_table()</code> and <code>read_csv()</code> pretty much anywhere you might use <code>read.table()</code> and <code>read.csv()</code>. In addition, if there are non-fatal problems that occur while reading in the data, you will get a warning and the returned data frame will have some information about which rows/observations triggered the warning. This can be very helpful for “debugging” problems with your data before you get neck deep in data analysis.</p>
-<p>The importance of the <code>read_csv</code> function is perhaps better understood from an historical perspective. R’s built in <code>read.csv</code> function similarly reads CSV files, but the <code>read_csv</code> function in <code>readr</code> builds on that by removing some of the quirks and “gotchas” of <code>read.csv</code> as well as dramatically optimizing the speed with which it can read data into R. The <code>read_csv</code> function also adds some nice user-oriented features like a progress meter and a compact method for specifying column types.</p>
-<p>A typical call to <code>read_csv</code> will look as follows.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(readr)
-&gt;<span class="st"> </span>teams &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/team_standings.csv&quot;</span>)
-&gt;<span class="st"> </span>teams
-   Standing         Team
-<span class="dv">1</span>         <span class="dv">1</span>        Spain
-<span class="dv">2</span>         <span class="dv">2</span>  Netherlands
-<span class="dv">3</span>         <span class="dv">3</span>      Germany
-<span class="dv">4</span>         <span class="dv">4</span>      Uruguay
-<span class="dv">5</span>         <span class="dv">5</span>    Argentina
-<span class="dv">6</span>         <span class="dv">6</span>       Brazil
-<span class="dv">7</span>         <span class="dv">7</span>        Ghana
-<span class="dv">8</span>         <span class="dv">8</span>     Paraguay
-<span class="dv">9</span>         <span class="dv">9</span>        Japan
-<span class="dv">10</span>       <span class="dv">10</span>        Chile
-<span class="dv">11</span>       <span class="dv">11</span>     Portugal
-<span class="dv">12</span>       <span class="dv">12</span>          USA
-<span class="dv">13</span>       <span class="dv">13</span>      England
-<span class="dv">14</span>       <span class="dv">14</span>       Mexico
-<span class="dv">15</span>       <span class="dv">15</span>  South Korea
-<span class="dv">16</span>       <span class="dv">16</span>     Slovakia
-<span class="dv">17</span>       <span class="dv">17</span>  Ivory Coast
-<span class="dv">18</span>       <span class="dv">18</span>     Slovenia
-<span class="dv">19</span>       <span class="dv">19</span>  Switzerland
-<span class="dv">20</span>       <span class="dv">20</span> South Africa
-<span class="dv">21</span>       <span class="dv">21</span>    Australia
-<span class="dv">22</span>       <span class="dv">22</span>  New Zealand
-<span class="dv">23</span>       <span class="dv">23</span>       Serbia
-<span class="dv">24</span>       <span class="dv">24</span>      Denmark
-<span class="dv">25</span>       <span class="dv">25</span>       Greece
-<span class="dv">26</span>       <span class="dv">26</span>        Italy
-<span class="dv">27</span>       <span class="dv">27</span>      Nigeria
-<span class="dv">28</span>       <span class="dv">28</span>      Algeria
-<span class="dv">29</span>       <span class="dv">29</span>       France
-<span class="dv">30</span>       <span class="dv">30</span>     Honduras
-<span class="dv">31</span>       <span class="dv">31</span>     Cameroon
-<span class="dv">32</span>       <span class="dv">32</span>  North Korea</code></pre></div>
-<p>By default, <code>read_csv</code> will open a CSV file and read it in line-by-line. It will also (by default), read in the first few rows of the table in order to figure out the type of each column (i.e. integer, character, etc.). From the <code>read_csv</code> help page:</p>
+<div id="scoping-rules-of-r" class="section level1">
+<h1><span class="header-section-number">16</span> Scoping Rules of R</h1>
+<div id="a-diversion-on-binding-values-to-symbol" class="section level2">
+<h2><span class="header-section-number">16.1</span> A Diversion on Binding Values to Symbol</h2>
+<p><a href="https://youtu.be/ujdm01Vsrmo">Watch a video of this section</a></p>
+<p>How does R know which value to assign to which symbol? When I type</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>lm &lt;-<span class="st"> </span>function(x) { x *<span class="st"> </span>x }
+&gt;<span class="st"> </span>lm
+function(x) { x *<span class="st"> </span>x }</code></pre></div>
+<p>how does R know what value to assign to the symbol <code>lm</code>? Why doesn’t it give it the value of <code>lm</code> that is in the <code>stats</code> package?</p>
+<p>When R tries to bind a value to a symbol, it searches through a series of <code>environments</code> to find the appropriate value. When you are working on the command line and need to retrieve the value of an R object, the order in which things occur is roughly</p>
+<ol style="list-style-type: decimal">
+<li>Search the global environment (i.e. your workspace) for a symbol name matching the one requested.</li>
+<li>Search the namespaces of each of the packages on the search list</li>
+</ol>
+<p>The search list can be found by using the <code>search()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">search</span>()
+[<span class="dv">1</span>] <span class="st">&quot;.GlobalEnv&quot;</span>        <span class="st">&quot;package:stats&quot;</span>     <span class="st">&quot;package:graphics&quot;</span> 
+[<span class="dv">4</span>] <span class="st">&quot;package:grDevices&quot;</span> <span class="st">&quot;package:utils&quot;</span>     <span class="st">&quot;package:datasets&quot;</span> 
+[<span class="dv">7</span>] <span class="st">&quot;Autoloads&quot;</span>         <span class="st">&quot;package:base&quot;</span>     </code></pre></div>
+<p>The <em>global environment</em> or the user’s workspace is always the first element of the search list and the <code>base</code> package is always the last. For better or for worse, the order of the packages on the search list matters, particularly if there are multiple objects with the same name in different packages.</p>
+<p>Users can configure which packages get loaded on startup so if you are writing a function (or a package), you cannot assume that there will be a set list of packages available in a given order. When a user loads a package with <code>library()</code> the namespace of that package gets put in position 2 of the search list (by default) and everything else gets shifted down the list.</p>
+<p>Note that R has separate namespaces for functions and non-functions so it’s possible to have an object named <code>c</code> and a function named <code>c()</code>.</p>
+</div>
+<div id="scoping-rules" class="section level2">
+<h2><span class="header-section-number">16.2</span> Scoping Rules</h2>
+<p>The scoping rules for R are the main feature that make it different from the original S language (in case you care about that). This may seem like an esoteric aspect of R, but it’s one of its more interesting and useful features.</p>
+<p>The scoping rules of a language determine how a value is associated with a <em>free variable</em> in a function. R uses <a href="http://en.wikipedia.org/wiki/Scope_(computer_science)#Lexical_scope_vs._dynamic_scope"><em>lexical scoping</em></a> or <em>static scoping</em>. An alternative to lexical scoping is <em>dynamic scoping</em> which is implemented by some languages. Lexical scoping turns out to be particularly useful for simplifying statistical computations</p>
+<p>Related to the scoping rules is how R uses the <em>search list</em> to bind a value to a symbol</p>
+<p>Consider the following function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>f &lt;-<span class="st"> </span>function(x, y) {
++<span class="st">         </span>x^<span class="dv">2</span> +<span class="st"> </span>y /<span class="st"> </span>z
++<span class="st"> </span>}</code></pre></div>
+<p>This function has 2 formal arguments <code>x</code> and <code>y</code>. In the body of the function there is another symbol <code>z</code>. In this case <code>z</code> is called a <em>free variable</em>.</p>
+<p>The scoping rules of a language determine how values are assigned to free variables. Free variables are not formal arguments and are not local variables (assigned insided the function body).</p>
+<p>Lexical scoping in R means that</p>
 <blockquote>
-<p>If ‘NULL’, all column types will be imputed from the first 1000 rows on the input. This is convenient (and fast), but not robust. If the imputation fails, you’ll need to supply the correct types yourself.</p>
+<p><em>the values of free variables are searched for in the environment in which the function was defined</em>.</p>
 </blockquote>
-<p>You can specify the type of each column with the <code>col_types</code> argument.</p>
-<p>In general, it’s a good idea to specify the column types explicitly. This rules out any possible guessing errors on the part of <code>read_csv</code>. Also, specifying the column types explicitly provides a useful safety check in case anything about the dataset should change without you knowing about it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>teams &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/team_standings.csv&quot;</span>, <span class="dt">col_types =</span> <span class="st">&quot;cc&quot;</span>)</code></pre></div>
-<p>Note that the <code>col_types</code> argument accepts a compact representation. Here <code>&quot;cc&quot;</code> indicates that the first column is <code>character</code> and the second column is <code>character</code> (there are only two columns). Using the <code>col_types</code> argument is useful because often it is not easy to automatically figure out the type of a column by looking at a few rows (especially if a column has many missing values).</p>
-<p>The <code>read_csv</code> function will also read compressed files automatically. There is no need to decompress the file first or use the <code>gzfile</code> connection function. The following call reads a gzip-compressed CSV file containing download logs from the RStudio CRAN mirror.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>logs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/2016-07-19.csv.bz2&quot;</span>, <span class="dt">n_max =</span> <span class="dv">10</span>)
-Warning:<span class="st"> </span><span class="dv">11</span> parsing failures.
-row       col   expected   actual
-  <span class="dv">1</span> time      valid date <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">00</span>
-  <span class="dv">1</span> r_version valid date <span class="fl">3.3.0</span>   
-  <span class="dv">2</span> time      valid date <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">05</span>
-  <span class="dv">3</span> time      valid date <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">03</span>
-  <span class="dv">4</span> time      valid date <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">05</span>
-... ......... .......... ........
-.See <span class="kw">problems</span>(...) for more details.</code></pre></div>
-<p>Note that the warnings indicate that <code>read_csv</code> may have had some difficulty identifying the type of each column. This can be solved by using the <code>col_types</code> argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>logs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/2016-07-19.csv.bz2&quot;</span>, <span class="dt">col_types =</span> <span class="st">&quot;ccicccccci&quot;</span>, <span class="dt">n_max =</span> <span class="dv">10</span>)
-&gt;<span class="st"> </span>logs
-         date     time     size r_version r_arch         r_os    package
-<span class="dv">1</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">00</span>  <span class="dv">1887881</span>     <span class="fl">3.3.0</span> x86_64      mingw32 data.table
-<span class="dv">2</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">05</span>    <span class="dv">45436</span>     <span class="fl">3.3.1</span> x86_64      mingw32 assertthat
-<span class="dv">3</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">03</span> <span class="dv">14259016</span>     <span class="fl">3.3.1</span> x86_64      mingw32    stringi
-<span class="dv">4</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">05</span>  <span class="dv">1887881</span>     <span class="fl">3.3.1</span> x86_64      mingw32 data.table
-<span class="dv">5</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">06</span>   <span class="dv">389615</span>     <span class="fl">3.3.1</span> x86_64      mingw32    foreach
-<span class="dv">6</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">08</span>    <span class="dv">48842</span>     <span class="fl">3.3.1</span> x86_64    linux-gnu       tree
-<span class="dv">7</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">12</span>      <span class="dv">525</span>     <span class="fl">3.3.1</span> x86_64 darwin13<span class="fl">.4.0</span>   survival
-<span class="dv">8</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">08</span>  <span class="dv">3225980</span>     <span class="fl">3.3.1</span> x86_64      mingw32       Rcpp
-<span class="dv">9</span>  <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">09</span>   <span class="dv">556091</span>     <span class="fl">3.3.1</span> x86_64      mingw32     tibble
-<span class="dv">10</span> <span class="dv">2016-07-19</span> <span class="dv">22</span>:<span class="dv">00</span>:<span class="dv">10</span>   <span class="dv">151527</span>     <span class="fl">3.3.1</span> x86_64      mingw32   magrittr
-   version country ip_id
-<span class="dv">1</span>    <span class="fl">1.9.6</span>      US     <span class="dv">1</span>
-<span class="dv">2</span>      <span class="fl">0.1</span>      US     <span class="dv">2</span>
-<span class="dv">3</span>    <span class="fl">1.1.1</span>      DE     <span class="dv">3</span>
-<span class="dv">4</span>    <span class="fl">1.9.6</span>      US     <span class="dv">4</span>
-<span class="dv">5</span>    <span class="fl">1.4.3</span>      US     <span class="dv">4</span>
-<span class="dv">6</span>   <span class="fl">1.0</span><span class="dv">-37</span>      CO     <span class="dv">5</span>
-<span class="dv">7</span>   <span class="fl">2.39</span><span class="dv">-5</span>      US     <span class="dv">6</span>
-<span class="dv">8</span>   <span class="fl">0.12.5</span>      US     <span class="dv">2</span>
-<span class="dv">9</span>      <span class="fl">1.1</span>      US     <span class="dv">2</span>
-<span class="dv">10</span>     <span class="fl">1.5</span>      US     <span class="dv">2</span></code></pre></div>
-<p>You can specify the column type in a more detailed fashion by using the various <code>col_*</code> functions. For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a Date variable. If we wanted to just read in that first column, we could do</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>logdates &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/2016-07-19.csv.bz2&quot;</span>, 
-+<span class="st">                      </span><span class="dt">col_types =</span> <span class="kw">cols_only</span>(<span class="dt">date =</span> <span class="kw">col_date</span>()),
-+<span class="st">                      </span><span class="dt">n_max =</span> <span class="dv">10</span>)
-&gt;<span class="st"> </span>logdates
-         date
-<span class="dv">1</span>  <span class="dv">2016-07-19</span>
-<span class="dv">2</span>  <span class="dv">2016-07-19</span>
-<span class="dv">3</span>  <span class="dv">2016-07-19</span>
-<span class="dv">4</span>  <span class="dv">2016-07-19</span>
-<span class="dv">5</span>  <span class="dv">2016-07-19</span>
-<span class="dv">6</span>  <span class="dv">2016-07-19</span>
-<span class="dv">7</span>  <span class="dv">2016-07-19</span>
-<span class="dv">8</span>  <span class="dv">2016-07-19</span>
-<span class="dv">9</span>  <span class="dv">2016-07-19</span>
-<span class="dv">10</span> <span class="dv">2016-07-19</span></code></pre></div>
-<p>Now the <code>date</code> column is stored as a <code>Date</code> object which can be used for relevant date-related computations (for example, see the <code>lubridate</code> package).</p>
-<div class="rmdnote">
-<p>
-The <code>read_csv</code> function has a <code>progress</code> option that defaults to TRUE. This options provides a nice progress meter while the CSV file is being read. However, if you are using <code>read_csv</code> in a function, or perhaps embedding it in a loop, it’s probably best to set <code>progress = FALSE</code>.
-</p>
+<p>Okay then, what is an environment?</p>
+<p>An <em>environment</em> is a collection of (symbol, value) pairs, i.e. <code>x</code> is a symbol and <code>3.14</code> might be its value. Every environment has a parent environment and it is possible for an environment to have multiple “children”. The only environment without a parent is the <em>empty environment</em>.</p>
+<p>A function, together with an environment, makes up what is called a <em>closure</em> or <em>function closure</em>. Most of the time we don’t need to think too much about a function and its associated environment (making up the closure), but occasionally, this setup can be very useful. The function closure model can be used to create functions that “carry around” data with them.</p>
+<p>How do we associate a value to a free variable? There is a search process that occurs that goes as follows:</p>
+<ul>
+<li>If the value of a symbol is not found in the environment in which a function was defined, then the search is continued in the <em>parent environment</em>.</li>
+<li>The search continues down the sequence of parent environments until we hit the <em>top-level environment</em>; this usually the global environment (workspace) or the namespace of a package.</li>
+<li>After the top-level environment, the search continues down the search list until we hit the <em>empty environment</em>.</li>
+</ul>
+<p>If a value for a given symbol cannot be found once the empty environment is arrived at, then an error is thrown.</p>
+<p>One implication of this search process is that it can be affected by the number of packages you have attached to the search list. The more packages you have attached, the more symbols R has to sort through in order to assign a value. That said, you’d have to have a pretty large number of packages attached in order to notice a real difference in performance.</p>
+</div>
+<div id="lexical-scoping-why-does-it-matter" class="section level2">
+<h2><span class="header-section-number">16.3</span> Lexical Scoping: Why Does It Matter?</h2>
+<p><a href="https://youtu.be/yYzPhtF6--A">Watch a video of this section</a></p>
+<p>Typically, a function is defined in the global environment, so that the values of free variables are just found in the user’s workspace. This behavior is logical for most people and is usually the “right thing” to do. However, in R you can have functions defined <em>inside other functions</em> (languages like C don’t let you do this). Now things get interesting—in this case the environment in which a function is defined is the body of another function!</p>
+<p>Here is an example of a function that returns another function as its return value. Remember, in R functions are treated like any other object and so this is perfectly valid.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>make.power &lt;-<span class="st"> </span>function(n) {
++<span class="st">         </span>pow &lt;-<span class="st"> </span>function(x) {
++<span class="st">                 </span>x^n 
++<span class="st">         </span>}
++<span class="st">         </span>pow 
++<span class="st"> </span>}</code></pre></div>
+<p>The <code>make.power()</code> function is a kind of “constructor function” that can be used to construct other functions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>cube &lt;-<span class="st"> </span><span class="kw">make.power</span>(<span class="dv">3</span>)
+&gt;<span class="st"> </span>square &lt;-<span class="st"> </span><span class="kw">make.power</span>(<span class="dv">2</span>)
+&gt;<span class="st"> </span><span class="kw">cube</span>(<span class="dv">3</span>)
+[<span class="dv">1</span>] <span class="dv">27</span>
+&gt;<span class="st"> </span><span class="kw">square</span>(<span class="dv">3</span>)
+[<span class="dv">1</span>] <span class="dv">9</span></code></pre></div>
+<p>Let’s take a look at the <code>cube()</code> function’s code.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>cube
+function(x) {
+                x^n 
+        }
+&lt;environment:<span class="st"> </span><span class="dv">0x7fb3b68bfc68</span>&gt;</code></pre></div>
+<p>Notice that <code>cube()</code> has a free variable <code>n</code>. What is the value of <code>n</code> here? Well, its value is taken from the environment where the function was defined. When I defined the <code>cube()</code> function it was when I called <code>make.power(3)</code>, so the value of <code>n</code> at that time was 3.</p>
+<p>We can explore the environment of a function to see what objects are there and their values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">ls</span>(<span class="kw">environment</span>(cube))
+[<span class="dv">1</span>] <span class="st">&quot;n&quot;</span>   <span class="st">&quot;pow&quot;</span>
+&gt;<span class="st"> </span><span class="kw">get</span>(<span class="st">&quot;n&quot;</span>, <span class="kw">environment</span>(cube))
+[<span class="dv">1</span>] <span class="dv">3</span></code></pre></div>
+<p>We can also take a look at the <code>square()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">ls</span>(<span class="kw">environment</span>(square))
+[<span class="dv">1</span>] <span class="st">&quot;n&quot;</span>   <span class="st">&quot;pow&quot;</span>
+&gt;<span class="st"> </span><span class="kw">get</span>(<span class="st">&quot;n&quot;</span>, <span class="kw">environment</span>(square))
+[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
+</div>
+<div id="lexical-vs.dynamic-scoping" class="section level2">
+<h2><span class="header-section-number">16.4</span> Lexical vs. Dynamic Scoping</h2>
+<p>We can use the following example to demonstrate the difference between lexical and dynamic scoping rules.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="dv">10</span>
+&gt;<span class="st"> </span>
+<span class="er">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span>function(x) {
++<span class="st">         </span>y &lt;-<span class="st"> </span><span class="dv">2</span>
++<span class="st">         </span>y^<span class="dv">2</span> +<span class="st"> </span><span class="kw">g</span>(x)
++<span class="st"> </span>}
+&gt;<span class="st"> </span>
+<span class="er">&gt;</span><span class="st"> </span>g &lt;-<span class="st"> </span>function(x) { 
++<span class="st">         </span>x*y
++<span class="st"> </span>}</code></pre></div>
+<p>What is the value of the following expression?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>(<span class="dv">3</span>)</code></pre></div>
+<p>With lexical scoping the value of <code>y</code> in the function <code>g</code> is looked up in the environment in which the function was defined, in this case the global environment, so the value of <code>y</code> is 10. With dynamic scoping, the value of <code>y</code> is looked up in the environment from which the function was <em>called</em> (sometimes referred to as the <em>calling environment</em>). In R the calling environment is known as the <em>parent frame</em>. In this case, the value of <code>y</code> would be 2.</p>
+<p>When a function is <em>defined</em> in the global environment and is subsequently <em>called</em> from the global environment, then the defining environment and the calling environment are the same. This can sometimes give the appearance of dynamic scoping.</p>
+<p>Consider this example.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>g &lt;-<span class="st"> </span>function(x) { 
++<span class="st">         </span>a &lt;-<span class="st"> </span><span class="dv">3</span>
++<span class="st">         </span>x+a+y   
++<span class="st">         </span>## &#39;y&#39; is a free variable
++<span class="st"> </span>}
+&gt;<span class="st"> </span><span class="kw">g</span>(<span class="dv">2</span>)
+Error in <span class="kw">g</span>(<span class="dv">2</span>):<span class="st"> </span>object <span class="st">&#39;y&#39;</span> not found
+&gt;<span class="st"> </span>y &lt;-<span class="st"> </span><span class="dv">3</span>
+&gt;<span class="st"> </span><span class="kw">g</span>(<span class="dv">2</span>)
+[<span class="dv">1</span>] <span class="dv">8</span></code></pre></div>
+<p>Here, <code>y</code> is defined in the global environment, which also happens to be where the function <code>g()</code> is defined.</p>
+<p>There are numerous other languages that support lexical scoping, including</p>
+<ul>
+<li>Scheme</li>
+<li>Perl</li>
+<li>Python</li>
+<li>Common Lisp (all languages converge to Lisp, right?)</li>
+</ul>
+<p>Lexical scoping in R has consequences beyond how free variables are looked up. In particular, it’s the reason that all objects must be stored in memory in R. This is because all functions must carry a pointer to their respective defining environments, which could be <em>anywhere</em>. In the S language (R’s close cousin), free variables are always looked up in the global workspace, so everything can be stored on the disk because the “defining environment” of all functions is the same.</p>
+</div>
+<div id="application-optimization" class="section level2">
+<h2><span class="header-section-number">16.5</span> Application: Optimization</h2>
+<p><a href="https://youtu.be/GCNZrffYLFI">Watch a video of this section</a></p>
+<p><strong>NOTE</strong>: This section requires some knowledge of statistical inference and modeling. If you do not have such knowledge, feel free to skip this section.</p>
+<p>Why is any of this information about lexical scoping useful?</p>
+<p>Optimization routines in R like <code>optim()</code>, <code>nlm()</code>, and <code>optimize()</code> require you to pass a function whose argument is a vector of parameters (e.g. a log-likelihood, or a cost function). However, an objective function that needs to be minimized might depend on a host of other things besides its parameters (like data). When writing software which does optimization, it may also be desirable to allow the user to hold certain parameters fixed. The scoping rules of R allow you to abstract away much of the complexity involved in these kinds of problems.</p>
+<p>Here is an example of a “constructor” function that creates a negative log-likelihood function that can be minimized to find maximum likelihood estimates in a statistical model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>make.NegLogLik &lt;-<span class="st"> </span>function(data, <span class="dt">fixed =</span> <span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>)) {
++<span class="st">         </span>params &lt;-<span class="st"> </span>fixed
++<span class="st">         </span>function(p) {
++<span class="st">                 </span>params[!fixed] &lt;-<span class="st"> </span>p
++<span class="st">                 </span>mu &lt;-<span class="st"> </span>params[<span class="dv">1</span>]
++<span class="st">                 </span>sigma &lt;-<span class="st"> </span>params[<span class="dv">2</span>]
++<span class="st">                 </span>
++<span class="st">                 </span>## Calculate the Normal density
++<span class="st">                 </span>a &lt;-<span class="st"> </span>-<span class="fl">0.5</span>*<span class="kw">length</span>(data)*<span class="kw">log</span>(<span class="dv">2</span>*pi*sigma^<span class="dv">2</span>)
++<span class="st">                 </span>b &lt;-<span class="st"> </span>-<span class="fl">0.5</span>*<span class="kw">sum</span>((data-mu)^<span class="dv">2</span>) /<span class="st"> </span>(sigma^<span class="dv">2</span>)
++<span class="st">                 </span>-(a +<span class="st"> </span>b)
++<span class="st">         </span>} 
++<span class="st"> </span>}</code></pre></div>
+<p><strong>Note</strong>: Optimization functions in R <em>minimize</em> functions, so you need to use the negative log-likelihood.</p>
+<p>Now we can generate some data and then construct our negative log-likelihood.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">set.seed</span>(<span class="dv">1</span>)
+&gt;<span class="st"> </span>normals &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">2</span>)
+&gt;<span class="st"> </span>nLL &lt;-<span class="st"> </span><span class="kw">make.NegLogLik</span>(normals)
+&gt;<span class="st"> </span>nLL
+function(p) {
+                params[!fixed] &lt;-<span class="st"> </span>p
+                mu &lt;-<span class="st"> </span>params[<span class="dv">1</span>]
+                sigma &lt;-<span class="st"> </span>params[<span class="dv">2</span>]
+                
+                ## Calculate the Normal density
+                a &lt;-<span class="st"> </span>-<span class="fl">0.5</span>*<span class="kw">length</span>(data)*<span class="kw">log</span>(<span class="dv">2</span>*pi*sigma^<span class="dv">2</span>)
+                b &lt;-<span class="st"> </span>-<span class="fl">0.5</span>*<span class="kw">sum</span>((data-mu)^<span class="dv">2</span>) /<span class="st"> </span>(sigma^<span class="dv">2</span>)
+                -(a +<span class="st"> </span>b)
+        }
+&lt;environment:<span class="st"> </span><span class="dv">0x7fb3b3d9f1f8</span>&gt;
+<span class="er">&gt;</span><span class="st"> </span>
+<span class="er">&gt;</span><span class="st"> </span>## What&#39;s in the function environment?
+<span class="er">&gt;</span><span class="st"> </span><span class="kw">ls</span>(<span class="kw">environment</span>(nLL))   
+[<span class="dv">1</span>] <span class="st">&quot;data&quot;</span>   <span class="st">&quot;fixed&quot;</span>  <span class="st">&quot;params&quot;</span></code></pre></div>
+<p>Now that we have our <code>nLL()</code> function, we can try to minimize it with <code>optim()</code> to estimate the parameters.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">sigma =</span> <span class="dv">1</span>), nLL)$par
+      mu    sigma 
+<span class="fl">1.218239</span> <span class="fl">1.787343</span> </code></pre></div>
+<p>You can see that the algorithm converged and obtained an estimate of <code>mu</code> and <code>sigma</code>.</p>
+<p>We can also try to estimate one parameter while holding another parameter fixed. Here we fix <code>sigma</code> to be equal to 2.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>nLL &lt;-<span class="st"> </span><span class="kw">make.NegLogLik</span>(normals, <span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="dv">2</span>))
+&gt;<span class="st"> </span><span class="kw">optimize</span>(nLL, <span class="kw">c</span>(-<span class="dv">1</span>, <span class="dv">3</span>))$minimum
+[<span class="dv">1</span>] <span class="fl">1.217775</span></code></pre></div>
+<p>Because we now have a one-dimensional problem, we can use the simpler <code>optimize()</code> function rather than <code>optim()</code>.</p>
+<p>We can also try to estimate <code>sigma</code> while holding <code>mu</code> fixed at 1.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>nLL &lt;-<span class="st"> </span><span class="kw">make.NegLogLik</span>(normals, <span class="kw">c</span>(<span class="dv">1</span>, <span class="ot">FALSE</span>))
+&gt;<span class="st"> </span><span class="kw">optimize</span>(nLL, <span class="kw">c</span>(<span class="fl">1e-6</span>, <span class="dv">10</span>))$minimum
+[<span class="dv">1</span>] <span class="fl">1.800596</span></code></pre></div>
+</div>
+<div id="plotting-the-likelihood" class="section level2">
+<h2><span class="header-section-number">16.6</span> Plotting the Likelihood</h2>
+<p>Another nice feature that you can take advantage of is plotting the negative log-likelihood to see how peaked or flat it is.</p>
+<p>Here is the function when <code>mu</code> is fixed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Fix &#39;mu&#39; to be equalt o 1
+<span class="er">&gt;</span><span class="st"> </span>nLL &lt;-<span class="st"> </span><span class="kw">make.NegLogLik</span>(normals, <span class="kw">c</span>(<span class="dv">1</span>, <span class="ot">FALSE</span>))  
+&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">1.7</span>, <span class="fl">1.9</span>, <span class="dt">len =</span> <span class="dv">100</span>)
+&gt;<span class="st"> </span>
+<span class="er">&gt;</span><span class="st"> </span>## Evaluate &#39;nLL()&#39; at every point in &#39;x&#39;
+<span class="er">&gt;</span><span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">sapply</span>(x, nLL)    
+&gt;<span class="st"> </span><span class="kw">plot</span>(x, <span class="kw">exp</span>(-(y -<span class="st"> </span><span class="kw">min</span>(y))), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="images/nLLFixMu-1.png" width="672" /></p>
+<p>Here is the function when <code>sigma</code> is fixed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Fix &#39;sigma&#39; to be equal to 2
+<span class="er">&gt;</span><span class="st"> </span>nLL &lt;-<span class="st"> </span><span class="kw">make.NegLogLik</span>(normals, <span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="dv">2</span>))
+&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="dt">len =</span> <span class="dv">100</span>)
+&gt;<span class="st"> </span>
+<span class="er">&gt;</span><span class="st"> </span>## Evaluate &#39;nLL()&#39; at every point in &#39;x&#39;
+<span class="er">&gt;</span><span class="st"> </span>y &lt;-<span class="st"> </span><span class="kw">sapply</span>(x, nLL)     
+&gt;<span class="st"> </span><span class="kw">plot</span>(x, <span class="kw">exp</span>(-(y -<span class="st"> </span><span class="kw">min</span>(y))), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="images/nLLFixSigma-1.png" width="672" /></p>
+</div>
+<div id="summary-5" class="section level2">
+<h2><span class="header-section-number">16.7</span> Summary</h2>
+<ul>
+<li>Objective functions can be “built” which contain all of the necessary data for evaluating the function</li>
+<li>No need to carry around long argument lists — useful for interactive and exploratory work.</li>
+<li>Code can be simplified and cleaned up</li>
+<li>Reference: Robert Gentleman and Ross Ihaka (2000). “Lexical Scope and Statistical Computing,” <em>JCGS</em>, 9, 491–508.</li>
+</ul>
+
 </div>
 </div>
             </section>
@@ -438,8 +543,8 @@ The <code>read_csv</code> function has a <code>progress</code> option that defau
           </div>
         </div>
       </div>
-<a href="getting-data-in-and-out-of-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="using-textual-and-binary-formats-for-storing-data.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="loop-functions.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -466,7 +571,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/readwritedata.Rmd",
+"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/scoping.Rmd",
 "text": null
 },
 "download": null,
