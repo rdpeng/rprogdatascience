@@ -323,7 +323,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">15.1</span> Functions in R</h2>
 <p>Functions in R are “first class objects”, which means that they can be treated much like any other R object. Importantly,</p>
 <ul>
-<li><p>Functions can be passed as arguments to other functions. This is very handy for the various apply funtions, like <code>lapply()</code> and <code>sapply()</code>.</p></li>
+<li><p>Functions can be passed as arguments to other functions. This is very handy for the various apply functions, like <code>lapply()</code> and <code>sapply()</code>.</p></li>
 <li><p>Functions can be nested, so that you can define a function inside of another function</p></li>
 </ul>
 <p>If you’re familiar with common language like C, these features might appear a bit strange. However, they are really important in R and can be useful for data analysis.</p>
@@ -423,20 +423,20 @@ function (n, <span class="dt">mean =</span> <span class="dv">0</span>, <span cla
 <p>The following calls to the <code>sd()</code> function (which computes the empirical standard deviation of a vector of numbers) are all equivalent. Note that <code>sd()</code> has two arguments: <code>x</code> indicates the vector of numbers and <code>na.rm</code> is a logical indicating whether missing values should be removed or not.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Positional match first argument, default for &#39;na.rm&#39;
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">sd</span>(mydata)                     
-[<span class="dv">1</span>] <span class="fl">0.9722602</span>
+[<span class="dv">1</span>] <span class="fl">1.017586</span>
 &gt;<span class="st"> </span>## Specify &#39;x&#39; argument by name, default for &#39;na.rm&#39;
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">sd</span>(<span class="dt">x =</span> mydata)                 
-[<span class="dv">1</span>] <span class="fl">0.9722602</span>
+[<span class="dv">1</span>] <span class="fl">1.017586</span>
 &gt;<span class="st"> </span>## Specify both arguments by name
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">sd</span>(<span class="dt">x =</span> mydata, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>)  
-[<span class="dv">1</span>] <span class="fl">0.9722602</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">1.017586</span></code></pre></div>
 <p>When specifying the function arguments by name, it doesn’t matter in what order you specify them. In the example below, we specify the <code>na.rm</code> argument first, followed by <code>x</code>, even though <code>x</code> is the first argument defined in the function definition.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>## Specify both arguments by name
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">sd</span>(<span class="dt">na.rm =</span> <span class="ot">FALSE</span>, <span class="dt">x =</span> mydata)     
-[<span class="dv">1</span>] <span class="fl">0.9722602</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">1.017586</span></code></pre></div>
 <p>You can mix positional matching with matching by name. When an argument is matched by name, it is “taken out” of the argument list and the remaining unnamed arguments are matched in the order that they are listed in the function definition.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sd</span>(<span class="dt">na.rm =</span> <span class="ot">FALSE</span>, mydata)
-[<span class="dv">1</span>] <span class="fl">0.9722602</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">1.017586</span></code></pre></div>
 <p>Here, the <code>mydata</code> object is assigned to the <code>x</code> argument, because it’s the only argument not yet specified.</p>
 <p>Below is the argument list for the <code>lm()</code> function, which fits linear models to a dataset.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">args</span>(lm)
@@ -493,7 +493,7 @@ Error in <span class="kw">print</span>(b):<span class="st"> </span>argument <spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>mean
 function (x, ...) 
 <span class="kw">UseMethod</span>(<span class="st">&quot;mean&quot;</span>)
-&lt;bytecode:<span class="st"> </span><span class="dv">0x7ff14e8fcd88</span>&gt;
+&lt;bytecode:<span class="st"> </span><span class="dv">0x7fe4d9156190</span>&gt;
 <span class="er">&lt;</span>environment:<span class="st"> </span>namespace:base&gt;</code></pre></div>
 <p>The <code>...</code> argument is necessary when the number of arguments passed to the function cannot be known in advance. This is clear in functions like <code>paste()</code> and <code>cat()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">args</span>(paste)

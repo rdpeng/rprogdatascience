@@ -24,7 +24,7 @@ user the aspects of the code that are important or are most relevant.
 Functions in R are "first class objects", which means that they can be
 treated much like any other R object. Importantly,
 
-- Functions can be passed as arguments to other functions. This is very handy for the various apply funtions, like `lapply()` and `sapply()`.
+- Functions can be passed as arguments to other functions. This is very handy for the various apply functions, like `lapply()` and `sapply()`.
 
 - Functions can be nested, so that you can define a function inside of
   another function
@@ -186,13 +186,13 @@ The following calls to the `sd()` function (which computes the empirical standar
 ```r
 > ## Positional match first argument, default for 'na.rm'
 > sd(mydata)                     
-[1] 0.9722602
+[1] 1.017586
 > ## Specify 'x' argument by name, default for 'na.rm'
 > sd(x = mydata)                 
-[1] 0.9722602
+[1] 1.017586
 > ## Specify both arguments by name
 > sd(x = mydata, na.rm = FALSE)  
-[1] 0.9722602
+[1] 1.017586
 ```
 
 When specifying the function arguments by name, it doesn't matter in what order you specify them. In the example below, we specify the `na.rm` argument first, followed by `x`, even though `x` is the first argument defined in the function definition.
@@ -201,7 +201,7 @@ When specifying the function arguments by name, it doesn't matter in what order 
 ```r
 > ## Specify both arguments by name
 > sd(na.rm = FALSE, x = mydata)     
-[1] 0.9722602
+[1] 1.017586
 ```
 
 You can mix positional matching with matching by name. When an argument is matched by name, it is “taken out” of the argument list and the remaining unnamed arguments are matched in the order that they are listed in the function definition.
@@ -209,7 +209,7 @@ You can mix positional matching with matching by name. When an argument is match
 
 ```r
 > sd(na.rm = FALSE, mydata)
-[1] 0.9722602
+[1] 1.017586
 ```
 
 Here, the `mydata` object is assigned to the `x` argument, because it's the only argument not yet specified.
@@ -308,7 +308,7 @@ Generic functions use `...` so that extra arguments can be passed to methods.
 > mean
 function (x, ...) 
 UseMethod("mean")
-<bytecode: 0x7ff14e8fcd88>
+<bytecode: 0x7fe4d9156190>
 <environment: namespace:base>
 ```
 
