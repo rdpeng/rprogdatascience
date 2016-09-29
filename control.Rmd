@@ -328,6 +328,6 @@ for(i in 1:100) {
 - Infinite loops should generally be avoided, even if (you believe)
   they are theoretically correct.
 
-- Control structures mentiond here are primarily useful for writing
+- Control structures mentioned here are primarily useful for writing
   programs; for command-line interactive work, the "apply" functions
   are more useful.
