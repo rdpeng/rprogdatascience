@@ -2,7 +2,7 @@
 
 
 
-Many computations in R can be made faster by the use of parallel computation. Generally, parallel computation is the simultaneous execution of different pieces of a larger computation across multiple computing processors or cores. The basic idea is that if you can execute a computation in {$$}X{/$$} seconds on a single processor, then you should be able to execute it in {$$}X/n{/$$} seconds on {$$}n{/$$} proessors. Such a speed-up is generally not possible because of overhead and various barriers to splitting up a problem into {$$}n{/$$} pieces, but it is often possible to come close in simple problems. 
+Many computations in R can be made faster by the use of parallel computation. Generally, parallel computation is the simultaneous execution of different pieces of a larger computation across multiple computing processors or cores. The basic idea is that if you can execute a computation in {$$}X{/$$} seconds on a single processor, then you should be able to execute it in {$$}X/n{/$$} seconds on {$$}n{/$$} processors. Such a speed-up is generally not possible because of overhead and various barriers to splitting up a problem into {$$}n{/$$} pieces, but it is often possible to come close in simple problems. 
 
 It used to be that parallel computation was squarely in the domain of "high-performance computing", where expensive machines were linked together via high-speed networking to create large clusters of computers. In those kinds of settings, it was important to have sophisticated software to manage the communication of data between different computers in the cluster. Parallel computing in that setting was a highly tuned, and carefully customized operation and not something you could just saunter into.
 
@@ -97,7 +97,7 @@ The first thing you might want to check with the `parallel` package is if your c
 ```r
 > library(parallel)
 > detectCores()
-[1] 24
+[1] 4
 ```
 
 The computer on which this is being written is a circa 2013 Mac Pro with 2 physical CPUs, each with 6 cores. Therefore, there are 12 physical cores. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 24 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores.
@@ -105,7 +105,7 @@ The computer on which this is being written is a circa 2013 Mac Pro with 2 physi
 
 ```r
 > detectCores(logical = FALSE)  ## Same answer as before on some systems?
-[1] 12
+[1] 2
 ```
 
 In general, the information from `detectCores()` should be used cautiously as obtaining this kind of information from Unix-like operating systems is not always reliable. If you are going down this road, it's best if you get to know your hardware better in order to have an understanding of how many CPUs/cores are available to you.
@@ -150,10 +150,10 @@ One thing we might want to do is compute a summary statistic across each of the 
 + })
 > s
    user  system elapsed 
-  0.053   0.006   0.060 
+  0.048   0.005   0.063 
 ```
 
-Note that in the `system.time()` output, the `user` time (0.053 seconds) and the `elapsed` time (0.06 seconds) are roughly the same, which is what we would expect because there was no parallelization.
+Note that in the `system.time()` output, the `user` time (0.048 seconds) and the `elapsed` time (0.063 seconds) are roughly the same, which is what we would expect because there was no parallelization.
 
 The equivalent call using `mclapply()` would be
 
@@ -166,7 +166,7 @@ The equivalent call using `mclapply()` would be
 + })
 > s
    user  system elapsed 
-  0.131   0.188   0.044 
+  0.140   0.159   0.110 
 ```
 
 Here, I chose to use 24 cores, just to see what would happen. You'll notice that the the `elapsed` time is now much less than the `user` time. However, in this case, the `elapsed` time is NOT 1/24th of the `user` time, which is what we might expect with 24 cores if there were a perfect performance gain from parallelization. R keeps track of how much time is spent in the main process and how much is spent in any child processes.
@@ -178,7 +178,7 @@ user.self
     0.008 
 > s["user.child"] ## Child processes
 user.child 
-     0.123 
+     0.132 
 ```
 
 In the call to `mclapply()` you can see that virtually all of the `user` time is spent in the child processes. The total `user` time is the sum of the `self` and `child` times. 
@@ -318,11 +318,11 @@ Generating random numbers in a parallel environment warrants caution because it'
 + }, mc.cores = 5)
 > str(r)
 List of 5
- $ : num [1:3] 1.427 0.187 -0.101
- $ : num [1:3] 0.0337 0.9968 -0.5766
- $ : num [1:3] 0.269 1.231 -0.45
- $ : num [1:3] -0.781 -0.414 1.057
- $ : num [1:3] 0.3636 0.0465 -0.4325
+ $ : num [1:3] -0.395 0.173 -1.736
+ $ : num [1:3] 1.964 1.955 0.999
+ $ : num [1:3] 1.55 -1.198 -0.306
+ $ : num [1:3] -1.988 0.361 0.612
+ $ : num [1:3] 0.638 2.161 -0.288
 ```
 
 However, the above expression is not **reproducible** because the next time you run it, you will get a different set of random numbers. You cannot simply call `set.seed()` before running the expression as you might in a non-parallel version of the code. 

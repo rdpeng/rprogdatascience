@@ -128,7 +128,7 @@ Let's take a look at the `cube()` function's code.
 function(x) {
                 x^n 
         }
-<environment: 0x7ffeb46a59f0>
+<environment: 0x7ff460527478>
 ~~~~~~~~
 
 Notice that `cube()` has a free variable `n`. What is the value of `n` here? Well, its value is taken from the environment where the function was defined. When I defined the `cube()` function it was when I called `make.power(3)`, so the value of `n` at that time was 3.
@@ -268,7 +268,7 @@ function(p) {
                 b <- -0.5*sum((data-mu)^2) / (sigma^2)
                 -(a + b)
         }
-<environment: 0x7ffeb4c59070>
+<environment: 0x7ff4602a6d18>
 > 
 > ## What's in the function environment?
 > ls(environment(nLL))   

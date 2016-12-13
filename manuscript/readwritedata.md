@@ -212,40 +212,26 @@ A typical call to `read_csv` will look as follows.
 ~~~~~~~~
 > library(readr)
 > teams <- read_csv("data/team_standings.csv")
+Parsed with column specification:
+cols(
+  Standing = col_integer(),
+  Team = col_character()
+)
 > teams
-   Standing         Team
-1         1        Spain
-2         2  Netherlands
-3         3      Germany
-4         4      Uruguay
-5         5    Argentina
-6         6       Brazil
-7         7        Ghana
-8         8     Paraguay
-9         9        Japan
-10       10        Chile
-11       11     Portugal
-12       12          USA
-13       13      England
-14       14       Mexico
-15       15  South Korea
-16       16     Slovakia
-17       17  Ivory Coast
-18       18     Slovenia
-19       19  Switzerland
-20       20 South Africa
-21       21    Australia
-22       22  New Zealand
-23       23       Serbia
-24       24      Denmark
-25       25       Greece
-26       26        Italy
-27       27      Nigeria
-28       28      Algeria
-29       29       France
-30       30     Honduras
-31       31     Cameroon
-32       32  North Korea
+# A tibble: 32 × 2
+   Standing        Team
+      <int>       <chr>
+1         1       Spain
+2         2 Netherlands
+3         3     Germany
+4         4     Uruguay
+5         5   Argentina
+6         6      Brazil
+7         7       Ghana
+8         8    Paraguay
+9         9       Japan
+10       10       Chile
+# ... with 22 more rows
 ~~~~~~~~
 
 By default, `read_csv` will open a CSV file and read it in line-by-line. It will also (by default), read in the first few rows of the table in order to figure out the type of each column (i.e. integer, character, etc.). From the `read_csv` help page:
@@ -270,15 +256,19 @@ The `read_csv` function will also read compressed files automatically. There is 
 {line-numbers=off}
 ~~~~~~~~
 > logs <- read_csv("data/2016-07-19.csv.bz2", n_max = 10)
-Warning: 11 parsing failures.
-row       col   expected   actual
-  1 time      valid date 22:00:00
-  1 r_version valid date 3.3.0   
-  2 time      valid date 22:00:05
-  3 time      valid date 22:00:03
-  4 time      valid date 22:00:05
-... ......... .......... ........
-.See problems(...) for more details.
+Parsed with column specification:
+cols(
+  date = col_date(format = ""),
+  time = col_time(format = ""),
+  size = col_integer(),
+  r_version = col_character(),
+  r_arch = col_character(),
+  r_os = col_character(),
+  package = col_character(),
+  version = col_character(),
+  country = col_character(),
+  ip_id = col_integer()
+)
 ~~~~~~~~
 Note that the warnings indicate that `read_csv` may have had some difficulty identifying the type of each column. This can be solved by using the `col_types` argument.
 
@@ -287,7 +277,9 @@ Note that the warnings indicate that `read_csv` may have had some difficulty ide
 ~~~~~~~~
 > logs <- read_csv("data/2016-07-19.csv.bz2", col_types = "ccicccccci", n_max = 10)
 > logs
+# A tibble: 10 × 10
          date     time     size r_version r_arch         r_os    package
+        <chr>    <chr>    <int>     <chr>  <chr>        <chr>      <chr>
 1  2016-07-19 22:00:00  1887881     3.3.0 x86_64      mingw32 data.table
 2  2016-07-19 22:00:05    45436     3.3.1 x86_64      mingw32 assertthat
 3  2016-07-19 22:00:03 14259016     3.3.1 x86_64      mingw32    stringi
@@ -298,17 +290,7 @@ Note that the warnings indicate that `read_csv` may have had some difficulty ide
 8  2016-07-19 22:00:08  3225980     3.3.1 x86_64      mingw32       Rcpp
 9  2016-07-19 22:00:09   556091     3.3.1 x86_64      mingw32     tibble
 10 2016-07-19 22:00:10   151527     3.3.1 x86_64      mingw32   magrittr
-   version country ip_id
-1    1.9.6      US     1
-2      0.1      US     2
-3    1.1.1      DE     3
-4    1.9.6      US     4
-5    1.4.3      US     4
-6   1.0-37      CO     5
-7   2.39-5      US     6
-8   0.12.5      US     2
-9      1.1      US     2
-10     1.5      US     2
+# ... with 3 more variables: version <chr>, country <chr>, ip_id <int>
 ~~~~~~~~
 
 You can specify the column type in a more detailed fashion by using the various `col_*` functions. For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a Date variable. If we wanted to just read in that first column, we could do
@@ -320,7 +302,9 @@ You can specify the column type in a more detailed fashion by using the various 
 +                      col_types = cols_only(date = col_date()),
 +                      n_max = 10)
 > logdates
+# A tibble: 10 × 1
          date
+       <date>
 1  2016-07-19
 2  2016-07-19
 3  2016-07-19
@@ -504,7 +488,7 @@ vector coded in hexadecimal format.
 ~~~~~~~~
 > x <- list(1, 2, 3)
 > serialize(x, NULL)
- [1] 58 0a 00 00 00 02 00 03 03 01 00 02 03 00 00 00 00 13 00 00 00 03 00
+ [1] 58 0a 00 00 00 02 00 03 03 02 00 02 03 00 00 00 00 13 00 00 00 03 00
 [24] 00 00 0e 00 00 00 01 3f f0 00 00 00 00 00 00 00 00 00 0e 00 00 00 01
 [47] 40 00 00 00 00 00 00 00 00 00 00 0e 00 00 00 01 40 08 00 00 00 00 00
 [70] 00

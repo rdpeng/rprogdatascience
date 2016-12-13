@@ -437,10 +437,9 @@ Finally, we compute summary statistics for each year in the data frame with the 
 > summarize(years, pm25 = mean(pm25, na.rm = TRUE), 
 +           o3 = max(o3tmean2, na.rm = TRUE), 
 +           no2 = median(no2tmean2, na.rm = TRUE))
-Source: local data frame [19 x 4]
-
+# A tibble: 19 × 4
     year     pm25       o3      no2
-   (dbl)    (dbl)    (dbl)    (dbl)
+   <dbl>    <dbl>    <dbl>    <dbl>
 1   1987      NaN 62.96966 23.49369
 2   1988      NaN 61.67708 24.52296
 3   1989      NaN 59.72727 26.14062
@@ -490,10 +489,9 @@ Finally, we can compute the mean of `o3` and `no2` within quintiles of `pm25`.
 ~~~~~~~~
 > summarize(quint, o3 = mean(o3tmean2, na.rm = TRUE), 
 +           no2 = mean(no2tmean2, na.rm = TRUE))
-Source: local data frame [6 x 3]
-
+# A tibble: 6 × 3
    pm25.quint       o3      no2
-       (fctr)    (dbl)    (dbl)
+       <fctr>    <dbl>    <dbl>
 1   (1.7,8.7] 21.66401 17.99129
 2  (8.7,12.4] 20.38248 22.13004
 3 (12.4,16.7] 20.66160 24.35708
@@ -537,10 +535,9 @@ That can be done with the following sequence in a single R expression.
 +         group_by(pm25.quint) %>% 
 +         summarize(o3 = mean(o3tmean2, na.rm = TRUE), 
 +                   no2 = mean(no2tmean2, na.rm = TRUE))
-Source: local data frame [6 x 3]
-
+# A tibble: 6 × 3
    pm25.quint       o3      no2
-       (fctr)    (dbl)    (dbl)
+       <fctr>    <dbl>    <dbl>
 1   (1.7,8.7] 21.66401 17.99129
 2  (8.7,12.4] 20.38248 22.13004
 3 (12.4,16.7] 20.66160 24.35708
@@ -564,10 +561,9 @@ Another example might be computing the average pollutant level by month. This co
 +         summarize(pm25 = mean(pm25, na.rm = TRUE), 
 +                   o3 = max(o3tmean2, na.rm = TRUE), 
 +                   no2 = median(no2tmean2, na.rm = TRUE))
-Source: local data frame [12 x 4]
-
+# A tibble: 12 × 4
    month     pm25       o3      no2
-   (dbl)    (dbl)    (dbl)    (dbl)
+   <dbl>    <dbl>    <dbl>    <dbl>
 1      1 17.76996 28.22222 25.35417
 2      2 20.37513 37.37500 26.78034
 3      3 17.40818 39.05000 26.76984
