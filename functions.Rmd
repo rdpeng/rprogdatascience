@@ -26,7 +26,7 @@ user the aspects of the code that are important or are most relevant.
 Functions in R are "first class objects", which means that they can be
 treated much like any other R object. Importantly,
 
-- Functions can be passed as arguments to other functions. This is very handy for the various apply funtions, like `lapply()` and `sapply()`.
+- Functions can be passed as arguments to other functions. This is very handy for the various apply functions, like `lapply()` and `sapply()`.
 
 - Functions can be nested, so that you can define a function inside of
   another function
