@@ -119,8 +119,9 @@ homicides[859]
 
 Here we can see that the word "shooting" appears in the narrative text that accompanies the data, but the ultimate cause of death was in fact blunt force. 
 
-A> When developing a regular expression to extract entries from a large dataset, it's important that you understand the formatting of the dataset well enough so that you can develop a specific expression that doesn't accidentally grep data out of context.
-
+```{block,type="rmdwarning"}
+When developing a regular expression to extract entries from a large dataset, it's important that you understand the formatting of the dataset well enough so that you can develop a specific expression that doesn't accidentally grep data out of context.
+```
 
 Sometimes we want to identify elements of a character vector that match a pattern, but instead of returning their indices we want the actual values that satisfy the match. For example, we may want to identify all of the states in the United States whose names start with "New".
 
