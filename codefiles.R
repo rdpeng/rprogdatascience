@@ -1,4 +1,4 @@
-#!/Users/rdpeng/bin/Rscript
+#!/usr/local/bin/Rscript
 
 library(knitr)
 
