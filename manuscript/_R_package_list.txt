@@ -1,0 +1,6 @@
+boot
+datasets
+dplyr
+knitr
+parallel
+readr
