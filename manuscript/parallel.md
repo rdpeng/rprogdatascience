@@ -100,7 +100,7 @@ The first thing you might want to check with the `parallel` package is if your c
 [1] 4
 ```
 
-The computer on which this is being written is a circa 2013 Mac Pro with 2 physical CPUs, each with 6 cores. Therefore, there are 12 physical cores. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 24 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores.
+The computer on which this is being written is a circa 2016 MacBook Pro (with Touch Bar) with 2 physical CPUs. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 4 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores.
 
 
 ```r
@@ -150,10 +150,10 @@ One thing we might want to do is compute a summary statistic across each of the 
 + })
 > s
    user  system elapsed 
-  0.048   0.005   0.063 
+  0.044   0.004   0.049 
 ```
 
-Note that in the `system.time()` output, the `user` time (0.048 seconds) and the `elapsed` time (0.063 seconds) are roughly the same, which is what we would expect because there was no parallelization.
+Note that in the `system.time()` output, the `user` time (0.044 seconds) and the `elapsed` time (0.049 seconds) are roughly the same, which is what we would expect because there was no parallelization.
 
 The equivalent call using `mclapply()` would be
 
@@ -162,23 +162,25 @@ The equivalent call using `mclapply()` would be
 > s <- system.time({
 +         mn <- mclapply(specdata, function(df) {
 +                 quantile(df$sulfate, 0.9, na.rm = TRUE)
-+         }, mc.cores = 24)
++         }, mc.cores = 4)
 + })
 > s
    user  system elapsed 
-  0.140   0.159   0.110 
+  0.076   0.061   0.059 
 ```
 
-Here, I chose to use 24 cores, just to see what would happen. You'll notice that the the `elapsed` time is now much less than the `user` time. However, in this case, the `elapsed` time is NOT 1/24th of the `user` time, which is what we might expect with 24 cores if there were a perfect performance gain from parallelization. R keeps track of how much time is spent in the main process and how much is spent in any child processes.
+You'll notice that the the `elapsed` time is now less than the `user` time. However, in general, the `elapsed` time will not be 1/4th of the `user` time, which is what we might expect with 4 cores if there were a perfect performance gain from parallelization. 
+
+R keeps track of how much time is spent in the main process and how much is spent in any child processes.
 
 
 ```r
 > s["user.self"]  ## Main process
 user.self 
-    0.008 
+    0.003 
 > s["user.child"] ## Child processes
 user.child 
-     0.132 
+     0.073 
 ```
 
 In the call to `mclapply()` you can see that virtually all of the `user` time is spent in the child processes. The total `user` time is the sum of the `self` and `child` times. 
@@ -318,11 +320,11 @@ Generating random numbers in a parallel environment warrants caution because it'
 + }, mc.cores = 5)
 > str(r)
 List of 5
- $ : num [1:3] -0.395 0.173 -1.736
- $ : num [1:3] 1.964 1.955 0.999
- $ : num [1:3] 1.55 -1.198 -0.306
- $ : num [1:3] -1.988 0.361 0.612
- $ : num [1:3] 0.638 2.161 -0.288
+ $ : num [1:3] 1.783 -1.232 -0.191
+ $ : num [1:3] -0.3759 0.0314 -2.8895
+ $ : num [1:3] 0.248 0.661 -0.991
+ $ : num [1:3] -0.275 -1.088 -0.29
+ $ : num [1:3] 0.58 -0.685 -0.535
 ```
 
 However, the above expression is not **reproducible** because the next time you run it, you will get a different set of random numbers. You cannot simply call `set.seed()` before running the expression as you might in a non-parallel version of the code. 
@@ -336,14 +338,14 @@ The `parallel` package provides a way to reproducibly generate random numbers in
 > set.seed(1)
 > r <- mclapply(1:5, function(i) {
 +         rnorm(3)
-+ }, mc.cores = 5)
++ }, mc.cores = 4)
 > str(r)
 List of 5
  $ : num [1:3] -0.485 -0.626 -0.873
  $ : num [1:3] -1.86 -1.825 -0.995
  $ : num [1:3] 1.177 1.472 -0.988
  $ : num [1:3] 0.984 1.291 0.459
- $ : num [1:3] -0.621 -1.221 1.541
+ $ : num [1:3] 1.43 -1.137 0.844
 ```
 
 Running the above code twice will generate the same random numbers in each of the sub-processes.
@@ -357,11 +359,11 @@ Now we can run our parallel bootstrap in a reproducible way.
 > med.boot <- mclapply(1:5000, function(i) {
 +         xnew <- sample(sulf, replace = TRUE)
 +         median(xnew)
-+ }, mc.cores = 24)
++ }, mc.cores = 4)
 > med.boot <- unlist(med.boot)  ## Collapse list into vector
 > quantile(med.boot, c(0.025, 0.975))
- 2.5% 97.5% 
- 2.70  3.46 
+  2.5%  97.5% 
+2.6995 3.4700 
 ```
 
 A> Although I've rarely seen it done in practice (including in my own code), it's a good idea to explicitly set the random number generator via `RNGkind()`, in addition to setting the seed with `set.seed()`. This way, you can be sure that the appropriate random number generator is being used every time and your code will be reproducible even on a system where the default generator has been changed.
@@ -373,7 +375,7 @@ For bootstrapping in particular, you can use the `boot` package to do most of th
 
 ```r
 > library(boot)
-> b <- boot(sulf, function(x, i) median(x[i]), R = 5000, parallel = "multicore", ncpus = 24)
+> b <- boot(sulf, function(x, i) median(x[i]), R = 5000, parallel = "multicore", ncpus = 4)
 > boot.ci(b, type = "perc")
 BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
 Based on 5000 bootstrap replicates
@@ -391,11 +393,11 @@ Calculations and Intervals on Original Scale
 
 Using the forking mechanism on your computer is one way to execute parallel computation but it's not the only way that the `parallel` package offers. Another way to build a "cluster" using the multiple cores on your computer is via *sockets*. A [socket](https://en.wikipedia.org/wiki/Network_socket) is simply a mechanism with which multiple processes or applications running on your computer (or different computers, for that matter) can communicate with each other. With parallel computation, data and results need to be passed back and forth between the parent and child processes and sockets can be used for that purpose.
 
-Building a socket cluster is simple to do in R with the `makeCluster()` function. Here I'm initializing a cluster with 24 components.
+Building a socket cluster is simple to do in R with the `makeCluster()` function. Here I'm initializing a cluster with 4 components.
 
 
 ```r
-> cl <- makeCluster(24)
+> cl <- makeCluster(4)
 ```
 
 The `cl` object is an abstraction of the entire cluster and is what we'll use to indicate to the various cluster functions that we want to do parallel computation.
@@ -410,7 +412,7 @@ To do an `lapply()` operation over a socket cluster we can use the `parLapply()`
 +         xnew <- sample(sulf, replace = TRUE)
 +         median(xnew)
 + })
-Error in checkForRemoteErrors(val): 24 nodes produced errors; first error: object 'sulf' not found
+Error in checkForRemoteErrors(val): 4 nodes produced errors; first error: object 'sulf' not found
 ```
 
 You'll notice, unfortunately, that there's an error in running this code. The reason is that while we have loaded the sulfate data into our R session, the data is not available to the independent child processes that have been spawned by the `makeCluster()` function. The data, and any other information that the child process will need to execute your code, needs to be **exported** to the child process from the parent process via the `clusterExport()` function. The need to export data is a key difference in behavior between the "multicore" approach and the "socket" approach.
@@ -433,7 +435,7 @@ Once the data have been exported to the child processes, we can run our bootstra
 > med.boot <- unlist(med.boot)  ## Collapse list into vector
 > quantile(med.boot, c(0.025, 0.975))
  2.5% 97.5% 
- 2.70  3.47 
+ 2.70  3.46 
 ```
 
 Once you've finished working with your cluster, it's good to clean up and stop the cluster child processes (quitting R will also stop all of the child processes).
