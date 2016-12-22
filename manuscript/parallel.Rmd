@@ -104,7 +104,7 @@ library(parallel)
 detectCores()
 ```
 
-The computer on which this is being written is a circa 2013 Mac Pro with 2 physical CPUs, each with 6 cores. Therefore, there are 12 physical cores. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 24 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores.
+The computer on which this is being written is a circa 2016 MacBook Pro (with Touch Bar) with 2 physical CPUs. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 4 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores.
 
 ```{r}
 detectCores(logical = FALSE)  ## Same answer as before on some systems?
@@ -132,7 +132,7 @@ We will use as a second (slightly more realistic) example processing data from m
 
 Here we have data on ambient concentrations of sulfate particulate matter (PM) and nitrate PM from 332 monitors around the United States. First, we can read in the data via a simple call to `lapply()`.
 
-```{r,cache = TRUE}
+```{r}
 infiles <- dir("specdata", full.names = TRUE)
 specdata <- lapply(infiles, read.csv)
 ```
@@ -158,12 +158,14 @@ The equivalent call using `mclapply()` would be
 s <- system.time({
         mn <- mclapply(specdata, function(df) {
                 quantile(df$sulfate, 0.9, na.rm = TRUE)
-        }, mc.cores = 24)
+        }, mc.cores = 4)
 })
 s
 ```
 
-Here, I chose to use 24 cores, just to see what would happen. You'll notice that the the `elapsed` time is now much less than the `user` time. However, in this case, the `elapsed` time is NOT 1/24th of the `user` time, which is what we might expect with 24 cores if there were a perfect performance gain from parallelization. R keeps track of how much time is spent in the main process and how much is spent in any child processes.
+You'll notice that the the `elapsed` time is now less than the `user` time. However, in general, the `elapsed` time will not be 1/4th of the `user` time, which is what we might expect with 4 cores if there were a perfect performance gain from parallelization. 
+
+R keeps track of how much time is spent in the main process and how much is spent in any child processes.
 
 ```{r}
 s["user.self"]  ## Main process
@@ -283,7 +285,7 @@ RNGkind("L'Ecuyer-CMRG")
 set.seed(1)
 r <- mclapply(1:5, function(i) {
         rnorm(3)
-}, mc.cores = 5)
+}, mc.cores = 4)
 str(r)
 ```
 
@@ -297,7 +299,7 @@ set.seed(1)
 med.boot <- mclapply(1:5000, function(i) {
         xnew <- sample(sulf, replace = TRUE)
         median(xnew)
-}, mc.cores = 24)
+}, mc.cores = 4)
 med.boot <- unlist(med.boot)  ## Collapse list into vector
 quantile(med.boot, c(0.025, 0.975))
 ```
@@ -312,7 +314,7 @@ For bootstrapping in particular, you can use the `boot` package to do most of th
 
 ```{r}
 library(boot)
-b <- boot(sulf, function(x, i) median(x[i]), R = 5000, parallel = "multicore", ncpus = 24)
+b <- boot(sulf, function(x, i) median(x[i]), R = 5000, parallel = "multicore", ncpus = 4)
 boot.ci(b, type = "perc")
 ```
 
@@ -320,10 +322,10 @@ boot.ci(b, type = "perc")
 
 Using the forking mechanism on your computer is one way to execute parallel computation but it's not the only way that the `parallel` package offers. Another way to build a "cluster" using the multiple cores on your computer is via *sockets*. A [socket](https://en.wikipedia.org/wiki/Network_socket) is simply a mechanism with which multiple processes or applications running on your computer (or different computers, for that matter) can communicate with each other. With parallel computation, data and results need to be passed back and forth between the parent and child processes and sockets can be used for that purpose.
 
-Building a socket cluster is simple to do in R with the `makeCluster()` function. Here I'm initializing a cluster with 24 components.
+Building a socket cluster is simple to do in R with the `makeCluster()` function. Here I'm initializing a cluster with 4 components.
 
 ```{r}
-cl <- makeCluster(24)
+cl <- makeCluster(4)
 ```
 
 The `cl` object is an abstraction of the entire cluster and is what we'll use to indicate to the various cluster functions that we want to do parallel computation.
