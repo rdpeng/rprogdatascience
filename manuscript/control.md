@@ -1,0 +1,397 @@
+# Control Structures
+
+
+
+[Watch a video of this section](https://youtu.be/BPNLjUDZ8_o)
+
+Control structures in R allow you to control the flow of execution of
+a series of R expressions. Basically, control structures allow you to
+put some "logic" into your R code, rather than just always executing
+the same R code every time. Control structures allow you to respond to
+inputs or to features of the data and execute different R expressions
+accordingly.
+
+Commonly used control structures are
+
+- `if` and `else`: testing a condition and acting on it
+
+- `for`: execute a loop a fixed number of times 
+
+- `while`: execute a loop _while_ a condition is true 
+
+- `repeat`: execute an infinite loop (must `break` out of it to stop)
+
+- `break`: break the execution of a loop
+
+- `next`: skip an interation of a loop
+
+Most control structures are not used in interactive sessions, but
+rather when writing functions or longer expresisons. However, these
+constructs do not have to be used in functions and it's a good idea to
+become familiar with them before we delve into functions.
+
+
+## `if`-`else`
+
+[Watch a video of this section](https://youtu.be/ZaBtJPYYGwg)
+
+The `if`-`else` combination is probably the most commonly used control
+structure in R (or perhaps any language). This structure allows you to
+test a condition and act on it depending on whether it's true or
+false. 
+
+For starters, you can just use the `if` statement.
+
+{line-numbers=off}
+~~~~~~~~
+if(<condition>) {
+        ## do something
+} 
+## Continue with rest of code
+~~~~~~~~
+
+The above code does nothing if the condition is false. If you have an
+action you want to execute when the condition is false, then you need
+an `else` clause.
+
+{line-numbers=off}
+~~~~~~~~
+if(<condition>) {
+        ## do something
+} 
+else {
+        ## do something else
+}
+~~~~~~~~
+
+You can have a series of tests by following the initial `if` with any
+number of `else if`s.
+
+{line-numbers=off}
+~~~~~~~~
+if(<condition1>) {
+        ## do something
+} else if(<condition2>)  {
+        ## do something different
+} else {
+        ## do something different
+}
+~~~~~~~~
+
+Here is an example of a valid if/else structure.
+
+
+{line-numbers=off}
+~~~~~~~~
+## Generate a uniform random number
+x <- runif(1, 0, 10)  
+if(x > 3) {
+        y <- 10
+} else {
+        y <- 0
+}
+~~~~~~~~
+
+The value of `y` is set depending on whether `x > 3` or not. This
+expression can also be written a different, but equivalent, way in R.
+
+
+{line-numbers=off}
+~~~~~~~~
+y <- if(x > 3) {
+        10
+} else { 
+        0
+}
+~~~~~~~~
+
+Neither way of writing this expression is more correct than the
+other. Which one you use will depend on your preference and perhaps
+those of the team you may be working with.
+
+Of course, the `else` clause is not necessary. You could have a series
+of if clauses that always get executed if their respective conditions
+are true.
+
+{line-numbers=off}
+~~~~~~~~
+if(<condition1>) {
+
+}
+
+if(<condition2>) {
+
+}
+~~~~~~~~
+
+
+## `for` Loops
+
+[Watch a video of this section](https://youtu.be/FbT1dGXCCxU)
+
+For loops are pretty much the only looping construct that you will
+need in R. While you may occasionally find a need for other types of
+loops, in my experience doing data analysis, I've found very few
+situations where a for loop wasn't sufficient. 
+
+In R, for loops take an interator variable and assign it successive
+values from a sequence or vector. For loops are most commonly used for
+iterating over the elements of an object (list, vector, etc.)
+
+
+{line-numbers=off}
+~~~~~~~~
+> for(i in 1:10) {
++         print(i)
++ }
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+~~~~~~~~
+
+This loop takes the `i` variable and in each iteration of the loop
+gives it values 1, 2, 3, ..., 10, executes the code within the curly
+braces, and then the loop exits.
+
+The following three loops all have the same behavior.
+
+
+{line-numbers=off}
+~~~~~~~~
+> x <- c("a", "b", "c", "d")
+> 
+> for(i in 1:4) {
++         ## Print out each element of 'x'
++         print(x[i])  
++ }
+[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"
+~~~~~~~~
+
+The `seq_along()` function is commonly used in conjunction with for
+loops in order to generate an integer sequence based on the length of
+an object (in this case, the object `x`).
+
+
+{line-numbers=off}
+~~~~~~~~
+> ## Generate a sequence based on length of 'x'
+> for(i in seq_along(x)) {   
++         print(x[i])
++ }
+[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"
+~~~~~~~~
+
+It is not necessary to use an index-type variable. 
+
+
+{line-numbers=off}
+~~~~~~~~
+> for(letter in x) {
++         print(letter)
++ }
+[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"
+~~~~~~~~
+
+For one line loops, the curly braces are not strictly necessary.
+
+
+{line-numbers=off}
+~~~~~~~~
+> for(i in 1:4) print(x[i])
+[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"
+~~~~~~~~
+
+However, I like to use curly braces even for one-line loops, because
+that way if you decide to expand the loop to multiple lines, you won't
+be burned because you forgot to add curly braces (and you *will* be
+burned by this).
+
+
+## Nested `for` loops
+
+`for` loops can be nested inside of each other.
+
+{line-numbers=off}
+~~~~~~~~
+x <- matrix(1:6, 2, 3)
+
+for(i in seq_len(nrow(x))) {
+        for(j in seq_len(ncol(x))) {
+                print(x[i, j])
+        }   
+}
+~~~~~~~~
+
+Nested loops are commonly needed for multidimensional or hierarchical
+data structures (e.g. matrices, lists). Be careful with nesting
+though. Nesting beyond 2 to 3 levels often makes it difficult to
+read/understand the code. If you find yourself in need of a large
+number of nested loops, you may want to break up the loops by using
+functions (discussed later).
+
+
+## `while` Loops
+
+[Watch a video of this section](https://youtu.be/VqrS1Wghq1c)
+
+While loops begin by testing a condition. If it is true, then they
+execute the loop body. Once the loop body is executed, the condition
+is tested again, and so forth, until the condition is false, after
+which the loop exits.
+
+
+{line-numbers=off}
+~~~~~~~~
+> count <- 0
+> while(count < 10) {
++         print(count)
++         count <- count + 1
++ }
+[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+~~~~~~~~
+
+While loops can potentially result in infinite loops if not written
+properly. Use with care!
+
+Sometimes there will be more than one condition in the test.
+
+
+{line-numbers=off}
+~~~~~~~~
+> z <- 5
+> set.seed(1)
+> 
+> while(z >= 3 && z <= 10) {
++         coin <- rbinom(1, 1, 0.5)
++         
++         if(coin == 1) {  ## random walk
++                 z <- z + 1
++         } else {
++                 z <- z - 1
++         } 
++ }
+> print(z)
+[1] 2
+~~~~~~~~
+
+Conditions are always evaluated from left to right. For example, in
+the above code, if `z` were less than 3, the second test would not
+have been evaluated.
+
+
+
+## `repeat` Loops
+
+[Watch a video of this section](https://youtu.be/SajmdYr30SY)
+
+`repeat` initiates an infinite loop right from the start. These are
+not commonly used in statistical or data analysis applications but
+they do have their uses. The only way to exit a `repeat` loop is to
+call `break`.
+
+One possible paradigm might be in an iterative algorith where you may
+be searching for a solution and you don't want to stop until you're
+close enough to the solution. In this kind of situation, you often
+don't know in advance how many iterations it's going to take to get
+"close enough" to the solution.
+
+
+{line-numbers=off}
+~~~~~~~~
+x0 <- 1
+tol <- 1e-8
+
+repeat {
+        x1 <- computeEstimate()
+        
+        if(abs(x1 - x0) < tol) {  ## Close enough?
+                break
+        } else {
+                x0 <- x1
+        } 
+}
+~~~~~~~~
+
+Note that the above code will not run if the `computeEstimate()`
+function is not defined (I just made it up for the purposes of this
+demonstration).
+
+The loop above is a bit dangerous because there's no guarantee it will
+stop. You could get in a situation where the values of `x0` and `x1`
+oscillate back and forth and never converge. Better to set a hard
+limit on the number of iterations by using a `for` loop and then
+report whether convergence was achieved or not.
+
+
+## `next`, `break`
+
+`next` is used to skip an iteration of a loop. 
+
+
+{line-numbers=off}
+~~~~~~~~
+for(i in 1:100) {
+        if(i <= 20) {
+                ## Skip the first 20 iterations
+                next                 
+        }
+        ## Do something here
+}
+~~~~~~~~
+
+`break` is used to exit a loop immediately, regardless of what
+iteration the loop may be on.
+
+
+{line-numbers=off}
+~~~~~~~~
+for(i in 1:100) {
+      print(i)
+
+      if(i > 20) {
+              ## Stop loop after 20 iterations
+              break  
+      }		
+}
+~~~~~~~~
+
+
+## Summary
+
+- Control structures like `if`, `while`, and `for` allow you to
+  control the flow of an R program
+
+- Infinite loops should generally be avoided, even if (you believe)
+  they are theoretically correct.
+
+- Control structures mentioned here are primarily useful for writing
+  programs; for command-line interactive work, the "apply" functions
+  are more useful.
