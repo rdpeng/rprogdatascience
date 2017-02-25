@@ -12,7 +12,7 @@ Currently, there are three branches:
 
 * `bookdown`: used to build the Bookdown version of the book
 
-* `leanpub`: sued to build the Leanpub version of the book
+* `leanpub`: used to build the Leanpub version of the book
 
 
 ### Before You Start
