@@ -23,10 +23,10 @@ Commonly used control structures are
 
 - `break`: break the execution of a loop
 
-- `next`: skip an interation of a loop
+- `next`: skip an iteration of a loop
 
 Most control structures are not used in interactive sessions, but
-rather when writing functions or longer expresisons. However, these
+rather when writing functions or longer expressions. However, these
 constructs do not have to be used in functions and it's a good idea to
 become familiar with them before we delve into functions.
 
@@ -317,7 +317,7 @@ not commonly used in statistical or data analysis applications but
 they do have their uses. The only way to exit a `repeat` loop is to
 call `break`.
 
-One possible paradigm might be in an iterative algorith where you may
+One possible paradigm might be in an iterative algorithm where you may
 be searching for a solution and you don't want to stop until you're
 close enough to the solution. In this kind of situation, you often
 don't know in advance how many iterations it's going to take to get

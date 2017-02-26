@@ -39,7 +39,7 @@ hands would get very tired from all the typing.
 
 Another operation you can do in a vectorized manner is logical
 comparisons. So suppose you wanted to know which elements of a vector
-were greater than 2. You could do he following.
+were greater than 2. You could do the following.
 
 
 {line-numbers=off}
@@ -82,7 +82,7 @@ Of course, subtraction, multiplication and division are also vectorized.
 
 ## Vectorized Matrix Operations
 
-Matrix operations are also vectorized, making for nicly compact
+Matrix operations are also vectorized, making for nicely compact
 notation. This way, we can do element-by-element operations on
 matrices without having to loop over every element.
 

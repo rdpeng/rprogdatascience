@@ -85,7 +85,7 @@ Another possible way to do this is to `grep()` on the cause of death field, whic
 [1] 228
 ~~~~~~~~
 
-Notice that we seem to be undercounting again. This is because for some of the entries, the word "shooting" uses a captial "S" while other entries use a lower case "s". We can handle this variation by using a character class in our regular expression.
+Notice that we seem to be undercounting again. This is because for some of the entries, the word "shooting" uses a capital "S" while other entries use a lower case "s". We can handle this variation by using a character class in our regular expression.
 
 
 {line-numbers=off}
@@ -95,7 +95,7 @@ Notice that we seem to be undercounting again. This is because for some of the e
 [1] 1263
 ~~~~~~~~
 
-One thing you have to be careful of when processing text data is not not `grep()` things out of context. For example, suppose we just `grep()`-ed on the expression `[Ss]hooting`.
+One thing you have to be careful of when processing text data is not `grep()` things out of context. For example, suppose we just `grep()`-ed on the expression `[Ss]hooting`.
 
 
 {line-numbers=off}
@@ -107,7 +107,7 @@ One thing you have to be careful of when processing text data is not not `grep()
 
 Notice that we see to pick up 2 extra homicides this way. We can figure out which ones they are by comparing the results of the two expressions.
 
-First we can get the indices for the first expresssion match.
+First we can get the indices for the first expression match.
 
 
 {line-numbers=off}

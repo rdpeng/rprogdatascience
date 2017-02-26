@@ -68,7 +68,7 @@ Hello, world!
 
 The last aspect of a basic function is the *function arguments*. These
 are the options that you can specify to the user that the user may
-explicity set. For this basic function, we can add an argument that
+explicitly set. For this basic function, we can add an argument that
 determines how many times "Hello, world!" is printed to the console.
 
 
@@ -114,7 +114,7 @@ Hello, world!
 
 In the above function, we didn't have to indicate anything special in order for the function to return the number of characters. In R, the return value of a function is always the very last expression that is evaluated. Because the `chars` variable is the last expression that is evaluated in this function, that becomes the return value of the function.
 
-Note that there is a `return()` function that can be used to return an explicity value from a function, but it is rarely used in R (we will discuss it a bit later in this chapter).
+Note that there is a `return()` function that can be used to return an explicit value from a function, but it is rarely used in R (we will discuss it a bit later in this chapter).
 
 Finally, in the above function, the user must specify the value of the argument `num`. If it is not specified by the user, R will throw an error.
 

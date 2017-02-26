@@ -140,7 +140,7 @@ Here, the `min = 0` and `max = 10` arguments are passed down to `runif()` every 
 [1] 0.9916910 1.1890256 0.5043966 9.2925392
 ~~~~~~~~
 
-So now, instead of the random numbers being between 0 and 1 (the default), the are all between 0 and 10.
+So now, instead of the random numbers being between 0 and 1 (the default), they are all between 0 and 10.
 
 The `lapply()` function and its friends make heavy use of _anonymous_ functions. Anonymous functions are like members of [Project Mayhem](http://en.wikipedia.org/wiki/Fight_Club)---they have no names. These are functions are generated "on the fly" as you are using `lapply()`. Once the call to `lapply()` is finished, the function disappears and does not appear in the workspace.
 
@@ -265,7 +265,7 @@ where
 - `f` is a factor (or coerced to one) or a list of factors
 - `drop` indicates whether empty factors levels should be dropped
 
-The combination of `split()` and a function like `lapply()` or `sapply()` is a common paradigm in R. The basic idea is that you can take a data structure, split it into subsets defined by another variable, and apply a function over those subsets. The results of applying tha function over the subsets are then collated and returned as an object. This sequence of operations is sometimes referred to as "map-reduce" in other contexts.
+The combination of `split()` and a function like `lapply()` or `sapply()` is a common paradigm in R. The basic idea is that you can take a data structure, split it into subsets defined by another variable, and apply a function over those subsets. The results of applying the function over the subsets are then collated and returned as an object. This sequence of operations is sometimes referred to as "map-reduce" in other contexts.
 
 Here we simulate some data and split it according to a factor variable. Note that we use the `gl()` function to "generate levels" in a factor variable.
 
@@ -732,7 +732,7 @@ With `mapply()`, instead we can do
 This passes the sequence `1:4` to the first argument of `rep()` and the sequence `4:1` to the second argument.
 
 
-Here's another example for simulating randon Normal variables.
+Here's another example for simulating random Normal variables.
 
 
 {line-numbers=off}
@@ -740,7 +740,7 @@ Here's another example for simulating randon Normal variables.
 > noise <- function(n, mean, sd) {
 +       rnorm(n, mean, sd)
 + }
-> ## Simulate 5 randon numbers
+> ## Simulate 5 random numbers
 > noise(5, 1, 2)        
 [1] -0.5196913  3.2979182 -0.6849525  1.7828267  2.7827545
 > 
@@ -798,7 +798,7 @@ The above call to `mapply()` is the same as
 
 ## Vectorizing a Function
 
-The `mapply()` function can be use to automatically "vectorize" a function. What this means is that it can be used to take a function that typically only takes single arguments and create a new function that can take vector arguments. This is often needed when you want to plot functions.
+The `mapply()` function can be used to automatically "vectorize" a function. What this means is that it can be used to take a function that typically only takes single arguments and create a new function that can take vector arguments. This is often needed when you want to plot functions.
 
 Here's an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is {$$}\sum_{i=1}^n(x_i-\mu)^2/\sigma^2{/$$}.
 

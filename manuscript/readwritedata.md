@@ -174,7 +174,7 @@ Reading in a large dataset for which you do not have enough RAM is one
 easy way to freeze up your computer (or at least your R session). This
 is usually an unpleasant experience that usually requires you to kill
 the R process, in the best case scenario, or reboot your computer, in
-the worst case. So make sure to do a rough calculation of memeory
+the worst case. So make sure to do a rough calculation of memory
 requirements before reading in a large dataset. You'll thank me later.
 
 

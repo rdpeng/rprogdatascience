@@ -339,7 +339,7 @@ Here you can see the names of the first five variables in the `chicago` data fra
 3 chic   35 29.4 2005-12-29    7.45000
 ~~~~~~~~
 
-The `dptp` column is supposed to represent the dew point temperature adn the `pm25tmean2` column provides the PM2.5 data. However, these names are pretty obscure or awkward and probably be renamed to something more sensible.
+The `dptp` column is supposed to represent the dew point temperature and the `pm25tmean2` column provides the PM2.5 data. However, these names are pretty obscure or awkward and probably be renamed to something more sensible.
 
 
 {line-numbers=off}
