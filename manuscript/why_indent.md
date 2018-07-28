@@ -1,6 +1,14 @@
 Why I Indent My Code 8 Spaces
 =============================
 
+At the Use R! 2018 meeting in Brisbane, Australia, Jenny Bryan gave a
+wonderful talk about “Code Smells and Feels” (I recommend you [watch a
+video of that talk](https://youtu.be/7oyiPBjLAWY)). Her talk covers
+various ways to detect when your code "smells" and how to fix those
+smells through refactoring. While there is quite a bit of literature on
+this with respect to other programming languages, it’s not well-covered
+with respect to R.
+
 As mentioned previously in this book, my general indenting policy for R
 code is to use 8 spaces per indent. In my experience, people tend to
 find this a rather extreme indentation policy, with maybe 4 spaces being
