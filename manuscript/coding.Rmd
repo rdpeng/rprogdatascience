@@ -2,7 +2,7 @@
 
 [Watch a video of this chapter](http://youtu.be/MSPKE1y3cyQ)
 
-Coding standards are by no means universal and are often the subject of irrational flame wars on various language- or project-specfiic mailing lists. Nevertheless, I will just give you the standards that I use and the rationale behind them.
+Coding standards are by no means universal and are often the subject of irrational flame wars on various language- or project-specific mailing lists. Nevertheless, I will just give you the standards that I use and the rationale behind them.
 
 **Always use text files / text editor**. I think we can all agree on this one. Using text files and a text editor is fundamental to coding. If you're writing your code in an editor like Microsoft Word, you need to stop. Interactive development environments like RStudio have nice text editors built in, but there are many others out there.
 
