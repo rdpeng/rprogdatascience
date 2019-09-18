@@ -1,3 +1,8 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+---
 # About the Author
 
 **Roger D. Peng** is a Professor of Biostatistics at the
@@ -9,7 +14,7 @@ Executive Data Science
 Specialization](https://www.coursera.org/specializations/executive-data-science),
 the [Simply Statistics blog](http://simplystatistics.org/) where he
 writes about statistics and data science for the general public, and
-the [Not So Standard Deviations](https://soundcloud.com/nssd-podcast)
+the [Not So Standard Deviations](http://nssdeviations.com/)
 podcast. Roger can be found on Twitter and GitHub under the user name
 [rdpeng](https://twitter.com/rdpeng).
 
