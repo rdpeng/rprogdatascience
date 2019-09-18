@@ -1,3 +1,8 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+---
 # Preface
 
 I started using R in 1998 when I was a college undergraduate working
@@ -65,9 +70,14 @@ were a few hold outs). Jan discusses the rationale for the transition
 in a [paper](http://www.jstatsoft.org/v13/i07) in the *Journal of
 Statistical Software*.
 
+```{r,include=FALSE}
+library(lubridate)
+yr <- year(Sys.Date())
+```
+
 In the next step of my career, I went to the [Department of
 Biostatistics](http://www.biostat.jhsph.edu) at the Johns Hopkins
-Bloomberg School of Public Health, where I have been for the past 12
+Bloomberg School of Public Health, where I have been for the past `r yr-2003`
 years. When I got to Johns Hopkins people already seemed into R. Most
 people had abandoned S-PLUS a while ago and were committed to using R
 for their research. Of all the available statistical packages, R had
@@ -89,12 +99,12 @@ raised their hand. And no one had actually used it before.  The main
 selling point at the time was "It's just like S-PLUS but it's free!"
 A lot of people had experience with SAS or Stata or SPSS. A number of
 people had used something like Java or C/C++ before and so I often
-used that a reference frame. No one had ever used a functional-style
+used that as a reference frame. No one had ever used a functional-style
 of programming language like Scheme or Lisp.
 
 To this day, I still teach the class, known a Biostatistics 140.776
 ("Statistical Computing"). However, the nature of the class has
-changed quite a bit over the past 10 years. The population of students
+changed quite a bit over the years. The population of students
 (mostly first-year graduate students) has shifted to the point where
 many of them have been introduced to R as undergraduates. This trend
 mirrors the overall trend with statistics where we are seeing more and
