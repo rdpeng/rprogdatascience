@@ -308,6 +308,36 @@ hist(dates, "month", freq = TRUE, main = "Monthly Homicides in Baltimore")
 
 We can see from the picture that homicides do not occur uniformly throughout the year and appear to have some seasonality to them.
 
+## The `stringr` Package
+
+The `stringr` package is part of the [tidyverse](https://www.tidyverse.org) collection of packages and wraps they underlying `stringi` package in a series of convenience functions. Some of the complexity of using the base R regular expression functions is usefully hidden by the `stringr` functions. In addition, the `stringr` functions provide a more rational interface to regular expressions with more consistency in the arguments and argument ordering.
+
+Given what we have discussed so far, there is a fairly straightforward mapping from the base R functions to the `stringr` functions. In general, for the `stringr` functions, the data are the first argument and the regular expression is the second argument, with optional arguments afterwards.
+
+`str_subset()` is much like `grep(value = TRUE)` and returns a character vector of strings that contain a given match.
+
+```{r}
+library(stringr)
+g <- str_subset(homicides, "iconHomicideShooting")
+length(g)
+```
+`str_detect()` is essentially `grepl()`
+
+`str_extract()` plays the role of `regexpr()` and `regmatches()`, extracting the matches from the output.
+
+```{r}
+str_extract(homicides[1:10], "<dd>[F|f]ound(.*?)</dd>")
+```
+
+Finally, `str_match()` does the job of `regexec()` by provide a matrix containing the parenthesized sub-expressions.
+
+```{r}
+str_match(homicides[1:5], "<dd>[F|f]ound on (.*?)</dd>")
+```
+
+Note how the second column of the output contains the values of the parenthesized sub-expressions. We could now obtain these values by extracting the second column of the matrix. If there had been more parenthesized sub-expressions, there would have been more columns in the output matrix.
+
+
 ## Summary
 
 The primary R functions for dealing with regular expressions are
@@ -324,4 +354,4 @@ The primary R functions for dealing with regular expressions are
 
 -   `regexec()`: Gives you indices of parethensized sub-expressions.
 
-
+- The `stringr` package provides a series of functions implementing much of the regular expression functionality in R but with a more consistent and rationalized interface.
