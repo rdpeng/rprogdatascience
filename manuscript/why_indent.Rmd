@@ -4,11 +4,11 @@ At the Use R! 2018 meeting in Brisbane, Australia, Jenny Bryan gave a wonderful 
 
 As mentioned previously in this book, my general indenting policy for R code is to use 8 spaces per indent. In my experience, people tend to find this a rather extreme indentation policy, with maybe 4 spaces being at the outer limit of what they could imagine. But I’ve been using 8 spaces for a long time now and I’ve found that it has a number of benefits.
 
-First off, I did not make up the 8 space indent. I got it from the [Linux kernal coding style document](https://www.kernel.org/doc/Documentation/process/coding-style.rst). Chapter 1 says:
+First off, I did not make up the 8 space indent. I got it from the [Linux kernel coding style document](https://www.kernel.org/doc/Documentation/process/coding-style.rst). Chapter 1 says:
 
 > Tabs are 8 characters, and thus indentations are also 8 characters. There are heretic movements that try to make indentations 4 (or even 2!) characters deep, and that is akin to trying to define the value of PI to be 3.
 
-I've found the Linux kernal coding style to be pretty useful for my R programming, but a lot of it is C-specific and so not relevant. Nevertheless, it's worth a quick peruse.
+I've found the Linux kernel coding style to be pretty useful for my R programming, but a lot of it is C-specific and so not relevant. Nevertheless, it's worth a quick peruse.
 
 Personally, I've found 8 spaces is good for my aging eyes. I think my rule is that the appropriate number of spaces of indentation is proportional to the square of my age (I'm still working on that model though). At this point, code with a 2 space indent is indistinguishable from flush left.
 

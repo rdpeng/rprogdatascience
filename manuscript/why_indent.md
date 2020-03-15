@@ -17,7 +17,7 @@ spaces for a long time now and I’ve found that it has a number of
 benefits.
 
 First off, I did not make up the 8 space indent. I got it from the
-[Linux kernal coding style
+[Linux kernel coding style
 document](https://www.kernel.org/doc/Documentation/process/coding-style.rst).
 Chapter 1 says:
 
@@ -26,7 +26,7 @@ Chapter 1 says:
 > 2!) characters deep, and that is akin to trying to define the value of
 > PI to be 3.
 
-I've found the Linux kernal coding style to be pretty useful for my R
+I've found the Linux kernel coding style to be pretty useful for my R
 programming, but a lot of it is C-specific and so not relevant.
 Nevertheless, it's worth a quick peruse.
 
