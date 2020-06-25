@@ -77,7 +77,7 @@ language-like).
 
 The R language came to use quite a bit after S had been developed. One
 key limitation of the S language was that it was only available in a
-commericial package, S-PLUS. In 1991, R was created by Ross Ihaka and
+commercial package, S-PLUS. In 1991, R was created by Ross Ihaka and
 Robert Gentleman in the Department of Statistics at the University of
 Auckland. In 1993 the first announcement of R was made to the public.
 Ross's and Robert's experience developing R is documented in a 1996
