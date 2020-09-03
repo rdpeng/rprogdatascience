@@ -90,7 +90,7 @@ You can time longer expressions by wrapping them in curly braces within the call
 +         }
 + })
    user  system elapsed 
-  0.089   0.003   0.092 
+  0.075   0.002   0.078 
 ~~~~~~~~
 
 If your expression is getting pretty long (more than 2 or 3 lines), it might be better to either break it into smaller pieces or to use the profiler. The problem is that if the expression is too long, you won't be able to identify which part of the code is causing the bottleneck.

@@ -436,8 +436,8 @@ Finally, we compute summary statistics for each year in the data frame with the 
 ~~~~~~~~
 > summarize(years, pm25 = mean(pm25, na.rm = TRUE), 
 +           o3 = max(o3tmean2, na.rm = TRUE), 
-+           no2 = median(no2tmean2, na.rm = TRUE))
-`summarise()` ungrouping output (override with `.groups` argument)
++           no2 = median(no2tmean2, na.rm = TRUE),
++           .groups = "drop")
 # A tibble: 19 x 4
     year  pm25    o3   no2
    <dbl> <dbl> <dbl> <dbl>
@@ -489,8 +489,8 @@ Finally, we can compute the mean of `o3` and `no2` within quintiles of `pm25`.
 {line-numbers=off}
 ~~~~~~~~
 > summarize(quint, o3 = mean(o3tmean2, na.rm = TRUE), 
-+           no2 = mean(no2tmean2, na.rm = TRUE))
-`summarise()` ungrouping output (override with `.groups` argument)
++           no2 = mean(no2tmean2, na.rm = TRUE),
++           .groups = "drop")
 # A tibble: 6 x 3
   pm25.quint     o3   no2
   <fct>       <dbl> <dbl>
@@ -536,8 +536,8 @@ That can be done with the following sequence in a single R expression.
 > mutate(chicago, pm25.quint = cut(pm25, qq)) %>%    
 +         group_by(pm25.quint) %>% 
 +         summarize(o3 = mean(o3tmean2, na.rm = TRUE), 
-+                   no2 = mean(no2tmean2, na.rm = TRUE))
-`summarise()` ungrouping output (override with `.groups` argument)
++                   no2 = mean(no2tmean2, na.rm = TRUE),
++                   .groups = "drop")
 # A tibble: 6 x 3
   pm25.quint     o3   no2
   <fct>       <dbl> <dbl>
@@ -563,8 +563,8 @@ Another example might be computing the average pollutant level by month. This co
 +         group_by(month) %>% 
 +         summarize(pm25 = mean(pm25, na.rm = TRUE), 
 +                   o3 = max(o3tmean2, na.rm = TRUE), 
-+                   no2 = median(no2tmean2, na.rm = TRUE))
-`summarise()` ungrouping output (override with `.groups` argument)
++                   no2 = median(no2tmean2, na.rm = TRUE),
++                   .groups = "drop")
 # A tibble: 12 x 4
    month  pm25    o3   no2
    <dbl> <dbl> <dbl> <dbl>
