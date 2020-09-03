@@ -437,28 +437,29 @@ Finally, we compute summary statistics for each year in the data frame with the 
 > summarize(years, pm25 = mean(pm25, na.rm = TRUE), 
 +           o3 = max(o3tmean2, na.rm = TRUE), 
 +           no2 = median(no2tmean2, na.rm = TRUE))
-# A tibble: 19 × 4
-    year     pm25       o3      no2
-   <dbl>    <dbl>    <dbl>    <dbl>
-1   1987      NaN 62.96966 23.49369
-2   1988      NaN 61.67708 24.52296
-3   1989      NaN 59.72727 26.14062
-4   1990      NaN 52.22917 22.59583
-5   1991      NaN 63.10417 21.38194
-6   1992      NaN 50.82870 24.78921
-7   1993      NaN 44.30093 25.76993
-8   1994      NaN 52.17844 28.47500
-9   1995      NaN 66.58750 27.26042
-10  1996      NaN 58.39583 26.38715
-11  1997      NaN 56.54167 25.48143
-12  1998 18.26467 50.66250 24.58649
-13  1999 18.49646 57.48864 24.66667
-14  2000 16.93806 55.76103 23.46082
-15  2001 16.92632 51.81984 25.06522
-16  2002 15.27335 54.88043 22.73750
-17  2003 15.23183 56.16608 24.62500
-18  2004 14.62864 44.48240 23.39130
-19  2005 16.18556 58.84126 22.62387
+`summarise()` ungrouping output (override with `.groups` argument)
+# A tibble: 19 x 4
+    year  pm25    o3   no2
+   <dbl> <dbl> <dbl> <dbl>
+ 1  1987 NaN    63.0  23.5
+ 2  1988 NaN    61.7  24.5
+ 3  1989 NaN    59.7  26.1
+ 4  1990 NaN    52.2  22.6
+ 5  1991 NaN    63.1  21.4
+ 6  1992 NaN    50.8  24.8
+ 7  1993 NaN    44.3  25.8
+ 8  1994 NaN    52.2  28.5
+ 9  1995 NaN    66.6  27.3
+10  1996 NaN    58.4  26.4
+11  1997 NaN    56.5  25.5
+12  1998  18.3  50.7  24.6
+13  1999  18.5  57.5  24.7
+14  2000  16.9  55.8  23.5
+15  2001  16.9  51.8  25.1
+16  2002  15.3  54.9  22.7
+17  2003  15.2  56.2  24.6
+18  2004  14.6  44.5  23.4
+19  2005  16.2  58.8  22.6
 ~~~~~~~~
 
 `summarize()` returns a data frame with `year` as the first column, and then the annual averages of `pm25`, `o3`, and `no2`.
@@ -489,15 +490,16 @@ Finally, we can compute the mean of `o3` and `no2` within quintiles of `pm25`.
 ~~~~~~~~
 > summarize(quint, o3 = mean(o3tmean2, na.rm = TRUE), 
 +           no2 = mean(no2tmean2, na.rm = TRUE))
-# A tibble: 6 × 3
-   pm25.quint       o3      no2
-       <fctr>    <dbl>    <dbl>
-1   (1.7,8.7] 21.66401 17.99129
-2  (8.7,12.4] 20.38248 22.13004
-3 (12.4,16.7] 20.66160 24.35708
-4 (16.7,22.6] 19.88122 27.27132
-5 (22.6,61.5] 20.31775 29.64427
-6          NA 18.79044 25.77585
+`summarise()` ungrouping output (override with `.groups` argument)
+# A tibble: 6 x 3
+  pm25.quint     o3   no2
+  <fct>       <dbl> <dbl>
+1 (1.7,8.7]    21.7  18.0
+2 (8.7,12.4]   20.4  22.1
+3 (12.4,16.7]  20.7  24.4
+4 (16.7,22.6]  19.9  27.3
+5 (22.6,61.5]  20.3  29.6
+6 <NA>         18.8  25.8
 ~~~~~~~~
 
 From the table, it seems there isn't a strong relationship between `pm25` and `o3`, but there appears to be a positive correlation between `pm25` and `no2`. More sophisticated statistical modeling can help to provide precise answers to these questions, but a simple application of `dplyr` functions can often get you most of the way there.
@@ -535,15 +537,16 @@ That can be done with the following sequence in a single R expression.
 +         group_by(pm25.quint) %>% 
 +         summarize(o3 = mean(o3tmean2, na.rm = TRUE), 
 +                   no2 = mean(no2tmean2, na.rm = TRUE))
-# A tibble: 6 × 3
-   pm25.quint       o3      no2
-       <fctr>    <dbl>    <dbl>
-1   (1.7,8.7] 21.66401 17.99129
-2  (8.7,12.4] 20.38248 22.13004
-3 (12.4,16.7] 20.66160 24.35708
-4 (16.7,22.6] 19.88122 27.27132
-5 (22.6,61.5] 20.31775 29.64427
-6          NA 18.79044 25.77585
+`summarise()` ungrouping output (override with `.groups` argument)
+# A tibble: 6 x 3
+  pm25.quint     o3   no2
+  <fct>       <dbl> <dbl>
+1 (1.7,8.7]    21.7  18.0
+2 (8.7,12.4]   20.4  22.1
+3 (12.4,16.7]  20.7  24.4
+4 (16.7,22.6]  19.9  27.3
+5 (22.6,61.5]  20.3  29.6
+6 <NA>         18.8  25.8
 ~~~~~~~~
 
 This way we don't have to create a set of temporary variables along the way or create a massive nested sequence of function calls.
@@ -561,21 +564,22 @@ Another example might be computing the average pollutant level by month. This co
 +         summarize(pm25 = mean(pm25, na.rm = TRUE), 
 +                   o3 = max(o3tmean2, na.rm = TRUE), 
 +                   no2 = median(no2tmean2, na.rm = TRUE))
-# A tibble: 12 × 4
-   month     pm25       o3      no2
-   <dbl>    <dbl>    <dbl>    <dbl>
-1      1 17.76996 28.22222 25.35417
-2      2 20.37513 37.37500 26.78034
-3      3 17.40818 39.05000 26.76984
-4      4 13.85879 47.94907 25.03125
-5      5 14.07420 52.75000 24.22222
-6      6 15.86461 66.58750 25.01140
-7      7 16.57087 59.54167 22.38442
-8      8 16.93380 53.96701 22.98333
-9      9 15.91279 57.48864 24.47917
-10    10 14.23557 47.09275 24.15217
-11    11 15.15794 29.45833 23.56537
-12    12 17.52221 27.70833 24.45773
+`summarise()` ungrouping output (override with `.groups` argument)
+# A tibble: 12 x 4
+   month  pm25    o3   no2
+   <dbl> <dbl> <dbl> <dbl>
+ 1     1  17.8  28.2  25.4
+ 2     2  20.4  37.4  26.8
+ 3     3  17.4  39.0  26.8
+ 4     4  13.9  47.9  25.0
+ 5     5  14.1  52.8  24.2
+ 6     6  15.9  66.6  25.0
+ 7     7  16.6  59.5  22.4
+ 8     8  16.9  54.0  23.0
+ 9     9  15.9  57.5  24.5
+10    10  14.2  47.1  24.2
+11    11  15.2  29.5  23.6
+12    12  17.5  27.7  24.5
 ~~~~~~~~
 
 Here we can see that `o3` tends to be low in the winter months and high in the summer while `no2` is higher in the winter and lower in the summer.

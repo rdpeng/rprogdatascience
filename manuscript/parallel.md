@@ -97,7 +97,7 @@ The first thing you might want to check with the `parallel` package is if your c
 ```r
 > library(parallel)
 > detectCores()
-[1] 4
+[1] 16
 ```
 
 The computer on which this is being written is a circa 2016 MacBook Pro (with Touch Bar) with 2 physical CPUs. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 4 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores.
@@ -105,7 +105,7 @@ The computer on which this is being written is a circa 2016 MacBook Pro (with To
 
 ```r
 > detectCores(logical = FALSE)  ## Same answer as before on some systems?
-[1] 2
+[1] 8
 ```
 
 In general, the information from `detectCores()` should be used cautiously as obtaining this kind of information from Unix-like operating systems is not always reliable. If you are going down this road, it's best if you get to know your hardware better in order to have an understanding of how many CPUs/cores are available to you.
@@ -150,10 +150,10 @@ One thing we might want to do is compute a summary statistic across each of the 
 + })
 > s
    user  system elapsed 
-  0.044   0.004   0.049 
+  0.062   0.001   0.064 
 ```
 
-Note that in the `system.time()` output, the `user` time (0.044 seconds) and the `elapsed` time (0.049 seconds) are roughly the same, which is what we would expect because there was no parallelization.
+Note that in the `system.time()` output, the `user` time (0.062 seconds) and the `elapsed` time (0.064 seconds) are roughly the same, which is what we would expect because there was no parallelization.
 
 The equivalent call using `mclapply()` would be
 
@@ -166,7 +166,7 @@ The equivalent call using `mclapply()` would be
 + })
 > s
    user  system elapsed 
-  0.076   0.061   0.059 
+  0.066   0.048   0.044 
 ```
 
 You'll notice that the the `elapsed` time is now less than the `user` time. However, in general, the `elapsed` time will not be 1/4th of the `user` time, which is what we might expect with 4 cores if there were a perfect performance gain from parallelization. 
@@ -177,10 +177,10 @@ R keeps track of how much time is spent in the main process and how much is spen
 ```r
 > s["user.self"]  ## Main process
 user.self 
-    0.003 
+    0.005 
 > s["user.child"] ## Child processes
 user.child 
-     0.073 
+     0.061 
 ```
 
 In the call to `mclapply()` you can see that virtually all of the `user` time is spent in the child processes. The total `user` time is the sum of the `self` and `child` times. 
@@ -207,8 +207,8 @@ With `mclapply()`, when a sub-process fails, the return value for that sub-proce
 +         else
 +                 return("success!")
 + }, mc.cores = 5)
-Warning in mclapply(1:5, function(i) {: scheduled cores 3 encountered
-errors in user code, all values of the jobs will be affected
+Warning in mclapply(1:5, function(i) {: scheduled core 3 encountered error in
+user code, all values of the job will be affected
 ```
 
 Here we see there was a warning but no error in the running of the above code. We can check the return value.
@@ -219,12 +219,11 @@ Here we see there was a warning but no error in the running of the above code. W
 List of 5
  $ : chr "success!"
  $ : chr "success!"
- $ :Class 'try-error'  atomic [1:1] Error in FUN(X[[i]], ...) : error in this process!
-
-  .. ..- attr(*, "condition")=List of 2
-  .. .. ..$ message: chr "error in this process!"
-  .. .. ..$ call   : language FUN(X[[i]], ...)
-  .. .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
+ $ : 'try-error' chr "Error in FUN(X[[i]], ...) : error in this process!\n"
+  ..- attr(*, "condition")=List of 2
+  .. ..$ message: chr "error in this process!"
+  .. ..$ call   : language FUN(X[[i]], ...)
+  .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
  $ : chr "success!"
  $ : chr "success!"
 ```
@@ -304,7 +303,7 @@ A 95% confidence interval would then take the 2.5th and 97.5th percentiles of th
 ```r
 > quantile(med.boot, c(0.025, 0.975))
  2.5% 97.5% 
- 2.68  3.47 
+ 2.70  3.47 
 ```
 
 How could be done in parallel? We could simply wrap the expression passed to `replicate()` in a function and pass it to `mclapply()`. However, one thing we need to be careful of is generating random numbers.
@@ -320,11 +319,11 @@ Generating random numbers in a parallel environment warrants caution because it'
 + }, mc.cores = 5)
 > str(r)
 List of 5
- $ : num [1:3] 1.783 -1.232 -0.191
- $ : num [1:3] -0.3759 0.0314 -2.8895
- $ : num [1:3] 0.248 0.661 -0.991
- $ : num [1:3] -0.275 -1.088 -0.29
- $ : num [1:3] 0.58 -0.685 -0.535
+ $ : num [1:3] 0.7749 0.0717 -0.5784
+ $ : num [1:3] 1.17 1.31 1.22
+ $ : num [1:3] 1.316 -0.351 -0.12
+ $ : num [1:3] 1.027 0.457 -0.349
+ $ : num [1:3] 0.0178 0.1063 0.8924
 ```
 
 However, the above expression is not **reproducible** because the next time you run it, you will get a different set of random numbers. You cannot simply call `set.seed()` before running the expression as you might in a non-parallel version of the code. 
@@ -362,8 +361,8 @@ Now we can run our parallel bootstrap in a reproducible way.
 + }, mc.cores = 4)
 > med.boot <- unlist(med.boot)  ## Collapse list into vector
 > quantile(med.boot, c(0.025, 0.975))
-  2.5%  97.5% 
-2.6995 3.4700 
+   2.5%   97.5% 
+2.70000 3.46025 
 ```
 
 A> Although I've rarely seen it done in practice (including in my own code), it's a good idea to explicitly set the random number generator via `RNGkind()`, in addition to setting the seed with `set.seed()`. This way, you can be sure that the appropriate random number generator is being used every time and your code will be reproducible even on a system where the default generator has been changed.
@@ -435,7 +434,7 @@ Once the data have been exported to the child processes, we can run our bootstra
 > med.boot <- unlist(med.boot)  ## Collapse list into vector
 > quantile(med.boot, c(0.025, 0.975))
  2.5% 97.5% 
- 2.70  3.46 
+ 2.68  3.46 
 ```
 
 Once you've finished working with your cluster, it's good to clean up and stop the cluster child processes (quitting R will also stop all of the child processes).

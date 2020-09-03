@@ -128,10 +128,10 @@ In order to show aggregate changes in PM across the entire monitoring network, w
 ~~~~~~~~
 > boxplot(log2(x0), log2(x1))
 Warning in boxplot.default(log2(x0), log2(x1)): NaNs produced
-Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z
-$group == : Outlier (-Inf) in boxplot 1 is not drawn
-Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z
-$group == : Outlier (-Inf) in boxplot 2 is not drawn
+Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z$group
+== : Outlier (-Inf) in boxplot 1 is not drawn
+Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z$group
+== : Outlier (-Inf) in boxplot 2 is not drawn
 ~~~~~~~~
 
 ![plot of chunk unnamed-chunk-5](images/unnamed-chunk-5-1.png)
@@ -144,7 +144,7 @@ $group == : Outlier (-Inf) in boxplot 2 is not drawn
    0.00    7.20   11.50   13.74   17.90  157.10   13217 
 > summary(x1)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
- -10.00    4.00    7.63    9.14   12.00  909.00   73133 
+ -10.00    4.00    7.63    9.14   12.00  908.97   73133 
 ~~~~~~~~
 
 Interestingly, from the summary of `x1` it appears there are some negative values of PM, which in general should not occur. We can investigate that somewhat to see if there is anything we should worry about.
@@ -176,10 +176,10 @@ We can then extract the month from each of the dates with negative values and at
 > tab <- table(factor(missing.months, levels = month.name))
 > round(100 * tab / sum(tab))
 
-  January  February     March     April       May      June      July 
-       15        13        15        13        14        13         8 
-   August September   October  November  December 
-        6         3         0         0         0 
+  January  February     March     April       May      June      July    August 
+       15        13        15        13        14        13         8         6 
+September   October  November  December 
+        3         0         0         0 
 ~~~~~~~~
 
 From the table above it appears that bulk of the negative values occur in the first six months of the year (January--June). However, beyond that simple observation, it is not clear why the negative values occur. That said, given the relatively low proportion of negative values, we will ignore them for now.
@@ -206,9 +206,9 @@ Then we create a new variable that combines the county code and the site ID into
 > site0 <- paste(site0[,1], site0[,2], sep = ".")
 > site1 <- paste(site1[,1], site1[,2], sep = ".")
 > str(site0)
- chr [1:33] "1.5" "1.12" "5.73" "5.80" "5.83" "5.110" ...
+ chr [1:33] "1.5" "1.12" "5.73" "5.80" "5.83" "5.110" "13.11" "27.1004" ...
 > str(site1)
- chr [1:18] "1.5" "1.12" "5.80" "5.133" "13.11" "29.5" ...
+ chr [1:18] "1.5" "1.12" "5.80" "5.133" "13.11" "29.5" "31.3" "47.122" ...
 ~~~~~~~~
 
 Finaly, we want the intersection between the sites present in 1999 and 2012 so that we might choose a monitor that has data in both periods.
@@ -241,16 +241,12 @@ Now that we have subsetted the original data frames to only include the data fro
 ~~~~~~~~
 > ## 1999
 > sapply(split(cnt0, cnt0$county.site), nrow)  
-   1.12     1.5   101.3   13.11    29.5    31.3    5.80 63.2008 67.1015 
-     61     122     152      61      61     183      61     122     122 
-  85.55 
-      7 
+   1.12     1.5   101.3   13.11    29.5    31.3    5.80 63.2008 67.1015   85.55 
+     61     122     152      61      61     183      61     122     122       7 
 > ## 2012
 > sapply(split(cnt1, cnt1$county.site), nrow)  
-   1.12     1.5   101.3   13.11    29.5    31.3    5.80 63.2008 67.1015 
-     31      64      31      31      33      15      31      30      31 
-  85.55 
-     31 
+   1.12     1.5   101.3   13.11    29.5    31.3    5.80 63.2008 67.1015   85.55 
+     31      64      31      31      33      15      31      30      31      31 
 ~~~~~~~~
 
 A number of monitors seem suitable from the output, but we will focus here on County 63 and site ID 2008. 

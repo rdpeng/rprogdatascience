@@ -43,8 +43,8 @@ Here we simulate standard Normal random numbers with mean 0 and standard deviati
 > ## Simulate standard Normal random numbers
 > x <- rnorm(10)   
 > x
- [1]  0.01874617 -0.18425254 -1.37133055 -0.59916772  0.29454513
- [6]  0.38979430 -1.20807618 -0.36367602 -1.62667268 -0.25647839
+ [1]  0.01874617 -0.18425254 -1.37133055 -0.59916772  0.29454513  0.38979430
+ [7] -1.20807618 -0.36367602 -1.62667268 -0.25647839
 ~~~~~~~~
 
 We can modify the default parameters to simulate numbers with mean 20 and standard deviation 2.
@@ -54,8 +54,8 @@ We can modify the default parameters to simulate numbers with mean 20 and standa
 ~~~~~~~~
 > x <- rnorm(10, 20, 2) 
 > x
- [1] 22.20356 21.51156 19.52353 21.97489 21.48278 20.17869 18.09011
- [8] 19.60970 21.85104 20.96596
+ [1] 22.20356 21.51156 19.52353 21.97489 21.48278 20.17869 18.09011 19.60970
+ [9] 21.85104 20.96596
 > summary(x)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   18.09   19.75   21.22   20.74   21.77   22.20 
@@ -151,7 +151,7 @@ where {$$}\varepsilon\sim\mathcal{N}(0,2^2){/$$}. Assume {$$}x\sim\mathcal{N}(0,
 > y <- 0.5 + 2 * x + e     
 > summary(y)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
--6.4080 -1.5400  0.6789  0.6893  2.9300  6.5050 
+-6.4084 -1.5402  0.6789  0.6893  2.9303  6.5052 
 ~~~~~~~~
 
 We can plot the results of the model simulation.
@@ -238,23 +238,23 @@ The `sample()` function draws randomly from a specified set of (scalar) objects 
 ~~~~~~~~
 > set.seed(1)
 > sample(1:10, 4)
-[1] 3 4 5 7
+[1] 9 4 7 1
 > sample(1:10, 4)
-[1] 3 9 8 5
+[1] 2 7 3 6
 > 
 > ## Doesn't have to be numbers
 > sample(letters, 5)    
-[1] "q" "b" "e" "x" "p"
+[1] "r" "s" "a" "u" "w"
 > 
 > ## Do a random permutation
 > sample(1:10)          
- [1]  4  7 10  6  9  2  8  3  1  5
+ [1] 10  6  9  2  1  5  8  4  3  7
 > sample(1:10)
- [1]  2  3  4  1  9  5 10  8  6  7
+ [1]  5 10  2  8  6  1  4  3  9  7
 > 
 > ## Sample w/replacement
 > sample(1:10, replace = TRUE)  
- [1] 2 9 7 8 2 8 5 9 7 8
+ [1]  3  6 10 10  6  4  4 10  9  7
 ~~~~~~~~
 
 To sample more complicated things, such as rows from a data frame or a list, you can sample the indices into an object rather than the elements of the object itself.
@@ -291,12 +291,12 @@ Now we just need to create the index vector indexing the rows of the data frame 
 > samp <- sample(idx, 6)              
 > airquality[samp, ]
     Ozone Solar.R Wind Temp Month Day
-135    21     259 15.5   76     9  12
-117   168     238  3.4   81     8  25
-43     NA     250  9.2   92     6  12
-80     79     187  5.1   87     7  19
-144    13     238 12.6   64     9  21
-146    36     139 10.3   81     9  23
+107    NA      64 11.5   79     8  15
+120    76     203  9.7   97     8  28
+130    20     252 10.9   80     9   7
+98     66      NA  4.6   87     8   6
+29     45     252 14.9   81     5  29
+45     NA     332 13.8   80     6  14
 ~~~~~~~~
 
 Other more complex objects can be sampled in this way, as long as there's a way to index the sub-elements of the object.

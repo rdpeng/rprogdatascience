@@ -102,10 +102,9 @@ Now what about the following situation.
 > x <- log(c(-1, 2))
 Warning in log(c(-1, 2)): NaNs produced
 > printmessage2(x)
-Warning in if (is.na(x)) print("x is a missing value!") else if (x > 0)
-print("x is greater than zero") else print("x is less than or equal to
-zero"): the condition has length > 1 and only the first element will be
-used
+Warning in if (is.na(x)) print("x is a missing value!") else if (x > 0) print("x
+is greater than zero") else print("x is less than or equal to zero"): the
+condition has length > 1 and only the first element will be used
 [1] "x is a missing value!"
 ~~~~~~~~
 

@@ -214,24 +214,24 @@ A typical call to `read_csv` will look as follows.
 > teams <- read_csv("data/team_standings.csv")
 Parsed with column specification:
 cols(
-  Standing = col_integer(),
+  Standing = col_double(),
   Team = col_character()
 )
 > teams
-# A tibble: 32 × 2
-   Standing        Team
-      <int>       <chr>
-1         1       Spain
-2         2 Netherlands
-3         3     Germany
-4         4     Uruguay
-5         5   Argentina
-6         6      Brazil
-7         7       Ghana
-8         8    Paraguay
-9         9       Japan
-10       10       Chile
-# ... with 22 more rows
+# A tibble: 32 x 2
+   Standing Team       
+      <dbl> <chr>      
+ 1        1 Spain      
+ 2        2 Netherlands
+ 3        3 Germany    
+ 4        4 Uruguay    
+ 5        5 Argentina  
+ 6        6 Brazil     
+ 7        7 Ghana      
+ 8        8 Paraguay   
+ 9        9 Japan      
+10       10 Chile      
+# … with 22 more rows
 ~~~~~~~~
 
 By default, `read_csv` will open a CSV file and read it in line-by-line. It will also (by default), read in the first few rows of the table in order to figure out the type of each column (i.e. integer, character, etc.). From the `read_csv` help page:
@@ -260,14 +260,14 @@ Parsed with column specification:
 cols(
   date = col_date(format = ""),
   time = col_time(format = ""),
-  size = col_integer(),
+  size = col_double(),
   r_version = col_character(),
   r_arch = col_character(),
   r_os = col_character(),
   package = col_character(),
   version = col_character(),
   country = col_character(),
-  ip_id = col_integer()
+  ip_id = col_double()
 )
 ~~~~~~~~
 Note that the warnings indicate that `read_csv` may have had some difficulty identifying the type of each column. This can be solved by using the `col_types` argument.
@@ -277,20 +277,19 @@ Note that the warnings indicate that `read_csv` may have had some difficulty ide
 ~~~~~~~~
 > logs <- read_csv("data/2016-07-19.csv.bz2", col_types = "ccicccccci", n_max = 10)
 > logs
-# A tibble: 10 × 10
-         date     time     size r_version r_arch         r_os    package
-        <chr>    <chr>    <int>     <chr>  <chr>        <chr>      <chr>
-1  2016-07-19 22:00:00  1887881     3.3.0 x86_64      mingw32 data.table
-2  2016-07-19 22:00:05    45436     3.3.1 x86_64      mingw32 assertthat
-3  2016-07-19 22:00:03 14259016     3.3.1 x86_64      mingw32    stringi
-4  2016-07-19 22:00:05  1887881     3.3.1 x86_64      mingw32 data.table
-5  2016-07-19 22:00:06   389615     3.3.1 x86_64      mingw32    foreach
-6  2016-07-19 22:00:08    48842     3.3.1 x86_64    linux-gnu       tree
-7  2016-07-19 22:00:12      525     3.3.1 x86_64 darwin13.4.0   survival
-8  2016-07-19 22:00:08  3225980     3.3.1 x86_64      mingw32       Rcpp
-9  2016-07-19 22:00:09   556091     3.3.1 x86_64      mingw32     tibble
-10 2016-07-19 22:00:10   151527     3.3.1 x86_64      mingw32   magrittr
-# ... with 3 more variables: version <chr>, country <chr>, ip_id <int>
+# A tibble: 10 x 10
+   date    time      size r_version r_arch r_os    package version country ip_id
+   <chr>   <chr>    <int> <chr>     <chr>  <chr>   <chr>   <chr>   <chr>   <int>
+ 1 2016-0… 22:00…  1.89e6 3.3.0     x86_64 mingw32 data.t… 1.9.6   US          1
+ 2 2016-0… 22:00…  4.54e4 3.3.1     x86_64 mingw32 assert… 0.1     US          2
+ 3 2016-0… 22:00…  1.43e7 3.3.1     x86_64 mingw32 stringi 1.1.1   DE          3
+ 4 2016-0… 22:00…  1.89e6 3.3.1     x86_64 mingw32 data.t… 1.9.6   US          4
+ 5 2016-0… 22:00…  3.90e5 3.3.1     x86_64 mingw32 foreach 1.4.3   US          4
+ 6 2016-0… 22:00…  4.88e4 3.3.1     x86_64 linux-… tree    1.0-37  CO          5
+ 7 2016-0… 22:00…  5.25e2 3.3.1     x86_64 darwin… surviv… 2.39-5  US          6
+ 8 2016-0… 22:00…  3.23e6 3.3.1     x86_64 mingw32 Rcpp    0.12.5  US          2
+ 9 2016-0… 22:00…  5.56e5 3.3.1     x86_64 mingw32 tibble  1.1     US          2
+10 2016-0… 22:00…  1.52e5 3.3.1     x86_64 mingw32 magrit… 1.5     US          2
 ~~~~~~~~
 
 You can specify the column type in a more detailed fashion by using the various `col_*` functions. For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a Date variable. If we wanted to just read in that first column, we could do
@@ -302,18 +301,18 @@ You can specify the column type in a more detailed fashion by using the various 
 +                      col_types = cols_only(date = col_date()),
 +                      n_max = 10)
 > logdates
-# A tibble: 10 × 1
-         date
-       <date>
-1  2016-07-19
-2  2016-07-19
-3  2016-07-19
-4  2016-07-19
-5  2016-07-19
-6  2016-07-19
-7  2016-07-19
-8  2016-07-19
-9  2016-07-19
+# A tibble: 10 x 1
+   date      
+   <date>    
+ 1 2016-07-19
+ 2 2016-07-19
+ 3 2016-07-19
+ 4 2016-07-19
+ 5 2016-07-19
+ 6 2016-07-19
+ 7 2016-07-19
+ 8 2016-07-19
+ 9 2016-07-19
 10 2016-07-19
 ~~~~~~~~
 
@@ -374,8 +373,8 @@ and reading it back in (parsing it) using `dget()`.
 > y <- data.frame(a = 1, b = "a")  
 > ## Print 'dput' output to console
 > dput(y)                          
-structure(list(a = 1, b = structure(1L, .Label = "a", class = "factor")), .Names = c("a", 
-"b"), row.names = c(NA, -1L), class = "data.frame")
+structure(list(a = 1, b = "a"), class = "data.frame", row.names = c(NA, 
+-1L))
 ~~~~~~~~
 
 Notice that the `dput()` output is in the form of R code and that it
@@ -425,7 +424,7 @@ The inverse of `dump()` is `source()`.
 > str(y)
 'data.frame':	1 obs. of  2 variables:
  $ a: int 1
- $ b: Factor w/ 1 level "a": 1
+ $ b: chr "a"
 > x
 [1] "foo"
 ~~~~~~~~
@@ -488,10 +487,10 @@ vector coded in hexadecimal format.
 ~~~~~~~~
 > x <- list(1, 2, 3)
 > serialize(x, NULL)
- [1] 58 0a 00 00 00 02 00 03 03 02 00 02 03 00 00 00 00 13 00 00 00 03 00
-[24] 00 00 0e 00 00 00 01 3f f0 00 00 00 00 00 00 00 00 00 0e 00 00 00 01
-[47] 40 00 00 00 00 00 00 00 00 00 00 0e 00 00 00 01 40 08 00 00 00 00 00
-[70] 00
+ [1] 58 0a 00 00 00 03 00 04 00 02 00 03 05 00 00 00 00 05 55 54 46 2d 38 00 00
+[26] 00 13 00 00 00 03 00 00 00 0e 00 00 00 01 3f f0 00 00 00 00 00 00 00 00 00
+[51] 0e 00 00 00 01 40 00 00 00 00 00 00 00 00 00 00 0e 00 00 00 01 40 08 00 00
+[76] 00 00 00 00
 ~~~~~~~~
 
 If you want, this can be sent to a file, but in that case you are

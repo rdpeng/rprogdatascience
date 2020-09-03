@@ -31,9 +31,9 @@ The search list can be found by using the `search()` function.
 {line-numbers=off}
 ~~~~~~~~
 > search()
-[1] ".GlobalEnv"        "package:knitr"     "package:stats"    
-[4] "package:graphics"  "package:grDevices" "package:utils"    
-[7] "package:datasets"  "Autoloads"         "package:base"     
+[1] ".GlobalEnv"        "package:stats"     "package:graphics" 
+[4] "package:grDevices" "package:utils"     "package:datasets" 
+[7] "package:methods"   "Autoloads"         "package:base"     
 ~~~~~~~~
 
 The _global environment_ or the user’s workspace is always the first element of the search list and the `base` package is always the last. For better or for worse, the order of the packages on the search list matters, particularly if there are multiple objects with the same name in different packages. 
@@ -128,7 +128,7 @@ Let's take a look at the `cube()` function's code.
 function(x) {
                 x^n 
         }
-<environment: 0x7ff460527478>
+<environment: 0x7fc7de932030>
 ~~~~~~~~
 
 Notice that `cube()` has a free variable `n`. What is the value of `n` here? Well, its value is taken from the environment where the function was defined. When I defined the `cube()` function it was when I called `make.power(3)`, so the value of `n` at that time was 3.
@@ -268,7 +268,8 @@ function(p) {
                 b <- -0.5*sum((data-mu)^2) / (sigma^2)
                 -(a + b)
         }
-<environment: 0x7ff4602a6d18>
+<bytecode: 0x7fc7de87f610>
+<environment: 0x7fc7de10c038>
 > 
 > ## What's in the function environment?
 > ls(environment(nLL))   

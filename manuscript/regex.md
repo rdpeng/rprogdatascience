@@ -473,7 +473,8 @@ Given what we have discussed so far, there is a fairly straightforward mapping f
 > length(g)
 [1] 228
 ~~~~~~~~
-`str_detect()` is essentially `grepl()`
+
+`str_detect()` is essentially equivalent `grepl()`.
 
 `str_extract()` plays the role of `regexpr()` and `regmatches()`, extracting the matches from the output.
 
