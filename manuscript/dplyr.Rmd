@@ -281,7 +281,8 @@ Finally, we compute summary statistics for each year in the data frame with the 
 ```{r}
 summarize(years, pm25 = mean(pm25, na.rm = TRUE), 
           o3 = max(o3tmean2, na.rm = TRUE), 
-          no2 = median(no2tmean2, na.rm = TRUE))
+          no2 = median(no2tmean2, na.rm = TRUE),
+          .groups = "drop")
 ```
 
 `summarize()` returns a data frame with `year` as the first column, and then the annual averages of `pm25`, `o3`, and `no2`.
@@ -305,7 +306,8 @@ Finally, we can compute the mean of `o3` and `no2` within quintiles of `pm25`.
 
 ```{r}
 summarize(quint, o3 = mean(o3tmean2, na.rm = TRUE), 
-          no2 = mean(no2tmean2, na.rm = TRUE))
+          no2 = mean(no2tmean2, na.rm = TRUE),
+          .groups = "drop")
 ```
 
 From the table, it seems there isn't a strong relationship between `pm25` and `o3`, but there appears to be a positive correlation between `pm25` and `no2`. More sophisticated statistical modeling can help to provide precise answers to these questions, but a simple application of `dplyr` functions can often get you most of the way there.
@@ -336,7 +338,8 @@ That can be done with the following sequence in a single R expression.
 mutate(chicago, pm25.quint = cut(pm25, qq)) %>%    
         group_by(pm25.quint) %>% 
         summarize(o3 = mean(o3tmean2, na.rm = TRUE), 
-                  no2 = mean(no2tmean2, na.rm = TRUE))
+                  no2 = mean(no2tmean2, na.rm = TRUE),
+                  .groups = "drop")
 ```
 
 This way we don't have to create a set of temporary variables along the way or create a massive nested sequence of function calls.
@@ -351,7 +354,8 @@ mutate(chicago, month = as.POSIXlt(date)$mon + 1) %>%
         group_by(month) %>% 
         summarize(pm25 = mean(pm25, na.rm = TRUE), 
                   o3 = max(o3tmean2, na.rm = TRUE), 
-                  no2 = median(no2tmean2, na.rm = TRUE))
+                  no2 = median(no2tmean2, na.rm = TRUE),
+                  .groups = "drop")
 ```
 
 Here we can see that `o3` tends to be low in the winter months and high in the summer while `no2` is higher in the winter and lower in the summer.
