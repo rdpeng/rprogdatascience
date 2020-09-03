@@ -322,7 +322,8 @@ library(stringr)
 g <- str_subset(homicides, "iconHomicideShooting")
 length(g)
 ```
-`str_detect()` is essentially `grepl()`
+
+`str_detect()` is essentially equivalent `grepl()`.
 
 `str_extract()` plays the role of `regexpr()` and `regmatches()`, extracting the matches from the output.
 
