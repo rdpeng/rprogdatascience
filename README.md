@@ -21,6 +21,6 @@ Before building the book with the bookdown package, you need to
 
 1. unzip the `book_datasets.zip` file, which contains the datasets referenced in some of the chapters.
 
-2. Install all of the packages listed in the [_R_package_list.txt](https://github.com/rdpeng/rprogdatascience/blob/master/_R_package_list.txt) file.
+2. Install all of the packages listed in the [_R_package_list.txt](https://github.com/rdpeng/rprogdatascience/blob/master/manuscript/_R_package_list.txt) file.
 
 
