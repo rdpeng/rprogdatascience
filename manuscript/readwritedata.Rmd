@@ -64,15 +64,17 @@ The `read.table()` function has a few important arguments:
   your file, it's worth setting this to be the empty string `""`.
 * `skip`, the number of lines to skip from the beginning
 * `stringsAsFactors`, should character variables be coded as factors?
-  This defaults to `TRUE` because back in the old days, if you had
-  data that were stored as strings, it was because those strings
-  represented levels of a categorical variable. Now we have lots of
+  This defaults to `FALSE` as of R 4.0.0. In 2020,
+  [the default was changed](https://developer.r-project.org/Blog/public/2020/02/16/stringsasfactors/)
+  from `TRUE` to `FALSE` due to reproducibility and to stay consistent
+  with modern alternatives to data frames. Now we have lots of
   data that is text data and they don't always represent categorical
-  variables. So you may want to set this to be `FALSE` in those
-  cases. If you *always* want this to be `FALSE`, you can set a global
-  option via `options(stringsAsFactors = FALSE)`. I've never seen so
-  much heat generated on discussion forums about an R function
-  argument than the `stringsAsFactors` argument. Seriously.
+  variables. So setting it as `FALSE` makes sense in those
+  cases. With older versions of R, if you *always* want this to be
+  `FALSE`, you can set a global option via
+  `options(stringsAsFactors = FALSE)`. I've never seen so much heat 
+  generated on discussion forums about an R function argument than the
+  `stringsAsFactors` argument. Seriously.
 
 
 For small to moderately sized datasets, you can usually call
@@ -102,8 +104,7 @@ argument).
 With much larger datasets, there are a few things that you can do that
 will make your life easier and will prevent R from choking.
 
-* Read the help page for read.table, which contains many hints
-
+* Read the help page for read.table, which contains many hints.
 * Make a rough calculation of the memory required to store your
   dataset (see the next section for an example of how to do this). If
   the dataset is larger than the amount of RAM on your computer, you
@@ -133,8 +134,8 @@ know a few things about your system.
 * How much memory is available on your system?
 * What other applications are in use? Can you close any of them?
 * Are there other users logged into the same system? 
-* What operating system ar you using? Some operating systems can limit
-  the amount of memory a single process can access
+* What operating system are you using? Some operating systems can limit
+  the amount of memory a single process can access.
 
 
 ## Calculating Memory Requirements for R Objects
@@ -153,13 +154,12 @@ required to store this data frame? Well, on most modern computers
 [double precision floating point
 numbers](http://en.wikipedia.org/wiki/Double-precision_floating-point_format)
 are stored using 64 bits of memory, or 8 bytes. Given that
-information, you can do the following calculation
+information, you can do the following calculation:
 
-
-| 1,500,000 × 120 × 8 bytes/numeric |  = 1,440,000,000 bytes |
-| |  = 1,440,000,000 / 2^20^ bytes/MB  
-| | = 1,373.29 MB
-| | = 1.34 GB                     
+```
+> 1,500,000 × 120 × 8 bytes/numeric = 1,440,000,000 bytes
+> 1,440,000,000 / 2^20 bytes/MB = 1,373.29 MB = 1.34 GB                     
+```
 
 So the dataset would require about 1.34 GB of RAM. Most computers
 these days have at least that much RAM. However, you need to be aware
@@ -172,19 +172,19 @@ Reading in a large dataset for which you do not have enough RAM is one
 easy way to freeze up your computer (or at least your R session). This
 is usually an unpleasant experience that usually requires you to kill
 the R process, in the best case scenario, or reboot your computer, in
-the worst case. So make sure to do a rough calculation of memeory
+the worst case. So make sure to do a rough calculation of memory
 requirements before reading in a large dataset. You'll thank me later.
 
 
 # Using the `readr` Package
 
-The `readr` package is recently developed by Hadley Wickham to deal
-with reading in large flat files quickly. The package provides
-replacements for functions like `read.table()` and `read.csv()`. The
-analogous functions in `readr` are `read_table()` and
-`read_csv()`. These functions are often *much* faster than their base
-R analogues and provide a few other nice features such as progress
-meters.
+The [readr](https://github.com/tidyverse/readr) package is recently
+developed by Hadley Wickham to deal with reading in large flat files
+quickly. The package provides replacements for functions like
+`read.table()` and `read.csv()`. The analogous functions in `readr`
+are `read_table()` and `read_csv()`. These functions are often
+*much* faster than their base R analogues and provide a few other
+nice features such as progress meters.
 
 For the most part, you can read use `read_table()` and `read_csv()`
 pretty much anywhere you might use `read.table()` and `read.csv()`. In
@@ -249,9 +249,6 @@ logdates
 Now the `date` column is stored as a `Date` object which can be used for relevant date-related computations (for example, see the `lubridate` package).
 
 A> The `read_csv` function has a `progress` option that defaults to TRUE. This options provides a nice progress meter while the CSV file is being read. However, if you are using `read_csv` in a function, or perhaps embedding it in a loop, it's probably best to set `progress = FALSE`.
-
-
-
 
 
 # Using Textual and Binary Formats for Storing Data
@@ -341,6 +338,7 @@ str(y)
 x
 ```
 
+
 ## Binary Formats
 
 The complement to the textual format is the binary format, which is
@@ -404,8 +402,6 @@ losing precision or any metadata. If that is what you need, then
 `serialize()` is the function for you.
 
 
-
-
 # Interfaces to the Outside World
 
 [Watch a video of this chapter](https://youtu.be/Pb01WoJRUtY)
@@ -422,7 +418,7 @@ made to files (most common) or to other more exotic things.
 In general, connections are powerful tools that let you navigate files
 or other external objects. Connections can be thought of as a
 translator that lets you talk to objects that are outside of R. Those
-outside objects could be anything from a data base, a simple text
+outside objects could be anything from a database, a simple text
 file, or a a web service API. Connections allow R functions to talk to
 all these different external objects without you having to write
 custom code for each object.
@@ -445,10 +441,10 @@ detail here.
 
 The `open` argument allows for the following options:
 
-- "r" open file in read only mode
-- "w" open a file for writing (and initializing a new file)
-- "a" open a file for appending
-- "rb", "wb", "ab" reading, writing, or appending in binary mode (Windows)
+- "r", open file in read only mode
+- "w", open a file for writing (and initializing a new file)
+- "a", open a file for appending
+- "rb", "wb", "ab", reading, writing, or appending in binary mode (Windows)
 
 
 In practice, we often don't need to deal with the connection interface
@@ -482,7 +478,7 @@ In the background, `read.csv()` opens a connection to the file
 `foo.txt`, reads from it, and closes the connection when it's done.
 
 The above example shows the basic approach to using
-connections. Connections must be opened, then the are read from or
+connections. Connections must be opened, then they are read from or
 written to, and then they are closed.
 
 
@@ -499,7 +495,7 @@ x <- readLines(con, 10)
 x
 ```
 
-For more structured text data like CSV files or tab-delimited files,
+For more structured text data, like CSV files or tab-delimited files,
 there are other functions like `read.csv()` or `read.table()`.
 
 The above example used the `gzfile()` function which is used to create
@@ -515,7 +511,7 @@ time to a text file.
 ## Reading From a URL Connection
 
 The `readLines()` function can be useful for reading in lines of
-webpages. Since web pages are basically text files that are stored on
+web pages. Since web pages are basically text files that are stored on
 a remote server, there is conceptually not much difference between a
 web page and a local text file. However, we need R to negotiate the
 communication between your computer and the web server. This is what
@@ -526,23 +522,23 @@ This code might take time depending on your connection speed.
 
 ```{r}
 ## Open a URL connection for reading
-con <- url("http://www.jhsph.edu", "r")  
+con <- url("https://en.wikipedia.org","r")
 
 ## Read the web page
 x <- readLines(con)                      
 
 ## Print out the first few lines
-head(x)                                  
+head(x,5)                                  
 ```
 
 While reading in a simple web page is sometimes useful, particularly
 if data are embedded in the web page somewhere. However, more commonly
-we can use URL connection to read in specific data files that are
+we can use URL connections to read in specific data files that are
 stored on web servers. 
 
 Using URL connections can be useful for producing a reproducible
 analysis, because the code essentially documents where the data came
-from and how they were obtained. This is approach is preferable to
+from and how they were obtained. This approach is preferable to
 opening a web browser and downloading a dataset by hand. Of course,
 the code you write with connections may not be executable at a later
 date if things on the server side are changed or reorganized.
