@@ -16,7 +16,7 @@ There is also an integrated development environment available for R
 that is built by RStudio. I really like this IDE---it has a nice
 editor with syntax highlighting, there is an R object viewer, and
 there are a number of other nice features that are integrated. You can
-see how to install RStudio here
+see how to install RStudio here:
 
 - [Installing RStudio](https://youtu.be/bM7Sfz-LADM)
 
@@ -28,7 +28,7 @@ site](http://rstudio.com).
 After you install R you will need to launch it and start writing R
 code. Before we get to exactly how to write R code, it's useful to get
 a sense of how the system is organized. In these two videos I talk
-about where to write code and how set your working directory, which
+about where to write code and how to set your working directory, which
 let's R know where to find all of your files.
 
 - [Writing code and setting your working directory on the Mac](https://youtu.be/8xT3hmJQskU)
