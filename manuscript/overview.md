@@ -56,7 +56,7 @@ figuring out how to make data analysis easier, first for themselves,
 and then eventually for others.
 
 In [Stages in the Evolution of
-S](http://www.stat.bell-labs.com/S/history.html ), John Chambers
+S](https://web.archive.org/web/20150305201743/http://www.stat.bell-labs.com/S/history.html), John Chambers
 writes:
 
 > “[W]e wanted users to be able to begin in an interactive environment,
@@ -67,7 +67,7 @@ writes:
 
 The key part here was the transition from *user* to *developer*. They
 wanted to build a language that could easily service both
-"people". More technically, they needed to build language that would
+"people". More technically, they needed to build a language that would
 be suitable for interactive data analysis (more command-line based) as
 well as for writing longer programs (more traditional programming
 language-like).
@@ -133,7 +133,7 @@ beginning and has generally been better than competing
 packages. Today, with many more visualization packages available than
 before, that trend continues. R's base graphics system allows for very
 fine control over essentially every aspect of a plot or graph. Other
-newer graphics systems, like lattice and ggplot2 allow for complex and
+newer graphics systems, like lattice and ggplot2, allow for complex and
 sophisticated visualizations of high-dimensional data.
 
 R has maintained the original S philosophy, which is that it provides a
@@ -196,9 +196,9 @@ functionality of R.
 The R system is divided into 2 conceptual parts:
 
 1.  The "base" R system that you download from CRAN: 
-[Linux](http://cran.r-project.org/bin/linux/)
-[Windows](http://cran.r-project.org/bin/windows/)
-[Mac](http://cran.r-project.org/bin/macosx/) [Source
+[Linux](http://cran.r-project.org/bin/linux/), 
+[Windows](http://cran.r-project.org/bin/windows/), 
+[Mac](http://cran.r-project.org/bin/macosx/), [Source
 Code](http://cran.r-project.org/src/base/R-3/R-3.1.3.tar.gz)
 
 2.  Everything else.
@@ -221,7 +221,7 @@ When you download a fresh installation of R from CRAN, you get all of
 the above, which represents a substantial amount of
 functionality. However, there are many other packages available:
 
--   There are over 4000 packages on CRAN that have been developed by
+-   There are over 4,000 packages on CRAN that have been developed by
     users and programmers around the world.
 
 -   There are also many packages associated with the [Bioconductor
@@ -305,7 +305,7 @@ this book. Also, available from [CRAN](http://cran.r-project.org) are
 
 - [R Installation and
     Administration](http://cran.r-project.org/doc/manuals/r-release/R-admin.html):
-    This is mostly for building R from the source code)
+    This is mostly for building R from the source code
 
 - [R
     Internals](http://cran.r-project.org/doc/manuals/r-release/R-ints.html):
