@@ -56,7 +56,7 @@ figuring out how to make data analysis easier, first for themselves,
 and then eventually for others.
 
 In [Stages in the Evolution of
-S](http://www.stat.bell-labs.com/S/history.html ), John Chambers
+S](https://web.archive.org/web/20150305201743/http://www.stat.bell-labs.com/S/history.html), John Chambers
 writes:
 
 > “[W]e wanted users to be able to begin in an interactive environment,
