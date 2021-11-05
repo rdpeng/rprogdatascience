@@ -132,7 +132,7 @@ used in ordinary calculations; e.g. `1 / Inf` is 0.
 
 The value `NaN` represents an undefined value ("not a number"); e.g. 0
 / 0; `NaN` can also be thought of as a missing value (more on that
-later)
+later).
 
 
 ## Attributes
@@ -244,7 +244,7 @@ from R.
 
 Matrices are vectors with a _dimension_ attribute. The dimension
 attribute is itself an integer vector of length 2 (number of rows,
-number of columns)
+number of columns).
 
 ```{r}
 m <- matrix(nrow = 2, ncol = 3) 
@@ -297,7 +297,7 @@ x
 ```
 
 We can also create an empty list of a prespecified length with the
-`vector()` function
+`vector()` function.
 
 ```{r}
 x <- vector("list", length = 5)
@@ -347,7 +347,7 @@ x
 
 ## Missing Values
 
-Missing values are denoted by `NA` or `NaN` for q undefined
+Missing values are denoted by `NA` or `NaN` for undefined
 mathematical operations.
 
 - `is.na()` is used to test objects if they are `NA`
@@ -381,7 +381,7 @@ is.nan(x)
 Data frames are used to store tabular data in R. They are an important
 type of object in R and are used in a variety of statistical modeling
 applications. Hadley Wickham's package
-[dplyr](https://github.com/hadley/dplyr) has an optimized set of
+[dplyr](https://github.com/tidyverse/dplyr) has an optimized set of
 functions designed to work efficiently with data frames.
 
 Data frames are represented as a special type of list where every
@@ -467,8 +467,8 @@ know its confusing. Here's a quick summary:
 
 ## Summary
 
-There are a variety of different builtin-data types in R. In this
-chapter we have reviewed the following
+There are a variety of different built-in data types in R. In this
+chapter we have reviewed the following:
 
 - atomic classes: numeric, logical, character, integer, complex
 
