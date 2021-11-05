@@ -77,14 +77,6 @@ After installing the package it is important that you load it into your R sessio
 
 ```r
 > library(dplyr)
-
-Attaching package: 'dplyr'
-The following objects are masked from 'package:stats':
-
-    filter, lag
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
 ```
 
 You may get some warnings when the package is loaded because there are functions in the `dplyr` package that have the same name as functions in other packages. For now you can ignore the warnings.
