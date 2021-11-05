@@ -40,7 +40,7 @@ Some of the key "verbs" provided by the `dplyr` package are
   
 * `%>%`: the "pipe" operator is used to connect multiple verb actions together into a pipeline
 
-The `dplyr` package as a number of its own data types that it takes advantage of. For example, there is a handy `print` method that prevents you from printing a lot of data to the console. Most of the time, these additional data types are transparent to the user and do not need to be worried about.
+The `dplyr` package has a number of its own data types that it takes advantage of. For example, there is a handy `print` method that prevents you from printing a lot of data to the console. Most of the time, these additional data types are transparent to the user and do not need to be worried about.
 
 
 
@@ -52,7 +52,7 @@ All of the functions that we will discuss in this Chapter will have a few common
 
 2. The subsequent arguments describe what to do with the data frame specified in the first argument, and you can refer to columns in the data frame directly without using the $ operator (just use the column names).
 
-3. The return result of a function is a new data frame
+3. The return result of a function is a new data frame.
 
 4. Data frames must be properly formatted and annotated for this to all be useful. In particular, the data must be [tidy](http://www.jstatsoft.org/v59/i10/paper). In short, there should be one observation per row, and each column should represent a feature or characteristic of that observation.
 
@@ -84,7 +84,7 @@ You may get some warnings when the package is loaded because there are functions
 
 ## `select()`
 
-For the examples in this chapter we will be using a dataset containing air pollution and temperature data for the [city of Chicago](http://www.biostat.jhsph.edu/~rpeng/leanpub/rprog/chicago_data.zip) in the U.S. The dataset is available from my web site.     
+For the examples in this chapter we will be using a dataset containing air pollution and temperature data for the [city of Chicago](http://www.biostat.jhsph.edu/~rpeng/leanpub/rprog/chicago_data.zip) in the U.S. The dataset is available from my website.     
 
 After unzipping the archive, you can load the data into R using the `readRDS()` function.
 
@@ -101,7 +101,7 @@ str(chicago)
 
 The `select()` function can be used to select columns of a data frame that you want to focus on. Often you'll have a large data frame containing "all" of the data, but any *given* analysis might only use a subset of variables or observations. The `select()` function allows you to get the few columns you might need.
 
-Suppose we wanted to take the first 3 columns only. There are a few ways to do this. We could for example use numerical indices. But we can also use the names directly.
+Suppose we wanted to take the first 3 columns only. There are a few ways to do this. We could, for example, use numerical indices. But we can also use the names directly.
 
 ```{r}
 names(chicago)[1:3]
@@ -197,7 +197,7 @@ and the last few rows.
 tail(select(chicago, date, pm25tmean2), 3)
 ```
 
-Columns can be arranged in descending order too by useing the special `desc()` operator.
+Columns can be arranged in descending order too by using the special `desc()` operator.
 
 ```{r}
 chicago <- arrange(chicago, desc(date))
@@ -221,7 +221,7 @@ Here you can see the names of the first five variables in the `chicago` data fra
 head(chicago[, 1:5], 3)
 ```
 
-The `dptp` column is supposed to represent the dew point temperature adn the `pm25tmean2` column provides the PM2.5 data. However, these names are pretty obscure or awkward and probably be renamed to something more sensible.
+The `dptp` column is supposed to represent the dew point temperature adn the `pm25tmean2` column provides the PM2.5 data. However, these names are pretty obscure or awkward and probably need to be renamed to something more sensible.
 
 ```{r}
 chicago <- rename(chicago, dewpoint = dptp, pm25 = pm25tmean2)
@@ -365,11 +365,11 @@ Here we can see that `o3` tends to be low in the winter months and high in the s
 
 The `dplyr` package provides a concise set of operations for managing data frames. With these functions we can do a number of complex operations in just a few lines of code. In particular, we can often conduct the beginnings of an exploratory analysis with the powerful combination of `group_by()` and `summarize()`. 
 
-Once you learn the `dplyr` grammar there are a few additional benefits
+Once you learn the `dplyr` grammar there are a few additional benefits:
 
-* `dplyr` can work with other data frame "backends" such as SQL databases. There is an SQL interface for relational databases via the DBI package
+* `dplyr` can work with other data frame "backends", such as SQL databases. There is a SQL interface for relational databases via the DBI package.
 
-* `dplyr` can be integrated with the `data.table` package for large fast tables
+* `dplyr` can be integrated with the `data.table` package for large fast tables.
 
-The `dplyr` package is handy way to both simplify and speed up your data frame management code. It's rare that you get such a combination at the same time!
+The `dplyr` package is a handy way to both simplify and speed up your data frame management code. It's rare that you get such a combination at the same time!
 
