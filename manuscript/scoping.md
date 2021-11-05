@@ -11,12 +11,11 @@
 How does R know which value to assign to which symbol? When I type
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > lm <- function(x) { x * x }
 > lm
 function(x) { x * x }
-~~~~~~~~
+```
 
 how does R know what value to assign to the symbol `lm`? Why doesn’t it give it the value of `lm` that is in the `stats` package?
 
@@ -28,13 +27,11 @@ When R tries to bind a value to a symbol, it searches through a series of `envir
 The search list can be found by using the `search()` function.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > search()
-[1] ".GlobalEnv"        "package:knitr"     "package:stats"    
-[4] "package:graphics"  "package:grDevices" "package:utils"    
-[7] "package:datasets"  "Autoloads"         "package:base"     
-~~~~~~~~
+ [1] ".GlobalEnv"        "package:dplyr"     "package:readr"     "tools:rstudio"     "package:stats"     "package:graphics"  "package:grDevices"
+ [8] "package:utils"     "package:datasets"  "package:methods"   "Autoloads"         "package:base"     
+```
 
 The _global environment_ or the user’s workspace is always the first element of the search list and the `base` package is always the last. For better or for worse, the order of the packages on the search list matters, particularly if there are multiple objects with the same name in different packages. 
 
@@ -55,12 +52,11 @@ symbol
 Consider the following function.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > f <- function(x, y) {
 +         x^2 + y / z
 + }
-~~~~~~~~
+```
 
 This function has 2 formal arguments `x` and `y`. In the body of the function there is another symbol `z`. In this case `z` is called a _free variable_.
 
@@ -96,64 +92,59 @@ Typically, a function is defined in the global environment, so that the values o
 Here is an example of a function that returns another function as its return value. Remember, in R functions are treated like any other object and so this is perfectly valid.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > make.power <- function(n) {
 +         pow <- function(x) {
 +                 x^n 
 +         }
 +         pow 
 + }
-~~~~~~~~
+```
 
 The `make.power()` function is a kind of "constructor function" that can be used to construct other functions.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > cube <- make.power(3)
 > square <- make.power(2)
 > cube(3)
 [1] 27
 > square(3)
 [1] 9
-~~~~~~~~
+```
 
 Let's take a look at the `cube()` function's code.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > cube
 function(x) {
                 x^n 
         }
-<environment: 0x7ff460527478>
-~~~~~~~~
+<environment: 0x00000253c475b898>
+```
 
 Notice that `cube()` has a free variable `n`. What is the value of `n` here? Well, its value is taken from the environment where the function was defined. When I defined the `cube()` function it was when I called `make.power(3)`, so the value of `n` at that time was 3.
 
 We can explore the environment of a function to see what objects are there and their values.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > ls(environment(cube))
 [1] "n"   "pow"
 > get("n", environment(cube))
 [1] 3
-~~~~~~~~
+```
 
 We can also take a look at the `square()` function.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > ls(environment(square))
 [1] "n"   "pow"
 > get("n", environment(square))
 [1] 2
-~~~~~~~~
+```
 
 
 ## Lexical vs. Dynamic Scoping
@@ -161,8 +152,7 @@ We can also take a look at the `square()` function.
 We can use the following example to demonstrate the difference between lexical and dynamic scoping rules.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > y <- 10
 > 
 > f <- function(x) {
@@ -173,14 +163,13 @@ We can use the following example to demonstrate the difference between lexical a
 > g <- function(x) { 
 +         x*y
 + }
-~~~~~~~~
+```
 
 What is the value of the following expression?
 
-{line-numbers=off}
-~~~~~~~~
+```r
 f(3)
-~~~~~~~~
+```
 
 With lexical scoping the value of `y` in the function `g` is looked up in the environment in which the function was defined, in this case the global environment, so the value of `y` is 10. With dynamic scoping, the value of `y` is looked up in the environment from which the function was _called_ (sometimes referred to as the _calling environment_). In R the calling environment is known as the _parent frame_. In this case, the value of `y` would be 2.
 
@@ -191,8 +180,7 @@ Consider this example.
 
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > g <- function(x) { 
 +         a <- 3
 +         x+a+y   
@@ -203,7 +191,7 @@ Error in g(2): object 'y' not found
 > y <- 3
 > g(2)
 [1] 8
-~~~~~~~~
+```
 
 Here, `y` is defined in the global environment, which also happens to be where the function `g()` is defined.
 
@@ -230,8 +218,7 @@ Optimization routines in R like `optim()`, `nlm()`, and `optimize()` require you
 Here is an example of a "constructor" function that creates a negative log-likelihood function that can be minimized to find maximum likelihood estimates in a statistical model.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > make.NegLogLik <- function(data, fixed = c(FALSE, FALSE)) {
 +         params <- fixed
 +         function(p) {
@@ -245,15 +232,14 @@ Here is an example of a "constructor" function that creates a negative log-likel
 +                 -(a + b)
 +         } 
 + }
-~~~~~~~~
+```
 
 **Note**: Optimization functions in R _minimize_ functions, so you need to use the negative log-likelihood.
 
 Now we can generate some data and then construct our negative log-likelihood.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > set.seed(1)
 > normals <- rnorm(100, 1, 2)
 > nLL <- make.NegLogLik(normals)
@@ -268,46 +254,44 @@ function(p) {
                 b <- -0.5*sum((data-mu)^2) / (sigma^2)
                 -(a + b)
         }
-<environment: 0x7ff4602a6d18>
+<bytecode: 0x00000253bf962630>
+<environment: 0x00000253c5cf8a60>
 > 
 > ## What's in the function environment?
 > ls(environment(nLL))   
 [1] "data"   "fixed"  "params"
-~~~~~~~~
+```
 
 Now that we have our `nLL()` function, we can try to minimize it with `optim()` to estimate the parameters.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > optim(c(mu = 0, sigma = 1), nLL)$par
       mu    sigma 
 1.218239 1.787343 
-~~~~~~~~
+```
 
 You can see that the algorithm converged and obtained an estimate of `mu` and `sigma`.
 
 We can also try to estimate one parameter while holding another parameter fixed. Here we fix `sigma` to be equal to 2. 
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > nLL <- make.NegLogLik(normals, c(FALSE, 2))
 > optimize(nLL, c(-1, 3))$minimum
 [1] 1.217775
-~~~~~~~~
+```
 
 Because we now have a one-dimensional problem, we can use the simpler `optimize()` function rather than `optim()`.
 
 We can also try to estimate `sigma` while holding `mu` fixed at 1.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > nLL <- make.NegLogLik(normals, c(1, FALSE))
 > optimize(nLL, c(1e-6, 10))$minimum
 [1] 1.800596
-~~~~~~~~
+```
 
 ## Plotting the Likelihood
 
@@ -316,24 +300,22 @@ Another nice feature that you can take advantage of is plotting the negative log
 Here is the function when `mu` is fixed.
 
 
-{line-numbers=off}
-~~~~~~~~
-> ## Fix 'mu' to be equalt o 1
+```r
+> ## Fix 'mu' to be equal to 1
 > nLL <- make.NegLogLik(normals, c(1, FALSE))  
 > x <- seq(1.7, 1.9, len = 100)
 > 
 > ## Evaluate 'nLL()' at every point in 'x'
 > y <- sapply(x, nLL)    
 > plot(x, exp(-(y - min(y))), type = "l")
-~~~~~~~~
+```
 
 ![plot of chunk nLLFixMu](images/nLLFixMu-1.png)
 
 Here is the function when `sigma` is fixed.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > ## Fix 'sigma' to be equal to 2
 > nLL <- make.NegLogLik(normals, c(FALSE, 2))
 > x <- seq(0.5, 1.5, len = 100)
@@ -341,7 +323,7 @@ Here is the function when `sigma` is fixed.
 > ## Evaluate 'nLL()' at every point in 'x'
 > y <- sapply(x, nLL)     
 > plot(x, exp(-(y - min(y))), type = "l")
-~~~~~~~~
+```
 
 ![plot of chunk nLLFixSigma](images/nLLFixSigma-1.png)
 

@@ -257,7 +257,7 @@ Another nice feature that you can take advantage of is plotting the negative log
 Here is the function when `mu` is fixed.
 
 ```{r nLLFixMu}
-## Fix 'mu' to be equalt o 1
+## Fix 'mu' to be equal to 1
 nLL <- make.NegLogLik(normals, c(1, FALSE))  
 x <- seq(1.7, 1.9, len = 100)
 
