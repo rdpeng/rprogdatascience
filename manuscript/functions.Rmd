@@ -29,7 +29,7 @@ treated much like any other R object. Importantly,
 - Functions can be passed as arguments to other functions. This is very handy for the various apply functions, like `lapply()` and `sapply()`.
 
 - Functions can be nested, so that you can define a function inside of
-  another function
+  another function.
 
 If you're familiar with common language like C, these features might appear a bit strange. However, they are really important in R and can be useful for data analysis.
 
@@ -63,7 +63,7 @@ f()
 
 The last aspect of a basic function is the *function arguments*. These
 are the options that you can specify to the user that the user may
-explicity set. For this basic function, we can add an argument that
+explicitly set. For this basic function, we can add an argument that
 determines how many times "Hello, world!" is printed to the console.
 
 ```{r}
@@ -75,7 +75,7 @@ f <- function(num) {
 f(3)
 ```
 
-Obviously, we could have just cut-and-pasted the `cat("Hello, world!\n")` code three times to achieve the same effect, but then we wouldn't be programming, would we? Also, it would be un-neighborly of you to give your code to someone else and force them to cut-and-paste the code however many times the need to see "Hello, world!".
+Obviously, we could have just cut-and-pasted the `cat("Hello, world!\n")` code three times to achieve the same effect, but then we wouldn't be programming, would we? Also, it would be un-neighborly of you to give your code to someone else and force them to cut-and-paste the code however many times they need to see "Hello, world!".
 
 > In general, if you find yourself doing a lot of cutting and pasting, that's usually a good sign that you might need to write a function.
 
@@ -98,7 +98,7 @@ print(meaningoflife)
 
 In the above function, we didn't have to indicate anything special in order for the function to return the number of characters. In R, the return value of a function is always the very last expression that is evaluated. Because the `chars` variable is the last expression that is evaluated in this function, that becomes the return value of the function.
 
-Note that there is a `return()` function that can be used to return an explicity value from a function, but it is rarely used in R (we will discuss it a bit later in this chapter).
+Note that there is a `return()` function that can be used to return an explicit value from a function, but it is rarely used in R (we will discuss it a bit later in this chapter).
 
 Finally, in the above function, the user must specify the value of the argument `num`. If it is not specified by the user, R will throw an error.
 
@@ -145,7 +145,7 @@ Specifying an argument by its name is sometimes useful if a function has many ar
 
 ## Argument Matching
 
-Calling an R function with arguments can be done in a variety of ways. This may be confusing at first, but it's really handing when doing interactive work at the command line. R functions arguments can be matched *positionally* or by name. Positional matching just means that R assigns the first value to the first argument, the second value to second argument, etc. So in the following call to `rnorm()`
+Calling an R function with arguments can be done in a variety of ways. This may be confusing at first, but it's really handy when doing interactive work at the command line. R functions arguments can be matched *positionally* or by name. Positional matching just means that R assigns the first value to the first argument, the second value to second argument, etc. So in the following call to `rnorm()`
 
 ```{r}
 str(rnorm)
@@ -301,14 +301,10 @@ paste("a", "b", se = ":")
 
 ## Summary
 
-* Functions can be defined using the `function()` directive and are assigned to R objects just like any other R object
-
-* Functions have can be defined with named arguments; these function arguments can have default values
-
-* Functions arguments can be specified by name or by position in the argument list
-
-* Functions always return the last expression evaluated in the function body
-
+* Functions can be defined using the `function()` directive and are assigned to R objects just like any other R object.
+* Functions can be defined with named arguments; these function arguments can have default values.
+* Functions arguments can be specified by name or by position in the argument list.
+* Functions always return the last expression evaluated in the function body.
 * A variable number of arguments can be specified using the special `...` argument in a function definition.
 
 
