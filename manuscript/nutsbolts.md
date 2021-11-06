@@ -380,7 +380,7 @@ NULL
 Factors are used to represent categorical data and can be unordered or
 ordered. One can think of a factor as an integer vector where each
 integer has a _label_. Factors are important in statistical modeling
-and are treated specially by modelling functions like `lm()` and
+and are treated specially by modeling functions like `lm()` and
 `glm()`.
 
 Using factors with labels is _better_ than using integers because
