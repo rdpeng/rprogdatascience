@@ -37,8 +37,7 @@ This function takes three arguments: (1) a list `X`; (2) a function (or the name
 The body of the `lapply()` function can be seen here.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > lapply
 function (X, FUN, ...) 
 {
@@ -47,20 +46,19 @@ function (X, FUN, ...)
         X <- as.list(X)
     .Internal(lapply(X, FUN))
 }
-<bytecode: 0x7fe63613fc00>
+<bytecode: 0x00000241cd4fc3e0>
 <environment: namespace:base>
-~~~~~~~~
+```
 
 Note that the actual looping is done internally in C code for efficiency reasons. 
 
 It's important to remember that `lapply()` always returns a list, regardless of the class of the input.
 
-Here's an example of applying the `mean()` function to all elements of a list. If the original list has names, the the names will be preserved in the output.
+Here's an example of applying the `mean()` function to all elements of a list. If the original list has names, then the names will be preserved in the output.
 
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- list(a = 1:5, b = rnorm(10))
 > lapply(x, mean)
 $a
@@ -68,7 +66,7 @@ $a
 
 $b
 [1] 0.1322028
-~~~~~~~~
+```
 
 Notice that here we are passing the `mean()` function as an argument to the `lapply()` function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses `()` like you do when you are *calling* a function.
 
@@ -76,8 +74,7 @@ Here is another example of using `lapply()`.
 
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
 > lapply(x, mean)
 $a
@@ -91,14 +88,13 @@ $c
 
 $d
 [1] 5.051388
-~~~~~~~~
+```
 
 You can use `lapply()` to evaluate a function multiple times each with a different argument. Below, is an example where I call the `runif()` function (to generate uniformly distributed random variables) four times, each time generating a different number of random numbers.
 
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- 1:4
 > lapply(x, runif)
 [[1]]
@@ -112,7 +108,7 @@ You can use `lapply()` to evaluate a function multiple times each with a differe
 
 [[4]]
 [1] 0.3214921 0.1548316 0.1322282 0.2213059
-~~~~~~~~
+```
 
 When you pass a function to `lapply()`, `lapply()` takes elements of the list and passes them as the *first argument* of the function you are applying. In the above example, the first argument of `runif()` is `n`, and so the elements of the sequence `1:4` all got passed to the `n` argument of `runif()`.
 
@@ -123,8 +119,7 @@ Here is where the `...` argument to `lapply()` comes into play. Any arguments th
 Here, the `min = 0` and `max = 10` arguments are passed down to `runif()` every time it gets called.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- 1:4
 > lapply(x, runif, min = 0, max = 10)
 [[1]]
@@ -138,17 +133,16 @@ Here, the `min = 0` and `max = 10` arguments are passed down to `runif()` every 
 
 [[4]]
 [1] 0.9916910 1.1890256 0.5043966 9.2925392
-~~~~~~~~
+```
 
-So now, instead of the random numbers being between 0 and 1 (the default), the are all between 0 and 10.
+So now, instead of the random numbers being between 0 and 1 (the default), they are all between 0 and 10.
 
 The `lapply()` function and its friends make heavy use of _anonymous_ functions. Anonymous functions are like members of [Project Mayhem](http://en.wikipedia.org/wiki/Fight_Club)---they have no names. These are functions are generated "on the fly" as you are using `lapply()`. Once the call to `lapply()` is finished, the function disappears and does not appear in the workspace.
 
 Here I am creating a list that contains two matrices.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- list(a = matrix(1:4, 2, 2), b = matrix(1:6, 3, 2)) 
 > x
 $a
@@ -161,29 +155,27 @@ $b
 [1,]    1    4
 [2,]    2    5
 [3,]    3    6
-~~~~~~~~
+```
 
 Suppose I wanted to extract the first column of each matrix in the list. I could write
 an anonymous function for extracting the first column of each matrix.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > lapply(x, function(elt) { elt[,1] })
 $a
 [1] 1 2
 
 $b
 [1] 1 2 3
-~~~~~~~~
+```
 
 Notice that I put the `function()` definition right in the call to `lapply()`. This is perfectly legal and acceptable. You can put an arbitrarily complicated function definition inside `lapply()`, but if it's going to be more complicated, it's probably a better idea to define the function separately. 
 
 For example, I could have done the following.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > f <- function(elt) {
 +         elt[, 1]
 + }
@@ -193,7 +185,7 @@ $a
 
 $b
 [1] 1 2 3
-~~~~~~~~
+```
 
 Now the function is no longer anonymous; it's name is `f`. Whether you use an anonymous function or you define a function first depends on your context. If you think the function `f` is something you're going to need a lot in other parts of your code, you might want to define it separately. But if you're just going to use it for this call to `lapply()`, then it's probably simpler to use an anonymous function.
 
@@ -211,8 +203,7 @@ The `sapply()` function behaves similarly to `lapply()`; the only real differenc
 Here's the result of calling `lapply()`.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
 > lapply(x, mean)
 $a
@@ -226,19 +217,18 @@ $c
 
 $d
 [1] 4.968715
-~~~~~~~~
+```
 
 Notice that `lapply()` returns a list (as usual), but that each element of the list has length 1.
 
 Here's the result of calling `sapply()` on the same list.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > sapply(x, mean) 
         a         b         c         d 
  2.500000 -0.251483  1.481246  4.968715 
-~~~~~~~~
+```
 
 Because the result of `lapply()` was a list where each element had length 1, `sapply()` collapsed the output into a numeric vector, which is often more useful than a list.
 
@@ -253,11 +243,10 @@ The `split()` function takes a vector or other objects and splits it into groups
 The arguments to `split()` are
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > str(split)
 function (x, f, drop = FALSE, ...)  
-~~~~~~~~
+```
 
 where
 
@@ -265,34 +254,29 @@ where
 - `f` is a factor (or coerced to one) or a list of factors
 - `drop` indicates whether empty factors levels should be dropped
 
-The combination of `split()` and a function like `lapply()` or `sapply()` is a common paradigm in R. The basic idea is that you can take a data structure, split it into subsets defined by another variable, and apply a function over those subsets. The results of applying tha function over the subsets are then collated and returned as an object. This sequence of operations is sometimes referred to as "map-reduce" in other contexts.
+The combination of `split()` and a function like `lapply()` or `sapply()` is a common paradigm in R. The basic idea is that you can take a data structure, split it into subsets defined by another variable, and apply a function over those subsets. The results of applying the function over the subsets are then collated and returned as an object. This sequence of operations is sometimes referred to as "map-reduce" in other contexts.
 
 Here we simulate some data and split it according to a factor variable. Note that we use the `gl()` function to "generate levels" in a factor variable.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- c(rnorm(10), runif(10), rnorm(10, 1))
 > f <- gl(3, 10)
 > split(x, f)
 $`1`
- [1]  0.3981302 -0.4075286  1.3242586 -0.7012317 -0.5806143 -1.0010722
- [7] -0.6681786  0.9451850  0.4337021  1.0051592
+ [1]  0.3981302 -0.4075286  1.3242586 -0.7012317 -0.5806143 -1.0010722 -0.6681786  0.9451850  0.4337021  1.0051592
 
 $`2`
- [1] 0.34822440 0.94893818 0.64667919 0.03527777 0.59644846 0.41531800
- [7] 0.07689704 0.52804888 0.96233331 0.70874005
+ [1] 0.34822440 0.94893818 0.64667919 0.03527777 0.59644846 0.41531800 0.07689704 0.52804888 0.96233331 0.70874005
 
 $`3`
- [1]  1.13444766  1.76559900  1.95513668  0.94943430  0.69418458
- [6]  1.89367370 -0.04729815  2.97133739  0.61636789  2.65414530
-~~~~~~~~
+ [1]  1.13444766  1.76559900  1.95513668  0.94943430  0.69418458  1.89367370 -0.04729815  2.97133739  0.61636789  2.65414530
+```
 
 A common idiom is `split` followed by an `lapply`.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > lapply(split(x, f), mean)
 $`1`
 [1] 0.07478098
@@ -302,13 +286,12 @@ $`2`
 
 $`3`
 [1] 1.458703
-~~~~~~~~
+```
 
 ## Splitting a Data Frame
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > library(datasets)
 > head(airquality)
   Ozone Solar.R Wind Temp Month Day
@@ -318,14 +301,13 @@ $`3`
 4    18     313 11.5   62     5   4
 5    NA      NA 14.3   56     5   5
 6    28      NA 14.9   66     5   6
-~~~~~~~~
+```
 
 
 We can split the `airquality` data frame by the `Month` variable so that we have separate sub-data frames for each month.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > s <- split(airquality, airquality$Month)
 > str(s)
 List of 5
@@ -364,13 +346,12 @@ List of 5
   ..$ Temp   : int [1:30] 91 92 93 93 87 84 80 78 75 73 ...
   ..$ Month  : int [1:30] 9 9 9 9 9 9 9 9 9 9 ...
   ..$ Day    : int [1:30] 1 2 3 4 5 6 7 8 9 10 ...
-~~~~~~~~
+```
 
 Then we can take the column means for `Ozone`, `Solar.R`, and `Wind` for each sub-data frame.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > lapply(s, function(x) {
 +         colMeans(x[, c("Ozone", "Solar.R", "Wind")])
 + })
@@ -393,13 +374,12 @@ $`8`
 $`9`
    Ozone  Solar.R     Wind 
       NA 167.4333  10.1800 
-~~~~~~~~
+```
 
 Using `sapply()` might be better here for a more readable output.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > sapply(s, function(x) {
 +         colMeans(x[, c("Ozone", "Solar.R", "Wind")])
 + })
@@ -407,13 +387,12 @@ Using `sapply()` might be better here for a more readable output.
 Ozone         NA        NA         NA       NA       NA
 Solar.R       NA 190.16667 216.483871       NA 167.4333
 Wind    11.62258  10.26667   8.941935 8.793548  10.1800
-~~~~~~~~
+```
 
 Unfortunately, there are `NA`s in the data so we cannot simply take the means of those variables. However, we can tell the `colMeans` function to remove the `NA`s before computing the mean.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > sapply(s, function(x) {
 +         colMeans(x[, c("Ozone", "Solar.R", "Wind")], 
 +                  na.rm = TRUE)
@@ -422,13 +401,12 @@ Unfortunately, there are `NA`s in the data so we cannot simply take the means of
 Ozone    23.61538  29.44444  59.115385  59.961538  31.44828
 Solar.R 181.29630 190.16667 216.483871 171.857143 167.43333
 Wind     11.62258  10.26667   8.941935   8.793548  10.18000
-~~~~~~~~
+```
 
 Occasionally, we may want to split an R object according to levels defined in more than one variable. We can do this by creating an interaction of the variables with the `interaction()` function.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- rnorm(10)
 > f1 <- gl(2, 5)
 > f2 <- gl(5, 2)
@@ -442,13 +420,12 @@ Levels: 1 2 3 4 5
 > interaction(f1, f2)
  [1] 1.1 1.1 1.2 1.2 1.3 2.3 2.4 2.4 2.5 2.5
 Levels: 1.1 2.1 1.2 2.2 1.3 2.3 1.4 2.4 1.5 2.5
-~~~~~~~~
+```
 
 With multiple factors and many levels, creating an interaction can result in many levels that are empty.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > str(split(x, list(f1, f2)))
 List of 10
  $ 1.1: num [1:2] 1.512 0.083
@@ -461,13 +438,12 @@ List of 10
  $ 2.4: num [1:2] 0.0991 -0.4541
  $ 1.5: num(0) 
  $ 2.5: num [1:2] -0.6558 -0.0359
-~~~~~~~~
+```
 
 Notice that there are 4 categories with no data. But we can drop empty levels when we call the `split()` function.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > str(split(x, list(f1, f2), drop = TRUE))
 List of 6
  $ 1.1: num [1:2] 1.512 0.083
@@ -476,7 +452,7 @@ List of 6
  $ 2.3: num 1.04
  $ 2.4: num [1:2] 0.0991 -0.4541
  $ 2.5: num [1:2] -0.6558 -0.0359
-~~~~~~~~
+```
 
 
 ## tapply
@@ -486,11 +462,10 @@ List of 6
 `tapply()` is used to apply a function over subsets of a vector. It can be thought of as a combination of `split()` and `sapply()` for vectors only. I've been told that the "t" in `tapply()` refers to "table", but that is unconfirmed.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > str(tapply)
-function (X, INDEX, FUN = NULL, ..., simplify = TRUE)  
-~~~~~~~~
+function (X, INDEX, FUN = NULL, ..., default = NA, simplify = TRUE)  
+```
 
 The arguments to `tapply()` are as follows:
 
@@ -503,8 +478,7 @@ The arguments to `tapply()` are as follows:
 Given a vector of numbers, one simple operation is to take group means.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > ## Simulate some data
 > x <- c(rnorm(10), runif(10), rnorm(10, 1))
 > ## Define some groups with a factor variable
@@ -515,13 +489,12 @@ Levels: 1 2 3
 > tapply(x, f, mean)
         1         2         3 
 0.1896235 0.5336667 0.9568236 
-~~~~~~~~
+```
 
 We can also take the group means without simplifying the result, which will give us a list. For functions that return a single value, usually, this is not what we want, but it can be done.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > tapply(x, f, mean, simplify = FALSE)
 $`1`
 [1] 0.1896235
@@ -531,14 +504,13 @@ $`2`
 
 $`3`
 [1] 0.9568236
-~~~~~~~~
+```
 
 
 We can also apply functions that return more than a single value. In this case, `tapply()` will not simplify the result and will return a list. Here's an example of finding the range of each sub-group.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > tapply(x, f, range)
 $`1`
 [1] -1.869789  1.497041
@@ -548,7 +520,7 @@ $`2`
 
 $`3`
 [1] -0.5690822  2.3644349
-~~~~~~~~
+```
 
 
 ## `apply()`
@@ -559,11 +531,10 @@ The `apply()` function is used to a evaluate a function (often an anonymous one)
 
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > str(apply)
-function (X, MARGIN, FUN, ...)  
-~~~~~~~~
+function (X, MARGIN, FUN, ..., simplify = TRUE)  
+```
 
 The arguments to `apply()` are
 
@@ -576,25 +547,20 @@ The arguments to `apply()` are
 Here I create a 20 by 10 matrix of Normal random numbers. I then compute the mean of each column.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- matrix(rnorm(200), 20, 10)
 > apply(x, 2, mean)  ## Take the mean of each column
- [1]  0.02218266 -0.15932850  0.09021391  0.14723035 -0.22431309
- [6] -0.49657847  0.30095015  0.07703985 -0.20818099  0.06809774
-~~~~~~~~
+ [1]  0.02218266 -0.15932850  0.09021391  0.14723035 -0.22431309 -0.49657847  0.30095015  0.07703985 -0.20818099  0.06809774
+```
 
 I can also compute the sum of each row.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > apply(x, 1, sum)   ## Take the mean of each row
- [1] -0.48483448  5.33222301 -3.33862932 -1.39998450  2.37859098
- [6]  0.01082604 -6.29457190 -0.26287700  0.71133578 -3.38125293
-[11] -4.67522818  3.01900232 -2.39466347 -2.16004389  5.33063755
-[16] -2.92024635  3.52026401 -1.84880901 -4.10213912  5.30667310
-~~~~~~~~
+ [1] -0.48483448  5.33222301 -3.33862932 -1.39998450  2.37859098  0.01082604 -6.29457190 -0.26287700  0.71133578 -3.38125293 -4.67522818  3.01900232
+[13] -2.39466347 -2.16004389  5.33063755 -2.92024635  3.52026401 -1.84880901 -4.10213912  5.30667310
+```
 
 Note that in both calls to `apply()`, the return value was a vector of numbers.
 
@@ -603,18 +569,16 @@ You've probably noticed that the second argument is either a 1 or a 2, depending
 The `MARGIN` argument essentially indicates to `apply()` which dimension of the array you want to preserve or retain. So when taking the mean of each column, I specify
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > apply(x, 2, mean)
-~~~~~~~~
+```
 
 because I want to collapse the first dimension (the rows) by taking the mean and I want to preserve the number of columns. Similarly, when I want the row sums, I run
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > apply(x, 1, mean)
-~~~~~~~~
+```
 
 because I want to collapse the columns (the second dimension) and preserve the number of rows (the first dimension).
 
@@ -635,51 +599,42 @@ The shortcut functions are heavily optimized and hence are _much_ faster, but yo
 You can do more than take sums and means with the `apply()` function. For example, you can compute quantiles of the rows of a matrix using the `quantile()` function.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- matrix(rnorm(200), 20, 10)
 > ## Get row quantiles
 > apply(x, 1, quantile, probs = c(0.25, 0.75))    
-          [,1]       [,2]      [,3]       [,4]       [,5]        [,6]
-25% -1.0884151 -0.6693040 0.2908481 -0.4602083 -1.0432010 -1.12773555
-75%  0.1843547  0.8210295 1.3667301  0.4424153  0.3571219  0.03653687
-          [,7]       [,8]       [,9]     [,10]      [,11]      [,12]
-25% -1.4571706 -0.2406991 -0.3226845 -0.329898 -0.8677524 -0.2023664
-75% -0.1705336  0.6504486  1.1460854  1.247092  0.4138139  0.9145331
-         [,13]      [,14]      [,15]        [,16]      [,17]      [,18]
-25% -0.9796050 -1.3551031 -0.1823252 -1.260911898 -0.9954289 -0.3767354
-75%  0.5448777 -0.5396766  0.7795571  0.002908451  0.4323192  0.7542638
-         [,19]      [,20]
-25% -0.8557544 -0.7000363
-75%  0.5440158  0.5432995
-~~~~~~~~
+          [,1]       [,2]      [,3]       [,4]       [,5]        [,6]       [,7]       [,8]       [,9]     [,10]      [,11]      [,12]      [,13]
+25% -1.0884151 -0.6693040 0.2908481 -0.4602083 -1.0432010 -1.12773555 -1.4571706 -0.2406991 -0.3226845 -0.329898 -0.8677524 -0.2023664 -0.9796050
+75%  0.1843547  0.8210295 1.3667301  0.4424153  0.3571219  0.03653687 -0.1705336  0.6504486  1.1460854  1.247092  0.4138139  0.9145331  0.5448777
+         [,14]      [,15]        [,16]      [,17]      [,18]      [,19]      [,20]
+25% -1.3551031 -0.1823252 -1.260911898 -0.9954289 -0.3767354 -0.8557544 -0.7000363
+75% -0.5396766  0.7795571  0.002908451  0.4323192  0.7542638  0.5440158  0.5432995
+```
 
 Notice that I had to pass the `probs = c(0.25, 0.75)` argument to `quantile()` via the `...` argument to `apply()`.
 
-For a higher dimensional example, I can create an array of {$$}2\times2{/$$} matrices and the compute the average of the matrices in the array.
+For a higher dimensional example, I can create an array of $2\times2$ matrices and the compute the average of the matrices in the array.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > a <- array(rnorm(2 * 2 * 10), c(2, 2, 10))
 > apply(a, c(1, 2), mean)
           [,1]       [,2]
 [1,] 0.1681387 -0.1039673
 [2,] 0.3519741 -0.4029737
-~~~~~~~~
+```
 
 In the call to `apply()` here, I indicated via the `MARGIN` argument that I wanted to preserve the first and second dimensions and to collapse the third dimension by taking the mean.
 
 There is a faster way to do this specific operation via the `colMeans()` function.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > rowMeans(a, dims = 2)    ## Faster
           [,1]       [,2]
 [1,] 0.1681387 -0.1039673
 [2,] 0.3519741 -0.4029737
-~~~~~~~~
+```
 
 In this situation, I might argue that the use of `rowMeans()` is less readable, but it is substantially faster with large arrays.
 
@@ -691,11 +646,10 @@ In this situation, I might argue that the use of `rowMeans()` is less readable, 
 The `mapply()` function is a multivariate apply of sorts which applies a function in parallel over a set of arguments. Recall that `lapply()` and friends only iterate over a single R object. What if you want to iterate over multiple R objects in parallel? This is what `mapply()` is for.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > str(mapply)
 function (FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE, USE.NAMES = TRUE)  
-~~~~~~~~
+```
 
 The arguments to `mapply()` are
 
@@ -713,8 +667,7 @@ For example, the following is tedious to type
 With `mapply()`, instead we can do
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 >  mapply(rep, 1:4, 4:1)
 [[1]]
 [1] 1 1 1 1
@@ -727,34 +680,32 @@ With `mapply()`, instead we can do
 
 [[4]]
 [1] 4
-~~~~~~~~
+```
 
 This passes the sequence `1:4` to the first argument of `rep()` and the sequence `4:1` to the second argument.
 
 
-Here's another example for simulating randon Normal variables.
+Here's another example for simulating random Normal variables.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > noise <- function(n, mean, sd) {
 +       rnorm(n, mean, sd)
 + }
-> ## Simulate 5 randon numbers
+> ## Simulate 5 random numbers
 > noise(5, 1, 2)        
 [1] -0.5196913  3.2979182 -0.6849525  1.7828267  2.7827545
 > 
 > ## This only simulates 1 set of numbers, not 5
 > noise(1:5, 1:5, 2)    
 [1] -1.670517  2.796247  2.776826  5.351488  3.422804
-~~~~~~~~
+```
 
 Here we can use `mapply()` to pass the sequence `1:5` separately to the `noise()` function so that we can get 5 sets of random numbers, each with a different length and mean.
 
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > mapply(noise, 1:5, 1:5, 2)
 [[1]]
 [1] 0.8260273
@@ -770,13 +721,12 @@ Here we can use `mapply()` to pass the sequence `1:5` separately to the `noise()
 
 [[5]]
 [1] 2.826182 1.347834 6.990564 4.976276 3.800743
-~~~~~~~~
+```
 
 The above call to `mapply()` is the same as
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > list(noise(1, 1, 2), noise(2, 2, 2),
 +      noise(3, 3, 2), noise(4, 4, 2),
 +      noise(5, 5, 2))
@@ -794,56 +744,50 @@ The above call to `mapply()` is the same as
 
 [[5]]
 [1] 8.959267 6.593589 1.581448 1.672663 5.982219
-~~~~~~~~
+```
 
 ## Vectorizing a Function
 
 The `mapply()` function can be use to automatically "vectorize" a function. What this means is that it can be used to take a function that typically only takes single arguments and create a new function that can take vector arguments. This is often needed when you want to plot functions.
 
-Here's an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is {$$}\sum_{i=1}^n(x_i-\mu)^2/\sigma^2{/$$}.
+Here's an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is $\sum_{i=1}^n(x_i-\mu)^2/\sigma^2$.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > sumsq <- function(mu, sigma, x) {
 +         sum(((x - mu) / sigma)^2)
 + }
-~~~~~~~~
+```
 
 This function takes a mean `mu`, a standard deviation `sigma`, and some data in a vector `x`.
 
 In many statistical applications, we want to minimize the sum of squares to find the optimal `mu` and `sigma`. Before we do that, we may want to evaluate or plot the function for many different values of `mu` or `sigma`. However, passing a vector of `mu`s or `sigma`s won't work with this function because it's not vectorized.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > x <- rnorm(100)       ## Generate some data
 > sumsq(1:10, 1:10, x)  ## This is not what we want
 [1] 110.2594
-~~~~~~~~
+```
 
 Note that the call to `sumsq()` only produced one value instead of 10 values.
 
 However, we can do what we want to do by using `mapply()`.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > mapply(sumsq, 1:10, 1:10, MoreArgs = list(x = x))
- [1] 196.2289 121.4765 108.3981 104.0788 102.1975 101.2393 100.6998
- [8] 100.3745 100.1685 100.0332
-~~~~~~~~
+ [1] 196.2289 121.4765 108.3981 104.0788 102.1975 101.2393 100.6998 100.3745 100.1685 100.0332
+```
 
 There's even a function in R called `Vectorize()` that automatically can create a vectorized version of your function. So we could create a `vsumsq()` function that is fully vectorized as follows.
 
 
-{line-numbers=off}
-~~~~~~~~
+```r
 > vsumsq <- Vectorize(sumsq, c("mu", "sigma"))
 > vsumsq(1:10, 1:10, x)
- [1] 196.2289 121.4765 108.3981 104.0788 102.1975 101.2393 100.6998
- [8] 100.3745 100.1685 100.0332
-~~~~~~~~
+ [1] 196.2289 121.4765 108.3981 104.0788 102.1975 101.2393 100.6998 100.3745 100.1685 100.0332
+```
 
 Pretty cool, right?
 
@@ -852,9 +796,9 @@ Pretty cool, right?
 
 * The loop functions in R are very powerful because they allow you to conduct a series of operations on data using a compact form
 
-* The operation of a loop function involves iterating over an R object (e.g. a list or vector or matrix), applying a function to each element of the object, and the collating the results and returning the collated results.
+* The operation of a loop function involves iterating over an R object (e.g. a list or vector or matrix), applying a function to each element of the object, and then collating the results and returning the collated results.
 
-* Loop functions make heavy use of anonymous functions, which exist for the life of the loop function but are not stored anywhere
+* Loop functions make heavy use of anonymous functions, which exist for the life of the loop function but are not stored anywhere.
 
-* The `split()` function can be used to divide an R object in to subsets determined by another variable which can subsequently be looped over using loop functions.
+* The `split()` function can be used to divide an R object into subsets determined by another variable which can subsequently be looped over using loop functions.
 
