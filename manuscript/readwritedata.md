@@ -62,26 +62,25 @@ The `read.table()` function has a few important arguments:
   your file, it's worth setting this to be the empty string `""`.
 * `skip`, the number of lines to skip from the beginning
 * `stringsAsFactors`, should character variables be coded as factors?
-  This defaults to `FALSE` as of R 4.0.0. In 2020,
-  [the default was changed](https://developer.r-project.org/Blog/public/2020/02/16/stringsasfactors/)
-  from `TRUE` to `FALSE` due to reproducibility and to stay consistent
-  with modern alternatives to data frames. Now we have lots of
+  This defaults to `TRUE` because back in the old days, if you had
+  data that were stored as strings, it was because those strings
+  represented levels of a categorical variable. Now we have lots of
   data that is text data and they don't always represent categorical
-  variables. So setting it as `FALSE` makes sense in those
-  cases. With older versions of R, if you *always* want this to be
-  `FALSE`, you can set a global option via
-  `options(stringsAsFactors = FALSE)`. I've never seen so much heat 
-  generated on discussion forums about an R function argument than the
-  `stringsAsFactors` argument. Seriously.
+  variables. So you may want to set this to be `FALSE` in those
+  cases. If you *always* want this to be `FALSE`, you can set a global
+  option via `options(stringsAsFactors = FALSE)`. I've never seen so
+  much heat generated on discussion forums about an R function
+  argument than the `stringsAsFactors` argument. Seriously.
 
 
 For small to moderately sized datasets, you can usually call
 read.table without specifying any other arguments
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > data <- read.table("foo.txt")
-```
+~~~~~~~~
 
 In this case, R will automatically
 
@@ -103,7 +102,8 @@ argument).
 With much larger datasets, there are a few things that you can do that
 will make your life easier and will prevent R from choking.
 
-* Read the help page for read.table, which contains many hints.
+* Read the help page for read.table, which contains many hints
+
 * Make a rough calculation of the memory required to store your
   dataset (see the next section for an example of how to do this). If
   the dataset is larger than the amount of RAM on your computer, you
@@ -118,11 +118,12 @@ will make your life easier and will prevent R from choking.
   following:
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > initial <- read.table("datatable.txt", nrows = 100)
 > classes <- sapply(initial, class)
 > tabAll <- read.table("datatable.txt", colClasses = classes)
-```
+~~~~~~~~
 
 * Set `nrows`. This doesn’t make R run faster but it helps with memory
   usage. A mild overestimate is okay. You can use the Unix tool `wc`
@@ -134,8 +135,8 @@ know a few things about your system.
 * How much memory is available on your system?
 * What other applications are in use? Can you close any of them?
 * Are there other users logged into the same system? 
-* What operating system are you using? Some operating systems can limit
-  the amount of memory a single process can access.
+* What operating system ar you using? Some operating systems can limit
+  the amount of memory a single process can access
 
 
 ## Calculating Memory Requirements for R Objects
@@ -154,12 +155,13 @@ required to store this data frame? Well, on most modern computers
 [double precision floating point
 numbers](http://en.wikipedia.org/wiki/Double-precision_floating-point_format)
 are stored using 64 bits of memory, or 8 bytes. Given that
-information, you can do the following calculation:
+information, you can do the following calculation
 
-```
-> 1,500,000 × 120 × 8 bytes/numeric = 1,440,000,000 bytes
-> 1,440,000,000 / 2^20 bytes/MB = 1,373.29 MB = 1.34 GB                     
-```
+
+| 1,500,000 × 120 × 8 bytes/numeric |  = 1,440,000,000 bytes |
+| |  = 1,440,000,000 / 2^20^ bytes/MB  
+| | = 1,373.29 MB
+| | = 1.34 GB                     
 
 So the dataset would require about 1.34 GB of RAM. Most computers
 these days have at least that much RAM. However, you need to be aware
@@ -172,19 +174,19 @@ Reading in a large dataset for which you do not have enough RAM is one
 easy way to freeze up your computer (or at least your R session). This
 is usually an unpleasant experience that usually requires you to kill
 the R process, in the best case scenario, or reboot your computer, in
-the worst case. So make sure to do a rough calculation of memory
+the worst case. So make sure to do a rough calculation of memeory
 requirements before reading in a large dataset. You'll thank me later.
 
 
 # Using the `readr` Package
 
-The [readr](https://github.com/tidyverse/readr) package is recently
-developed by Hadley Wickham to deal with reading in large flat files
-quickly. The package provides replacements for functions like
-`read.table()` and `read.csv()`. The analogous functions in `readr`
-are `read_table()` and `read_csv()`. These functions are often
-*much* faster than their base R analogues and provide a few other
-nice features such as progress meters.
+The `readr` package is recently developed by Hadley Wickham to deal
+with reading in large flat files quickly. The package provides
+replacements for functions like `read.table()` and `read.csv()`. The
+analogous functions in `readr` are `read_table()` and
+`read_csv()`. These functions are often *much* faster than their base
+R analogues and provide a few other nice features such as progress
+meters.
 
 For the most part, you can read use `read_table()` and `read_csv()`
 pretty much anywhere you might use `read.table()` and `read.csv()`. In
@@ -206,33 +208,31 @@ specifying column types.
 A typical call to `read_csv` will look as follows.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > library(readr)
 > teams <- read_csv("data/team_standings.csv")
-Rows: 32 Columns: 2
--- Column specification ------------------------------------------------------------------------------------------------------------------------------------
-Delimiter: ","
-chr (1): Team
-dbl (1): Standing
-
-i Use `spec()` to retrieve the full column specification for this data.
-i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Parsed with column specification:
+cols(
+  Standing = col_integer(),
+  Team = col_character()
+)
 > teams
-# A tibble: 32 x 2
-   Standing Team       
-      <dbl> <chr>      
- 1        1 Spain      
- 2        2 Netherlands
- 3        3 Germany    
- 4        4 Uruguay    
- 5        5 Argentina  
- 6        6 Brazil     
- 7        7 Ghana      
- 8        8 Paraguay   
- 9        9 Japan      
-10       10 Chile      
+# A tibble: 32 × 2
+   Standing        Team
+      <int>       <chr>
+1         1       Spain
+2         2 Netherlands
+3         3     Germany
+4         4     Uruguay
+5         5   Argentina
+6         6      Brazil
+7         7       Ghana
+8         8    Paraguay
+9         9       Japan
+10       10       Chile
 # ... with 22 more rows
-```
+~~~~~~~~
 
 By default, `read_csv` will open a CSV file and read it in line-by-line. It will also (by default), read in the first few rows of the table in order to figure out the type of each column (i.e. integer, character, etc.). From the `read_csv` help page:
 
@@ -243,75 +243,86 @@ You can specify the type of each column with the `col_types` argument.
 In general, it's a good idea to specify the column types explicitly. This rules out any possible guessing errors on the part of `read_csv`. Also, specifying the column types explicitly provides a useful safety check in case anything about the dataset should change without you knowing about it.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > teams <- read_csv("data/team_standings.csv", col_types = "cc")
-```
+~~~~~~~~
 
 Note that the `col_types` argument accepts a compact representation. Here `"cc"` indicates that the first column is `character` and the second column is `character` (there are only two columns). Using the `col_types` argument is useful because often it is not easy to automatically figure out the type of a column by looking at a few rows (especially if a column has many missing values).
 
 The `read_csv` function will also read compressed files automatically. There is no need to decompress the file first or use the `gzfile` connection function. The following call reads a gzip-compressed CSV file containing download logs from the RStudio CRAN mirror.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > logs <- read_csv("data/2016-07-19.csv.bz2", n_max = 10)
-Rows: 10 Columns: 10
--- Column specification ------------------------------------------------------------------------------------------------------------------------------------
-Delimiter: ","
-chr  (6): r_version, r_arch, r_os, package, version, country
-dbl  (2): size, ip_id
-date (1): date
-time (1): time
-
-i Use `spec()` to retrieve the full column specification for this data.
-i Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
+Parsed with column specification:
+cols(
+  date = col_date(format = ""),
+  time = col_time(format = ""),
+  size = col_integer(),
+  r_version = col_character(),
+  r_arch = col_character(),
+  r_os = col_character(),
+  package = col_character(),
+  version = col_character(),
+  country = col_character(),
+  ip_id = col_integer()
+)
+~~~~~~~~
 Note that the warnings indicate that `read_csv` may have had some difficulty identifying the type of each column. This can be solved by using the `col_types` argument.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > logs <- read_csv("data/2016-07-19.csv.bz2", col_types = "ccicccccci", n_max = 10)
 > logs
-# A tibble: 10 x 10
-   date       time         size r_version r_arch r_os         package    version country ip_id
-   <chr>      <chr>       <int> <chr>     <chr>  <chr>        <chr>      <chr>   <chr>   <int>
- 1 2016-07-19 22:00:00  1887881 3.3.0     x86_64 mingw32      data.table 1.9.6   US          1
- 2 2016-07-19 22:00:05    45436 3.3.1     x86_64 mingw32      assertthat 0.1     US          2
- 3 2016-07-19 22:00:03 14259016 3.3.1     x86_64 mingw32      stringi    1.1.1   DE          3
- 4 2016-07-19 22:00:05  1887881 3.3.1     x86_64 mingw32      data.table 1.9.6   US          4
- 5 2016-07-19 22:00:06   389615 3.3.1     x86_64 mingw32      foreach    1.4.3   US          4
- 6 2016-07-19 22:00:08    48842 3.3.1     x86_64 linux-gnu    tree       1.0-37  CO          5
- 7 2016-07-19 22:00:12      525 3.3.1     x86_64 darwin13.4.0 survival   2.39-5  US          6
- 8 2016-07-19 22:00:08  3225980 3.3.1     x86_64 mingw32      Rcpp       0.12.5  US          2
- 9 2016-07-19 22:00:09   556091 3.3.1     x86_64 mingw32      tibble     1.1     US          2
-10 2016-07-19 22:00:10   151527 3.3.1     x86_64 mingw32      magrittr   1.5     US          2
-```
+# A tibble: 10 × 10
+         date     time     size r_version r_arch         r_os    package
+        <chr>    <chr>    <int>     <chr>  <chr>        <chr>      <chr>
+1  2016-07-19 22:00:00  1887881     3.3.0 x86_64      mingw32 data.table
+2  2016-07-19 22:00:05    45436     3.3.1 x86_64      mingw32 assertthat
+3  2016-07-19 22:00:03 14259016     3.3.1 x86_64      mingw32    stringi
+4  2016-07-19 22:00:05  1887881     3.3.1 x86_64      mingw32 data.table
+5  2016-07-19 22:00:06   389615     3.3.1 x86_64      mingw32    foreach
+6  2016-07-19 22:00:08    48842     3.3.1 x86_64    linux-gnu       tree
+7  2016-07-19 22:00:12      525     3.3.1 x86_64 darwin13.4.0   survival
+8  2016-07-19 22:00:08  3225980     3.3.1 x86_64      mingw32       Rcpp
+9  2016-07-19 22:00:09   556091     3.3.1 x86_64      mingw32     tibble
+10 2016-07-19 22:00:10   151527     3.3.1 x86_64      mingw32   magrittr
+# ... with 3 more variables: version <chr>, country <chr>, ip_id <int>
+~~~~~~~~
 
 You can specify the column type in a more detailed fashion by using the various `col_*` functions. For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a Date variable. If we wanted to just read in that first column, we could do
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > logdates <- read_csv("data/2016-07-19.csv.bz2", 
 +                      col_types = cols_only(date = col_date()),
 +                      n_max = 10)
 > logdates
-# A tibble: 10 x 1
-   date      
-   <date>    
- 1 2016-07-19
- 2 2016-07-19
- 3 2016-07-19
- 4 2016-07-19
- 5 2016-07-19
- 6 2016-07-19
- 7 2016-07-19
- 8 2016-07-19
- 9 2016-07-19
+# A tibble: 10 × 1
+         date
+       <date>
+1  2016-07-19
+2  2016-07-19
+3  2016-07-19
+4  2016-07-19
+5  2016-07-19
+6  2016-07-19
+7  2016-07-19
+8  2016-07-19
+9  2016-07-19
 10 2016-07-19
-```
+~~~~~~~~
 
 Now the `date` column is stored as a `Date` object which can be used for relevant date-related computations (for example, see the `lubridate` package).
 
 A> The `read_csv` function has a `progress` option that defaults to TRUE. This options provides a nice progress meter while the CSV file is being read. However, if you are using `read_csv` in a function, or perhaps embedding it in a loop, it's probably best to set `progress = FALSE`.
+
+
+
 
 
 # Using Textual and Binary Formats for Storing Data
@@ -357,14 +368,15 @@ One way to pass data around is by deparsing the R object with `dput()`
 and reading it back in (parsing it) using `dget()`.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > ## Create a data frame
 > y <- data.frame(a = 1, b = "a")  
 > ## Print 'dput' output to console
 > dput(y)                          
-structure(list(a = 1, b = "a"), class = "data.frame", row.names = c(NA, 
--1L))
-```
+structure(list(a = 1, b = structure(1L, .Label = "a", class = "factor")), .Names = c("a", 
+"b"), row.names = c(NA, -1L), class = "data.frame")
+~~~~~~~~
 
 Notice that the `dput()` output is in the form of R code and that it
 preserves metadata like the class of the object, the row names, and
@@ -373,7 +385,8 @@ the column names.
 The output of `dput()` can also be saved directly to a file.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > ## Send 'dput' output to a file
 > dput(y, file = "y.R")            
 > ## Read in 'dput' output from a file
@@ -381,39 +394,41 @@ The output of `dput()` can also be saved directly to a file.
 > new.y
   a b
 1 1 a
-```
+~~~~~~~~
 
 Multiple objects can be deparsed at once using the dump function and
 read back in using `source`.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- "foo"
 > y <- data.frame(a = 1L, b = "a")
-```
+~~~~~~~~
 
 We can `dump()` R objects to a file by passing a character vector of
 their names.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > dump(c("x", "y"), file = "data.R") 
 > rm(x, y)
-```
+~~~~~~~~
 
 The inverse of `dump()` is `source()`.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > source("data.R")
 > str(y)
 'data.frame':	1 obs. of  2 variables:
  $ a: int 1
- $ b: chr "a"
+ $ b: Factor w/ 1 level "a": 1
 > x
 [1] "foo"
-```
-
+~~~~~~~~
 
 ## Binary Formats
 
@@ -428,7 +443,8 @@ The key functions for converting R objects into a binary format are
 be saved to a file using the `save()` function.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > a <- data.frame(x = rnorm(100), y = runif(100))
 > b <- c(3, 4.4, 1 / 3)
 > 
@@ -437,19 +453,20 @@ be saved to a file using the `save()` function.
 > 
 > ## Load 'a' and 'b' into your workspace
 > load("mydata.rda")              
-```
+~~~~~~~~
 
 If you have a lot of objects that you want to save to a file, you can
 save all objects in your workspace using the `save.image()` function.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > ## Save everything to a file
 > save.image(file = "mydata.RData")   
 > 
 > ## load all objects in this file
 > load("mydata.RData")                
-```
+~~~~~~~~
 
 Notice that I've used the `.rda` extension when using `save()` and the
 `.RData` extension when using `save.image()`. This is just my personal
@@ -467,12 +484,15 @@ When you call `serialize()` on an R object, the output will be a raw
 vector coded in hexadecimal format.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- list(1, 2, 3)
 > serialize(x, NULL)
- [1] 58 0a 00 00 00 03 00 04 01 01 00 03 05 00 00 00 00 06 43 50 31 32 35 32 00 00 00 13 00 00 00 03 00 00 00 0e 00 00 00 01 3f f0 00 00 00 00 00 00 00 00
-[51] 00 0e 00 00 00 01 40 00 00 00 00 00 00 00 00 00 00 0e 00 00 00 01 40 08 00 00 00 00 00 00
-```
+ [1] 58 0a 00 00 00 02 00 03 03 02 00 02 03 00 00 00 00 13 00 00 00 03 00
+[24] 00 00 0e 00 00 00 01 3f f0 00 00 00 00 00 00 00 00 00 0e 00 00 00 01
+[47] 40 00 00 00 00 00 00 00 00 00 00 0e 00 00 00 01 40 08 00 00 00 00 00
+[70] 00
+~~~~~~~~
 
 If you want, this can be sent to a file, but in that case you are
 better off using something like `save()`. 
@@ -481,6 +501,8 @@ The benefit of the `serialize()` function is that it is the only way
 to perfectly represent an R object in an exportable format, without
 losing precision or any metadata. If that is what you need, then
 `serialize()` is the function for you.
+
+
 
 
 # Interfaces to the Outside World
@@ -499,7 +521,7 @@ made to files (most common) or to other more exotic things.
 In general, connections are powerful tools that let you navigate files
 or other external objects. Connections can be thought of as a
 translator that lets you talk to objects that are outside of R. Those
-outside objects could be anything from a database, a simple text
+outside objects could be anything from a data base, a simple text
 file, or a a web service API. Connections allow R functions to talk to
 all these different external objects without you having to write
 custom code for each object.
@@ -510,10 +532,12 @@ custom code for each object.
 Connections to text files can be created with the `file()` function.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > str(file)
-function (description = "", open = "", blocking = TRUE, encoding = getOption("encoding"), raw = FALSE, method = getOption("url.method", "default"))  
-```
+function (description = "", open = "", blocking = TRUE, encoding = getOption("encoding"), 
+    raw = FALSE, method = getOption("url.method", "default"))  
+~~~~~~~~
 
 The `file()` function has a number of arguments that are common to
 many other connection functions so it's worth going into a little
@@ -524,10 +548,10 @@ detail here.
 
 The `open` argument allows for the following options:
 
-- "r", open file in read only mode
-- "w", open a file for writing (and initializing a new file)
-- "a", open a file for appending
-- "rb", "wb", "ab", reading, writing, or appending in binary mode (Windows)
+- "r" open file in read only mode
+- "w" open a file for writing (and initializing a new file)
+- "a" open a file for appending
+- "rb", "wb", "ab" reading, writing, or appending in binary mode (Windows)
 
 
 In practice, we often don't need to deal with the connection interface
@@ -538,7 +562,8 @@ For example, if one were to explicitly use connections to read a CSV
 file in to R, it might look like this,
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > ## Create a connection to 'foo.txt'
 > con <- file("foo.txt")       
 > 
@@ -550,20 +575,21 @@ file in to R, it might look like this,
 > 
 > ## Close the connection
 > close(con)                   
-```
+~~~~~~~~
 
 which is the same as
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > data <- read.csv("foo.txt")
-```
+~~~~~~~~
 
 In the background, `read.csv()` opens a connection to the file
 `foo.txt`, reads from it, and closes the connection when it's done.
 
 The above example shows the basic approach to using
-connections. Connections must be opened, then they are read from or
+connections. Connections must be opened, then the are read from or
 written to, and then they are closed.
 
 
@@ -574,15 +600,17 @@ function. This function is useful for reading text files that may be
 unstructured or contain non-standard data. 
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > ## Open connection to gz-compressed text file
 > con <- gzfile("words.gz")   
 > x <- readLines(con, 10) 
 > x
- [1] "1080"     "10-point" "10th"     "11-point" "12-point" "16-point" "18-point" "1st"      "2"        "20-point"
-```
+ [1] "1080"     "10-point" "10th"     "11-point" "12-point" "16-point"
+ [7] "18-point" "1st"      "2"        "20-point"
+~~~~~~~~
 
-For more structured text data, like CSV files or tab-delimited files,
+For more structured text data like CSV files or tab-delimited files,
 there are other functions like `read.csv()` or `read.table()`.
 
 The above example used the `gzfile()` function which is used to create
@@ -598,7 +626,7 @@ time to a text file.
 ## Reading From a URL Connection
 
 The `readLines()` function can be useful for reading in lines of
-web pages. Since web pages are basically text files that are stored on
+webpages. Since web pages are basically text files that are stored on
 a remote server, there is conceptually not much difference between a
 web page and a local text file. However, we need R to negotiate the
 communication between your computer and the web server. This is what
@@ -608,29 +636,32 @@ a web server.
 This code might take time depending on your connection speed.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > ## Open a URL connection for reading
-> con <- url("https://en.wikipedia.org","r")
+> con <- url("http://www.jhsph.edu", "r")  
 > 
 > ## Read the web page
 > x <- readLines(con)                      
-Warning in readLines(con): incomplete final line found on 'https://en.wikipedia.org'
 > 
 > ## Print out the first few lines
-> head(x,5)                                  
-[1] "<!DOCTYPE html>"                                      "<html class=\"client-nojs\" lang=\"en\" dir=\"ltr\">"
-[3] "<head>"                                               "<meta charset=\"UTF-8\"/>"                           
-[5] "<title>Wikipedia, the free encyclopedia</title>"     
-```
+> head(x)                                  
+[1] "<!DOCTYPE html>"                                               
+[2] "<html lang=\"en\">"                                            
+[3] ""                                                              
+[4] "<head>"                                                        
+[5] "<meta charset=\"utf-8\" />"                                    
+[6] "<title>Johns Hopkins Bloomberg School of Public Health</title>"
+~~~~~~~~
 
 While reading in a simple web page is sometimes useful, particularly
 if data are embedded in the web page somewhere. However, more commonly
-we can use URL connections to read in specific data files that are
+we can use URL connection to read in specific data files that are
 stored on web servers. 
 
 Using URL connections can be useful for producing a reproducible
 analysis, because the code essentially documents where the data came
-from and how they were obtained. This approach is preferable to
+from and how they were obtained. This is approach is preferable to
 opening a web browser and downloading a dataset by hand. Of course,
 the code you write with connections may not be executable at a later
 date if things on the server side are changed or reorganized.

@@ -10,21 +10,23 @@ At the R prompt we type expressions. The `<-` symbol is the assignment
 operator.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- 1
 > print(x)
 [1] 1
 > x
 [1] 1
 > msg <- "hello"
-```
+~~~~~~~~
 
 The grammar of the language determines whether an expression is
 complete or not.
 
-```r
+{line-numbers=off}
+~~~~~~~~
 x <-  ## Incomplete expression
-```
+~~~~~~~~
 
 The # character indicates a comment. Anything to the right of the #
 (including the # itself) is ignored. This is the only comment
@@ -39,13 +41,14 @@ and the result of the evaluated expression is returned. The result may
 be *auto-printed*.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- 5  ## nothing printed
 > x       ## auto-printing occurs
 [1] 5
 > print(x)  ## explicit printing
 [1] 5
-```
+~~~~~~~~
 
 The `[1]` shown in the output indicates that `x` is a vector and `5`
 is its first element. 
@@ -64,12 +67,13 @@ see this integer sequence of length 20.
 
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- 11:30
 > x
  [1] 11 12 13 14 15 16 17 18 19 20 21 22
 [13] 23 24 25 26 27 28 29 30
-```
+~~~~~~~~
 
 
 
@@ -135,7 +139,7 @@ used in ordinary calculations; e.g. `1 / Inf` is 0.
 
 The value `NaN` represents an undefined value ("not a number"); e.g. 0
 / 0; `NaN` can also be thought of as a missing value (more on that
-later).
+later)
 
 
 ## Attributes
@@ -170,14 +174,15 @@ The `c()` function can be used to create vectors of objects by
 concatenating things together.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- c(0.5, 0.6)       ## numeric
 > x <- c(TRUE, FALSE)    ## logical
 > x <- c(T, F)           ## logical
 > x <- c("a", "b", "c")  ## character
 > x <- 9:29              ## integer
 > x <- c(1+0i, 2+4i)     ## complex
-```
+~~~~~~~~
 
 Note that in the above example, `T` and `F` are short-hand ways to
 specify `TRUE` and `FALSE`. However, in general one should try to use
@@ -188,11 +193,12 @@ feeling lazy.
 You can also use the `vector()` function to initialize vectors.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- vector("numeric", length = 10) 
 > x
  [1] 0 0 0 0 0 0 0 0 0 0
-```
+~~~~~~~~
 
 ## Mixing Objects
 
@@ -201,11 +207,12 @@ together. Sometimes this happens by accident but it can also happen on
 purpose. So what happens with the following code?
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > y <- c(1.7, "a")   ## character
 > y <- c(TRUE, 2)    ## numeric
 > y <- c("a", TRUE)  ## character
-```
+~~~~~~~~
 
 In each case above, we are mixing objects of two different classes in
 a vector. But remember that the only rule about vectors says this is
@@ -226,7 +233,8 @@ Objects can be explicitly coerced from one class to another using the
 `as.*` functions, if available.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- 0:6
 > class(x)
 [1] "integer"
@@ -236,13 +244,14 @@ Objects can be explicitly coerced from one class to another using the
 [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 > as.character(x)
 [1] "0" "1" "2" "3" "4" "5" "6"
-```
+~~~~~~~~
 
 Sometimes, R can't figure out how to coerce an object and this can
 result in `NA`s being produced.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- c("a", "b", "c")
 > as.numeric(x)
 Warning: NAs introduced by coercion
@@ -252,7 +261,7 @@ Warning: NAs introduced by coercion
 > as.complex(x)
 Warning: NAs introduced by coercion
 [1] NA NA NA
-```
+~~~~~~~~
 
 When nonsensical coercion takes place, you will usually get a warning
 from R.
@@ -262,10 +271,11 @@ from R.
 
 Matrices are vectors with a _dimension_ attribute. The dimension
 attribute is itself an integer vector of length 2 (number of rows,
-number of columns).
+number of columns)
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > m <- matrix(nrow = 2, ncol = 3) 
 > m
      [,1] [,2] [,3]
@@ -276,25 +286,27 @@ number of columns).
 > attributes(m)
 $dim
 [1] 2 3
-```
+~~~~~~~~
 
 Matrices are constructed _column-wise_, so entries can be thought of
 starting in the "upper left" corner and running down the columns.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > m <- matrix(1:6, nrow = 2, ncol = 3) 
 > m
      [,1] [,2] [,3]
 [1,]    1    3    5
 [2,]    2    4    6
-```
+~~~~~~~~
 
 Matrices can also be created directly from vectors by adding a
 dimension attribute.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > m <- 1:10 
 > m
  [1]  1  2  3  4  5  6  7  8  9 10
@@ -303,13 +315,14 @@ dimension attribute.
      [,1] [,2] [,3] [,4] [,5]
 [1,]    1    3    5    7    9
 [2,]    2    4    6    8   10
-```
+~~~~~~~~
 
 Matrices can be created by _column-binding_ or _row-binding_ with the
 `cbind()` and `rbind()` functions.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- 1:3
 > y <- 10:12
 > cbind(x, y)
@@ -321,7 +334,7 @@ Matrices can be created by _column-binding_ or _row-binding_ with the
   [,1] [,2] [,3]
 x    1    2    3
 y   10   11   12
-```
+~~~~~~~~
 
 ## Lists
 
@@ -334,7 +347,8 @@ Lists can be explicitly created using the `list()` function, which
 takes an arbitrary number of arguments.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- list(1, "a", TRUE, 1 + 4i) 
 > x
 [[1]]
@@ -348,13 +362,14 @@ takes an arbitrary number of arguments.
 
 [[4]]
 [1] 1+4i
-```
+~~~~~~~~
 
 We can also create an empty list of a prespecified length with the
-`vector()` function.
+`vector()` function
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- vector("list", length = 5)
 > x
 [[1]]
@@ -371,7 +386,7 @@ NULL
 
 [[5]]
 NULL
-```
+~~~~~~~~
 
 ## Factors
 
@@ -380,7 +395,7 @@ NULL
 Factors are used to represent categorical data and can be unordered or
 ordered. One can think of a factor as an integer vector where each
 integer has a _label_. Factors are important in statistical modeling
-and are treated specially by modeling functions like `lm()` and
+and are treated specially by modelling functions like `lm()` and
 `glm()`.
 
 Using factors with labels is _better_ than using integers because
@@ -390,7 +405,8 @@ and "Female" is better than a variable that has values 1 and 2.
 Factor objects can be created with the `factor()` function.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- factor(c("yes", "yes", "no", "yes", "no")) 
 > x
 [1] yes yes no  yes no 
@@ -404,7 +420,7 @@ x
 [1] 2 2 1 2 1
 attr(,"levels")
 [1] "no"  "yes"
-```
+~~~~~~~~
 
 Often factors will be automatically created for you when you read a
 dataset in using a function like `read.table()`. Those functions often
@@ -416,7 +432,8 @@ argument to `factor()`. This can be important in linear modelling
 because the first level is used as the baseline level.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- factor(c("yes", "yes", "no", "yes", "no"))
 > x  ## Levels are put in alphabetical order
 [1] yes yes no  yes no 
@@ -426,11 +443,11 @@ Levels: no yes
 > x
 [1] yes yes no  yes no 
 Levels: yes no
-```
+~~~~~~~~
 
 ## Missing Values
 
-Missing values are denoted by `NA` or `NaN` for undefined
+Missing values are denoted by `NA` or `NaN` for q undefined
 mathematical operations.
 
 - `is.na()` is used to test objects if they are `NA`
@@ -444,7 +461,8 @@ mathematical operations.
 
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > ## Create a vector with NAs in it
 > x <- c(1, 2, NA, 10, 3)  
 > ## Return a logical vector indicating which elements are NA
@@ -453,24 +471,25 @@ mathematical operations.
 > ## Return a logical vector indicating which elements are NaN
 > is.nan(x)   
 [1] FALSE FALSE FALSE FALSE FALSE
-```
+~~~~~~~~
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > ## Now create a vector with both NA and NaN values
 > x <- c(1, 2, NaN, NA, 4)
 > is.na(x)
 [1] FALSE FALSE  TRUE  TRUE FALSE
 > is.nan(x)
 [1] FALSE FALSE  TRUE FALSE FALSE
-```
+~~~~~~~~
 
 ## Data Frames
 
 Data frames are used to store tabular data in R. They are an important
 type of object in R and are used in a variety of statistical modeling
 applications. Hadley Wickham's package
-[dplyr](https://github.com/tidyverse/dplyr) has an optimized set of
+[dplyr](https://github.com/hadley/dplyr) has an optimized set of
 functions designed to work efficiently with data frames.
 
 Data frames are represented as a special type of list where every
@@ -497,7 +516,8 @@ should be used to coerce a data frame to a matrix, almost always, what
 you want is the result of `data.matrix()`.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- data.frame(foo = 1:4, bar = c(T, T, F, F)) 
 > x
   foo   bar
@@ -509,7 +529,7 @@ you want is the result of `data.matrix()`.
 [1] 4
 > ncol(x)
 [1] 2
-```
+~~~~~~~~
 
 ## Names
 
@@ -518,7 +538,8 @@ code and self-describing objects. Here is an example of assigning
 names to an integer vector.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- 1:3
 > names(x)
 NULL
@@ -528,12 +549,13 @@ NULL
           1           2           3 
 > names(x)
 [1] "New York"    "Seattle"     "Los Angeles"
-```
+~~~~~~~~
 
 Lists can also have names, which is often very useful.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- list("Los Angeles" = 1, Boston = 2, London = 3) 
 > x
 $`Los Angeles`
@@ -546,32 +568,34 @@ $London
 [1] 3
 > names(x)
 [1] "Los Angeles" "Boston"      "London"     
-```
+~~~~~~~~
 
 Matrices can have both column and row names.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > m <- matrix(1:4, nrow = 2, ncol = 2)
 > dimnames(m) <- list(c("a", "b"), c("c", "d")) 
 > m
   c d
 a 1 3
 b 2 4
-```
+~~~~~~~~
 
 Column names and row names can be set separately using the
 `colnames()` and `rownames()` functions.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > colnames(m) <- c("h", "f")
 > rownames(m) <- c("x", "z")
 > m
   h f
 x 1 3
 z 2 4
-```
+~~~~~~~~
 
 Note that for data frames, there is a separate function for setting
 the row names, the `row.names()` function. Also, data frames do not
@@ -587,8 +611,8 @@ know its confusing. Here's a quick summary:
 
 ## Summary
 
-There are a variety of different built-in data types in R. In this
-chapter we have reviewed the following:
+There are a variety of different builtin-data types in R. In this
+chapter we have reviewed the following
 
 - atomic classes: numeric, logical, character, integer, complex
 

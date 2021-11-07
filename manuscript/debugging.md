@@ -17,11 +17,12 @@ R has a number of ways to indicate to you that something’s not right. There ar
 Here is an example of a warning that you might receive in the course of using R.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > log(-1)
 Warning in log(-1): NaNs produced
 [1] NaN
-```
+~~~~~~~~
 
 This warning lets you know that taking the log of a negative number results in a `NaN` value because you can't take the log of negative numbers. Nevertheless, R doesn't give an error, because it has a useful value that it can return, the `NaN` value. The warning is just there to let you know that something unexpected happen. Depending on what you are programming, you may have intentionally taken the log of a negative number in order to move on to another section of code.
 
@@ -29,7 +30,8 @@ Here is another function that is designed to print a message to the console depe
 
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > printmessage <- function(x) {
 +         if(x > 0)
 +                 print("x is greater than zero")
@@ -37,7 +39,7 @@ Here is another function that is designed to print a message to the console depe
 +                 print("x is less than or equal to zero")
 +         invisible(x)        
 + }
-```
+~~~~~~~~
 
 This function is simple---it prints a message telling you whether `x` is greater than zero or less than or equal to zero. It also returns its input *invisibly*, which is a common practice with "print" functions. Returning an object invisibly means that the return value does not get auto-printed when the function is called.
 
@@ -46,18 +48,20 @@ Take a hard look at the function above and see if you can identify any bugs or p
 We can execute the function as follows.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > printmessage(1)
 [1] "x is greater than zero"
-```
+~~~~~~~~
 
 The function seems to work fine at this point. No errors, warnings, or messages.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > printmessage(NA)
 Error in if (x > 0) print("x is greater than zero") else print("x is less than or equal to zero"): missing value where TRUE/FALSE needed
-```
+~~~~~~~~
 
 What happened?
 
@@ -66,7 +70,8 @@ Well, the first thing the function does is test if `x > 0`. But you can't do tha
 We can fix this problem by anticipating the possibility of `NA` values and checking to see if the input is `NA` with the `is.na()` function.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > printmessage2 <- function(x) {
 +         if(is.na(x))
 +                 print("x is a missing value!")
@@ -76,29 +81,33 @@ We can fix this problem by anticipating the possibility of `NA` values and check
 +                 print("x is less than or equal to zero")
 +         invisible(x)
 + }
-```
+~~~~~~~~
 
 Now we can run the following.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > printmessage2(NA)
 [1] "x is a missing value!"
-```
+~~~~~~~~
 
 And all is fine.
 
 Now what about the following situation.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > x <- log(c(-1, 2))
 Warning in log(c(-1, 2)): NaNs produced
 > printmessage2(x)
-Warning in if (is.na(x)) print("x is a missing value!") else if (x > 0) print("x is greater than zero") else print("x is less than or equal to zero"): the
-condition has length > 1 and only the first element will be used
+Warning in if (is.na(x)) print("x is a missing value!") else if (x > 0)
+print("x is greater than zero") else print("x is less than or equal to
+zero"): the condition has length > 1 and only the first element will be
+used
 [1] "x is a missing value!"
-```
+~~~~~~~~
 
 Now what?? Why are we getting this warning? The warning says "the condition has length > 1 and only the first element will be used". 
 
@@ -109,7 +118,8 @@ We can solve this problem two ways. One is by simply not allowing vector argumen
 For the first way, we simply need to check the length of the input.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > printmessage3 <- function(x) {
 +         if(length(x) > 1L)
 +                 stop("'x' has length > 1")
@@ -121,32 +131,34 @@ For the first way, we simply need to check the length of the input.
 +                 print("x is less than or equal to zero")
 +         invisible(x)
 + }
-```
+~~~~~~~~
 
 Now when we pass `printmessage3()` a vector we should get an error.
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > printmessage3(1:2)
 Error in printmessage3(1:2): 'x' has length > 1
-```
+~~~~~~~~
 
 Vectorizing the function can be accomplished easily with the `Vectorize()` function.
 
 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > printmessage4 <- Vectorize(printmessage2)
 > out <- printmessage4(c(-1, 2))
 [1] "x is less than or equal to zero"
 [1] "x is greater than zero"
-```
+~~~~~~~~
 
 You can see now that the correct messages are printed without any warning or error. Note that I stored the return value of `printmessage4()` in a separate R object called `out`. This is because when I use the `Vectorize()` function it no longer preserves the invisibility of the return value.
 
 ## Figuring Out What's Wrong
 
-The primary task of debugging any R code is correctly diagnosing what the problem is. When diagnosing a problem with your code (or somebody else's), it's important to first understand what you were expecting to occur. Then you need to identify what *did* occur and how did it deviate from your expectations. Some basic questions you need to ask are
+The primary task of debugging any R code is correctly diagnosing what the problem is. When diagnosing a problem with your code (or somebody else's), it's important first understand what you were expecting to occur. Then you need to idenfity what *did* occur and how did it deviate from your expectations. Some basic questions you need to ask are
 
 - What was your input? How did you call the function?
 - What were you expecting? Output, messages, other results? 
@@ -180,12 +192,13 @@ The `traceback()` function prints out the *function call stack* after an error h
 
 For example, you may have a function `a()` which subsequently calls function `b()` which calls `c()` and then `d()`. If an error occurs, it may not be immediately clear in which function the error occurred. The `traceback()` function shows you how many levels deep you were when the error occurred.
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > mean(x)
 Error in mean(x) : object 'x' not found
 > traceback()
 1: mean(x)
-```
+~~~~~~~~
 Here, it's clear that the error occurred inside the `mean()` function because the object `x` does not exist. 
 
 The `traceback()` function must be called immediately after an error occurs. Once another function is called, you lose the traceback.
@@ -193,7 +206,8 @@ The `traceback()` function must be called immediately after an error occurs. Onc
 
 Here is a slightly more complicated example using the `lm()` function for linear modeling.
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > lm(y ~ x)
 Error in eval(expr, envir, enclos) : object ’y’ not found
 > traceback()
@@ -204,7 +218,7 @@ Error in eval(expr, envir, enclos) : object ’y’ not found
 3: eval(expr, envir, enclos)
 2: eval(mf, parent.frame())
 1: lm(y ~ x)
-```
+~~~~~~~~
 
 You can see now that the error did not get thrown until the 7th level of the function call stack, in which case the `eval()` function tried to evaluate the formula `y ~ x` and realized the object `y` did not exist.
 
@@ -216,7 +230,8 @@ The `debug()` function initiates an interactive debugger (also known as the "bro
 
 The `debug()` function takes a function as its first argument. Here is an example of debugging the `lm()` function. 
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > debug(lm)      ## Flag the 'lm()' function for interactive debugging
 > lm(y ~ x)
 debugging in: lm(y ~ x)
@@ -230,7 +245,7 @@ debug: {
     z
 } 
 Browse[2]>
-```
+~~~~~~~~
 
 Now, every time you call the `lm()` function it will launch the interactive debugger. To turn this behavior off you need to call the `undebug()` function.
 
@@ -242,7 +257,8 @@ The debugger calls the browser at the very top level of the function body. From 
 
 Here's an example of a browser session with the `lm()` function.
 
-```r
+{line-numbers=off}
+~~~~~~~~
 Browse[2]> n   ## Evalute this expression and move to the next one
 debug: ret.x <- x
 Browse[2]> n
@@ -254,15 +270,16 @@ debug: mf <- match.call(expand.dots = FALSE)
 Browse[2]> n
 debug: m <- match(c("formula", "data", "subset", "weights", "na.action",
     "offset"), names(mf), 0L)
-```
+~~~~~~~~
 
 While you are in the browser you can execute any other R function that might be available to you in a regular session. In particular, you can use `ls()` to see what is in your current environment (the function environment) and `print()` to print out the values of R objects in the function environment.
 
 You can turn off interactive debugging with the `undebug()` function.
 
-```r
+{line-numbers=off}
+~~~~~~~~
 undebug(lm)    ## Unflag the 'lm()' function for debugging
-```
+~~~~~~~~
 
 ## Using `recover()`
 
@@ -270,7 +287,8 @@ The `recover()` function can be used to modify the error behavior of R when an e
 
 With `recover()` you can tell R that when an error occurs, it should halt execution at the exact point at which the error occurred. That can give you the opportunity to poke around in the environment in which the error occurred. This can be useful to see if there are any R objects or data that have been corrupted or mistakenly modified.
 
-```r
+{line-numbers=off}
+~~~~~~~~
 > options(error = recover)    ## Change default R error behavior
 > read.csv("nosuchfile")      ## This code doesn't work
 Error in file(file, "rt") : cannot open the connection
@@ -285,13 +303,13 @@ Enter a frame number, or 0 to exit
 3: file(file, "rt")
 
 Selection:
-```
+~~~~~~~~
 
-The `recover()` function will first print out the function call stack when an error occurs. Then, you can choose to jump around the call stack and investigate the problem. When you choose a frame number, you will be put in the browser (just like the interactive debugger triggered with `debug()`) and will have the ability to poke around.
+The `recover()` function will first print out the function call stack when an error occurrs. Then, you can choose to jump around the call stack and investigate the problem. When you choose a frame number, you will be put in the browser (just like the interactive debugger triggered with `debug()`) and will have the ability to poke around.
 
 ## Summary
 
-- There are three main indications of a problem/condition: `message`, `warning`, `error`; only an `error` is fatal.
-- When analyzing a function with a problem, make sure you can reproduce the problem, clearly state your expectations and how the output differs from your expectation.
-- Interactive debugging tools `traceback`, `debug`, `browser`, `trace`, and `recover` can be used to find problematic code in functions.
+- There are three main indications of a problem/condition: `message`, `warning`, `error`; only an `error` is fatal
+- When analyzing a function with a problem, make sure you can reproduce the problem, clearly state your expectations and how the output differs from your expectation
+- Interactive debugging tools `traceback`, `debug`, `browser`, `trace`, and `recover` can be used to find problematic code in functions
 - Debugging tools are not a substitute for thinking!
