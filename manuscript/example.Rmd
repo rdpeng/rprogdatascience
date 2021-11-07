@@ -4,7 +4,7 @@
 knitr::opts_chunk$set(comment = NA, fig.path = "images/", collapse = TRUE, prompt = TRUE)
 ```
 
-This chapter presents an example data analysis looking at changes in fine particulate matter (PM) air pollution in the United States using the Environmental Protection Agencies freely available national monitoring data. The purpose of the chapter is to just show how the various tools that we have covered in this book can be used to read, manipulate, and summarize data so that you can develop statistical evidence for relevant real-world questions. 
+This chapter presents an example data analysis looking at changes in fine particulate matter (PM) air pollution in the United States using the Environmental Protection Agency's freely available national monitoring data. The purpose of the chapter is to just show how the various tools that we have covered in this book can be used to read, manipulate, and summarize data so that you can develop statistical evidence for relevant real-world questions. 
 
 [Watch a video of this chapter](https://youtu.be/VE-6bQvyfTQ)
 
@@ -16,12 +16,12 @@ In this chapter we aim to describe the changes in fine particle (PM2.5) outdoor 
 
 ## Loading and Processing the Raw Data
 
-From the [EPA Air Quality System](http://aqsdr1.epa.gov/aqsweb/aqstmp/airdata/download_files.html) we obtained data on fine particulate matter air pollution (PM2.5) that is monitored across the U.S. as part of the nationwide PM monitoring network. We obtained the files for the years 1999 and 2012.
+From the [EPA's Air Quality System](https://aqs.epa.gov/aqsweb/airdata/download_files.html), we obtained data on fine particulate matter air pollution (PM2.5) that is monitored across the U.S. as part of the nationwide PM monitoring network. We obtained the files for the years 1999 and 2012.
 
 
 ### Reading in the 1999 data
 
-We first read in the 1999 data from the raw text file included in the zip archive. The data is a delimited file were fields are delimited with the `|` character and missing values are coded as blank fields. We skip some commented lines in the beginning of the file and initially we do not read the header data.
+We first read in the 1999 data from the raw text file included in the zip archive. The data is a delimited file where fields are delimited with the `|` character and missing values are coded as blank fields. We skip some commented lines in the beginning of the file and initially we do not read the header data.
 
 
 ```{r read 1999 data,cache=TRUE,tidy=FALSE}
@@ -99,10 +99,11 @@ Interestingly, from the summary of `x1` it appears there are some negative value
 
 ```{r check negative values}
 negative <- x1 < 0
+length(negative)/length(x1) # proportion of negative values
 mean(negative, na.rm = T)
-````
+```
 
-There is a relatively small proportion of values that are negative, which is perhaps reassuring. In order to investigate this a step further we can extract the date of each measurement from the original data frame. The idea here is that perhaps negative values occur more often in some parts of the year than other parts. However, the original data are formatted as character strings so we convert them to R's `Date` format for easier manipulation.
+There is a relatively small proportion of values that are negative (`r length(negative)/length(x1)`), which is perhaps reassuring. In order to investigate this a step further we can extract the date of each measurement from the original data frame. The idea here is that perhaps negative values occur more often in some parts of the year than other parts. However, the original data are formatted as character strings so we convert them to R's `Date` format for easier manipulation.
 
 ```{r converting dates,cache=TRUE}
 dates <- pm1$Date
@@ -118,7 +119,7 @@ tab <- table(factor(missing.months, levels = month.name))
 round(100 * tab / sum(tab))
 ```
 
-From the table above it appears that bulk of the negative values occur in the first six months of the year (January--June). However, beyond that simple observation, it is not clear why the negative values occur. That said, given the relatively low proportion of negative values, we will ignore them for now.
+From the table above it appears the bulk of the negative values occur in the first six months of the year (January--June). However, beyond that simple observation, it is not clear why the negative values occur. That said, given the relatively low proportion of negative values, we will ignore them for now.
 
 
 ### Changes in PM levels at an individual monitor
@@ -141,7 +142,7 @@ str(site0)
 str(site1)
 ```
 
-Finaly, we want the intersection between the sites present in 1999 and 2012 so that we might choose a monitor that has data in both periods.
+Finally, we want the intersection between the sites present in 1999 and 2012 so that we might choose a monitor that has data in both periods.
 
 ```{r}
 both <- intersect(site0, site1)
@@ -195,11 +196,11 @@ plot(dates1, x1sub, pch = 20, ylim = rng, xlab = "", ylab = expression(PM[2.5] *
 abline(h = median(x1sub, na.rm = T))
 ```
 
-From the plot above, we can that median levels of PM (horizontal solid line) have decreased a little from `r median(x0sub,na.rm=TRUE)` in 1999 to `r median(x1sub,na.rm=TRUE)` in 2012. However, perhaps more interesting is that the variation (spread) in the PM values in 2012 is much smaller than it was in 1999. This suggest that not only are median levels of PM lower in 2012, but that there are fewer large spikes from day to day. One issue with the data here is that the 1999 data are from July through December while the 2012 data are recorded in January through April. It would have been better if we'd had full-year data for both years as there could be some seasonal confounding going on.
+From the plot above, we can that median levels of PM (horizontal solid line) have decreased a little from `r median(x0sub,na.rm=TRUE)` in 1999 to `r median(x1sub,na.rm=TRUE)` in 2012. However, perhaps more interesting is that the variation (spread) in the PM values in 2012 is much smaller than it was in 1999. This suggests that not only are median levels of PM lower in 2012, but that there are fewer large spikes from day to day. One issue with the data here is that the 1999 data are from July through December while the 2012 data are recorded in January through April. It would have been better if we'd had full-year data for both years as there could be some seasonal confounding going on.
 
 ### Changes in state-wide PM levels
 
-Although ambient air quality standards are set at the federal level in the U.S. and hence affect the entire country, the actual reduction and management of PM is left to the individual states. States that are not "in attainment" have to develop a plan to reduce PM so that that the are in attainment (eventually). Therefore, it might be useful to examine changes in PM at the state level. This analysis falls somewhere in between looking at the entire country all at once and looking at an individual monitor.
+Although ambient air quality standards are set at the federal level in the U.S. and hence affect the entire country, the actual reduction and management of PM is left to the individual states. States that are not "in attainment" have to develop a plan to reduce PM so that that they are in attainment (eventually). Therefore, it might be useful to examine changes in PM at the state level. This analysis falls somewhere in between looking at the entire country all at once and looking at an individual monitor.
 
 What we do here is calculate the mean of PM for each state in 1999 and 2012.
 
