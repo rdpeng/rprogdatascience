@@ -12,14 +12,14 @@ set.seed(10)
 
 Simulation is an important (and big) topic for both statistics and for a variety of other areas where there is a need to introduce randomness. Sometimes you want to implement a statistical procedure that requires random number generation or sampling (i.e. Markov chain Monte Carlo, the bootstrap, random forests, bagging) and sometimes you want to simulate a system and random number generators can be used to model random inputs.
 
-R comes with a set of pseuodo-random number generators that allow you to simulate from well-known probability distributions like the Normal, Poisson, and binomial. Some example functions for probability distributions in R
+R comes with a set of pseudo-random number generators that allow you to simulate from well-known probability distributions like the Normal, Poisson, and binomial. Some example functions for probability distributions in R
 
 - `rnorm`: generate random Normal variates with a given mean and standard deviation
 - `dnorm`: evaluate the Normal probability density (with a given mean/SD) at a point (or vector of points)
 - `pnorm`: evaluate the cumulative distribution function for a Normal distribution 
 - `rpois`: generate random Poisson variates with a given rate
 
-For each probability distribution there are typically four functions available that start with a "r", "d", "p", and "q". The "r" function is the one that actually simulates randon numbers from that distribution. The other functions are prefixed with a
+For each probability distribution there are typically four functions available that start with a "r", "d", "p", and "q". The "r" function is the one that actually simulates random numbers from that distribution. The other functions are prefixed with a
 
 - `d` for density
 - `r` for random number generation 
@@ -28,7 +28,7 @@ For each probability distribution there are typically four functions available t
 
 If you're only interested in simulating random numbers, then you will likely only need the "r" functions and not the others. However, if you intend to simulate from arbitrary probability distributions using something like rejection sampling, then you will need the other functions too.
 
-Probably the most common probability distribution to work with the is the Normal distribution (also known as the Gaussian). Working with the Normal distributions requires using these four functions
+Probably the most common probability distribution to work with is the Normal distribution (also known as the Gaussian). Working with the Normal distribution requires using these four functions
 
 ```r
 dnorm(x, mean = 0, sd = 1, log = FALSE)
@@ -37,7 +37,7 @@ qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
 rnorm(n, mean = 0, sd = 1)
 ```
 
-Here we simulate standard Normal random numbers with mean 0 and standard deviation 1.
+Here we simulate 10 standard Normal random numbers with mean 0 and standard deviation 1.
 
 ```{r}
 ## Simulate standard Normal random numbers
@@ -45,7 +45,7 @@ x <- rnorm(10)
 x
 ```
 
-We can modify the default parameters to simulate numbers with mean 20 and standard deviation 2.
+We can modify the default parameters to simulate 10 numbers with mean 20 and standard deviation 2.
 
 ```{r}
 x <- rnorm(10, 20, 2) 
@@ -149,7 +149,7 @@ plot(x, y)
 ```
 
 
-We can also simulate from *generalized linear model* where the errors are no longer from a Normal distribution but come from some other distribution. For examples, suppose we want to simulate from a Poisson log-linear model where
+We can also simulate from a *generalized linear model* where the errors are no longer from a Normal distribution but come from some other distribution. For example, suppose we want to simulate from a Poisson log-linear model where
 
 \[
 Y \sim Poisson(\mu)
@@ -197,7 +197,7 @@ sample(letters, 5)
 sample(1:10)          
 sample(1:10)
 
-## Sample w/replacement
+## Sample w/ replacement
 sample(1:10, replace = TRUE)  
 ```
 
@@ -229,7 +229,7 @@ Other more complex objects can be sampled in this way, as long as there's a way 
 
 ## Summary
 
-- Drawing samples from specific probability distributions can be done with "r" functions
+- Drawing samples from specific probability distributions can be done with "r" functions.
 - Standard distributions are built in: Normal, Poisson, Binomial, Exponential, Gamma, etc.
-- The `sample()` function can be used to draw random samples from arbitrary vectors
-- Setting the random number generator seed via `set.seed()` is critical for reproducibility
+- The `sample()` function can be used to draw random samples from arbitrary vectors.
+- Setting the random number generator seed via `set.seed()` is critical for reproducibility.

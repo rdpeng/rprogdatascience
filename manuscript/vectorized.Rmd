@@ -64,7 +64,7 @@ x / y
 
 ## Vectorized Matrix Operations
 
-Matrix operations are also vectorized, making for nicly compact
+Matrix operations are also vectorized, making for nicely compact
 notation. This way, we can do element-by-element operations on
 matrices without having to loop over every element.
 

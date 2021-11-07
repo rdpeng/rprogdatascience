@@ -128,7 +128,7 @@ You can see now that the correct messages are printed without any warning or err
 
 ## Figuring Out What's Wrong
 
-The primary task of debugging any R code is correctly diagnosing what the problem is. When diagnosing a problem with your code (or somebody else's), it's important first understand what you were expecting to occur. Then you need to idenfity what *did* occur and how did it deviate from your expectations. Some basic questions you need to ask are
+The primary task of debugging any R code is correctly diagnosing what the problem is. When diagnosing a problem with your code (or somebody else's), it's important to first understand what you were expecting to occur. Then you need to identify what *did* occur and how did it deviate from your expectations. Some basic questions you need to ask are
 
 - What was your input? How did you call the function?
 - What were you expecting? Output, messages, other results? 
@@ -269,11 +269,11 @@ Enter a frame number, or 0 to exit
 Selection:
 ```
 
-The `recover()` function will first print out the function call stack when an error occurrs. Then, you can choose to jump around the call stack and investigate the problem. When you choose a frame number, you will be put in the browser (just like the interactive debugger triggered with `debug()`) and will have the ability to poke around.
+The `recover()` function will first print out the function call stack when an error occurs. Then, you can choose to jump around the call stack and investigate the problem. When you choose a frame number, you will be put in the browser (just like the interactive debugger triggered with `debug()`) and will have the ability to poke around.
 
 ## Summary
 
-- There are three main indications of a problem/condition: `message`, `warning`, `error`; only an `error` is fatal
-- When analyzing a function with a problem, make sure you can reproduce the problem, clearly state your expectations and how the output differs from your expectation
-- Interactive debugging tools `traceback`, `debug`, `browser`, `trace`, and `recover` can be used to find problematic code in functions
+- There are three main indications of a problem/condition: `message`, `warning`, `error`; only an `error` is fatal.
+- When analyzing a function with a problem, make sure you can reproduce the problem, clearly state your expectations and how the output differs from your expectation.
+- Interactive debugging tools `traceback`, `debug`, `browser`, `trace`, and `recover` can be used to find problematic code in functions.
 - Debugging tools are not a substitute for thinking!

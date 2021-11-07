@@ -6,7 +6,7 @@ knitr::opts_chunk$set(comment = NA, prompt = TRUE, collapse = TRUE, fig.path = "
 
 Many computations in R can be made faster by the use of parallel computation. Generally, parallel computation is the simultaneous execution of different pieces of a larger computation across multiple computing processors or cores. The basic idea is that if you can execute a computation in $X$ seconds on a single processor, then you should be able to execute it in $X/n$ seconds on $n$ processors. Such a speed-up is generally not possible because of overhead and various barriers to splitting up a problem into $n$ pieces, but it is often possible to come close in simple problems. 
 
-It used to be that parallel computation was squarely in the domain of "high-performance computing", where expensive machines were linked together via high-speed networking to create large clusters of computers. In those kinds of settings, it was important to have sophisticated software to manage the communication of data between different computers in the cluster. Parallel computing in that setting was a highly tuned, and carefully customized operation and not something you could just saunter into.
+It used to be that parallel computation was squarely in the domain of "high-performance computing", where expensive machines were linked together via high-speed networking to create large clusters of computers. In those kinds of settings, it was important to have sophisticated software to manage the communication of data between different computers in the cluster. Parallel computing in that setting was a highly tuned, carefully customized operation, and not something you could just saunter into.
 
 These days though, almost all computers contain multiple processors or cores on them. Even Apple's iPhone 6S comes with a [dual-core CPU](https://en.wikipedia.org/wiki/Apple_A9) as part of its A9 system-on-a-chip. Getting access to a "cluster" of CPUs, in this case all built into the same computer, is much easier than it used to be and this has opened the door to parallel computing for a wide range of people.
 
@@ -18,7 +18,7 @@ You may be computing in parallel without even knowing it! These days, many compu
 
 ### Parallel BLAS
 
-A common example in R is the use of linear algebra functions. Some versions of R that you use may be linked to on optimized Basic Linear Algebra Subroutines (BLAS) library. Such libraries are custom coded for specific CPUs/chipsets to take advantage of the architecture of the chip. It's important to realize that while R can do linear algebra out of the box, its default BLAS library is a *reference implementation* that is not necessarily optimized to any particular chipset. 
+A common example in R is the use of linear algebra functions. Some versions of R that you use may be linked to an optimized Basic Linear Algebra Subroutines (BLAS) library. Such libraries are custom coded for specific CPUs/chipsets to take advantage of the architecture of the chip. It's important to realize that while R can do linear algebra out of the box, its default BLAS library is a *reference implementation* that is not necessarily optimized to any particular chipset. 
 
 When possible, it's always a good idea to install an optimized BLAS on your system because it can dramatically improve the performance of those kinds of computations. Part of the increase in performance comes from the customization of the code to a particular chipset while part of it comes from the multi-threading that many libraries use to parallelize their computations. 
 
@@ -44,22 +44,22 @@ Here, you can see that the `user` time is just under 1 second while the `elapsed
 
 Here's a summary of some of the optimized BLAS libraries out there:
 
-* The [AMD Core Math Library](http://developer.amd.com/tools-and-sdks/archive/amd-core-math-library-acml/) (ACML) is built for AMD chips and contains a full set of BLAS and LAPACK routines. The library is closed-source and is maintained/released by AMD.
+* The [AMD Optimizing CPU Libraries](http://developer.amd.com/tools-and-sdks/archive/amd-core-math-library-acml/) (AOCL) is built for AMD chips and contains BLIS (BLAS-like), LAPACK, and FFT routines. The library is mostly open-source and is maintained/released by AMD.
 
-* The [Intel Math Kernel](https://software.intel.com/en-us/intel-mkl) is an analogous optimized library for Intel-based chips
+* The [Intel Math Kernel](https://software.intel.com/en-us/intel-mkl) is an analogous optimized library for Intel-based chips.
 
 * The [Accelerate framework](https://developer.apple.com/library/tvos/documentation/Accelerate/Reference/AccelerateFWRef/index.html) on the Mac contains an optimized BLAS built by Apple.
 
 * The [Automatically Tuned Linear Algebra Software](http://math-atlas.sourceforge.net) (ATLAS) library is a special "adaptive" software package that is designed to be compiled on the computer where it will be used. As part of the build process, the library extracts detailed CPU information and optimizes the code as it goes along. The ATLAS library is hence a generic package that can be built on a wider array of CPUs.
 
-Detailed instructions on how to use R with optimized BLAS libraries can be found in the [R Installation and Administration](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#BLAS) manual. In some cases, you may need to build R from the sources in order to link it with the optimized BLAS library.
+Detailed instructions on how to use R with optimized BLAS libraries can be found in the [R Installation and Administration](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#BLAS) manual. In some cases, you may need to build R from source in order to link it with an optimized BLAS library.
 
 
 ## Embarrassing Parallelism
 
-Many problems in statistics and data science can be executed in an "embarrassingly parallel" way, whereby multiple independent pieces of a problem are executed simultaneously because the different pieces of the problem never really have to communicate with each other (except perhaps at the end when all the results are assembled). Despite the name, there's nothing really "embarrassing" about taking advantage of the structure of the problem and using it speed up your computation. In fact, embarrassingly parallel computation is a common paradigm in statistics and data science.
+Many problems in statistics and data science can be executed in an "embarrassingly parallel" way, whereby multiple independent pieces of a problem are executed simultaneously because the different pieces of the problem never really have to communicate with each other (except perhaps at the end when all the results are assembled). Despite the name, there's nothing really "embarrassing" about taking advantage of the structure of the problem and using it to speed up your computation. In fact, embarrassingly parallel computation is a common paradigm in statistics and data science.
 
-A> In general, it is NOT a good idea to use the functions described in this chapter with graphical user interfaces (GUIs) because, to summarize the help page for `mclapply()`, bad things can happen. That said, the functions in the `parallel` package seem two work okay in RStudio.
+A> In general, it is NOT a good idea to use the functions described in this chapter with graphical user interfaces (GUIs) because, to summarize the help page for `mclapply()`, bad things can happen. That said, the functions in the `parallel` package seem to work okay in RStudio.
 
 The basic mode of an embarrassingly parallel operation can be seen with the `lapply()` function, which we have reviewed in a [previous chapter](#loop-functions). Recall that the `lapply()` function has two arguments:
 
@@ -69,7 +69,7 @@ The basic mode of an embarrassingly parallel operation can be seen with the `lap
 
 Finally, recall that `lapply()` always returns a list whose length is equal to the length of the input list. 
 
-The `lapply()` function works much like a loop--it cycles through each element of the list and applies the supplied function to that element. While `lapply()` is applying your function to a list element, the other elements of the list are just...sitting around in memory. Note that in the description of `lapply()` above, there's no mention of the different elements of the list communicating with each other, and the function being applied to a given list element does not need to know about other list elements. 
+The `lapply()` function works much like a loop -- it cycles through each element of the list and applies the supplied function to that element. While `lapply()` is applying your function to a list element, the other elements of the list are just... sitting around in memory. Note that in the description of `lapply()` above, there's no mention of the different elements of the list communicating with each other, and the function being applied to a given list element does not need to know about other list elements. 
 
 Just about any operation that is handled by the `lapply()` function can be parallelized. This approach is analogous to the ["map-reduce"](https://en.wikipedia.org/wiki/MapReduce) approach in large-scale cluster systems. The idea is that a list object can be split across multiple cores of a processor and then the function can be applied to each subset of the list object on each of the cores. Conceptually, the steps in the parallel procedure are
 
@@ -85,9 +85,9 @@ The differences between the many packages/functions in R essentially come down t
 
 ## The Parallel Package
 
-The `parallel` package which comes with your R installation. It represents a combining of two historical packages--the `multicore` and `snow` packages, and the functions in `parallel` have overlapping names with those older packages. For our purposes, it's not necessary to know anything about the `multicore` or `snow` packages, but long-time users of R may remember them from back in the day.
+The `parallel` package comes with your R installation. It represents a combining of two historical packages -- the `multicore` and `snow` packages, and the functions in `parallel` have overlapping names with those older packages. For our purposes, it's not necessary to know anything about the `multicore` or `snow` packages, but long-time users of R may remember them from back in the day.
 
-The `mclapply()` function essentially parallelizes calls to `lapply()`. The first two arguments to `mclapply()` are exactly the same as they are for `lapply()`. However, `mclapply()` has further arguments (that must be named), the most important of which is the `mc.cores` argument which you can use to specify the number of processors/cores you want to split the computation across. For example, if your machine has 4 cores on it, you might specify `mc.cores = 4` to break your parallelize your operation across 4 cores (although this may not be the best idea if you are running other operations in the background besides R).
+The `mclapply()` function essentially parallelizes calls to `lapply()`. The first two arguments to `mclapply()` are exactly the same as they are for `lapply()`. However, `mclapply()` has further arguments (that must be named), the most important of which is the `mc.cores` argument which you can use to specify the number of processors/cores you want to split the computation across. For example, if your machine has 4 cores on it, you might specify `mc.cores = 4` to break your operation (parallelize) across 4 cores (although this may not be the best idea if you are running other operations in the background besides R).
 
 The `mclapply()` function (and related `mc*` functions) works via the fork mechanism on Unix-style operating systems. Briefly, your R session is the main process and when you call a function like `mclapply()`, you fork a series of sub-processes that operate independently from the main process (although they share a few low-level features). These sub-processes then execute your function on their subsets of the data, presumably on separate cores of your CPU. Once the computation is complete, each sub-process returns its results and then the sub-process is killed. The `parallel` package manages the logistics of forking the sub-processes and handling them once they've finished.
 
@@ -120,9 +120,9 @@ r <- mclapply(1:10, function(i) {
 
 While this "job" was running, I took a screen shot of the system activity monitor ("top"). Here's what it looks like on Mac OS X.
 
-![Multiple sub-processes spawned by `mclapply()`](images/topparallel.png)
+![Multiple `rsession` sub-processes are spawned by `mclapply()`.](images/topparallel.png)
 
-In case you are not used to viewing this output, each row of the table is an application or process running on your computer. You can see that there are 11 rows where the COMMAND is labelled `rsession`. One of these is my primary R session (being run through RStudio), and the other 10 are the sub-processes spawned by the `mclapply()` function. 
+In case you are not used to viewing this output, each row of the table is an application or process running on your computer. You can see that there are 11 rows where the COMMAND is labeled `rsession`. One of these is my primary R session (being run through RStudio), and the other 10 are the sub-processes spawned by the `mclapply()` function. 
 
 We will use as a second (slightly more realistic) example processing data from multiple files. Often this is something that can be easily parallelized.
 
@@ -182,7 +182,7 @@ When either `mclapply()` or `mcmapply()` are called, the functions supplied will
 
 This error handling behavior is a significant difference from the usual call to `lapply()`. With `lapply()`, if the supplied function fails on one component of the list, the entire function call to `lapply()` fails and you only get an error as a result.
 
-With `mclapply()`, when a sub-process fails, the return value for that sub-process will be an R object that inherits from the class `"try-error"`, which is something you can test with the `inherits()` function. Conceptually, each child process is executed with the `try()` function wrapped around it. The code below deliberately causes an error in the 3 element of the list.
+With `mclapply()`, when a sub-process fails, the return value for that sub-process will be an R object that inherits from the class `"try-error"`, which is something you can test with the `inherits()` function. Conceptually, each child process is executed with the `try()` function wrapped around it. The code below deliberately causes an error in the 3rd element of the list.
 
 ```{r}
 r <- mclapply(1:5, function(i) {
@@ -240,7 +240,7 @@ We can see from the histogram that the distribution of sulfate is skewed to the 
 summary(sulf)
 ```
 
-How can we construct confidence interval for the median of sulfate for this monitor? The bootstrap is simple procedure that can work well. Here's how we might do it in the usual (non-parallel) way.
+How can we construct a confidence interval for the median of sulfate for this monitor? The bootstrap is a simple procedure that can work well. Here's how we might do it in the usual (non-parallel) way.
 
 ```{r}
 set.seed(1)
@@ -256,7 +256,7 @@ A 95% confidence interval would then take the 2.5th and 97.5th percentiles of th
 quantile(med.boot, c(0.025, 0.975))
 ```
 
-How could be done in parallel? We could simply wrap the expression passed to `replicate()` in a function and pass it to `mclapply()`. However, one thing we need to be careful of is generating random numbers.
+How could this be done in parallel? We could simply wrap the expression passed to `replicate()` in a function and pass it to `mclapply()`. However, one thing we need to be careful of is generating random numbers.
 
 ### Generating Random Numbers
 

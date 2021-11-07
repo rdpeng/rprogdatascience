@@ -22,7 +22,7 @@ how does R know what value to assign to the symbol `lm`? Why doesn’t it give i
 When R tries to bind a value to a symbol, it searches through a series of `environments` to find the appropriate value. When you are working on the command line and need to retrieve the value of an R object, the order in which things occur is roughly
 
 1. Search the global environment (i.e. your workspace) for a symbol name matching the one requested.
-2. Search the namespaces of each of the packages on the search list
+2. Search the namespaces of each of the packages on the search list.
 
 The search list can be found by using the `search()` function.
 
@@ -41,10 +41,9 @@ Note that R has separate namespaces for functions and non-functions so it’s po
 
 The scoping rules for R are the main feature that make it different from the original S language (in case you care about that). This may seem like an esoteric aspect of R, but it's one of its more interesting and useful features.
 
-The scoping rules of a language determine how a value is associated with a *free variable* in a function. R uses [_lexical scoping_](http://en.wikipedia.org/wiki/Scope_(computer_science)#Lexical_scope_vs._dynamic_scope) or _static scoping_. An alternative to lexical scoping is _dynamic scoping_ which is implemented by some languages. Lexical scoping turns out to be particularly useful for simplifying statistical computations
+The scoping rules of a language determine how a value is associated with a *free variable* in a function. R uses [_lexical scoping_](http://en.wikipedia.org/wiki/Scope_(computer_science)#Lexical_scope_vs._dynamic_scope) or _static scoping_. An alternative to lexical scoping is _dynamic scoping_ which is implemented by some languages. Lexical scoping turns out to be particularly useful for simplifying statistical computations.
 
 Related to the scoping rules is how R uses the *search list* to bind a value to a
-symbol
 
 Consider the following function.
 
@@ -72,7 +71,7 @@ A function, together with an environment, makes up what is called a _closure_ or
 How do we associate a value to a free variable? There is a search process that occurs that goes as follows:
 
 - If the value of a symbol is not found in the environment in which a function was defined, then the search is continued in the _parent environment_.
-- The search continues down the sequence of parent environments until we hit the _top-level environment_; this usually the global environment (workspace) or the namespace of a package.
+- The search continues down the sequence of parent environments until we hit the _top-level environment_; this is usually the global environment (workspace) or the namespace of a package.
 - After the top-level environment, the search continues down the search list until we hit the _empty environment_.
 
 If a value for a given symbol cannot be found once the empty environment is arrived at, then an error is thrown.
@@ -257,7 +256,7 @@ Another nice feature that you can take advantage of is plotting the negative log
 Here is the function when `mu` is fixed.
 
 ```{r nLLFixMu}
-## Fix 'mu' to be equalt o 1
+## Fix 'mu' to be equal to 1
 nLL <- make.NegLogLik(normals, c(1, FALSE))  
 x <- seq(1.7, 1.9, len = 100)
 
@@ -281,7 +280,7 @@ plot(x, exp(-(y - min(y))), type = "l")
 
 ## Summary
 
-- Objective functions can be "built" which contain all of the necessary data for evaluating the function
+- Objective functions can be "built" which contain all of the necessary data for evaluating the function.
 - No need to carry around long argument lists — useful for interactive and exploratory work.
-- Code can be simplified and cleaned up
+- Code can be simplified and cleaned up.
 - Reference: Robert Gentleman and Ross Ihaka (2000). "Lexical Scope and Statistical Computing," _JCGS_, 9, 491–508.

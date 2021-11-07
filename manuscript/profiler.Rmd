@@ -9,9 +9,9 @@ knitr::opts_chunk$set(comment = NA, prompt = TRUE, collapse = TRUE)
 ```
 
 
-R comes with a profiler to help you optimize your code and improve its performance. In generall, it's usually a bad idea to focus on optimizing your code at the very beginning of development. Rather, in the beginning it's better to focus on translating your ideas into code and writing code that's coherent and readable. The problem is that heavily optimized code tends to be obscure and difficult to read, making it harder to debug and revise. Better to get all the bugs out first, then focus on optimizing.
+R comes with a profiler to help you optimize your code and improve its performance. In general, it's usually a bad idea to focus on optimizing your code at the very beginning of development. Rather, in the beginning it's better to focus on translating your ideas into code and writing code that's coherent and readable. The problem is that heavily optimized code tends to be obscure and difficult to read, making it harder to debug and revise. Better to get all the bugs out first, then focus on optimizing.
 
-Of course, when it comes to optimizing code, the question is what should you optimize? Well, clearly should optimize the parts of your code that are running slowly, but how do we know what parts those are?
+Of course, when it comes to optimizing code, the question is what should you optimize? Well, clearly you should optimize the parts of your code that are running slowly, but how do we know what parts those are?
 
 This is what the profiler is for. Profiling is a systematic way to examine how much time is spent in  different parts of a program. 
 
@@ -26,9 +26,9 @@ the code spends most of its time. This cannot be done without some sort of rigor
 
 The basic principles of optimizing your code are:
 
-* Design first, then optimize
+* Design first, then optimize.
 
-* Remember: Premature optimization is the root of all evil
+* Remember: Premature optimization is the root of all evil.
 
 * Measure (collect data), don’t guess. 
 
@@ -37,15 +37,15 @@ The basic principles of optimizing your code are:
 
 ## Using `system.time()`
 
-They `system.time()` function takes an arbitrary R expression as input (can be wrapped in curly  braces) and returns the amount of time taken to evaluate the expression. The `system.time()` function computes the time (in seconds) needed to execute an expression and if there’s an error, gives the time until the error occurred. The function returns an object of class `proc_time` which contains two useful bits of information:
+The `system.time()` function takes an arbitrary R expression as input (can be wrapped in curly  braces) and returns the amount of time taken to evaluate the expression. The `system.time()` function computes the time (in seconds) needed to execute an expression and if there’s an error, gives the time until the error occurred. The function returns an object of class `proc_time` which contains two useful bits of information:
 
   - *user time*: time charged to the CPU(s) for this expression
   - *elapsed time*: "wall clock" time, the amount of time that passes for *you* as you're sitting there
 
 
-Usually, the user time and elapsed time are relatively close, for straight computing tasks. But there are a few situations where the two can diverge, sometimes dramatically. The elapsed time may be *greater than* the user time if the CPU spends a lot of time waiting around. This commonly happens if your R expression involes some input or output, which depends on the activity of the file system and the disk (or the Internet, if using a network connection).
+Usually, the user time and elapsed time are relatively close, for straight computing tasks. But there are a few situations where the two can diverge, sometimes dramatically. The elapsed time may be *greater than* the user time if the CPU spends a lot of time waiting around. This commonly happens if your R expression involves some input or output, which depends on the activity of the file system and the disk (or the Internet, if using a network connection).
 
-The elapsed time may be *smaller than* the user time if your machine has multiple cores/processors (and is capable of using them). For example, multi-threaded BLAS libraries (vecLib/Accelerate, ATLAS, ACML, MKL) can greatly speed up linear algebra calculations and are commonly installed on even desktop systems these days. Also, parallel processing done via something like the `parallell` package can make the elapsed time smaller than the user time. When you have multiple processors/cores/machines working in parallel, the amount of time that the collection of CPUs spends working on a problem is the same as with a single CPU, but because they are operating in parallel, there is a savings in elapsed time.
+The elapsed time may be *smaller than* the user time if your machine has multiple cores/processors (and is capable of using them). For example, multi-threaded BLAS libraries (vecLib/Accelerate, ATLAS, ACML, MKL) can greatly speed up linear algebra calculations and are commonly installed on even desktop systems these days. Also, parallel processing done via something like the `parallel` package can make the elapsed time smaller than the user time. When you have multiple processors/cores/machines working in parallel, the amount of time that the collection of CPUs spends working on a problem is the same as with a single CPU, but because they are operating in parallel, there is a savings in elapsed time.
 
 Here's an example of where the elapsed time is greater than the user time.
 
@@ -95,12 +95,12 @@ If your expression is getting pretty long (more than 2 or 3 lines), it might be 
 
 [Watch a video of this section](https://youtu.be/BZVcMPtlJ4A)
 
-Using `system.time()` allows you to test certain functions or code blocks to see if they are taking excessive amounts of time. However, this approach assumes that you already know where the problem is and can call `system.time()` on it that piece of code. What if you don’t know where to start? 
+Using `system.time()` allows you to test certain functions or code blocks to see if they are taking excessive amounts of time. However, this approach assumes that you already know where the problem is and can call `system.time()` on that piece of code. What if you don’t know where to start? 
 
 This is where the profiler comes in handy. The `Rprof()` function starts the profiler in R. Note that R must be compiled with profiler support (but this is usually the case). In conjunction with `Rprof()`, we will use the `summaryRprof()` function which summarizes the output from `Rprof()` (otherwise it’s not really readable).
 Note that you should NOT use `system.time()` and `Rprof()` together, or you will be sad.
 
-`Rprof()` keeps track of the function call stack at regularly sampled intervals and tabulates how much time is spent inside each function. By default, the profiler samples the function call stack every 0.02 seconds. This means that if your code runs very quickly (say, under 0.02 seconds), the profiler is not useful. But of your code runs that fast, you probably don't need the profiler.
+`Rprof()` keeps track of the function call stack at regularly sampled intervals and tabulates how much time is spent inside each function. By default, the profiler samples the function call stack every 0.02 seconds. This means that if your code runs very quickly (say, under 0.02 seconds), the profiler is not useful. But if your code runs that fast, you probably don't need the profiler.
 
 The profiler is started by calling the `Rprof()` function.
 
@@ -192,7 +192,7 @@ $by.self
 
 Now you can see that only about 4% of the runtime is spent in the actual `lm()` function, whereas over 40% of the time is spent in `lm.fit()`. In this case, this is no surprise since the `lm.fit()` function is the function that actually fits the linear model. 
 
-You can see that a reasonable amount of time is spent in functions not necessarily associated with linear modeling (i.e. `as.list.data.frame`, `[.data.frame`). This is because the `lm()` function does a bit of pre-processing and checking before it actually fits the model. This is common with modeling functions---the preprocessing and checking is useful to see if there are any errors. But those two functions take up over 1.5 seconds of runtime. What if you want to fit this model 10,000 times? You're going to be spending a lot of time in preprocessing and checking.
+You can see that a reasonable amount of time is spent in functions not necessarily associated with linear modeling (i.e. `as.list.data.frame`, `[.data.frame`). This is because the `lm()` function does a bit of preprocessing and checking before it actually fits the model. This is common with modeling functions---the preprocessing and checking is useful to see if there are any errors. But those two functions take up over 1.5 seconds of runtime. What if you want to fit this model 10,000 times? You're going to be spending a lot of time in preprocessing and checking.
 
 The final bit of output that `summaryRprof()` provides is the sampling interval and the total runtime.
 
@@ -206,13 +206,13 @@ $sampling.time
 
 ## Summary
 
-* `Rprof()` runs the profiler for performance of analysis of R code
+* `Rprof()` runs the profiler for performance analysis of R code.
 
 * `summaryRprof()` summarizes the output of `Rprof()` and gives
   percent of time spent in each function (with two types of
-  normalization)
+  normalization).
 
 * Good to break your code into functions so that the profiler can give
-  useful information about where time is being spent
+  useful information about where time is being spent.
 
-* C or Fortran code is not profiled
+* C or Fortran code is not profiled.
