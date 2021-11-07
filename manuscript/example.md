@@ -134,13 +134,13 @@ Interestingly, from the summary of `x1` it appears there are some negative value
 
 ```r
 > negative <- x1 < 0
-> length(negative)/length(x1) # proportion of negative values
-[1] 1
+> length(negative[negative=="TRUE"])/length(x1) # proportion of negative values
+[1] 0.07636893
 > mean(negative, na.rm = T)
 [1] 0.0215034
 ```
 
-There is a relatively small proportion of values that are negative (1), which is perhaps reassuring. In order to investigate this a step further we can extract the date of each measurement from the original data frame. The idea here is that perhaps negative values occur more often in some parts of the year than other parts. However, the original data are formatted as character strings so we convert them to R's `Date` format for easier manipulation.
+There is a relatively small proportion of values that are negative (0.076), which is perhaps reassuring. In order to investigate this a step further we can extract the date of each measurement from the original data frame. The idea here is that perhaps negative values occur more often in some parts of the year than other parts. However, the original data are formatted as character strings so we convert them to R's `Date` format for easier manipulation.
 
 
 ```r
