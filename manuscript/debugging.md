@@ -101,17 +101,20 @@ Now what about the following situation.
 ~~~~~~~~
 > x <- log(c(-1, 2))
 Warning in log(c(-1, 2)): NaNs produced
-> printmessage2(x)
-Warning in if (is.na(x)) print("x is a missing value!") else if (x > 0)
-print("x is greater than zero") else print("x is less than or equal to
-zero"): the condition has length > 1 and only the first element will be
-used
-[1] "x is a missing value!"
 ~~~~~~~~
 
-Now what?? Why are we getting this warning? The warning says "the condition has length > 1 and only the first element will be used". 
+We expect some `NaN`s here because taking the log of a negative number doesn't make sense.
 
-The problem here is that I passed `printmessage2()` a vector `x` that was of length 2 rather then length 1. Inside the body of `printmessage2()` the expression `is.na(x)` returns a vector that is tested in the `if` statement. However, `if` cannot take vector arguments so you get a warning. The fundamental problem here is that `printmessage2()` is not *vectorized*.
+
+{line-numbers=off}
+~~~~~~~~
+> printmessage2(x)
+Error in if (is.na(x)) print("x is a missing value!") else if (x > 0) print("x is greater than zero") else print("x is less than or equal to zero"): the condition has length > 1
+~~~~~~~~
+
+Now what?? Why are we getting this error?  
+
+The problem here is that I passed `printmessage2()` a vector `x` that was of length 2 rather then length 1. Inside the body of `printmessage2()` the expression `is.na(x)` returns a vector that is tested in the `if` statement. However, `if` cannot take vector arguments so you get an error (in previous versions of R you only got a warning). The fundamental problem here is that `printmessage2()` is not *vectorized*.
 
 We can solve this problem two ways. One is by simply not allowing vector arguments. The other way is to vectorize the `printmessage2()` function to allow it to take vector arguments.
 
