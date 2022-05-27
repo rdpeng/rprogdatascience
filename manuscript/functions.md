@@ -195,13 +195,13 @@ The following calls to the `sd()` function (which computes the empirical standar
 ~~~~~~~~
 > ## Positional match first argument, default for 'na.rm'
 > sd(mydata)                     
-[1] 0.8707092
+[1] 1.012273
 > ## Specify 'x' argument by name, default for 'na.rm'
 > sd(x = mydata)                 
-[1] 0.8707092
+[1] 1.012273
 > ## Specify both arguments by name
 > sd(x = mydata, na.rm = FALSE)  
-[1] 0.8707092
+[1] 1.012273
 ~~~~~~~~
 
 When specifying the function arguments by name, it doesn't matter in what order you specify them. In the example below, we specify the `na.rm` argument first, followed by `x`, even though `x` is the first argument defined in the function definition.
@@ -211,7 +211,7 @@ When specifying the function arguments by name, it doesn't matter in what order 
 ~~~~~~~~
 > ## Specify both arguments by name
 > sd(na.rm = FALSE, x = mydata)     
-[1] 0.8707092
+[1] 1.012273
 ~~~~~~~~
 
 You can mix positional matching with matching by name. When an argument is matched by name, it is “taken out” of the argument list and the remaining unnamed arguments are matched in the order that they are listed in the function definition.
@@ -220,7 +220,7 @@ You can mix positional matching with matching by name. When an argument is match
 {line-numbers=off}
 ~~~~~~~~
 > sd(na.rm = FALSE, mydata)
-[1] 0.8707092
+[1] 1.012273
 ~~~~~~~~
 
 Here, the `mydata` object is assigned to the `x` argument, because it's the only argument not yet specified.
@@ -326,7 +326,7 @@ Generic functions use `...` so that extra arguments can be passed to methods.
 > mean
 function (x, ...) 
 UseMethod("mean")
-<bytecode: 0x7fac46cdbe38>
+<bytecode: 0x7fb7015d25a8>
 <environment: namespace:base>
 ~~~~~~~~
 
@@ -338,7 +338,7 @@ The `...` argument is necessary when the number of arguments passed to the funct
 {line-numbers=off}
 ~~~~~~~~
 > args(paste)
-function (..., sep = " ", collapse = NULL) 
+function (..., sep = " ", collapse = NULL, recycle0 = FALSE) 
 NULL
 > args(cat)
 function (..., file = "", sep = " ", fill = FALSE, labels = NULL, 
@@ -358,7 +358,7 @@ Take a look at the arguments to the `paste()` function.
 {line-numbers=off}
 ~~~~~~~~
 > args(paste)
-function (..., sep = " ", collapse = NULL) 
+function (..., sep = " ", collapse = NULL, recycle0 = FALSE) 
 NULL
 ~~~~~~~~
 
