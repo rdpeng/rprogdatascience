@@ -212,13 +212,16 @@ A typical call to `read_csv` will look as follows.
 ~~~~~~~~
 > library(readr)
 > teams <- read_csv("data/team_standings.csv")
-Parsed with column specification:
-cols(
-  Standing = col_double(),
-  Team = col_character()
-)
+Rows: 32 Columns: 2
+── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): Team
+dbl (1): Standing
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 > teams
-# A tibble: 32 x 2
+# A tibble: 32 × 2
    Standing Team       
       <dbl> <chr>      
  1        1 Spain      
@@ -256,19 +259,16 @@ The `read_csv` function will also read compressed files automatically. There is 
 {line-numbers=off}
 ~~~~~~~~
 > logs <- read_csv("data/2016-07-19.csv.bz2", n_max = 10)
-Parsed with column specification:
-cols(
-  date = col_date(format = ""),
-  time = col_time(format = ""),
-  size = col_double(),
-  r_version = col_character(),
-  r_arch = col_character(),
-  r_os = col_character(),
-  package = col_character(),
-  version = col_character(),
-  country = col_character(),
-  ip_id = col_double()
-)
+Rows: 10 Columns: 10
+── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (6): r_version, r_arch, r_os, package, version, country
+dbl  (2): size, ip_id
+date (1): date
+time (1): time
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ~~~~~~~~
 Note that the warnings indicate that `read_csv` may have had some difficulty identifying the type of each column. This can be solved by using the `col_types` argument.
 
@@ -277,19 +277,19 @@ Note that the warnings indicate that `read_csv` may have had some difficulty ide
 ~~~~~~~~
 > logs <- read_csv("data/2016-07-19.csv.bz2", col_types = "ccicccccci", n_max = 10)
 > logs
-# A tibble: 10 x 10
-   date    time      size r_version r_arch r_os    package version country ip_id
-   <chr>   <chr>    <int> <chr>     <chr>  <chr>   <chr>   <chr>   <chr>   <int>
- 1 2016-0… 22:00…  1.89e6 3.3.0     x86_64 mingw32 data.t… 1.9.6   US          1
- 2 2016-0… 22:00…  4.54e4 3.3.1     x86_64 mingw32 assert… 0.1     US          2
- 3 2016-0… 22:00…  1.43e7 3.3.1     x86_64 mingw32 stringi 1.1.1   DE          3
- 4 2016-0… 22:00…  1.89e6 3.3.1     x86_64 mingw32 data.t… 1.9.6   US          4
- 5 2016-0… 22:00…  3.90e5 3.3.1     x86_64 mingw32 foreach 1.4.3   US          4
- 6 2016-0… 22:00…  4.88e4 3.3.1     x86_64 linux-… tree    1.0-37  CO          5
- 7 2016-0… 22:00…  5.25e2 3.3.1     x86_64 darwin… surviv… 2.39-5  US          6
- 8 2016-0… 22:00…  3.23e6 3.3.1     x86_64 mingw32 Rcpp    0.12.5  US          2
- 9 2016-0… 22:00…  5.56e5 3.3.1     x86_64 mingw32 tibble  1.1     US          2
-10 2016-0… 22:00…  1.52e5 3.3.1     x86_64 mingw32 magrit… 1.5     US          2
+# A tibble: 10 × 10
+   date       time     size r_version r_arch r_os  package version country ip_id
+   <chr>      <chr>   <int> <chr>     <chr>  <chr> <chr>   <chr>   <chr>   <int>
+ 1 2016-07-19 22:00… 1.89e6 3.3.0     x86_64 ming… data.t… 1.9.6   US          1
+ 2 2016-07-19 22:00… 4.54e4 3.3.1     x86_64 ming… assert… 0.1     US          2
+ 3 2016-07-19 22:00… 1.43e7 3.3.1     x86_64 ming… stringi 1.1.1   DE          3
+ 4 2016-07-19 22:00… 1.89e6 3.3.1     x86_64 ming… data.t… 1.9.6   US          4
+ 5 2016-07-19 22:00… 3.90e5 3.3.1     x86_64 ming… foreach 1.4.3   US          4
+ 6 2016-07-19 22:00… 4.88e4 3.3.1     x86_64 linu… tree    1.0-37  CO          5
+ 7 2016-07-19 22:00… 5.25e2 3.3.1     x86_64 darw… surviv… 2.39-5  US          6
+ 8 2016-07-19 22:00… 3.23e6 3.3.1     x86_64 ming… Rcpp    0.12.5  US          2
+ 9 2016-07-19 22:00… 5.56e5 3.3.1     x86_64 ming… tibble  1.1     US          2
+10 2016-07-19 22:00… 1.52e5 3.3.1     x86_64 ming… magrit… 1.5     US          2
 ~~~~~~~~
 
 You can specify the column type in a more detailed fashion by using the various `col_*` functions. For example, in the log data above, the first column is actually a date, so it might make more sense to read it in as a Date variable. If we wanted to just read in that first column, we could do
@@ -301,7 +301,7 @@ You can specify the column type in a more detailed fashion by using the various 
 +                      col_types = cols_only(date = col_date()),
 +                      n_max = 10)
 > logdates
-# A tibble: 10 x 1
+# A tibble: 10 × 1
    date      
    <date>    
  1 2016-07-19
@@ -487,7 +487,7 @@ vector coded in hexadecimal format.
 ~~~~~~~~
 > x <- list(1, 2, 3)
 > serialize(x, NULL)
- [1] 58 0a 00 00 00 03 00 04 00 02 00 03 05 00 00 00 00 05 55 54 46 2d 38 00 00
+ [1] 58 0a 00 00 00 03 00 04 02 00 00 03 05 00 00 00 00 05 55 54 46 2d 38 00 00
 [26] 00 13 00 00 00 03 00 00 00 0e 00 00 00 01 3f f0 00 00 00 00 00 00 00 00 00
 [51] 0e 00 00 00 01 40 00 00 00 00 00 00 00 00 00 00 0e 00 00 00 01 40 08 00 00
 [76] 00 00 00 00
@@ -638,19 +638,16 @@ This code might take time depending on your connection speed.
 {line-numbers=off}
 ~~~~~~~~
 > ## Open a URL connection for reading
-> con <- url("http://www.jhsph.edu", "r")  
+> con <- url("https://www.jhu.edu", "r")  
 > 
 > ## Read the web page
 > x <- readLines(con)                      
 > 
 > ## Print out the first few lines
 > head(x)                                  
-[1] "<!DOCTYPE html>"                                               
-[2] "<html lang=\"en\">"                                            
-[3] ""                                                              
-[4] "<head>"                                                        
-[5] "<meta charset=\"utf-8\" />"                                    
-[6] "<title>Johns Hopkins Bloomberg School of Public Health</title>"
+[1] "<!doctype html>"                    ""                                  
+[3] "<html class=\"no-js\" lang=\"en\">" "  <head>"                          
+[5] "    <script>"                       "    dataLayer = [];"               
 ~~~~~~~~
 
 While reading in a simple web page is sometimes useful, particularly

@@ -47,7 +47,7 @@ function (X, FUN, ...)
         X <- as.list(X)
     .Internal(lapply(X, FUN))
 }
-<bytecode: 0x7fc72a0bd5c0>
+<bytecode: 0x7fd2bb92f928>
 <environment: namespace:base>
 ~~~~~~~~
 
@@ -562,7 +562,7 @@ The `apply()` function is used to a evaluate a function (often an anonymous one)
 {line-numbers=off}
 ~~~~~~~~
 > str(apply)
-function (X, MARGIN, FUN, ...)  
+function (X, MARGIN, FUN, ..., simplify = TRUE)  
 ~~~~~~~~
 
 The arguments to `apply()` are

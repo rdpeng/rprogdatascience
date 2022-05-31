@@ -526,7 +526,7 @@ This code might take time depending on your connection speed.
 
 ```{r}
 ## Open a URL connection for reading
-con <- url("http://www.jhsph.edu", "r")  
+con <- url("https://www.jhu.edu", "r")  
 
 ## Read the web page
 x <- readLines(con)                      
