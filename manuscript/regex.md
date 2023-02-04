@@ -309,7 +309,7 @@ Notice that the `sub()` function found the first match (at the beginning of the 
 [1] "January 1, 2007"
 ~~~~~~~~
 
-The `sub() and `gsub()` functions can take vector arguments so we don't have to process each string one by one.
+The `sub()` and `gsub()` functions can take vector arguments so we don't have to process each string one by one.
 
 
 {line-numbers=off}
