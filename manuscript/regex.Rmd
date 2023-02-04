@@ -221,7 +221,7 @@ Notice that the `sub()` function found the first match (at the beginning of the 
 gsub("<dd>[F|f]ound on |</dd>", "", x)
 ```
 
-The `sub() and `gsub()` functions can take vector arguments so we don't have to process each string one by one.
+The `sub()` and `gsub()` functions can take vector arguments so we don't have to process each string one by one.
 
 ```{r}
 r <- regexpr("<dd>[F|f]ound(.*?)</dd>", homicides[1:5])
