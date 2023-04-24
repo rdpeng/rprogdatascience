@@ -12,14 +12,14 @@ set.seed(10)
 
 Simulation is an important (and big) topic for both statistics and for a variety of other areas where there is a need to introduce randomness. Sometimes you want to implement a statistical procedure that requires random number generation or sampling (i.e. Markov chain Monte Carlo, the bootstrap, random forests, bagging) and sometimes you want to simulate a system and random number generators can be used to model random inputs.
 
-R comes with a set of pseuodo-random number generators that allow you to simulate from well-known probability distributions like the Normal, Poisson, and binomial. Some example functions for probability distributions in R
+R comes with a set of pseudo-random number generators that allow you to simulate from well-known probability distributions like the Normal, Poisson, and binomial. Some example functions for probability distributions in R
 
 - `rnorm`: generate random Normal variates with a given mean and standard deviation
 - `dnorm`: evaluate the Normal probability density (with a given mean/SD) at a point (or vector of points)
 - `pnorm`: evaluate the cumulative distribution function for a Normal distribution 
 - `rpois`: generate random Poisson variates with a given rate
 
-For each probability distribution there are typically four functions available that start with a "r", "d", "p", and "q". The "r" function is the one that actually simulates randon numbers from that distribution. The other functions are prefixed with a
+For each probability distribution there are typically four functions available that start with a "r", "d", "p", and "q". The "r" function is the one that actually simulates random numbers from that distribution. The other functions are prefixed with a
 
 - `d` for density
 - `r` for random number generation 
@@ -140,7 +140,7 @@ x <- rbinom(100, 1, 0.5)
 str(x)    ## 'x' is now 0s and 1s
 ```
 
-Then we can procede with the rest of the model as before.
+Then we can proceed with the rest of the model as before.
 
 ```{r Linear Model Binary}
 e <- rnorm(100, 0, 2)

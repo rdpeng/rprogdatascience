@@ -281,7 +281,7 @@ with Douglas Bates and Brian Ripley in June 2004:
 
 > **Douglas Bates**: There are several chains of pizzerias in the U.S. that provide for Internet-based ordering (e.g. www.papajohnsonline.com) so, with the Internet modules in R, it's only a matter of time before you will have a pizza-ordering function available.  
 
-> **Brian D. Ripley**: Indeed, the GraphApp toolkit (used for the RGui interface under R for Windows, but Guido forgot to include it) provides one (for use in Sydney, Australia, we presume as that is where the GraphApp author hails from).  Alternatively, a Padovian has no need of ordering pizzas with both home and neighbourhood restaurants ....
+> **Brian D. Ripley**: Indeed, the GraphApp toolkit (used for the RGui interface under R for Windows, but Guido forgot to include it) provides one (for use in Sydney, Australia, we presume as that is where the GraphApp author hails from).  Alternatively, a Padovian has no need of ordering pizzas with both home and neighborhood restaurants ....
 
 At this point in time, I think it would be fairly straightforward to
 build a pizza ordering R package using something like the `RCurl` or
