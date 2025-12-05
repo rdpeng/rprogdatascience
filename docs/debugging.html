@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>18 Debugging | R Programming for Data Science</title>
+  <meta name="description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="18 Debugging | R Programming for Data Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/rdpeng/rprogdatascience//cover_sm.png" />
+  <meta property="og:description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="github-repo" content="rdpeng/rprogdatascience" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="18 Debugging | R Programming for Data Science" />
+  
+  <meta name="twitter:description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="twitter:image" content="https://bookdown.org/rdpeng/rprogdatascience//cover_sm.png" />
+
+<meta name="author" content="Roger D. Peng" />
+
+
+<meta name="date" content="2022-05-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="regular-expressions.html"/>
+<link rel="next" href="profiling-r-code.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Programming for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#stay-in-touch"><i class="fa fa-check"></i>Stay in Touch!</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html"><i class="fa fa-check"></i><b>2</b> History and Overview of R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-s"><i class="fa fa-check"></i><b>2.2</b> What is S?</a></li>
+<li class="chapter" data-level="2.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#the-s-philosophy"><i class="fa fa-check"></i><b>2.3</b> The S Philosophy</a></li>
+<li class="chapter" data-level="2.4" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#back-to-r"><i class="fa fa-check"></i><b>2.4</b> Back to R</a></li>
+<li class="chapter" data-level="2.5" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#basic-features-of-r"><i class="fa fa-check"></i><b>2.5</b> Basic Features of R</a></li>
+<li class="chapter" data-level="2.6" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#free-software"><i class="fa fa-check"></i><b>2.6</b> Free Software</a></li>
+<li class="chapter" data-level="2.7" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#design-of-the-r-system"><i class="fa fa-check"></i><b>2.7</b> Design of the R System</a></li>
+<li class="chapter" data-level="2.8" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#limitations-of-r"><i class="fa fa-check"></i><b>2.8</b> Limitations of R</a></li>
+<li class="chapter" data-level="2.9" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#r-resources"><i class="fa fa-check"></i><b>2.9</b> R Resources</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#official-manuals"><i class="fa fa-check"></i><b>2.9.1</b> Official Manuals</a></li>
+<li class="chapter" data-level="2.9.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#useful-standard-texts-on-s-and-r"><i class="fa fa-check"></i><b>2.9.2</b> Useful Standard Texts on S and R</a></li>
+<li class="chapter" data-level="2.9.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#other-resources"><i class="fa fa-check"></i><b>2.9.3</b> Other Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>3</b> Getting Started with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installation"><i class="fa fa-check"></i><b>3.1</b> Installation</a></li>
+<li class="chapter" data-level="3.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-started-with-the-r-interface"><i class="fa fa-check"></i><b>3.2</b> Getting started with the R interface</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html"><i class="fa fa-check"></i><b>4</b> R Nuts and Bolts</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#entering-input"><i class="fa fa-check"></i><b>4.1</b> Entering Input</a></li>
+<li class="chapter" data-level="4.2" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#evaluation"><i class="fa fa-check"></i><b>4.2</b> Evaluation</a></li>
+<li class="chapter" data-level="4.3" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#r-objects"><i class="fa fa-check"></i><b>4.3</b> R Objects</a></li>
+<li class="chapter" data-level="4.4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#numbers"><i class="fa fa-check"></i><b>4.4</b> Numbers</a></li>
+<li class="chapter" data-level="4.5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#attributes"><i class="fa fa-check"></i><b>4.5</b> Attributes</a></li>
+<li class="chapter" data-level="4.6" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#creating-vectors"><i class="fa fa-check"></i><b>4.6</b> Creating Vectors</a></li>
+<li class="chapter" data-level="4.7" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#mixing-objects"><i class="fa fa-check"></i><b>4.7</b> Mixing Objects</a></li>
+<li class="chapter" data-level="4.8" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#explicit-coercion"><i class="fa fa-check"></i><b>4.8</b> Explicit Coercion</a></li>
+<li class="chapter" data-level="4.9" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#matrices"><i class="fa fa-check"></i><b>4.9</b> Matrices</a></li>
+<li class="chapter" data-level="4.10" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#lists"><i class="fa fa-check"></i><b>4.10</b> Lists</a></li>
+<li class="chapter" data-level="4.11" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#factors"><i class="fa fa-check"></i><b>4.11</b> Factors</a></li>
+<li class="chapter" data-level="4.12" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#missing-values"><i class="fa fa-check"></i><b>4.12</b> Missing Values</a></li>
+<li class="chapter" data-level="4.13" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#data-frames"><i class="fa fa-check"></i><b>4.13</b> Data Frames</a></li>
+<li class="chapter" data-level="4.14" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#names"><i class="fa fa-check"></i><b>4.14</b> Names</a></li>
+<li class="chapter" data-level="4.15" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#summary"><i class="fa fa-check"></i><b>4.15</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html"><i class="fa fa-check"></i><b>5</b> Getting Data In and Out of R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-and-writing-data"><i class="fa fa-check"></i><b>5.1</b> Reading and Writing Data</a></li>
+<li class="chapter" data-level="5.2" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-data-files-with-read.table"><i class="fa fa-check"></i><b>5.2</b> Reading Data Files with <code>read.table()</code></a></li>
+<li class="chapter" data-level="5.3" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-in-larger-datasets-with-read.table"><i class="fa fa-check"></i><b>5.3</b> Reading in Larger Datasets with read.table</a></li>
+<li class="chapter" data-level="5.4" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#calculating-memory-requirements-for-r-objects"><i class="fa fa-check"></i><b>5.4</b> Calculating Memory Requirements for R Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="using-the-readr-package.html"><a href="using-the-readr-package.html"><i class="fa fa-check"></i><b>6</b> Using the <code>readr</code> Package</a></li>
+<li class="chapter" data-level="7" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html"><i class="fa fa-check"></i><b>7</b> Using Textual and Binary Formats for Storing Data</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#using-dput-and-dump"><i class="fa fa-check"></i><b>7.1</b> Using <code>dput()</code> and <code>dump()</code></a></li>
+<li class="chapter" data-level="7.2" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#binary-formats"><i class="fa fa-check"></i><b>7.2</b> Binary Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html"><i class="fa fa-check"></i><b>8</b> Interfaces to the Outside World</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#file-connections"><i class="fa fa-check"></i><b>8.1</b> File Connections</a></li>
+<li class="chapter" data-level="8.2" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-lines-of-a-text-file"><i class="fa fa-check"></i><b>8.2</b> Reading Lines of a Text File</a></li>
+<li class="chapter" data-level="8.3" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-from-a-url-connection"><i class="fa fa-check"></i><b>8.3</b> Reading From a URL Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html"><i class="fa fa-check"></i><b>9</b> Subsetting R Objects</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-vector"><i class="fa fa-check"></i><b>9.1</b> Subsetting a Vector</a></li>
+<li class="chapter" data-level="9.2" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-matrix"><i class="fa fa-check"></i><b>9.2</b> Subsetting a Matrix</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#dropping-matrix-dimensions"><i class="fa fa-check"></i><b>9.2.1</b> Dropping matrix dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-lists"><i class="fa fa-check"></i><b>9.3</b> Subsetting Lists</a></li>
+<li class="chapter" data-level="9.4" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-nested-elements-of-a-list"><i class="fa fa-check"></i><b>9.4</b> Subsetting Nested Elements of a List</a></li>
+<li class="chapter" data-level="9.5" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#extracting-multiple-elements-of-a-list"><i class="fa fa-check"></i><b>9.5</b> Extracting Multiple Elements of a List</a></li>
+<li class="chapter" data-level="9.6" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#partial-matching"><i class="fa fa-check"></i><b>9.6</b> Partial Matching</a></li>
+<li class="chapter" data-level="9.7" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#removing-na-values"><i class="fa fa-check"></i><b>9.7</b> Removing NA Values</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="vectorized-operations.html"><a href="vectorized-operations.html"><i class="fa fa-check"></i><b>10</b> Vectorized Operations</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="vectorized-operations.html"><a href="vectorized-operations.html#vectorized-matrix-operations"><i class="fa fa-check"></i><b>10.1</b> Vectorized Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>11</b> Dates and Times</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="dates-and-times.html"><a href="dates-and-times.html#dates-in-r"><i class="fa fa-check"></i><b>11.1</b> Dates in R</a></li>
+<li class="chapter" data-level="11.2" data-path="dates-and-times.html"><a href="dates-and-times.html#times-in-r"><i class="fa fa-check"></i><b>11.2</b> Times in R</a></li>
+<li class="chapter" data-level="11.3" data-path="dates-and-times.html"><a href="dates-and-times.html#operations-on-dates-and-times"><i class="fa fa-check"></i><b>11.3</b> Operations on Dates and Times</a></li>
+<li class="chapter" data-level="11.4" data-path="dates-and-times.html"><a href="dates-and-times.html#summary-1"><i class="fa fa-check"></i><b>11.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html"><i class="fa fa-check"></i><b>12</b> Managing Data Frames with the <code>dplyr</code> package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#data-frames-1"><i class="fa fa-check"></i><b>12.1</b> Data Frames</a></li>
+<li class="chapter" data-level="12.2" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#the-dplyr-package"><i class="fa fa-check"></i><b>12.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="12.3" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#dplyr-grammar"><i class="fa fa-check"></i><b>12.3</b> <code>dplyr</code> Grammar</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#common-dplyr-function-properties"><i class="fa fa-check"></i><b>12.3.1</b> Common <code>dplyr</code> Function Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#installing-the-dplyr-package"><i class="fa fa-check"></i><b>12.4</b> Installing the <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="12.5" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>12.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="12.6" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>12.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="12.7" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>12.7</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="12.8" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#rename"><i class="fa fa-check"></i><b>12.8</b> <code>rename()</code></a></li>
+<li class="chapter" data-level="12.9" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>12.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="12.10" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>12.10</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="12.11" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#section"><i class="fa fa-check"></i><b>12.11</b> <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="12.12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#summary-2"><i class="fa fa-check"></i><b>12.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="control-structures.html"><a href="control-structures.html"><i class="fa fa-check"></i><b>13</b> Control Structures</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="control-structures.html"><a href="control-structures.html#if-else"><i class="fa fa-check"></i><b>13.1</b> <code>if</code>-<code>else</code></a></li>
+<li class="chapter" data-level="13.2" data-path="control-structures.html"><a href="control-structures.html#for-loops"><i class="fa fa-check"></i><b>13.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="13.3" data-path="control-structures.html"><a href="control-structures.html#nested-for-loops"><i class="fa fa-check"></i><b>13.3</b> Nested <code>for</code> loops</a></li>
+<li class="chapter" data-level="13.4" data-path="control-structures.html"><a href="control-structures.html#while-loops"><i class="fa fa-check"></i><b>13.4</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="13.5" data-path="control-structures.html"><a href="control-structures.html#repeat-loops"><i class="fa fa-check"></i><b>13.5</b> <code>repeat</code> Loops</a></li>
+<li class="chapter" data-level="13.6" data-path="control-structures.html"><a href="control-structures.html#next-break"><i class="fa fa-check"></i><b>13.6</b> <code>next</code>, <code>break</code></a></li>
+<li class="chapter" data-level="13.7" data-path="control-structures.html"><a href="control-structures.html#summary-3"><i class="fa fa-check"></i><b>13.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>14</b> Functions</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>14.1</b> Functions in R</a></li>
+<li class="chapter" data-level="14.2" data-path="functions.html"><a href="functions.html#your-first-function"><i class="fa fa-check"></i><b>14.2</b> Your First Function</a></li>
+<li class="chapter" data-level="14.3" data-path="functions.html"><a href="functions.html#argument-matching"><i class="fa fa-check"></i><b>14.3</b> Argument Matching</a></li>
+<li class="chapter" data-level="14.4" data-path="functions.html"><a href="functions.html#lazy-evaluation"><i class="fa fa-check"></i><b>14.4</b> Lazy Evaluation</a></li>
+<li class="chapter" data-level="14.5" data-path="functions.html"><a href="functions.html#the-...-argument"><i class="fa fa-check"></i><b>14.5</b> The <code>...</code> Argument</a></li>
+<li class="chapter" data-level="14.6" data-path="functions.html"><a href="functions.html#arguments-coming-after-the-...-argument"><i class="fa fa-check"></i><b>14.6</b> Arguments Coming After the <code>...</code> Argument</a></li>
+<li class="chapter" data-level="14.7" data-path="functions.html"><a href="functions.html#summary-4"><i class="fa fa-check"></i><b>14.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html"><i class="fa fa-check"></i><b>15</b> Scoping Rules of R</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#a-diversion-on-binding-values-to-symbol"><i class="fa fa-check"></i><b>15.1</b> A Diversion on Binding Values to Symbol</a></li>
+<li class="chapter" data-level="15.2" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#scoping-rules"><i class="fa fa-check"></i><b>15.2</b> Scoping Rules</a></li>
+<li class="chapter" data-level="15.3" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#lexical-scoping-why-does-it-matter"><i class="fa fa-check"></i><b>15.3</b> Lexical Scoping: Why Does It Matter?</a></li>
+<li class="chapter" data-level="15.4" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#lexical-vs.-dynamic-scoping"><i class="fa fa-check"></i><b>15.4</b> Lexical vs. Dynamic Scoping</a></li>
+<li class="chapter" data-level="15.5" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#application-optimization"><i class="fa fa-check"></i><b>15.5</b> Application: Optimization</a></li>
+<li class="chapter" data-level="15.6" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#plotting-the-likelihood"><i class="fa fa-check"></i><b>15.6</b> Plotting the Likelihood</a></li>
+<li class="chapter" data-level="15.7" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#summary-5"><i class="fa fa-check"></i><b>15.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="loop-functions.html"><a href="loop-functions.html"><i class="fa fa-check"></i><b>16</b> Loop Functions</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="loop-functions.html"><a href="loop-functions.html#looping-on-the-command-line"><i class="fa fa-check"></i><b>16.1</b> Looping on the Command Line</a></li>
+<li class="chapter" data-level="16.2" data-path="loop-functions.html"><a href="loop-functions.html#lapply"><i class="fa fa-check"></i><b>16.2</b> <code>lapply()</code></a></li>
+<li class="chapter" data-level="16.3" data-path="loop-functions.html"><a href="loop-functions.html#sapply"><i class="fa fa-check"></i><b>16.3</b> <code>sapply()</code></a></li>
+<li class="chapter" data-level="16.4" data-path="loop-functions.html"><a href="loop-functions.html#split"><i class="fa fa-check"></i><b>16.4</b> <code>split()</code></a></li>
+<li class="chapter" data-level="16.5" data-path="loop-functions.html"><a href="loop-functions.html#splitting-a-data-frame"><i class="fa fa-check"></i><b>16.5</b> Splitting a Data Frame</a></li>
+<li class="chapter" data-level="16.6" data-path="loop-functions.html"><a href="loop-functions.html#tapply"><i class="fa fa-check"></i><b>16.6</b> tapply</a></li>
+<li class="chapter" data-level="16.7" data-path="loop-functions.html"><a href="loop-functions.html#apply"><i class="fa fa-check"></i><b>16.7</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="16.8" data-path="loop-functions.html"><a href="loop-functions.html#colrow-sums-and-means"><i class="fa fa-check"></i><b>16.8</b> Col/Row Sums and Means</a></li>
+<li class="chapter" data-level="16.9" data-path="loop-functions.html"><a href="loop-functions.html#other-ways-to-apply"><i class="fa fa-check"></i><b>16.9</b> Other Ways to Apply</a></li>
+<li class="chapter" data-level="16.10" data-path="loop-functions.html"><a href="loop-functions.html#mapply"><i class="fa fa-check"></i><b>16.10</b> <code>mapply()</code></a></li>
+<li class="chapter" data-level="16.11" data-path="loop-functions.html"><a href="loop-functions.html#vectorizing-a-function"><i class="fa fa-check"></i><b>16.11</b> Vectorizing a Function</a></li>
+<li class="chapter" data-level="16.12" data-path="loop-functions.html"><a href="loop-functions.html#summary-6"><i class="fa fa-check"></i><b>16.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="regular-expressions.html"><a href="regular-expressions.html"><i class="fa fa-check"></i><b>17</b> Regular Expressions</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="regular-expressions.html"><a href="regular-expressions.html#before-you-begin"><i class="fa fa-check"></i><b>17.1</b> Before You Begin</a></li>
+<li class="chapter" data-level="17.2" data-path="regular-expressions.html"><a href="regular-expressions.html#primary-r-functions"><i class="fa fa-check"></i><b>17.2</b> Primary R Functions</a></li>
+<li class="chapter" data-level="17.3" data-path="regular-expressions.html"><a href="regular-expressions.html#grep"><i class="fa fa-check"></i><b>17.3</b> <code>grep()</code></a></li>
+<li class="chapter" data-level="17.4" data-path="regular-expressions.html"><a href="regular-expressions.html#grepl"><i class="fa fa-check"></i><b>17.4</b> <code>grepl()</code></a></li>
+<li class="chapter" data-level="17.5" data-path="regular-expressions.html"><a href="regular-expressions.html#regexpr"><i class="fa fa-check"></i><b>17.5</b> <code>regexpr()</code></a></li>
+<li class="chapter" data-level="17.6" data-path="regular-expressions.html"><a href="regular-expressions.html#sub-and-gsub"><i class="fa fa-check"></i><b>17.6</b> <code>sub()</code> and <code>gsub()</code></a></li>
+<li class="chapter" data-level="17.7" data-path="regular-expressions.html"><a href="regular-expressions.html#regexec"><i class="fa fa-check"></i><b>17.7</b> <code>regexec()</code></a></li>
+<li class="chapter" data-level="17.8" data-path="regular-expressions.html"><a href="regular-expressions.html#the-stringr-package"><i class="fa fa-check"></i><b>17.8</b> The <code>stringr</code> Package</a></li>
+<li class="chapter" data-level="17.9" data-path="regular-expressions.html"><a href="regular-expressions.html#summary-7"><i class="fa fa-check"></i><b>17.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>18</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="debugging.html"><a href="debugging.html#somethings-wrong"><i class="fa fa-check"></i><b>18.1</b> Something’s Wrong!</a></li>
+<li class="chapter" data-level="18.2" data-path="debugging.html"><a href="debugging.html#figuring-out-whats-wrong"><i class="fa fa-check"></i><b>18.2</b> Figuring Out What’s Wrong</a></li>
+<li class="chapter" data-level="18.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>18.3</b> Debugging Tools in R</a></li>
+<li class="chapter" data-level="18.4" data-path="debugging.html"><a href="debugging.html#using-traceback"><i class="fa fa-check"></i><b>18.4</b> Using <code>traceback()</code></a></li>
+<li class="chapter" data-level="18.5" data-path="debugging.html"><a href="debugging.html#using-debug"><i class="fa fa-check"></i><b>18.5</b> Using <code>debug()</code></a></li>
+<li class="chapter" data-level="18.6" data-path="debugging.html"><a href="debugging.html#using-recover"><i class="fa fa-check"></i><b>18.6</b> Using <code>recover()</code></a></li>
+<li class="chapter" data-level="18.7" data-path="debugging.html"><a href="debugging.html#summary-8"><i class="fa fa-check"></i><b>18.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="profiling-r-code.html"><a href="profiling-r-code.html"><i class="fa fa-check"></i><b>19</b> Profiling R Code</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-system.time"><i class="fa fa-check"></i><b>19.1</b> Using <code>system.time()</code></a></li>
+<li class="chapter" data-level="19.2" data-path="profiling-r-code.html"><a href="profiling-r-code.html#timing-longer-expressions"><i class="fa fa-check"></i><b>19.2</b> Timing Longer Expressions</a></li>
+<li class="chapter" data-level="19.3" data-path="profiling-r-code.html"><a href="profiling-r-code.html#the-r-profiler"><i class="fa fa-check"></i><b>19.3</b> The R Profiler</a></li>
+<li class="chapter" data-level="19.4" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-summaryrprof"><i class="fa fa-check"></i><b>19.4</b> Using <code>summaryRprof()</code></a></li>
+<li class="chapter" data-level="19.5" data-path="profiling-r-code.html"><a href="profiling-r-code.html#summary-9"><i class="fa fa-check"></i><b>19.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>20</b> Simulation</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="simulation.html"><a href="simulation.html#generating-random-numbers"><i class="fa fa-check"></i><b>20.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="20.2" data-path="simulation.html"><a href="simulation.html#setting-the-random-number-seed"><i class="fa fa-check"></i><b>20.2</b> Setting the random number seed</a></li>
+<li class="chapter" data-level="20.3" data-path="simulation.html"><a href="simulation.html#simulating-a-linear-model"><i class="fa fa-check"></i><b>20.3</b> Simulating a Linear Model</a></li>
+<li class="chapter" data-level="20.4" data-path="simulation.html"><a href="simulation.html#random-sampling"><i class="fa fa-check"></i><b>20.4</b> Random Sampling</a></li>
+<li class="chapter" data-level="20.5" data-path="simulation.html"><a href="simulation.html#summary-10"><i class="fa fa-check"></i><b>20.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><i class="fa fa-check"></i><b>21</b> Data Analysis Case Study: Changes in Fine Particle Air Pollution in the U.S.</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#synopsis"><i class="fa fa-check"></i><b>21.1</b> Synopsis</a></li>
+<li class="chapter" data-level="21.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#loading-and-processing-the-raw-data"><i class="fa fa-check"></i><b>21.2</b> Loading and Processing the Raw Data</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#reading-in-the-1999-data"><i class="fa fa-check"></i><b>21.2.1</b> Reading in the 1999 data</a></li>
+<li class="chapter" data-level="21.2.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#reading-in-the-2012-data"><i class="fa fa-check"></i><b>21.2.2</b> Reading in the 2012 data</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#results"><i class="fa fa-check"></i><b>21.3</b> Results</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#entire-u.s.-analysis"><i class="fa fa-check"></i><b>21.3.1</b> Entire U.S. analysis</a></li>
+<li class="chapter" data-level="21.3.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#changes-in-pm-levels-at-an-individual-monitor"><i class="fa fa-check"></i><b>21.3.2</b> Changes in PM levels at an individual monitor</a></li>
+<li class="chapter" data-level="21.3.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#changes-in-state-wide-pm-levels"><i class="fa fa-check"></i><b>21.3.3</b> Changes in state-wide PM levels</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="parallel-computation.html"><a href="parallel-computation.html"><i class="fa fa-check"></i><b>22</b> Parallel Computation</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="parallel-computation.html"><a href="parallel-computation.html#hidden-parallelism"><i class="fa fa-check"></i><b>22.1</b> Hidden Parallelism</a>
+<ul>
+<li class="chapter" data-level="22.1.1" data-path="parallel-computation.html"><a href="parallel-computation.html#parallel-blas"><i class="fa fa-check"></i><b>22.1.1</b> Parallel BLAS</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="parallel-computation.html"><a href="parallel-computation.html#embarrassing-parallelism"><i class="fa fa-check"></i><b>22.2</b> Embarrassing Parallelism</a></li>
+<li class="chapter" data-level="22.3" data-path="parallel-computation.html"><a href="parallel-computation.html#the-parallel-package"><i class="fa fa-check"></i><b>22.3</b> The Parallel Package</a>
+<ul>
+<li class="chapter" data-level="22.3.1" data-path="parallel-computation.html"><a href="parallel-computation.html#mclapply"><i class="fa fa-check"></i><b>22.3.1</b> <code>mclapply()</code></a></li>
+<li class="chapter" data-level="22.3.2" data-path="parallel-computation.html"><a href="parallel-computation.html#error-handling"><i class="fa fa-check"></i><b>22.3.2</b> Error Handling</a></li>
+</ul></li>
+<li class="chapter" data-level="22.4" data-path="parallel-computation.html"><a href="parallel-computation.html#example-bootstrapping-a-statistic"><i class="fa fa-check"></i><b>22.4</b> Example: Bootstrapping a Statistic</a>
+<ul>
+<li class="chapter" data-level="22.4.1" data-path="parallel-computation.html"><a href="parallel-computation.html#generating-random-numbers-1"><i class="fa fa-check"></i><b>22.4.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="22.4.2" data-path="parallel-computation.html"><a href="parallel-computation.html#using-the-boot-package"><i class="fa fa-check"></i><b>22.4.2</b> Using the <code>boot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="22.5" data-path="parallel-computation.html"><a href="parallel-computation.html#building-a-socket-cluster"><i class="fa fa-check"></i><b>22.5</b> Building a Socket Cluster</a></li>
+<li class="chapter" data-level="22.6" data-path="parallel-computation.html"><a href="parallel-computation.html#summary-11"><i class="fa fa-check"></i><b>22.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i><b>23</b> About the Author</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Programming for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="debugging" class="section level1 hasAnchor" number="18">
+<h1><span class="header-section-number">18</span> Debugging<a href="debugging.html#debugging" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="somethings-wrong" class="section level2 hasAnchor" number="18.1">
+<h2><span class="header-section-number">18.1</span> Something’s Wrong!<a href="debugging.html#somethings-wrong" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://youtu.be/LHQxbRInyyc">Watch a video of this section</a> (note that this video differs slightly from the material presented here)</p>
+<p>R has a number of ways to indicate to you that something’s not right. There are different levels of indication that can be used, ranging from mere notification to fatal error. Executing any function in R may result in the following <em>conditions</em>.</p>
+<ul>
+<li><code>message</code>: A generic notification/diagnostic message produced by the <code>message()</code> function; execution of the function continues</li>
+<li><code>warning</code>: An indication that something is wrong but not necessarily fatal; execution of the function continues. Warnings are generated by the <code>warning()</code> function</li>
+<li><code>error</code>: An indication that a fatal problem has occurred and execution of the function stops. Errors are produced by the <code>stop()</code> function.</li>
+<li><code>condition</code>: A generic concept for indicating that something unexpected has occurred; programmers can create their own custom conditions if they want.</li>
+</ul>
+<p>Here is an example of a warning that you might receive in the course of using R.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="debugging.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb248-2"><a href="debugging.html#cb248-2" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)<span class="sc">:</span> NaNs produced</span>
+<span id="cb248-3"><a href="debugging.html#cb248-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NaN</span></span></code></pre></div>
+<p>This warning lets you know that taking the log of a negative number results in a <code>NaN</code> value because you can’t take the log of negative numbers. Nevertheless, R doesn’t give an error, because it has a useful value that it can return, the <code>NaN</code> value. The warning is just there to let you know that something unexpected happen. Depending on what you are programming, you may have intentionally taken the log of a negative number in order to move on to another section of code.</p>
+<p>Here is another function that is designed to print a message to the console depending on the nature of its input.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="debugging.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> printmessage <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb249-2"><a href="debugging.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb249-3"><a href="debugging.html#cb249-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>)</span>
+<span id="cb249-4"><a href="debugging.html#cb249-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span></span>
+<span id="cb249-5"><a href="debugging.html#cb249-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)</span>
+<span id="cb249-6"><a href="debugging.html#cb249-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">invisible</span>(x)        </span>
+<span id="cb249-7"><a href="debugging.html#cb249-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span></code></pre></div>
+<p>This function is simple—it prints a message telling you whether <code>x</code> is greater than zero or less than or equal to zero. It also returns its input <em>invisibly</em>, which is a common practice with “print” functions. Returning an object invisibly means that the return value does not get auto-printed when the function is called.</p>
+<p>Take a hard look at the function above and see if you can identify any bugs or problems.</p>
+<p>We can execute the function as follows.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="debugging.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage</span>(<span class="dv">1</span>)</span>
+<span id="cb250-2"><a href="debugging.html#cb250-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is greater than zero&quot;</span></span></code></pre></div>
+<p>The function seems to work fine at this point. No errors, warnings, or messages.</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="debugging.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage</span>(<span class="cn">NA</span>)</span>
+<span id="cb251-2"><a href="debugging.html#cb251-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)<span class="sc">:</span> missing value where <span class="cn">TRUE</span><span class="sc">/</span><span class="cn">FALSE</span> needed</span></code></pre></div>
+<p>What happened?</p>
+<p>Well, the first thing the function does is test if <code>x &gt; 0</code>. But you can’t do that test if <code>x</code> is a <code>NA</code> or <code>NaN</code> value. R doesn’t know what to do in this case so it stops with a fatal error.</p>
+<p>We can fix this problem by anticipating the possibility of <code>NA</code> values and checking to see if the input is <code>NA</code> with the <code>is.na()</code> function.</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="debugging.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> printmessage2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb252-2"><a href="debugging.html#cb252-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(<span class="fu">is.na</span>(x))</span>
+<span id="cb252-3"><a href="debugging.html#cb252-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>)</span>
+<span id="cb252-4"><a href="debugging.html#cb252-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb252-5"><a href="debugging.html#cb252-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>)</span>
+<span id="cb252-6"><a href="debugging.html#cb252-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span></span>
+<span id="cb252-7"><a href="debugging.html#cb252-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)</span>
+<span id="cb252-8"><a href="debugging.html#cb252-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">invisible</span>(x)</span>
+<span id="cb252-9"><a href="debugging.html#cb252-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span></code></pre></div>
+<p>Now we can run the following.</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="debugging.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage2</span>(<span class="cn">NA</span>)</span>
+<span id="cb253-2"><a href="debugging.html#cb253-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is a missing value!&quot;</span></span></code></pre></div>
+<p>And all is fine.</p>
+<p>Now what about the following situation.</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="debugging.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb254-2"><a href="debugging.html#cb254-2" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))<span class="sc">:</span> NaNs produced</span></code></pre></div>
+<p>We expect some <code>NaN</code>s here because taking the log of a negative number doesn’t make sense.</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="debugging.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage2</span>(x)</span>
+<span id="cb255-2"><a href="debugging.html#cb255-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="cf">if</span> (<span class="fu">is.na</span>(x)) <span class="fu">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>) <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)<span class="sc">:</span> the condition has length <span class="sc">&gt;</span> <span class="dv">1</span></span></code></pre></div>
+<p>Now what?? Why are we getting this error?</p>
+<p>The problem here is that I passed <code>printmessage2()</code> a vector <code>x</code> that was of length 2 rather then length 1. Inside the body of <code>printmessage2()</code> the expression <code>is.na(x)</code> returns a vector that is tested in the <code>if</code> statement. However, <code>if</code> cannot take vector arguments so you get an error (in previous versions of R you only got a warning). The fundamental problem here is that <code>printmessage2()</code> is not <em>vectorized</em>.</p>
+<p>We can solve this problem two ways. One is by simply not allowing vector arguments. The other way is to vectorize the <code>printmessage2()</code> function to allow it to take vector arguments.</p>
+<p>For the first way, we simply need to check the length of the input.</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="debugging.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> printmessage3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb256-2"><a href="debugging.html#cb256-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(<span class="fu">length</span>(x) <span class="sc">&gt;</span> 1L)</span>
+<span id="cb256-3"><a href="debugging.html#cb256-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">stop</span>(<span class="st">&quot;&#39;x&#39; has length &gt; 1&quot;</span>)</span>
+<span id="cb256-4"><a href="debugging.html#cb256-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(<span class="fu">is.na</span>(x))</span>
+<span id="cb256-5"><a href="debugging.html#cb256-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>)</span>
+<span id="cb256-6"><a href="debugging.html#cb256-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb256-7"><a href="debugging.html#cb256-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>)</span>
+<span id="cb256-8"><a href="debugging.html#cb256-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span></span>
+<span id="cb256-9"><a href="debugging.html#cb256-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)</span>
+<span id="cb256-10"><a href="debugging.html#cb256-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">invisible</span>(x)</span>
+<span id="cb256-11"><a href="debugging.html#cb256-11" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span></code></pre></div>
+<p>Now when we pass <code>printmessage3()</code> a vector we should get an error.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="debugging.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage3</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb257-2"><a href="debugging.html#cb257-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">printmessage3</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)<span class="sc">:</span> <span class="st">&#39;x&#39;</span> has length <span class="sc">&gt;</span> <span class="dv">1</span></span></code></pre></div>
+<p>Vectorizing the function can be accomplished easily with the <code>Vectorize()</code> function.</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="debugging.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> printmessage4 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(printmessage2)</span>
+<span id="cb258-2"><a href="debugging.html#cb258-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> out <span class="ot">&lt;-</span> <span class="fu">printmessage4</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb258-3"><a href="debugging.html#cb258-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is less than or equal to zero&quot;</span></span>
+<span id="cb258-4"><a href="debugging.html#cb258-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is greater than zero&quot;</span></span></code></pre></div>
+<p>You can see now that the correct messages are printed without any warning or error. Note that I stored the return value of <code>printmessage4()</code> in a separate R object called <code>out</code>. This is because when I use the <code>Vectorize()</code> function it no longer preserves the invisibility of the return value.</p>
+</div>
+<div id="figuring-out-whats-wrong" class="section level2 hasAnchor" number="18.2">
+<h2><span class="header-section-number">18.2</span> Figuring Out What’s Wrong<a href="debugging.html#figuring-out-whats-wrong" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The primary task of debugging any R code is correctly diagnosing what the problem is. When diagnosing a problem with your code (or somebody else’s), it’s important first understand what you were expecting to occur. Then you need to idenfity what <em>did</em> occur and how did it deviate from your expectations. Some basic questions you need to ask are</p>
+<ul>
+<li>What was your input? How did you call the function?</li>
+<li>What were you expecting? Output, messages, other results?</li>
+<li>What did you get?</li>
+<li>How does what you get differ from what you were expecting?</li>
+<li>Were your expectations correct in the first place?</li>
+<li>Can you reproduce the problem (exactly)?</li>
+</ul>
+<p>Being able to answer these questions is important not just for your own sake, but in situations where you may need to ask someone else for help with debugging the problem. Seasoned programmers will be asking you these exact questions.</p>
+</div>
+<div id="debugging-tools-in-r" class="section level2 hasAnchor" number="18.3">
+<h2><span class="header-section-number">18.3</span> Debugging Tools in R<a href="debugging.html#debugging-tools-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://youtu.be/h9rs6-Cwwto">Watch a video of this section</a></p>
+<p>R provides a number of tools to help you with debugging your code. The primary tools for debugging functions in R are</p>
+<ul>
+<li><code>traceback()</code>: prints out the function call stack after an error occurs; does nothing if there’s no error</li>
+<li><code>debug()</code>: flags a function for “debug” mode which allows you to step through execution of a function one line at a time</li>
+<li><code>browser()</code>: suspends the execution of a function wherever it is called and puts the function in debug mode</li>
+<li><code>trace()</code>: allows you to insert debugging code into a function a specific places</li>
+<li><code>recover()</code>: allows you to modify the error behavior so that you can browse the function call stack</li>
+</ul>
+<p>These functions are interactive tools specifically designed to allow you to pick through a function. There’s also the more blunt technique of inserting <code>print()</code> or <code>cat()</code> statements in the function.</p>
+</div>
+<div id="using-traceback" class="section level2 hasAnchor" number="18.4">
+<h2><span class="header-section-number">18.4</span> Using <code>traceback()</code><a href="debugging.html#using-traceback" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://youtu.be/VT9ZxCp6o-I">Watch a video of this section</a></p>
+<p>The <code>traceback()</code> function prints out the <em>function call stack</em> after an error has occurred. The function call stack is the sequence of functions that was called before the error occurred.</p>
+<p>For example, you may have a function <code>a()</code> which subsequently calls function <code>b()</code> which calls <code>c()</code> and then <code>d()</code>. If an error occurs, it may not be immediately clear in which function the error occurred. The <code>traceback()</code> function shows you how many levels deep you were when the error occurred.</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="debugging.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">mean</span>(x)</span>
+<span id="cb259-2"><a href="debugging.html#cb259-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">mean</span>(x) <span class="sc">:</span> object <span class="st">&#39;x&#39;</span> not found</span>
+<span id="cb259-3"><a href="debugging.html#cb259-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">traceback</span>()</span>
+<span id="cb259-4"><a href="debugging.html#cb259-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">mean</span>(x)</span></code></pre></div>
+<p>Here, it’s clear that the error occurred inside the <code>mean()</code> function because the object <code>x</code> does not exist.</p>
+<p>The <code>traceback()</code> function must be called immediately after an error occurs. Once another function is called, you lose the traceback.</p>
+<p>Here is a slightly more complicated example using the <code>lm()</code> function for linear modeling.</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="debugging.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb260-2"><a href="debugging.html#cb260-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos) <span class="sc">:</span> object ’y’ not found</span>
+<span id="cb260-3"><a href="debugging.html#cb260-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">traceback</span>()</span>
+<span id="cb260-4"><a href="debugging.html#cb260-4" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span><span class="sc">:</span> <span class="fu">eval</span>(expr, envir, enclos)</span>
+<span id="cb260-5"><a href="debugging.html#cb260-5" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="sc">:</span> <span class="fu">eval</span>(predvars, data, env)</span>
+<span id="cb260-6"><a href="debugging.html#cb260-6" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">:</span> <span class="fu">model.frame.default</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">drop.unused.levels =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb260-7"><a href="debugging.html#cb260-7" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="sc">:</span> <span class="fu">model.frame</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">drop.unused.levels =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb260-8"><a href="debugging.html#cb260-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> <span class="fu">eval</span>(expr, envir, enclos)</span>
+<span id="cb260-9"><a href="debugging.html#cb260-9" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> <span class="fu">eval</span>(mf, <span class="fu">parent.frame</span>())</span>
+<span id="cb260-10"><a href="debugging.html#cb260-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
+<p>You can see now that the error did not get thrown until the 7th level of the function call stack, in which case the <code>eval()</code> function tried to evaluate the formula <code>y ~ x</code> and realized the object <code>y</code> did not exist.</p>
+<p>Looking at the traceback is useful for figuring out roughly where an error occurred but it’s not useful for more detailed debugging. For that you might turn to the <code>debug()</code> function.</p>
+</div>
+<div id="using-debug" class="section level2 hasAnchor" number="18.5">
+<h2><span class="header-section-number">18.5</span> Using <code>debug()</code><a href="debugging.html#using-debug" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>debug()</code> function initiates an interactive debugger (also known as the “browser” in R) for a function. With the debugger, you can step through an R function one expression at a time to pinpoint exactly where an error occurs.</p>
+<p>The <code>debug()</code> function takes a function as its first argument. Here is an example of debugging the <code>lm()</code> function.</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="debugging.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">debug</span>(lm)      <span class="do">## Flag the &#39;lm()&#39; function for interactive debugging</span></span>
+<span id="cb261-2"><a href="debugging.html#cb261-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb261-3"><a href="debugging.html#cb261-3" aria-hidden="true" tabindex="-1"></a>debugging <span class="cf">in</span><span class="sc">:</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb261-4"><a href="debugging.html#cb261-4" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> {</span>
+<span id="cb261-5"><a href="debugging.html#cb261-5" aria-hidden="true" tabindex="-1"></a>    ret.x <span class="ot">&lt;-</span> x</span>
+<span id="cb261-6"><a href="debugging.html#cb261-6" aria-hidden="true" tabindex="-1"></a>    ret.y <span class="ot">&lt;-</span> y</span>
+<span id="cb261-7"><a href="debugging.html#cb261-7" aria-hidden="true" tabindex="-1"></a>    cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
+<span id="cb261-8"><a href="debugging.html#cb261-8" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb261-9"><a href="debugging.html#cb261-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>qr)</span>
+<span id="cb261-10"><a href="debugging.html#cb261-10" aria-hidden="true" tabindex="-1"></a>        z<span class="sc">$</span>qr <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
+<span id="cb261-11"><a href="debugging.html#cb261-11" aria-hidden="true" tabindex="-1"></a>    z</span>
+<span id="cb261-12"><a href="debugging.html#cb261-12" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb261-13"><a href="debugging.html#cb261-13" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span></span></code></pre></div>
+<p>Now, every time you call the <code>lm()</code> function it will launch the interactive debugger. To turn this behavior off you need to call the <code>undebug()</code> function.</p>
+<p>The debugger calls the browser at the very top level of the function body. From there you can step through each expression in the body. There are a few special commands you can call in the browser:</p>
+<ul>
+<li><code>n</code> executes the current expression and moves to the next expression</li>
+<li><code>c</code> continues execution of the function and does not stop until either an error or the function exits</li>
+<li><code>Q</code> quits the browser</li>
+</ul>
+<p>Here’s an example of a browser session with the <code>lm()</code> function.</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="debugging.html#cb262-1" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n   <span class="do">## Evalute this expression and move to the next one</span></span>
+<span id="cb262-2"><a href="debugging.html#cb262-2" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> ret.x <span class="ot">&lt;-</span> x</span>
+<span id="cb262-3"><a href="debugging.html#cb262-3" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb262-4"><a href="debugging.html#cb262-4" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> ret.y <span class="ot">&lt;-</span> y</span>
+<span id="cb262-5"><a href="debugging.html#cb262-5" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb262-6"><a href="debugging.html#cb262-6" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
+<span id="cb262-7"><a href="debugging.html#cb262-7" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb262-8"><a href="debugging.html#cb262-8" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> mf <span class="ot">&lt;-</span> <span class="fu">match.call</span>(<span class="at">expand.dots =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb262-9"><a href="debugging.html#cb262-9" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb262-10"><a href="debugging.html#cb262-10" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> m <span class="ot">&lt;-</span> <span class="fu">match</span>(<span class="fu">c</span>(<span class="st">&quot;formula&quot;</span>, <span class="st">&quot;data&quot;</span>, <span class="st">&quot;subset&quot;</span>, <span class="st">&quot;weights&quot;</span>, <span class="st">&quot;na.action&quot;</span>,</span>
+<span id="cb262-11"><a href="debugging.html#cb262-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;offset&quot;</span>), <span class="fu">names</span>(mf), 0L)</span></code></pre></div>
+<p>While you are in the browser you can execute any other R function that might be available to you in a regular session. In particular, you can use <code>ls()</code> to see what is in your current environment (the function environment) and <code>print()</code> to print out the values of R objects in the function environment.</p>
+<p>You can turn off interactive debugging with the <code>undebug()</code> function.</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="debugging.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="fu">undebug</span>(lm)    <span class="do">## Unflag the &#39;lm()&#39; function for debugging</span></span></code></pre></div>
+</div>
+<div id="using-recover" class="section level2 hasAnchor" number="18.6">
+<h2><span class="header-section-number">18.6</span> Using <code>recover()</code><a href="debugging.html#using-recover" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>recover()</code> function can be used to modify the error behavior of R when an error occurs. Normally, when an error occurs in a function, R will print out an error message, exit out of the function, and return you to your workspace to await further commands.</p>
+<p>With <code>recover()</code> you can tell R that when an error occurs, it should halt execution at the exact point at which the error occurred. That can give you the opportunity to poke around in the environment in which the error occurred. This can be useful to see if there are any R objects or data that have been corrupted or mistakenly modified.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="debugging.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">options</span>(<span class="at">error =</span> recover)    <span class="do">## Change default R error behavior</span></span>
+<span id="cb264-2"><a href="debugging.html#cb264-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">read.csv</span>(<span class="st">&quot;nosuchfile&quot;</span>)      <span class="do">## This code doesn&#39;t work</span></span>
+<span id="cb264-3"><a href="debugging.html#cb264-3" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">file</span>(file, <span class="st">&quot;rt&quot;</span>) <span class="sc">:</span> cannot open the connection</span>
+<span id="cb264-4"><a href="debugging.html#cb264-4" aria-hidden="true" tabindex="-1"></a>In addition<span class="sc">:</span> Warning message<span class="sc">:</span></span>
+<span id="cb264-5"><a href="debugging.html#cb264-5" aria-hidden="true" tabindex="-1"></a>In <span class="fu">file</span>(file, <span class="st">&quot;rt&quot;</span>) <span class="sc">:</span></span>
+<span id="cb264-6"><a href="debugging.html#cb264-6" aria-hidden="true" tabindex="-1"></a>  cannot open file ’nosuchfile’<span class="sc">:</span> No such file or directory</span>
+<span id="cb264-7"><a href="debugging.html#cb264-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb264-8"><a href="debugging.html#cb264-8" aria-hidden="true" tabindex="-1"></a>Enter a frame number, or <span class="dv">0</span> to exit</span>
+<span id="cb264-9"><a href="debugging.html#cb264-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb264-10"><a href="debugging.html#cb264-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">read.csv</span>(<span class="st">&quot;nosuchfile&quot;</span>)</span>
+<span id="cb264-11"><a href="debugging.html#cb264-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> <span class="fu">read.table</span>(<span class="at">file =</span> file, <span class="at">header =</span> header, <span class="at">sep =</span> sep, <span class="at">quote =</span> quote, <span class="at">dec =</span></span>
+<span id="cb264-12"><a href="debugging.html#cb264-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> <span class="fu">file</span>(file, <span class="st">&quot;rt&quot;</span>)</span>
+<span id="cb264-13"><a href="debugging.html#cb264-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb264-14"><a href="debugging.html#cb264-14" aria-hidden="true" tabindex="-1"></a>Selection<span class="sc">:</span></span></code></pre></div>
+<p>The <code>recover()</code> function will first print out the function call stack when an error occurrs. Then, you can choose to jump around the call stack and investigate the problem. When you choose a frame number, you will be put in the browser (just like the interactive debugger triggered with <code>debug()</code>) and will have the ability to poke around.</p>
+</div>
+<div id="summary-8" class="section level2 hasAnchor" number="18.7">
+<h2><span class="header-section-number">18.7</span> Summary<a href="debugging.html#summary-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>There are three main indications of a problem/condition: <code>message</code>, <code>warning</code>, <code>error</code>; only an <code>error</code> is fatal</li>
+<li>When analyzing a function with a problem, make sure you can reproduce the problem, clearly state your expectations and how the output differs from your expectation</li>
+<li>Interactive debugging tools <code>traceback</code>, <code>debug</code>, <code>browser</code>, <code>trace</code>, and <code>recover</code> can be used to find problematic code in functions</li>
+<li>Debugging tools are not a substitute for thinking!</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regular-expressions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="profiling-r-code.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/debugging.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

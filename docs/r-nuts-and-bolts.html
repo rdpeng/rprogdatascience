@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 R Nuts and Bolts | R Programming for Data Science</title>
+  <meta name="description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 R Nuts and Bolts | R Programming for Data Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/rdpeng/rprogdatascience//cover_sm.png" />
+  <meta property="og:description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="github-repo" content="rdpeng/rprogdatascience" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 R Nuts and Bolts | R Programming for Data Science" />
+  
+  <meta name="twitter:description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="twitter:image" content="https://bookdown.org/rdpeng/rprogdatascience//cover_sm.png" />
+
+<meta name="author" content="Roger D. Peng" />
+
+
+<meta name="date" content="2022-05-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="getting-started-with-r.html"/>
+<link rel="next" href="getting-data-in-and-out-of-r.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Programming for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#stay-in-touch"><i class="fa fa-check"></i>Stay in Touch!</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html"><i class="fa fa-check"></i><b>2</b> History and Overview of R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-s"><i class="fa fa-check"></i><b>2.2</b> What is S?</a></li>
+<li class="chapter" data-level="2.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#the-s-philosophy"><i class="fa fa-check"></i><b>2.3</b> The S Philosophy</a></li>
+<li class="chapter" data-level="2.4" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#back-to-r"><i class="fa fa-check"></i><b>2.4</b> Back to R</a></li>
+<li class="chapter" data-level="2.5" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#basic-features-of-r"><i class="fa fa-check"></i><b>2.5</b> Basic Features of R</a></li>
+<li class="chapter" data-level="2.6" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#free-software"><i class="fa fa-check"></i><b>2.6</b> Free Software</a></li>
+<li class="chapter" data-level="2.7" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#design-of-the-r-system"><i class="fa fa-check"></i><b>2.7</b> Design of the R System</a></li>
+<li class="chapter" data-level="2.8" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#limitations-of-r"><i class="fa fa-check"></i><b>2.8</b> Limitations of R</a></li>
+<li class="chapter" data-level="2.9" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#r-resources"><i class="fa fa-check"></i><b>2.9</b> R Resources</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#official-manuals"><i class="fa fa-check"></i><b>2.9.1</b> Official Manuals</a></li>
+<li class="chapter" data-level="2.9.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#useful-standard-texts-on-s-and-r"><i class="fa fa-check"></i><b>2.9.2</b> Useful Standard Texts on S and R</a></li>
+<li class="chapter" data-level="2.9.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#other-resources"><i class="fa fa-check"></i><b>2.9.3</b> Other Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>3</b> Getting Started with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installation"><i class="fa fa-check"></i><b>3.1</b> Installation</a></li>
+<li class="chapter" data-level="3.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-started-with-the-r-interface"><i class="fa fa-check"></i><b>3.2</b> Getting started with the R interface</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html"><i class="fa fa-check"></i><b>4</b> R Nuts and Bolts</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#entering-input"><i class="fa fa-check"></i><b>4.1</b> Entering Input</a></li>
+<li class="chapter" data-level="4.2" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#evaluation"><i class="fa fa-check"></i><b>4.2</b> Evaluation</a></li>
+<li class="chapter" data-level="4.3" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#r-objects"><i class="fa fa-check"></i><b>4.3</b> R Objects</a></li>
+<li class="chapter" data-level="4.4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#numbers"><i class="fa fa-check"></i><b>4.4</b> Numbers</a></li>
+<li class="chapter" data-level="4.5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#attributes"><i class="fa fa-check"></i><b>4.5</b> Attributes</a></li>
+<li class="chapter" data-level="4.6" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#creating-vectors"><i class="fa fa-check"></i><b>4.6</b> Creating Vectors</a></li>
+<li class="chapter" data-level="4.7" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#mixing-objects"><i class="fa fa-check"></i><b>4.7</b> Mixing Objects</a></li>
+<li class="chapter" data-level="4.8" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#explicit-coercion"><i class="fa fa-check"></i><b>4.8</b> Explicit Coercion</a></li>
+<li class="chapter" data-level="4.9" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#matrices"><i class="fa fa-check"></i><b>4.9</b> Matrices</a></li>
+<li class="chapter" data-level="4.10" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#lists"><i class="fa fa-check"></i><b>4.10</b> Lists</a></li>
+<li class="chapter" data-level="4.11" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#factors"><i class="fa fa-check"></i><b>4.11</b> Factors</a></li>
+<li class="chapter" data-level="4.12" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#missing-values"><i class="fa fa-check"></i><b>4.12</b> Missing Values</a></li>
+<li class="chapter" data-level="4.13" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#data-frames"><i class="fa fa-check"></i><b>4.13</b> Data Frames</a></li>
+<li class="chapter" data-level="4.14" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#names"><i class="fa fa-check"></i><b>4.14</b> Names</a></li>
+<li class="chapter" data-level="4.15" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#summary"><i class="fa fa-check"></i><b>4.15</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html"><i class="fa fa-check"></i><b>5</b> Getting Data In and Out of R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-and-writing-data"><i class="fa fa-check"></i><b>5.1</b> Reading and Writing Data</a></li>
+<li class="chapter" data-level="5.2" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-data-files-with-read.table"><i class="fa fa-check"></i><b>5.2</b> Reading Data Files with <code>read.table()</code></a></li>
+<li class="chapter" data-level="5.3" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-in-larger-datasets-with-read.table"><i class="fa fa-check"></i><b>5.3</b> Reading in Larger Datasets with read.table</a></li>
+<li class="chapter" data-level="5.4" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#calculating-memory-requirements-for-r-objects"><i class="fa fa-check"></i><b>5.4</b> Calculating Memory Requirements for R Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="using-the-readr-package.html"><a href="using-the-readr-package.html"><i class="fa fa-check"></i><b>6</b> Using the <code>readr</code> Package</a></li>
+<li class="chapter" data-level="7" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html"><i class="fa fa-check"></i><b>7</b> Using Textual and Binary Formats for Storing Data</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#using-dput-and-dump"><i class="fa fa-check"></i><b>7.1</b> Using <code>dput()</code> and <code>dump()</code></a></li>
+<li class="chapter" data-level="7.2" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#binary-formats"><i class="fa fa-check"></i><b>7.2</b> Binary Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html"><i class="fa fa-check"></i><b>8</b> Interfaces to the Outside World</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#file-connections"><i class="fa fa-check"></i><b>8.1</b> File Connections</a></li>
+<li class="chapter" data-level="8.2" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-lines-of-a-text-file"><i class="fa fa-check"></i><b>8.2</b> Reading Lines of a Text File</a></li>
+<li class="chapter" data-level="8.3" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-from-a-url-connection"><i class="fa fa-check"></i><b>8.3</b> Reading From a URL Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html"><i class="fa fa-check"></i><b>9</b> Subsetting R Objects</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-vector"><i class="fa fa-check"></i><b>9.1</b> Subsetting a Vector</a></li>
+<li class="chapter" data-level="9.2" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-matrix"><i class="fa fa-check"></i><b>9.2</b> Subsetting a Matrix</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#dropping-matrix-dimensions"><i class="fa fa-check"></i><b>9.2.1</b> Dropping matrix dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-lists"><i class="fa fa-check"></i><b>9.3</b> Subsetting Lists</a></li>
+<li class="chapter" data-level="9.4" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-nested-elements-of-a-list"><i class="fa fa-check"></i><b>9.4</b> Subsetting Nested Elements of a List</a></li>
+<li class="chapter" data-level="9.5" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#extracting-multiple-elements-of-a-list"><i class="fa fa-check"></i><b>9.5</b> Extracting Multiple Elements of a List</a></li>
+<li class="chapter" data-level="9.6" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#partial-matching"><i class="fa fa-check"></i><b>9.6</b> Partial Matching</a></li>
+<li class="chapter" data-level="9.7" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#removing-na-values"><i class="fa fa-check"></i><b>9.7</b> Removing NA Values</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="vectorized-operations.html"><a href="vectorized-operations.html"><i class="fa fa-check"></i><b>10</b> Vectorized Operations</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="vectorized-operations.html"><a href="vectorized-operations.html#vectorized-matrix-operations"><i class="fa fa-check"></i><b>10.1</b> Vectorized Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>11</b> Dates and Times</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="dates-and-times.html"><a href="dates-and-times.html#dates-in-r"><i class="fa fa-check"></i><b>11.1</b> Dates in R</a></li>
+<li class="chapter" data-level="11.2" data-path="dates-and-times.html"><a href="dates-and-times.html#times-in-r"><i class="fa fa-check"></i><b>11.2</b> Times in R</a></li>
+<li class="chapter" data-level="11.3" data-path="dates-and-times.html"><a href="dates-and-times.html#operations-on-dates-and-times"><i class="fa fa-check"></i><b>11.3</b> Operations on Dates and Times</a></li>
+<li class="chapter" data-level="11.4" data-path="dates-and-times.html"><a href="dates-and-times.html#summary-1"><i class="fa fa-check"></i><b>11.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html"><i class="fa fa-check"></i><b>12</b> Managing Data Frames with the <code>dplyr</code> package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#data-frames-1"><i class="fa fa-check"></i><b>12.1</b> Data Frames</a></li>
+<li class="chapter" data-level="12.2" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#the-dplyr-package"><i class="fa fa-check"></i><b>12.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="12.3" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#dplyr-grammar"><i class="fa fa-check"></i><b>12.3</b> <code>dplyr</code> Grammar</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#common-dplyr-function-properties"><i class="fa fa-check"></i><b>12.3.1</b> Common <code>dplyr</code> Function Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#installing-the-dplyr-package"><i class="fa fa-check"></i><b>12.4</b> Installing the <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="12.5" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>12.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="12.6" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>12.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="12.7" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>12.7</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="12.8" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#rename"><i class="fa fa-check"></i><b>12.8</b> <code>rename()</code></a></li>
+<li class="chapter" data-level="12.9" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>12.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="12.10" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>12.10</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="12.11" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#section"><i class="fa fa-check"></i><b>12.11</b> <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="12.12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#summary-2"><i class="fa fa-check"></i><b>12.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="control-structures.html"><a href="control-structures.html"><i class="fa fa-check"></i><b>13</b> Control Structures</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="control-structures.html"><a href="control-structures.html#if-else"><i class="fa fa-check"></i><b>13.1</b> <code>if</code>-<code>else</code></a></li>
+<li class="chapter" data-level="13.2" data-path="control-structures.html"><a href="control-structures.html#for-loops"><i class="fa fa-check"></i><b>13.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="13.3" data-path="control-structures.html"><a href="control-structures.html#nested-for-loops"><i class="fa fa-check"></i><b>13.3</b> Nested <code>for</code> loops</a></li>
+<li class="chapter" data-level="13.4" data-path="control-structures.html"><a href="control-structures.html#while-loops"><i class="fa fa-check"></i><b>13.4</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="13.5" data-path="control-structures.html"><a href="control-structures.html#repeat-loops"><i class="fa fa-check"></i><b>13.5</b> <code>repeat</code> Loops</a></li>
+<li class="chapter" data-level="13.6" data-path="control-structures.html"><a href="control-structures.html#next-break"><i class="fa fa-check"></i><b>13.6</b> <code>next</code>, <code>break</code></a></li>
+<li class="chapter" data-level="13.7" data-path="control-structures.html"><a href="control-structures.html#summary-3"><i class="fa fa-check"></i><b>13.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>14</b> Functions</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>14.1</b> Functions in R</a></li>
+<li class="chapter" data-level="14.2" data-path="functions.html"><a href="functions.html#your-first-function"><i class="fa fa-check"></i><b>14.2</b> Your First Function</a></li>
+<li class="chapter" data-level="14.3" data-path="functions.html"><a href="functions.html#argument-matching"><i class="fa fa-check"></i><b>14.3</b> Argument Matching</a></li>
+<li class="chapter" data-level="14.4" data-path="functions.html"><a href="functions.html#lazy-evaluation"><i class="fa fa-check"></i><b>14.4</b> Lazy Evaluation</a></li>
+<li class="chapter" data-level="14.5" data-path="functions.html"><a href="functions.html#the-...-argument"><i class="fa fa-check"></i><b>14.5</b> The <code>...</code> Argument</a></li>
+<li class="chapter" data-level="14.6" data-path="functions.html"><a href="functions.html#arguments-coming-after-the-...-argument"><i class="fa fa-check"></i><b>14.6</b> Arguments Coming After the <code>...</code> Argument</a></li>
+<li class="chapter" data-level="14.7" data-path="functions.html"><a href="functions.html#summary-4"><i class="fa fa-check"></i><b>14.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html"><i class="fa fa-check"></i><b>15</b> Scoping Rules of R</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#a-diversion-on-binding-values-to-symbol"><i class="fa fa-check"></i><b>15.1</b> A Diversion on Binding Values to Symbol</a></li>
+<li class="chapter" data-level="15.2" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#scoping-rules"><i class="fa fa-check"></i><b>15.2</b> Scoping Rules</a></li>
+<li class="chapter" data-level="15.3" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#lexical-scoping-why-does-it-matter"><i class="fa fa-check"></i><b>15.3</b> Lexical Scoping: Why Does It Matter?</a></li>
+<li class="chapter" data-level="15.4" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#lexical-vs.-dynamic-scoping"><i class="fa fa-check"></i><b>15.4</b> Lexical vs. Dynamic Scoping</a></li>
+<li class="chapter" data-level="15.5" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#application-optimization"><i class="fa fa-check"></i><b>15.5</b> Application: Optimization</a></li>
+<li class="chapter" data-level="15.6" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#plotting-the-likelihood"><i class="fa fa-check"></i><b>15.6</b> Plotting the Likelihood</a></li>
+<li class="chapter" data-level="15.7" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#summary-5"><i class="fa fa-check"></i><b>15.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="loop-functions.html"><a href="loop-functions.html"><i class="fa fa-check"></i><b>16</b> Loop Functions</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="loop-functions.html"><a href="loop-functions.html#looping-on-the-command-line"><i class="fa fa-check"></i><b>16.1</b> Looping on the Command Line</a></li>
+<li class="chapter" data-level="16.2" data-path="loop-functions.html"><a href="loop-functions.html#lapply"><i class="fa fa-check"></i><b>16.2</b> <code>lapply()</code></a></li>
+<li class="chapter" data-level="16.3" data-path="loop-functions.html"><a href="loop-functions.html#sapply"><i class="fa fa-check"></i><b>16.3</b> <code>sapply()</code></a></li>
+<li class="chapter" data-level="16.4" data-path="loop-functions.html"><a href="loop-functions.html#split"><i class="fa fa-check"></i><b>16.4</b> <code>split()</code></a></li>
+<li class="chapter" data-level="16.5" data-path="loop-functions.html"><a href="loop-functions.html#splitting-a-data-frame"><i class="fa fa-check"></i><b>16.5</b> Splitting a Data Frame</a></li>
+<li class="chapter" data-level="16.6" data-path="loop-functions.html"><a href="loop-functions.html#tapply"><i class="fa fa-check"></i><b>16.6</b> tapply</a></li>
+<li class="chapter" data-level="16.7" data-path="loop-functions.html"><a href="loop-functions.html#apply"><i class="fa fa-check"></i><b>16.7</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="16.8" data-path="loop-functions.html"><a href="loop-functions.html#colrow-sums-and-means"><i class="fa fa-check"></i><b>16.8</b> Col/Row Sums and Means</a></li>
+<li class="chapter" data-level="16.9" data-path="loop-functions.html"><a href="loop-functions.html#other-ways-to-apply"><i class="fa fa-check"></i><b>16.9</b> Other Ways to Apply</a></li>
+<li class="chapter" data-level="16.10" data-path="loop-functions.html"><a href="loop-functions.html#mapply"><i class="fa fa-check"></i><b>16.10</b> <code>mapply()</code></a></li>
+<li class="chapter" data-level="16.11" data-path="loop-functions.html"><a href="loop-functions.html#vectorizing-a-function"><i class="fa fa-check"></i><b>16.11</b> Vectorizing a Function</a></li>
+<li class="chapter" data-level="16.12" data-path="loop-functions.html"><a href="loop-functions.html#summary-6"><i class="fa fa-check"></i><b>16.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="regular-expressions.html"><a href="regular-expressions.html"><i class="fa fa-check"></i><b>17</b> Regular Expressions</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="regular-expressions.html"><a href="regular-expressions.html#before-you-begin"><i class="fa fa-check"></i><b>17.1</b> Before You Begin</a></li>
+<li class="chapter" data-level="17.2" data-path="regular-expressions.html"><a href="regular-expressions.html#primary-r-functions"><i class="fa fa-check"></i><b>17.2</b> Primary R Functions</a></li>
+<li class="chapter" data-level="17.3" data-path="regular-expressions.html"><a href="regular-expressions.html#grep"><i class="fa fa-check"></i><b>17.3</b> <code>grep()</code></a></li>
+<li class="chapter" data-level="17.4" data-path="regular-expressions.html"><a href="regular-expressions.html#grepl"><i class="fa fa-check"></i><b>17.4</b> <code>grepl()</code></a></li>
+<li class="chapter" data-level="17.5" data-path="regular-expressions.html"><a href="regular-expressions.html#regexpr"><i class="fa fa-check"></i><b>17.5</b> <code>regexpr()</code></a></li>
+<li class="chapter" data-level="17.6" data-path="regular-expressions.html"><a href="regular-expressions.html#sub-and-gsub"><i class="fa fa-check"></i><b>17.6</b> <code>sub()</code> and <code>gsub()</code></a></li>
+<li class="chapter" data-level="17.7" data-path="regular-expressions.html"><a href="regular-expressions.html#regexec"><i class="fa fa-check"></i><b>17.7</b> <code>regexec()</code></a></li>
+<li class="chapter" data-level="17.8" data-path="regular-expressions.html"><a href="regular-expressions.html#the-stringr-package"><i class="fa fa-check"></i><b>17.8</b> The <code>stringr</code> Package</a></li>
+<li class="chapter" data-level="17.9" data-path="regular-expressions.html"><a href="regular-expressions.html#summary-7"><i class="fa fa-check"></i><b>17.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>18</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="debugging.html"><a href="debugging.html#somethings-wrong"><i class="fa fa-check"></i><b>18.1</b> Something’s Wrong!</a></li>
+<li class="chapter" data-level="18.2" data-path="debugging.html"><a href="debugging.html#figuring-out-whats-wrong"><i class="fa fa-check"></i><b>18.2</b> Figuring Out What’s Wrong</a></li>
+<li class="chapter" data-level="18.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>18.3</b> Debugging Tools in R</a></li>
+<li class="chapter" data-level="18.4" data-path="debugging.html"><a href="debugging.html#using-traceback"><i class="fa fa-check"></i><b>18.4</b> Using <code>traceback()</code></a></li>
+<li class="chapter" data-level="18.5" data-path="debugging.html"><a href="debugging.html#using-debug"><i class="fa fa-check"></i><b>18.5</b> Using <code>debug()</code></a></li>
+<li class="chapter" data-level="18.6" data-path="debugging.html"><a href="debugging.html#using-recover"><i class="fa fa-check"></i><b>18.6</b> Using <code>recover()</code></a></li>
+<li class="chapter" data-level="18.7" data-path="debugging.html"><a href="debugging.html#summary-8"><i class="fa fa-check"></i><b>18.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="profiling-r-code.html"><a href="profiling-r-code.html"><i class="fa fa-check"></i><b>19</b> Profiling R Code</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-system.time"><i class="fa fa-check"></i><b>19.1</b> Using <code>system.time()</code></a></li>
+<li class="chapter" data-level="19.2" data-path="profiling-r-code.html"><a href="profiling-r-code.html#timing-longer-expressions"><i class="fa fa-check"></i><b>19.2</b> Timing Longer Expressions</a></li>
+<li class="chapter" data-level="19.3" data-path="profiling-r-code.html"><a href="profiling-r-code.html#the-r-profiler"><i class="fa fa-check"></i><b>19.3</b> The R Profiler</a></li>
+<li class="chapter" data-level="19.4" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-summaryrprof"><i class="fa fa-check"></i><b>19.4</b> Using <code>summaryRprof()</code></a></li>
+<li class="chapter" data-level="19.5" data-path="profiling-r-code.html"><a href="profiling-r-code.html#summary-9"><i class="fa fa-check"></i><b>19.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>20</b> Simulation</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="simulation.html"><a href="simulation.html#generating-random-numbers"><i class="fa fa-check"></i><b>20.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="20.2" data-path="simulation.html"><a href="simulation.html#setting-the-random-number-seed"><i class="fa fa-check"></i><b>20.2</b> Setting the random number seed</a></li>
+<li class="chapter" data-level="20.3" data-path="simulation.html"><a href="simulation.html#simulating-a-linear-model"><i class="fa fa-check"></i><b>20.3</b> Simulating a Linear Model</a></li>
+<li class="chapter" data-level="20.4" data-path="simulation.html"><a href="simulation.html#random-sampling"><i class="fa fa-check"></i><b>20.4</b> Random Sampling</a></li>
+<li class="chapter" data-level="20.5" data-path="simulation.html"><a href="simulation.html#summary-10"><i class="fa fa-check"></i><b>20.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><i class="fa fa-check"></i><b>21</b> Data Analysis Case Study: Changes in Fine Particle Air Pollution in the U.S.</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#synopsis"><i class="fa fa-check"></i><b>21.1</b> Synopsis</a></li>
+<li class="chapter" data-level="21.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#loading-and-processing-the-raw-data"><i class="fa fa-check"></i><b>21.2</b> Loading and Processing the Raw Data</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#reading-in-the-1999-data"><i class="fa fa-check"></i><b>21.2.1</b> Reading in the 1999 data</a></li>
+<li class="chapter" data-level="21.2.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#reading-in-the-2012-data"><i class="fa fa-check"></i><b>21.2.2</b> Reading in the 2012 data</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#results"><i class="fa fa-check"></i><b>21.3</b> Results</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#entire-u.s.-analysis"><i class="fa fa-check"></i><b>21.3.1</b> Entire U.S. analysis</a></li>
+<li class="chapter" data-level="21.3.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#changes-in-pm-levels-at-an-individual-monitor"><i class="fa fa-check"></i><b>21.3.2</b> Changes in PM levels at an individual monitor</a></li>
+<li class="chapter" data-level="21.3.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#changes-in-state-wide-pm-levels"><i class="fa fa-check"></i><b>21.3.3</b> Changes in state-wide PM levels</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="parallel-computation.html"><a href="parallel-computation.html"><i class="fa fa-check"></i><b>22</b> Parallel Computation</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="parallel-computation.html"><a href="parallel-computation.html#hidden-parallelism"><i class="fa fa-check"></i><b>22.1</b> Hidden Parallelism</a>
+<ul>
+<li class="chapter" data-level="22.1.1" data-path="parallel-computation.html"><a href="parallel-computation.html#parallel-blas"><i class="fa fa-check"></i><b>22.1.1</b> Parallel BLAS</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="parallel-computation.html"><a href="parallel-computation.html#embarrassing-parallelism"><i class="fa fa-check"></i><b>22.2</b> Embarrassing Parallelism</a></li>
+<li class="chapter" data-level="22.3" data-path="parallel-computation.html"><a href="parallel-computation.html#the-parallel-package"><i class="fa fa-check"></i><b>22.3</b> The Parallel Package</a>
+<ul>
+<li class="chapter" data-level="22.3.1" data-path="parallel-computation.html"><a href="parallel-computation.html#mclapply"><i class="fa fa-check"></i><b>22.3.1</b> <code>mclapply()</code></a></li>
+<li class="chapter" data-level="22.3.2" data-path="parallel-computation.html"><a href="parallel-computation.html#error-handling"><i class="fa fa-check"></i><b>22.3.2</b> Error Handling</a></li>
+</ul></li>
+<li class="chapter" data-level="22.4" data-path="parallel-computation.html"><a href="parallel-computation.html#example-bootstrapping-a-statistic"><i class="fa fa-check"></i><b>22.4</b> Example: Bootstrapping a Statistic</a>
+<ul>
+<li class="chapter" data-level="22.4.1" data-path="parallel-computation.html"><a href="parallel-computation.html#generating-random-numbers-1"><i class="fa fa-check"></i><b>22.4.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="22.4.2" data-path="parallel-computation.html"><a href="parallel-computation.html#using-the-boot-package"><i class="fa fa-check"></i><b>22.4.2</b> Using the <code>boot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="22.5" data-path="parallel-computation.html"><a href="parallel-computation.html#building-a-socket-cluster"><i class="fa fa-check"></i><b>22.5</b> Building a Socket Cluster</a></li>
+<li class="chapter" data-level="22.6" data-path="parallel-computation.html"><a href="parallel-computation.html#summary-11"><i class="fa fa-check"></i><b>22.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i><b>23</b> About the Author</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Programming for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-nuts-and-bolts" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> R Nuts and Bolts<a href="r-nuts-and-bolts.html#r-nuts-and-bolts" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="entering-input" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Entering Input<a href="r-nuts-and-bolts.html#entering-input" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://youtu.be/vGY5i_J2c-c?t=4m43s">Watch a video of this section</a></p>
+<p>At the R prompt we type expressions. The <code>&lt;-</code> symbol is the assignment
+operator.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-nuts-and-bolts.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-2"><a href="r-nuts-and-bolts.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">print</span>(x)</span>
+<span id="cb1-3"><a href="r-nuts-and-bolts.html#cb1-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb1-4"><a href="r-nuts-and-bolts.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb1-5"><a href="r-nuts-and-bolts.html#cb1-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb1-6"><a href="r-nuts-and-bolts.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> msg <span class="ot">&lt;-</span> <span class="st">&quot;hello&quot;</span></span></code></pre></div>
+<p>The grammar of the language determines whether an expression is
+complete or not.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-nuts-and-bolts.html#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span>  <span class="do">## Incomplete expression</span></span></code></pre></div>
+<p>The # character indicates a comment. Anything to the right of the #
+(including the # itself) is ignored. This is the only comment
+character in R. Unlike some other languages, R does not support
+multi-line comments or comment blocks.</p>
+</div>
+<div id="evaluation" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Evaluation<a href="r-nuts-and-bolts.html#evaluation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When a complete expression is entered at the prompt, it is evaluated
+and the result of the evaluated expression is returned. The result may
+be <em>auto-printed</em>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="r-nuts-and-bolts.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">5</span>  <span class="do">## nothing printed</span></span>
+<span id="cb3-2"><a href="r-nuts-and-bolts.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x       <span class="do">## auto-printing occurs</span></span>
+<span id="cb3-3"><a href="r-nuts-and-bolts.html#cb3-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">5</span></span>
+<span id="cb3-4"><a href="r-nuts-and-bolts.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">print</span>(x)  <span class="do">## explicit printing</span></span>
+<span id="cb3-5"><a href="r-nuts-and-bolts.html#cb3-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">5</span></span></code></pre></div>
+<p>The <code>[1]</code> shown in the output indicates that <code>x</code> is a vector and <code>5</code>
+is its first element.</p>
+<p>Typically with interactive work, we do not explicitly print objects
+with the <code>print</code> function; it is much easier to just auto-print them
+by typing the name of the object and hitting return/enter. However,
+when writing scripts, functions, or longer programs, there is
+sometimes a need to explicitly print objects because auto-printing
+does not work in those settings.</p>
+<p>When an R vector is printed you will notice that an index for the
+vector is printed in square brackets <code>[]</code> on the side. For example,
+see this integer sequence of length 20.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="r-nuts-and-bolts.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">30</span></span>
+<span id="cb4-2"><a href="r-nuts-and-bolts.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb4-3"><a href="r-nuts-and-bolts.html#cb4-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">16</span> <span class="dv">17</span> <span class="dv">18</span> <span class="dv">19</span> <span class="dv">20</span> <span class="dv">21</span> <span class="dv">22</span></span>
+<span id="cb4-4"><a href="r-nuts-and-bolts.html#cb4-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="dv">23</span> <span class="dv">24</span> <span class="dv">25</span> <span class="dv">26</span> <span class="dv">27</span> <span class="dv">28</span> <span class="dv">29</span> <span class="dv">30</span></span></code></pre></div>
+<p>The numbers in the square brackets are not part of the vector itself,
+they are merely part of the <em>printed output</em>.</p>
+<p>With R, it’s important that one understand that there is a difference
+between the actual R object and the manner in which that R object is
+printed to the console. Often, the printed output may have additional
+bells and whistles to make the output more friendly to the
+users. However, these bells and whistles are not inherently part of
+the object.</p>
+<p>Note that the <code>:</code> operator is used to create integer sequences.</p>
+</div>
+<div id="r-objects" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> R Objects<a href="r-nuts-and-bolts.html#r-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://youtu.be/vGY5i_J2c-c">Watch a video of this section</a></p>
+<p>R has five basic or “atomic” classes of objects:</p>
+<ul>
+<li><p>character</p></li>
+<li><p>numeric (real numbers)</p></li>
+<li><p>integer</p></li>
+<li><p>complex</p></li>
+<li><p>logical (True/False)</p></li>
+</ul>
+<p>The most basic type of R object is a vector. Empty vectors can be
+created with the <code>vector()</code> function. There is really only one rule
+about vectors in R, which is that <strong>A vector can only contain objects
+of the same class</strong>.</p>
+<p>But of course, like any good rule, there is an exception, which is a
+<em>list</em>, which we will get to a bit later. A list is represented as a
+vector but can contain objects of different classes. Indeed, that’s
+usually why we use them.</p>
+<p>There is also a class for “raw” objects, but they are not commonly
+used directly in data analysis and I won’t cover them here.</p>
+</div>
+<div id="numbers" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Numbers<a href="r-nuts-and-bolts.html#numbers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Numbers in R are generally treated as numeric objects (i.e. double
+precision real numbers). This means that even if you see a number like
+“1” or “2” in R, which you might think of as integers, they are likely
+represented behind the scenes as numeric objects (so something like
+“1.00” or “2.00”). This isn’t important most of the time…except when
+it is.</p>
+<p>If you explicitly want an integer, you need to specify the <code>L</code>
+suffix. So entering <code>1</code> in R gives you a numeric object; entering <code>1L</code>
+explicitly gives you an integer object.</p>
+<p>There is also a special number <code>Inf</code> which represents infinity. This
+allows us to represent entities like <code>1 / 0</code>. This way, <code>Inf</code> can be
+used in ordinary calculations; e.g. <code>1 / Inf</code> is 0.</p>
+<p>The value <code>NaN</code> represents an undefined value (“not a number”); e.g. 0
+/ 0; <code>NaN</code> can also be thought of as a missing value (more on that
+later)</p>
+</div>
+<div id="attributes" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Attributes<a href="r-nuts-and-bolts.html#attributes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R objects can have attributes, which are like metadata for the
+object. These metadata can be very useful in that they help to
+describe the object. For example, column names on a data frame help to
+tell us what data are contained in each of the columns. Some examples
+of R object attributes are</p>
+<ul>
+<li><p>names, dimnames</p></li>
+<li><p>dimensions (e.g. matrices, arrays)</p></li>
+<li><p>class (e.g. integer, numeric)</p></li>
+<li><p>length</p></li>
+<li><p>other user-defined attributes/metadata</p></li>
+</ul>
+<p>Attributes of an object (if any) can be accessed using the
+<code>attributes()</code> function. Not all R objects contain attributes, in
+which case the <code>attributes()</code> function returns <code>NULL</code>.</p>
+</div>
+<div id="creating-vectors" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Creating Vectors<a href="r-nuts-and-bolts.html#creating-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://youtu.be/w8_XdYI3reU">Watch a video of this section</a></p>
+<p>The <code>c()</code> function can be used to create vectors of objects by
+concatenating things together.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="r-nuts-and-bolts.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.6</span>)       <span class="do">## numeric</span></span>
+<span id="cb5-2"><a href="r-nuts-and-bolts.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)    <span class="do">## logical</span></span>
+<span id="cb5-3"><a href="r-nuts-and-bolts.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(T, F)           <span class="do">## logical</span></span>
+<span id="cb5-4"><a href="r-nuts-and-bolts.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)  <span class="do">## character</span></span>
+<span id="cb5-5"><a href="r-nuts-and-bolts.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">9</span><span class="sc">:</span><span class="dv">29</span>              <span class="do">## integer</span></span>
+<span id="cb5-6"><a href="r-nuts-and-bolts.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">+</span>0i, <span class="dv">2</span><span class="sc">+</span>4i)     <span class="do">## complex</span></span></code></pre></div>
+<p>Note that in the above example, <code>T</code> and <code>F</code> are short-hand ways to
+specify <code>TRUE</code> and <code>FALSE</code>. However, in general one should try to use
+the explicit <code>TRUE</code> and <code>FALSE</code> values when indicating logical
+values. The <code>T</code> and <code>F</code> values are primarily there for when you’re
+feeling lazy.</p>
+<p>You can also use the <code>vector()</code> function to initialize vectors.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="r-nuts-and-bolts.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="at">length =</span> <span class="dv">10</span>) </span>
+<span id="cb6-2"><a href="r-nuts-and-bolts.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb6-3"><a href="r-nuts-and-bolts.html#cb6-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></span></code></pre></div>
+</div>
+<div id="mixing-objects" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Mixing Objects<a href="r-nuts-and-bolts.html#mixing-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are occasions when different classes of R objects get mixed
+together. Sometimes this happens by accident but it can also happen on
+purpose. So what happens with the following code?</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="r-nuts-and-bolts.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.7</span>, <span class="st">&quot;a&quot;</span>)   <span class="do">## character</span></span>
+<span id="cb7-2"><a href="r-nuts-and-bolts.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="dv">2</span>)    <span class="do">## numeric</span></span>
+<span id="cb7-3"><a href="r-nuts-and-bolts.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="cn">TRUE</span>)  <span class="do">## character</span></span></code></pre></div>
+<p>In each case above, we are mixing objects of two different classes in
+a vector. But remember that the only rule about vectors says this is
+not allowed. When different objects are mixed in a vector, <em>coercion</em>
+occurs so that every element in the vector is of the same class.</p>
+<p>In the example above, we see the effect of <em>implicit coercion</em>. What R
+tries to do is find a way to represent all of the objects in the
+vector in a reasonable fashion. Sometimes this does exactly what you
+want and…sometimes not. For example, combining a numeric object with
+a character object will create a character vector, because numbers can
+usually be easily represented as strings.</p>
+</div>
+<div id="explicit-coercion" class="section level2 hasAnchor" number="4.8">
+<h2><span class="header-section-number">4.8</span> Explicit Coercion<a href="r-nuts-and-bolts.html#explicit-coercion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Objects can be explicitly coerced from one class to another using the
+<code>as.*</code> functions, if available.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="r-nuts-and-bolts.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb8-2"><a href="r-nuts-and-bolts.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(x)</span>
+<span id="cb8-3"><a href="r-nuts-and-bolts.html#cb8-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span></span>
+<span id="cb8-4"><a href="r-nuts-and-bolts.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.numeric</span>(x)</span>
+<span id="cb8-5"><a href="r-nuts-and-bolts.html#cb8-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span></span>
+<span id="cb8-6"><a href="r-nuts-and-bolts.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.logical</span>(x)</span>
+<span id="cb8-7"><a href="r-nuts-and-bolts.html#cb8-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span></span>
+<span id="cb8-8"><a href="r-nuts-and-bolts.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.character</span>(x)</span>
+<span id="cb8-9"><a href="r-nuts-and-bolts.html#cb8-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;0&quot;</span> <span class="st">&quot;1&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;3&quot;</span> <span class="st">&quot;4&quot;</span> <span class="st">&quot;5&quot;</span> <span class="st">&quot;6&quot;</span></span></code></pre></div>
+<p>Sometimes, R can’t figure out how to coerce an object and this can
+result in <code>NA</code>s being produced.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="r-nuts-and-bolts.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb9-2"><a href="r-nuts-and-bolts.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.numeric</span>(x)</span>
+<span id="cb9-3"><a href="r-nuts-and-bolts.html#cb9-3" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> NAs introduced by coercion</span>
+<span id="cb9-4"><a href="r-nuts-and-bolts.html#cb9-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span></span>
+<span id="cb9-5"><a href="r-nuts-and-bolts.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.logical</span>(x)</span>
+<span id="cb9-6"><a href="r-nuts-and-bolts.html#cb9-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span></span>
+<span id="cb9-7"><a href="r-nuts-and-bolts.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.complex</span>(x)</span>
+<span id="cb9-8"><a href="r-nuts-and-bolts.html#cb9-8" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> NAs introduced by coercion</span>
+<span id="cb9-9"><a href="r-nuts-and-bolts.html#cb9-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span></span></code></pre></div>
+<p>When nonsensical coercion takes place, you will usually get a warning
+from R.</p>
+</div>
+<div id="matrices" class="section level2 hasAnchor" number="4.9">
+<h2><span class="header-section-number">4.9</span> Matrices<a href="r-nuts-and-bolts.html#matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Matrices are vectors with a <em>dimension</em> attribute. The dimension
+attribute is itself an integer vector of length 2 (number of rows,
+number of columns)</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="r-nuts-and-bolts.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>) </span>
+<span id="cb10-2"><a href="r-nuts-and-bolts.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb10-3"><a href="r-nuts-and-bolts.html#cb10-3" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb10-4"><a href="r-nuts-and-bolts.html#cb10-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span></span>
+<span id="cb10-5"><a href="r-nuts-and-bolts.html#cb10-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span></span>
+<span id="cb10-6"><a href="r-nuts-and-bolts.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(m)</span>
+<span id="cb10-7"><a href="r-nuts-and-bolts.html#cb10-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb10-8"><a href="r-nuts-and-bolts.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">attributes</span>(m)</span>
+<span id="cb10-9"><a href="r-nuts-and-bolts.html#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>dim</span>
+<span id="cb10-10"><a href="r-nuts-and-bolts.html#cb10-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span></span></code></pre></div>
+<p>Matrices are constructed <em>column-wise</em>, so entries can be thought of
+starting in the “upper left” corner and running down the columns.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="r-nuts-and-bolts.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>) </span>
+<span id="cb11-2"><a href="r-nuts-and-bolts.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb11-3"><a href="r-nuts-and-bolts.html#cb11-3" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb11-4"><a href="r-nuts-and-bolts.html#cb11-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span></span>
+<span id="cb11-5"><a href="r-nuts-and-bolts.html#cb11-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span></span></code></pre></div>
+<p>Matrices can also be created directly from vectors by adding a
+dimension attribute.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r-nuts-and-bolts.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> </span>
+<span id="cb12-2"><a href="r-nuts-and-bolts.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb12-3"><a href="r-nuts-and-bolts.html#cb12-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span></span>
+<span id="cb12-4"><a href="r-nuts-and-bolts.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
+<span id="cb12-5"><a href="r-nuts-and-bolts.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb12-6"><a href="r-nuts-and-bolts.html#cb12-6" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>] [,<span class="dv">5</span>]</span>
+<span id="cb12-7"><a href="r-nuts-and-bolts.html#cb12-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span>    <span class="dv">9</span></span>
+<span id="cb12-8"><a href="r-nuts-and-bolts.html#cb12-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span>    <span class="dv">8</span>   <span class="dv">10</span></span></code></pre></div>
+<p>Matrices can be created by <em>column-binding</em> or <em>row-binding</em> with the
+<code>cbind()</code> and <code>rbind()</code> functions.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="r-nuts-and-bolts.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb13-2"><a href="r-nuts-and-bolts.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span></span>
+<span id="cb13-3"><a href="r-nuts-and-bolts.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">cbind</span>(x, y)</span>
+<span id="cb13-4"><a href="r-nuts-and-bolts.html#cb13-4" aria-hidden="true" tabindex="-1"></a>     x  y</span>
+<span id="cb13-5"><a href="r-nuts-and-bolts.html#cb13-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="dv">1</span> <span class="dv">10</span></span>
+<span id="cb13-6"><a href="r-nuts-and-bolts.html#cb13-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="dv">2</span> <span class="dv">11</span></span>
+<span id="cb13-7"><a href="r-nuts-and-bolts.html#cb13-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="dv">3</span> <span class="dv">12</span></span>
+<span id="cb13-8"><a href="r-nuts-and-bolts.html#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">rbind</span>(x, y) </span>
+<span id="cb13-9"><a href="r-nuts-and-bolts.html#cb13-9" aria-hidden="true" tabindex="-1"></a>  [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb13-10"><a href="r-nuts-and-bolts.html#cb13-10" aria-hidden="true" tabindex="-1"></a>x    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span></span>
+<span id="cb13-11"><a href="r-nuts-and-bolts.html#cb13-11" aria-hidden="true" tabindex="-1"></a>y   <span class="dv">10</span>   <span class="dv">11</span>   <span class="dv">12</span></span></code></pre></div>
+</div>
+<div id="lists" class="section level2 hasAnchor" number="4.10">
+<h2><span class="header-section-number">4.10</span> Lists<a href="r-nuts-and-bolts.html#lists" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Lists are a special type of vector that can contain elements of
+different classes. Lists are a very important data type in R and you
+should get to know them well. Lists, in combination with the various
+“apply” functions discussed later, make for a powerful combination.</p>
+<p>Lists can be explicitly created using the <code>list()</code> function, which
+takes an arbitrary number of arguments.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="r-nuts-and-bolts.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="st">&quot;a&quot;</span>, <span class="cn">TRUE</span>, <span class="dv">1</span> <span class="sc">+</span> 4i) </span>
+<span id="cb14-2"><a href="r-nuts-and-bolts.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb14-3"><a href="r-nuts-and-bolts.html#cb14-3" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb14-4"><a href="r-nuts-and-bolts.html#cb14-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb14-5"><a href="r-nuts-and-bolts.html#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="r-nuts-and-bolts.html#cb14-6" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb14-7"><a href="r-nuts-and-bolts.html#cb14-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span></span>
+<span id="cb14-8"><a href="r-nuts-and-bolts.html#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="r-nuts-and-bolts.html#cb14-9" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">3</span>]]</span>
+<span id="cb14-10"><a href="r-nuts-and-bolts.html#cb14-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb14-11"><a href="r-nuts-and-bolts.html#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="r-nuts-and-bolts.html#cb14-12" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">4</span>]]</span>
+<span id="cb14-13"><a href="r-nuts-and-bolts.html#cb14-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span><span class="sc">+</span>4i</span></code></pre></div>
+<p>We can also create an empty list of a prespecified length with the
+<code>vector()</code> function</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="r-nuts-and-bolts.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="dv">5</span>)</span>
+<span id="cb15-2"><a href="r-nuts-and-bolts.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb15-3"><a href="r-nuts-and-bolts.html#cb15-3" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb15-4"><a href="r-nuts-and-bolts.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb15-5"><a href="r-nuts-and-bolts.html#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="r-nuts-and-bolts.html#cb15-6" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb15-7"><a href="r-nuts-and-bolts.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb15-8"><a href="r-nuts-and-bolts.html#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="r-nuts-and-bolts.html#cb15-9" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">3</span>]]</span>
+<span id="cb15-10"><a href="r-nuts-and-bolts.html#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb15-11"><a href="r-nuts-and-bolts.html#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="r-nuts-and-bolts.html#cb15-12" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">4</span>]]</span>
+<span id="cb15-13"><a href="r-nuts-and-bolts.html#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb15-14"><a href="r-nuts-and-bolts.html#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="r-nuts-and-bolts.html#cb15-15" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">5</span>]]</span>
+<span id="cb15-16"><a href="r-nuts-and-bolts.html#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
+</div>
+<div id="factors" class="section level2 hasAnchor" number="4.11">
+<h2><span class="header-section-number">4.11</span> Factors<a href="r-nuts-and-bolts.html#factors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://youtu.be/NuY6jY4qE7I">Watch a video of this section</a></p>
+<p>Factors are used to represent categorical data and can be unordered or
+ordered. One can think of a factor as an integer vector where each
+integer has a <em>label</em>. Factors are important in statistical modeling
+and are treated specially by modelling functions like <code>lm()</code> and
+<code>glm()</code>.</p>
+<p>Using factors with labels is <em>better</em> than using integers because
+factors are self-describing. Having a variable that has values “Male”
+and “Female” is better than a variable that has values 1 and 2.</p>
+<p>Factor objects can be created with the <code>factor()</code> function.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="r-nuts-and-bolts.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)) </span>
+<span id="cb16-2"><a href="r-nuts-and-bolts.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb16-3"><a href="r-nuts-and-bolts.html#cb16-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] yes yes no  yes no </span>
+<span id="cb16-4"><a href="r-nuts-and-bolts.html#cb16-4" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> no yes</span>
+<span id="cb16-5"><a href="r-nuts-and-bolts.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">table</span>(x) </span>
+<span id="cb16-6"><a href="r-nuts-and-bolts.html#cb16-6" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb16-7"><a href="r-nuts-and-bolts.html#cb16-7" aria-hidden="true" tabindex="-1"></a> no yes </span>
+<span id="cb16-8"><a href="r-nuts-and-bolts.html#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>   <span class="dv">3</span> </span>
+<span id="cb16-9"><a href="r-nuts-and-bolts.html#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## See the underlying representation of factor</span></span>
+<span id="cb16-10"><a href="r-nuts-and-bolts.html#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">unclass</span>(x)  </span>
+<span id="cb16-11"><a href="r-nuts-and-bolts.html#cb16-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span></span>
+<span id="cb16-12"><a href="r-nuts-and-bolts.html#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;levels&quot;</span>)</span>
+<span id="cb16-13"><a href="r-nuts-and-bolts.html#cb16-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;no&quot;</span>  <span class="st">&quot;yes&quot;</span></span></code></pre></div>
+<p>Often factors will be automatically created for you when you read a
+dataset in using a function like <code>read.table()</code>. Those functions often
+default to creating factors when they encounter data that look like
+characters or strings.</p>
+<p>The order of the levels of a factor can be set using the <code>levels</code>
+argument to <code>factor()</code>. This can be important in linear modelling
+because the first level is used as the baseline level.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="r-nuts-and-bolts.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))</span>
+<span id="cb17-2"><a href="r-nuts-and-bolts.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x  <span class="do">## Levels are put in alphabetical order</span></span>
+<span id="cb17-3"><a href="r-nuts-and-bolts.html#cb17-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] yes yes no  yes no </span>
+<span id="cb17-4"><a href="r-nuts-and-bolts.html#cb17-4" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> no yes</span>
+<span id="cb17-5"><a href="r-nuts-and-bolts.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>),</span>
+<span id="cb17-6"><a href="r-nuts-and-bolts.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))</span>
+<span id="cb17-7"><a href="r-nuts-and-bolts.html#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb17-8"><a href="r-nuts-and-bolts.html#cb17-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] yes yes no  yes no </span>
+<span id="cb17-9"><a href="r-nuts-and-bolts.html#cb17-9" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> yes no</span></code></pre></div>
+</div>
+<div id="missing-values" class="section level2 hasAnchor" number="4.12">
+<h2><span class="header-section-number">4.12</span> Missing Values<a href="r-nuts-and-bolts.html#missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Missing values are denoted by <code>NA</code> or <code>NaN</code> for q undefined
+mathematical operations.</p>
+<ul>
+<li><p><code>is.na()</code> is used to test objects if they are <code>NA</code></p></li>
+<li><p><code>is.nan()</code> is used to test for <code>NaN</code></p></li>
+<li><p><code>NA</code> values have a class also, so there are integer <code>NA</code>, character
+<code>NA</code>, etc.</p></li>
+<li><p>A <code>NaN</code> value is also <code>NA</code> but the converse is not true</p></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="r-nuts-and-bolts.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Create a vector with NAs in it</span></span>
+<span id="cb18-2"><a href="r-nuts-and-bolts.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">10</span>, <span class="dv">3</span>)  </span>
+<span id="cb18-3"><a href="r-nuts-and-bolts.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Return a logical vector indicating which elements are NA</span></span>
+<span id="cb18-4"><a href="r-nuts-and-bolts.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">is.na</span>(x)    </span>
+<span id="cb18-5"><a href="r-nuts-and-bolts.html#cb18-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
+<span id="cb18-6"><a href="r-nuts-and-bolts.html#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Return a logical vector indicating which elements are NaN</span></span>
+<span id="cb18-7"><a href="r-nuts-and-bolts.html#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">is.nan</span>(x)   </span>
+<span id="cb18-8"><a href="r-nuts-and-bolts.html#cb18-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="r-nuts-and-bolts.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Now create a vector with both NA and NaN values</span></span>
+<span id="cb19-2"><a href="r-nuts-and-bolts.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NaN</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb19-3"><a href="r-nuts-and-bolts.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">is.na</span>(x)</span>
+<span id="cb19-4"><a href="r-nuts-and-bolts.html#cb19-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
+<span id="cb19-5"><a href="r-nuts-and-bolts.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">is.nan</span>(x)</span>
+<span id="cb19-6"><a href="r-nuts-and-bolts.html#cb19-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span></code></pre></div>
+</div>
+<div id="data-frames" class="section level2 hasAnchor" number="4.13">
+<h2><span class="header-section-number">4.13</span> Data Frames<a href="r-nuts-and-bolts.html#data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Data frames are used to store tabular data in R. They are an important
+type of object in R and are used in a variety of statistical modeling
+applications. Hadley Wickham’s package
+<a href="https://github.com/hadley/dplyr">dplyr</a> has an optimized set of
+functions designed to work efficiently with data frames.</p>
+<p>Data frames are represented as a special type of list where every
+element of the list has to have the same length. Each element of the
+list can be thought of as a column and the length of each element of
+the list is the number of rows.</p>
+<p>Unlike matrices, data frames can store different classes of objects in
+each column. Matrices must have every element be the same class
+(e.g. all integers or all numeric).</p>
+<p>In addition to column names, indicating the names of the variables or
+predictors, data frames have a special attribute called <code>row.names</code>
+which indicate information about each row of the data frame.</p>
+<p>Data frames are usually created by reading in a dataset using the
+<code>read.table()</code> or <code>read.csv()</code>. However, data frames can also be
+created explicitly with the <code>data.frame()</code> function or they can be
+coerced from other types of objects like lists.</p>
+<p>Data frames can be converted to a matrix by calling
+<code>data.matrix()</code>. While it might seem that the <code>as.matrix()</code> function
+should be used to coerce a data frame to a matrix, almost always, what
+you want is the result of <code>data.matrix()</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="r-nuts-and-bolts.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">foo =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">bar =</span> <span class="fu">c</span>(T, T, F, F)) </span>
+<span id="cb20-2"><a href="r-nuts-and-bolts.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb20-3"><a href="r-nuts-and-bolts.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  foo   bar</span>
+<span id="cb20-4"><a href="r-nuts-and-bolts.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1</span>  <span class="cn">TRUE</span></span>
+<span id="cb20-5"><a href="r-nuts-and-bolts.html#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">2</span>  <span class="cn">TRUE</span></span>
+<span id="cb20-6"><a href="r-nuts-and-bolts.html#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   <span class="dv">3</span> <span class="cn">FALSE</span></span>
+<span id="cb20-7"><a href="r-nuts-and-bolts.html#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">4</span> <span class="cn">FALSE</span></span>
+<span id="cb20-8"><a href="r-nuts-and-bolts.html#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(x)</span>
+<span id="cb20-9"><a href="r-nuts-and-bolts.html#cb20-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span>
+<span id="cb20-10"><a href="r-nuts-and-bolts.html#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ncol</span>(x)</span>
+<span id="cb20-11"><a href="r-nuts-and-bolts.html#cb20-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
+</div>
+<div id="names" class="section level2 hasAnchor" number="4.14">
+<h2><span class="header-section-number">4.14</span> Names<a href="r-nuts-and-bolts.html#names" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R objects can have names, which is very useful for writing readable
+code and self-describing objects. Here is an example of assigning
+names to an integer vector.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="r-nuts-and-bolts.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb21-2"><a href="r-nuts-and-bolts.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x)</span>
+<span id="cb21-3"><a href="r-nuts-and-bolts.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb21-4"><a href="r-nuts-and-bolts.html#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Seattle&quot;</span>, <span class="st">&quot;Los Angeles&quot;</span>) </span>
+<span id="cb21-5"><a href="r-nuts-and-bolts.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb21-6"><a href="r-nuts-and-bolts.html#cb21-6" aria-hidden="true" tabindex="-1"></a>   New York     Seattle Los Angeles </span>
+<span id="cb21-7"><a href="r-nuts-and-bolts.html#cb21-7" aria-hidden="true" tabindex="-1"></a>          <span class="dv">1</span>           <span class="dv">2</span>           <span class="dv">3</span> </span>
+<span id="cb21-8"><a href="r-nuts-and-bolts.html#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x)</span>
+<span id="cb21-9"><a href="r-nuts-and-bolts.html#cb21-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;New York&quot;</span>    <span class="st">&quot;Seattle&quot;</span>     <span class="st">&quot;Los Angeles&quot;</span></span></code></pre></div>
+<p>Lists can also have names, which is often very useful.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="r-nuts-and-bolts.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;Los Angeles&quot;</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="at">Boston =</span> <span class="dv">2</span>, <span class="at">London =</span> <span class="dv">3</span>) </span>
+<span id="cb22-2"><a href="r-nuts-and-bolts.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb22-3"><a href="r-nuts-and-bolts.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">Los Angeles</span><span class="st">`</span></span>
+<span id="cb22-4"><a href="r-nuts-and-bolts.html#cb22-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb22-5"><a href="r-nuts-and-bolts.html#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="r-nuts-and-bolts.html#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>Boston</span>
+<span id="cb22-7"><a href="r-nuts-and-bolts.html#cb22-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span></span>
+<span id="cb22-8"><a href="r-nuts-and-bolts.html#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="r-nuts-and-bolts.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>London</span>
+<span id="cb22-10"><a href="r-nuts-and-bolts.html#cb22-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb22-11"><a href="r-nuts-and-bolts.html#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x)</span>
+<span id="cb22-12"><a href="r-nuts-and-bolts.html#cb22-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Los Angeles&quot;</span> <span class="st">&quot;Boston&quot;</span>      <span class="st">&quot;London&quot;</span>     </span></code></pre></div>
+<p>Matrices can have both column and row names.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="r-nuts-and-bolts.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb23-2"><a href="r-nuts-and-bolts.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dimnames</span>(m) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)) </span>
+<span id="cb23-3"><a href="r-nuts-and-bolts.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb23-4"><a href="r-nuts-and-bolts.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  c d</span>
+<span id="cb23-5"><a href="r-nuts-and-bolts.html#cb23-5" aria-hidden="true" tabindex="-1"></a>a <span class="dv">1</span> <span class="dv">3</span></span>
+<span id="cb23-6"><a href="r-nuts-and-bolts.html#cb23-6" aria-hidden="true" tabindex="-1"></a>b <span class="dv">2</span> <span class="dv">4</span></span></code></pre></div>
+<p>Column names and row names can be set separately using the
+<code>colnames()</code> and <code>rownames()</code> functions.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="r-nuts-and-bolts.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">colnames</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;h&quot;</span>, <span class="st">&quot;f&quot;</span>)</span>
+<span id="cb24-2"><a href="r-nuts-and-bolts.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">rownames</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;z&quot;</span>)</span>
+<span id="cb24-3"><a href="r-nuts-and-bolts.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb24-4"><a href="r-nuts-and-bolts.html#cb24-4" aria-hidden="true" tabindex="-1"></a>  h f</span>
+<span id="cb24-5"><a href="r-nuts-and-bolts.html#cb24-5" aria-hidden="true" tabindex="-1"></a>x <span class="dv">1</span> <span class="dv">3</span></span>
+<span id="cb24-6"><a href="r-nuts-and-bolts.html#cb24-6" aria-hidden="true" tabindex="-1"></a>z <span class="dv">2</span> <span class="dv">4</span></span></code></pre></div>
+<p>Note that for data frames, there is a separate function for setting
+the row names, the <code>row.names()</code> function. Also, data frames do not
+have column names, they just have names (like lists). So to set the
+column names of a data frame just use the <code>names()</code> function. Yes, I
+know its confusing. Here’s a quick summary:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Object</th>
+<th>Set column names</th>
+<th>Set row names</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>data frame</td>
+<td><code>names()</code></td>
+<td><code>row.names()</code></td>
+</tr>
+<tr class="even">
+<td>matrix</td>
+<td><code>colnames()</code></td>
+<td><code>rownames()</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="summary" class="section level2 hasAnchor" number="4.15">
+<h2><span class="header-section-number">4.15</span> Summary<a href="r-nuts-and-bolts.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are a variety of different builtin-data types in R. In this
+chapter we have reviewed the following</p>
+<ul>
+<li><p>atomic classes: numeric, logical, character, integer, complex</p></li>
+<li><p>vectors, lists</p></li>
+<li><p>factors</p></li>
+<li><p>missing values</p></li>
+<li><p>data frames and matrices</p></li>
+</ul>
+<p>All R objects can have attributes that help to describe what is in the
+object. Perhaps the most useful attribute is names, such as column and
+row names in a data frame, or simply names in a vector or
+list. Attributes like dimensions are also important as they can modify
+the behavior of objects, like turning a vector into a matrix.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="getting-started-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="getting-data-in-and-out-of-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/nutsbolts.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

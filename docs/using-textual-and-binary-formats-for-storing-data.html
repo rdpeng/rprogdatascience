@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Using Textual and Binary Formats for Storing Data | R Programming for Data Science</title>
+  <meta name="description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Using Textual and Binary Formats for Storing Data | R Programming for Data Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/rdpeng/rprogdatascience//cover_sm.png" />
+  <meta property="og:description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="github-repo" content="rdpeng/rprogdatascience" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Using Textual and Binary Formats for Storing Data | R Programming for Data Science" />
+  
+  <meta name="twitter:description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="twitter:image" content="https://bookdown.org/rdpeng/rprogdatascience//cover_sm.png" />
+
+<meta name="author" content="Roger D. Peng" />
+
+
+<meta name="date" content="2024-10-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="using-the-readr-package.html"/>
+<link rel="next" href="interfaces-to-the-outside-world.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Programming for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#stay-in-touch"><i class="fa fa-check"></i>Stay in Touch!</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html"><i class="fa fa-check"></i><b>1</b> Getting Data In and Out of R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-and-writing-data"><i class="fa fa-check"></i><b>1.1</b> Reading and Writing Data</a></li>
+<li class="chapter" data-level="1.2" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-data-files-with-read.table"><i class="fa fa-check"></i><b>1.2</b> Reading Data Files with <code>read.table()</code></a></li>
+<li class="chapter" data-level="1.3" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-in-larger-datasets-with-read.table"><i class="fa fa-check"></i><b>1.3</b> Reading in Larger Datasets with read.table</a></li>
+<li class="chapter" data-level="1.4" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#calculating-memory-requirements-for-r-objects"><i class="fa fa-check"></i><b>1.4</b> Calculating Memory Requirements for R Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="using-the-readr-package.html"><a href="using-the-readr-package.html"><i class="fa fa-check"></i><b>2</b> Using the <code>readr</code> Package</a></li>
+<li class="chapter" data-level="3" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html"><i class="fa fa-check"></i><b>3</b> Using Textual and Binary Formats for Storing Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#using-dput-and-dump"><i class="fa fa-check"></i><b>3.1</b> Using <code>dput()</code> and <code>dump()</code></a></li>
+<li class="chapter" data-level="3.2" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#binary-formats"><i class="fa fa-check"></i><b>3.2</b> Binary Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html"><i class="fa fa-check"></i><b>4</b> Interfaces to the Outside World</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#file-connections"><i class="fa fa-check"></i><b>4.1</b> File Connections</a></li>
+<li class="chapter" data-level="4.2" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-lines-of-a-text-file"><i class="fa fa-check"></i><b>4.2</b> Reading Lines of a Text File</a></li>
+<li class="chapter" data-level="4.3" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-from-a-url-connection"><i class="fa fa-check"></i><b>4.3</b> Reading From a URL Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html"><i class="fa fa-check"></i><b>5</b> Subsetting R Objects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-vector"><i class="fa fa-check"></i><b>5.1</b> Subsetting a Vector</a></li>
+<li class="chapter" data-level="5.2" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-matrix"><i class="fa fa-check"></i><b>5.2</b> Subsetting a Matrix</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#dropping-matrix-dimensions"><i class="fa fa-check"></i><b>5.2.1</b> Dropping matrix dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-lists"><i class="fa fa-check"></i><b>5.3</b> Subsetting Lists</a></li>
+<li class="chapter" data-level="5.4" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-nested-elements-of-a-list"><i class="fa fa-check"></i><b>5.4</b> Subsetting Nested Elements of a List</a></li>
+<li class="chapter" data-level="5.5" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#extracting-multiple-elements-of-a-list"><i class="fa fa-check"></i><b>5.5</b> Extracting Multiple Elements of a List</a></li>
+<li class="chapter" data-level="5.6" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#partial-matching"><i class="fa fa-check"></i><b>5.6</b> Partial Matching</a></li>
+<li class="chapter" data-level="5.7" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#removing-na-values"><i class="fa fa-check"></i><b>5.7</b> Removing NA Values</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Programming for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="using-textual-and-binary-formats-for-storing-data" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Using Textual and Binary Formats for Storing Data<a href="using-textual-and-binary-formats-for-storing-data.html#using-textual-and-binary-formats-for-storing-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><a href="https://youtu.be/5mIPigbNDfk">Watch a video of this chapter</a></p>
+<p>There are a variety of ways that data can be stored, including
+structured text files like CSV or tab-delimited, or more complex
+binary formats. However, there is an intermediate format that is
+textual, but not as simple as something like CSV. The format is native
+to R and is somewhat readable because of its textual nature.</p>
+<p>One can create a more descriptive representation of an R object by
+using the <code>dput()</code> or <code>dump()</code> functions. The <code>dump()</code> and <code>dput()</code>
+functions are useful because the resulting textual format is
+edit-able, and in the case of corruption, potentially
+recoverable. Unlike writing out a table or CSV file, <code>dump()</code> and
+<code>dput()</code> preserve the <em>metadata</em> (sacrificing some readability), so
+that another user doesn’t have to specify it all over again. For
+example, we can preserve the class of each column of a table or the
+levels of a factor variable.</p>
+<p>Textual formats can work much better with version control programs
+like subversion or git which can only track changes meaningfully in
+text files. In addition, textual formats can be longer-lived; if there
+is corruption somewhere in the file, it can be easier to fix the
+problem because one can just open the file in an editor and look at it
+(although this would probably only be done in a worst case
+scenario!). Finally, textual formats adhere to the <a href="http://www.catb.org/esr/writings/taoup/">Unix
+philosophy</a>, if that means
+anything to you.</p>
+<p>There are a few downsides to using these intermediate textual formats.
+The format is not very space-efficient, because all of the metadata is
+specified. Also, it is really only partially readable. In some
+instances it might be preferable to have data stored in a CSV file and
+then have a separate code file that specifies the metadata.</p>
+<div id="using-dput-and-dump" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Using <code>dput()</code> and <code>dump()</code><a href="using-textual-and-binary-formats-for-storing-data.html#using-dput-and-dump" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One way to pass data around is by deparsing the R object with <code>dput()</code>
+and reading it back in (parsing it) using <code>dget()</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="using-textual-and-binary-formats-for-storing-data.html#cb8-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Create a data frame</span></span>
+<span id="cb8-2"><a href="using-textual-and-binary-formats-for-storing-data.html#cb8-2" tabindex="-1"></a><span class="er">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="st">&quot;a&quot;</span>)  </span>
+<span id="cb8-3"><a href="using-textual-and-binary-formats-for-storing-data.html#cb8-3" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Print &#39;dput&#39; output to console</span></span>
+<span id="cb8-4"><a href="using-textual-and-binary-formats-for-storing-data.html#cb8-4" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">dput</span>(y)                          </span>
+<span id="cb8-5"><a href="using-textual-and-binary-formats-for-storing-data.html#cb8-5" tabindex="-1"></a><span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="st">&quot;a&quot;</span>), <span class="at">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="at">row.names =</span> <span class="fu">c</span>(<span class="cn">NA</span>, </span>
+<span id="cb8-6"><a href="using-textual-and-binary-formats-for-storing-data.html#cb8-6" tabindex="-1"></a><span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>))</span></code></pre></div>
+<p>Notice that the <code>dput()</code> output is in the form of R code and that it
+preserves metadata like the class of the object, the row names, and
+the column names.</p>
+<p>The output of <code>dput()</code> can also be saved directly to a file.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="using-textual-and-binary-formats-for-storing-data.html#cb9-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Send &#39;dput&#39; output to a file</span></span>
+<span id="cb9-2"><a href="using-textual-and-binary-formats-for-storing-data.html#cb9-2" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">dput</span>(y, <span class="at">file =</span> <span class="st">&quot;y.R&quot;</span>)            </span>
+<span id="cb9-3"><a href="using-textual-and-binary-formats-for-storing-data.html#cb9-3" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Read in &#39;dput&#39; output from a file</span></span>
+<span id="cb9-4"><a href="using-textual-and-binary-formats-for-storing-data.html#cb9-4" tabindex="-1"></a><span class="er">&gt;</span> new.y <span class="ot">&lt;-</span> <span class="fu">dget</span>(<span class="st">&quot;y.R&quot;</span>)             </span>
+<span id="cb9-5"><a href="using-textual-and-binary-formats-for-storing-data.html#cb9-5" tabindex="-1"></a><span class="sc">&gt;</span> new.y</span>
+<span id="cb9-6"><a href="using-textual-and-binary-formats-for-storing-data.html#cb9-6" tabindex="-1"></a>  a b</span>
+<span id="cb9-7"><a href="using-textual-and-binary-formats-for-storing-data.html#cb9-7" tabindex="-1"></a><span class="dv">1</span> <span class="dv">1</span> a</span></code></pre></div>
+<p>Multiple objects can be deparsed at once using the dump function and
+read back in using <code>source</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="using-textual-and-binary-formats-for-storing-data.html#cb10-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="st">&quot;foo&quot;</span></span>
+<span id="cb10-2"><a href="using-textual-and-binary-formats-for-storing-data.html#cb10-2" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="dt">L</span>, <span class="at">b =</span> <span class="st">&quot;a&quot;</span>)</span></code></pre></div>
+<p>We can <code>dump()</code> R objects to a file by passing a character vector of
+their names.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="using-textual-and-binary-formats-for-storing-data.html#cb11-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dump</span>(<span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>), <span class="at">file =</span> <span class="st">&quot;data.R&quot;</span>) </span>
+<span id="cb11-2"><a href="using-textual-and-binary-formats-for-storing-data.html#cb11-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">rm</span>(x, y)</span></code></pre></div>
+<p>The inverse of <code>dump()</code> is <code>source()</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="using-textual-and-binary-formats-for-storing-data.html#cb12-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">source</span>(<span class="st">&quot;data.R&quot;</span>)</span>
+<span id="cb12-2"><a href="using-textual-and-binary-formats-for-storing-data.html#cb12-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(y)</span>
+<span id="cb12-3"><a href="using-textual-and-binary-formats-for-storing-data.html#cb12-3" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">1</span> obs. of  <span class="dv">2</span> variables<span class="sc">:</span></span>
+<span id="cb12-4"><a href="using-textual-and-binary-formats-for-storing-data.html#cb12-4" tabindex="-1"></a> <span class="er">$</span> a<span class="sc">:</span> int <span class="dv">1</span></span>
+<span id="cb12-5"><a href="using-textual-and-binary-formats-for-storing-data.html#cb12-5" tabindex="-1"></a> <span class="sc">$</span> b<span class="sc">:</span> chr <span class="st">&quot;a&quot;</span></span>
+<span id="cb12-6"><a href="using-textual-and-binary-formats-for-storing-data.html#cb12-6" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb12-7"><a href="using-textual-and-binary-formats-for-storing-data.html#cb12-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;foo&quot;</span></span></code></pre></div>
+</div>
+<div id="binary-formats" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Binary Formats<a href="using-textual-and-binary-formats-for-storing-data.html#binary-formats" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The complement to the textual format is the binary format, which is
+sometimes necessary to use for efficiency purposes, or because there’s
+just no useful way to represent data in a textual manner. Also, with
+numeric data, one can often lose precision when converting to and from
+a textual format, so it’s better to stick with a binary format.</p>
+<p>The key functions for converting R objects into a binary format are
+<code>save()</code>, <code>save.image()</code>, and <code>serialize()</code>. Individual R objects can
+be saved to a file using the <code>save()</code> function.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="using-textual-and-binary-formats-for-storing-data.html#cb13-1" tabindex="-1"></a><span class="sc">&gt;</span> a <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">100</span>))</span>
+<span id="cb13-2"><a href="using-textual-and-binary-formats-for-storing-data.html#cb13-2" tabindex="-1"></a><span class="sc">&gt;</span> b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fl">4.4</span>, <span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span>)</span>
+<span id="cb13-3"><a href="using-textual-and-binary-formats-for-storing-data.html#cb13-3" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb13-4"><a href="using-textual-and-binary-formats-for-storing-data.html#cb13-4" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## Save &#39;a&#39; and &#39;b&#39; to a file</span></span>
+<span id="cb13-5"><a href="using-textual-and-binary-formats-for-storing-data.html#cb13-5" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">save</span>(a, b, <span class="at">file =</span> <span class="st">&quot;mydata.rda&quot;</span>) </span>
+<span id="cb13-6"><a href="using-textual-and-binary-formats-for-storing-data.html#cb13-6" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb13-7"><a href="using-textual-and-binary-formats-for-storing-data.html#cb13-7" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## Load &#39;a&#39; and &#39;b&#39; into your workspace</span></span>
+<span id="cb13-8"><a href="using-textual-and-binary-formats-for-storing-data.html#cb13-8" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">load</span>(<span class="st">&quot;mydata.rda&quot;</span>)              </span></code></pre></div>
+<p>If you have a lot of objects that you want to save to a file, you can
+save all objects in your workspace using the <code>save.image()</code> function.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="using-textual-and-binary-formats-for-storing-data.html#cb14-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Save everything to a file</span></span>
+<span id="cb14-2"><a href="using-textual-and-binary-formats-for-storing-data.html#cb14-2" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">save.image</span>(<span class="at">file =</span> <span class="st">&quot;mydata.RData&quot;</span>)   </span>
+<span id="cb14-3"><a href="using-textual-and-binary-formats-for-storing-data.html#cb14-3" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb14-4"><a href="using-textual-and-binary-formats-for-storing-data.html#cb14-4" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## load all objects in this file</span></span>
+<span id="cb14-5"><a href="using-textual-and-binary-formats-for-storing-data.html#cb14-5" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">load</span>(<span class="st">&quot;mydata.RData&quot;</span>)                </span></code></pre></div>
+<p>Notice that I’ve used the <code>.rda</code> extension when using <code>save()</code> and the
+<code>.RData</code> extension when using <code>save.image()</code>. This is just my personal
+preference; you can use whatever file extension you want. The <code>save()</code>
+and <code>save.image()</code> functions do not care. However, <code>.rda</code> and <code>.RData</code>
+are fairly common extensions and you may want to use them because they
+are recognized by other software.</p>
+<p>The <code>serialize()</code> function is used to convert individual R objects
+into a binary format that can be communicated across an arbitrary
+connection. This may get sent to a file, but it could get sent over a
+network or other connection.</p>
+<p>When you call <code>serialize()</code> on an R object, the output will be a raw
+vector coded in hexadecimal format.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="using-textual-and-binary-formats-for-storing-data.html#cb15-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb15-2"><a href="using-textual-and-binary-formats-for-storing-data.html#cb15-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">serialize</span>(x, <span class="cn">NULL</span>)</span>
+<span id="cb15-3"><a href="using-textual-and-binary-formats-for-storing-data.html#cb15-3" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">58</span> <span class="dv">0</span>a <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">03</span> <span class="dv">00</span> <span class="dv">04</span> <span class="dv">04</span> <span class="dv">01</span> <span class="dv">00</span> <span class="dv">03</span> <span class="dv">05</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">05</span> <span class="dv">55</span> <span class="dv">54</span> <span class="dv">46</span> <span class="dv">2</span>d <span class="dv">38</span> <span class="dv">00</span> <span class="dv">00</span></span>
+<span id="cb15-4"><a href="using-textual-and-binary-formats-for-storing-data.html#cb15-4" tabindex="-1"></a>[<span class="dv">26</span>] <span class="dv">00</span> <span class="dv">13</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">03</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">0</span>e <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">01</span> <span class="dv">3</span>f f0 <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span></span>
+<span id="cb15-5"><a href="using-textual-and-binary-formats-for-storing-data.html#cb15-5" tabindex="-1"></a>[<span class="dv">51</span>] <span class="dv">0</span>e <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">01</span> <span class="dv">40</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">0</span>e <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">01</span> <span class="dv">40</span> <span class="dv">08</span> <span class="dv">00</span> <span class="dv">00</span></span>
+<span id="cb15-6"><a href="using-textual-and-binary-formats-for-storing-data.html#cb15-6" tabindex="-1"></a>[<span class="dv">76</span>] <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span> <span class="dv">00</span></span></code></pre></div>
+<p>If you want, this can be sent to a file, but in that case you are
+better off using something like <code>save()</code>.</p>
+<p>The benefit of the <code>serialize()</code> function is that it is the only way
+to perfectly represent an R object in an exportable format, without
+losing precision or any metadata. If that is what you need, then
+<code>serialize()</code> is the function for you.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="using-the-readr-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interfaces-to-the-outside-world.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/readwritedata.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

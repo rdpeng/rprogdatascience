@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>14 Functions | R Programming for Data Science</title>
+  <meta name="description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="14 Functions | R Programming for Data Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/rdpeng/rprogdatascience//cover_sm.png" />
+  <meta property="og:description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="github-repo" content="rdpeng/rprogdatascience" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="14 Functions | R Programming for Data Science" />
+  
+  <meta name="twitter:description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
+  <meta name="twitter:image" content="https://bookdown.org/rdpeng/rprogdatascience//cover_sm.png" />
+
+<meta name="author" content="Roger D. Peng" />
+
+
+<meta name="date" content="2022-05-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="control-structures.html"/>
+<link rel="next" href="scoping-rules-of-r.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Programming for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#stay-in-touch"><i class="fa fa-check"></i>Stay in Touch!</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html"><i class="fa fa-check"></i><b>2</b> History and Overview of R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#what-is-s"><i class="fa fa-check"></i><b>2.2</b> What is S?</a></li>
+<li class="chapter" data-level="2.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#the-s-philosophy"><i class="fa fa-check"></i><b>2.3</b> The S Philosophy</a></li>
+<li class="chapter" data-level="2.4" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#back-to-r"><i class="fa fa-check"></i><b>2.4</b> Back to R</a></li>
+<li class="chapter" data-level="2.5" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#basic-features-of-r"><i class="fa fa-check"></i><b>2.5</b> Basic Features of R</a></li>
+<li class="chapter" data-level="2.6" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#free-software"><i class="fa fa-check"></i><b>2.6</b> Free Software</a></li>
+<li class="chapter" data-level="2.7" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#design-of-the-r-system"><i class="fa fa-check"></i><b>2.7</b> Design of the R System</a></li>
+<li class="chapter" data-level="2.8" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#limitations-of-r"><i class="fa fa-check"></i><b>2.8</b> Limitations of R</a></li>
+<li class="chapter" data-level="2.9" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#r-resources"><i class="fa fa-check"></i><b>2.9</b> R Resources</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#official-manuals"><i class="fa fa-check"></i><b>2.9.1</b> Official Manuals</a></li>
+<li class="chapter" data-level="2.9.2" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#useful-standard-texts-on-s-and-r"><i class="fa fa-check"></i><b>2.9.2</b> Useful Standard Texts on S and R</a></li>
+<li class="chapter" data-level="2.9.3" data-path="history-and-overview-of-r.html"><a href="history-and-overview-of-r.html#other-resources"><i class="fa fa-check"></i><b>2.9.3</b> Other Resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>3</b> Getting Started with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installation"><i class="fa fa-check"></i><b>3.1</b> Installation</a></li>
+<li class="chapter" data-level="3.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-started-with-the-r-interface"><i class="fa fa-check"></i><b>3.2</b> Getting started with the R interface</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html"><i class="fa fa-check"></i><b>4</b> R Nuts and Bolts</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#entering-input"><i class="fa fa-check"></i><b>4.1</b> Entering Input</a></li>
+<li class="chapter" data-level="4.2" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#evaluation"><i class="fa fa-check"></i><b>4.2</b> Evaluation</a></li>
+<li class="chapter" data-level="4.3" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#r-objects"><i class="fa fa-check"></i><b>4.3</b> R Objects</a></li>
+<li class="chapter" data-level="4.4" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#numbers"><i class="fa fa-check"></i><b>4.4</b> Numbers</a></li>
+<li class="chapter" data-level="4.5" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#attributes"><i class="fa fa-check"></i><b>4.5</b> Attributes</a></li>
+<li class="chapter" data-level="4.6" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#creating-vectors"><i class="fa fa-check"></i><b>4.6</b> Creating Vectors</a></li>
+<li class="chapter" data-level="4.7" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#mixing-objects"><i class="fa fa-check"></i><b>4.7</b> Mixing Objects</a></li>
+<li class="chapter" data-level="4.8" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#explicit-coercion"><i class="fa fa-check"></i><b>4.8</b> Explicit Coercion</a></li>
+<li class="chapter" data-level="4.9" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#matrices"><i class="fa fa-check"></i><b>4.9</b> Matrices</a></li>
+<li class="chapter" data-level="4.10" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#lists"><i class="fa fa-check"></i><b>4.10</b> Lists</a></li>
+<li class="chapter" data-level="4.11" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#factors"><i class="fa fa-check"></i><b>4.11</b> Factors</a></li>
+<li class="chapter" data-level="4.12" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#missing-values"><i class="fa fa-check"></i><b>4.12</b> Missing Values</a></li>
+<li class="chapter" data-level="4.13" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#data-frames"><i class="fa fa-check"></i><b>4.13</b> Data Frames</a></li>
+<li class="chapter" data-level="4.14" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#names"><i class="fa fa-check"></i><b>4.14</b> Names</a></li>
+<li class="chapter" data-level="4.15" data-path="r-nuts-and-bolts.html"><a href="r-nuts-and-bolts.html#summary"><i class="fa fa-check"></i><b>4.15</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html"><i class="fa fa-check"></i><b>5</b> Getting Data In and Out of R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-and-writing-data"><i class="fa fa-check"></i><b>5.1</b> Reading and Writing Data</a></li>
+<li class="chapter" data-level="5.2" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-data-files-with-read.table"><i class="fa fa-check"></i><b>5.2</b> Reading Data Files with <code>read.table()</code></a></li>
+<li class="chapter" data-level="5.3" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#reading-in-larger-datasets-with-read.table"><i class="fa fa-check"></i><b>5.3</b> Reading in Larger Datasets with read.table</a></li>
+<li class="chapter" data-level="5.4" data-path="getting-data-in-and-out-of-r.html"><a href="getting-data-in-and-out-of-r.html#calculating-memory-requirements-for-r-objects"><i class="fa fa-check"></i><b>5.4</b> Calculating Memory Requirements for R Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="using-the-readr-package.html"><a href="using-the-readr-package.html"><i class="fa fa-check"></i><b>6</b> Using the <code>readr</code> Package</a></li>
+<li class="chapter" data-level="7" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html"><i class="fa fa-check"></i><b>7</b> Using Textual and Binary Formats for Storing Data</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#using-dput-and-dump"><i class="fa fa-check"></i><b>7.1</b> Using <code>dput()</code> and <code>dump()</code></a></li>
+<li class="chapter" data-level="7.2" data-path="using-textual-and-binary-formats-for-storing-data.html"><a href="using-textual-and-binary-formats-for-storing-data.html#binary-formats"><i class="fa fa-check"></i><b>7.2</b> Binary Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html"><i class="fa fa-check"></i><b>8</b> Interfaces to the Outside World</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#file-connections"><i class="fa fa-check"></i><b>8.1</b> File Connections</a></li>
+<li class="chapter" data-level="8.2" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-lines-of-a-text-file"><i class="fa fa-check"></i><b>8.2</b> Reading Lines of a Text File</a></li>
+<li class="chapter" data-level="8.3" data-path="interfaces-to-the-outside-world.html"><a href="interfaces-to-the-outside-world.html#reading-from-a-url-connection"><i class="fa fa-check"></i><b>8.3</b> Reading From a URL Connection</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html"><i class="fa fa-check"></i><b>9</b> Subsetting R Objects</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-vector"><i class="fa fa-check"></i><b>9.1</b> Subsetting a Vector</a></li>
+<li class="chapter" data-level="9.2" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-a-matrix"><i class="fa fa-check"></i><b>9.2</b> Subsetting a Matrix</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#dropping-matrix-dimensions"><i class="fa fa-check"></i><b>9.2.1</b> Dropping matrix dimensions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-lists"><i class="fa fa-check"></i><b>9.3</b> Subsetting Lists</a></li>
+<li class="chapter" data-level="9.4" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#subsetting-nested-elements-of-a-list"><i class="fa fa-check"></i><b>9.4</b> Subsetting Nested Elements of a List</a></li>
+<li class="chapter" data-level="9.5" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#extracting-multiple-elements-of-a-list"><i class="fa fa-check"></i><b>9.5</b> Extracting Multiple Elements of a List</a></li>
+<li class="chapter" data-level="9.6" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#partial-matching"><i class="fa fa-check"></i><b>9.6</b> Partial Matching</a></li>
+<li class="chapter" data-level="9.7" data-path="subsetting-r-objects.html"><a href="subsetting-r-objects.html#removing-na-values"><i class="fa fa-check"></i><b>9.7</b> Removing NA Values</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="vectorized-operations.html"><a href="vectorized-operations.html"><i class="fa fa-check"></i><b>10</b> Vectorized Operations</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="vectorized-operations.html"><a href="vectorized-operations.html#vectorized-matrix-operations"><i class="fa fa-check"></i><b>10.1</b> Vectorized Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>11</b> Dates and Times</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="dates-and-times.html"><a href="dates-and-times.html#dates-in-r"><i class="fa fa-check"></i><b>11.1</b> Dates in R</a></li>
+<li class="chapter" data-level="11.2" data-path="dates-and-times.html"><a href="dates-and-times.html#times-in-r"><i class="fa fa-check"></i><b>11.2</b> Times in R</a></li>
+<li class="chapter" data-level="11.3" data-path="dates-and-times.html"><a href="dates-and-times.html#operations-on-dates-and-times"><i class="fa fa-check"></i><b>11.3</b> Operations on Dates and Times</a></li>
+<li class="chapter" data-level="11.4" data-path="dates-and-times.html"><a href="dates-and-times.html#summary-1"><i class="fa fa-check"></i><b>11.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html"><i class="fa fa-check"></i><b>12</b> Managing Data Frames with the <code>dplyr</code> package</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#data-frames-1"><i class="fa fa-check"></i><b>12.1</b> Data Frames</a></li>
+<li class="chapter" data-level="12.2" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#the-dplyr-package"><i class="fa fa-check"></i><b>12.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="12.3" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#dplyr-grammar"><i class="fa fa-check"></i><b>12.3</b> <code>dplyr</code> Grammar</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#common-dplyr-function-properties"><i class="fa fa-check"></i><b>12.3.1</b> Common <code>dplyr</code> Function Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#installing-the-dplyr-package"><i class="fa fa-check"></i><b>12.4</b> Installing the <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="12.5" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>12.5</b> <code>select()</code></a></li>
+<li class="chapter" data-level="12.6" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>12.6</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="12.7" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>12.7</b> <code>arrange()</code></a></li>
+<li class="chapter" data-level="12.8" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#rename"><i class="fa fa-check"></i><b>12.8</b> <code>rename()</code></a></li>
+<li class="chapter" data-level="12.9" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>12.9</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="12.10" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>12.10</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="12.11" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#section"><i class="fa fa-check"></i><b>12.11</b> <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="12.12" data-path="managing-data-frames-with-the-dplyr-package.html"><a href="managing-data-frames-with-the-dplyr-package.html#summary-2"><i class="fa fa-check"></i><b>12.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="control-structures.html"><a href="control-structures.html"><i class="fa fa-check"></i><b>13</b> Control Structures</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="control-structures.html"><a href="control-structures.html#if-else"><i class="fa fa-check"></i><b>13.1</b> <code>if</code>-<code>else</code></a></li>
+<li class="chapter" data-level="13.2" data-path="control-structures.html"><a href="control-structures.html#for-loops"><i class="fa fa-check"></i><b>13.2</b> <code>for</code> Loops</a></li>
+<li class="chapter" data-level="13.3" data-path="control-structures.html"><a href="control-structures.html#nested-for-loops"><i class="fa fa-check"></i><b>13.3</b> Nested <code>for</code> loops</a></li>
+<li class="chapter" data-level="13.4" data-path="control-structures.html"><a href="control-structures.html#while-loops"><i class="fa fa-check"></i><b>13.4</b> <code>while</code> Loops</a></li>
+<li class="chapter" data-level="13.5" data-path="control-structures.html"><a href="control-structures.html#repeat-loops"><i class="fa fa-check"></i><b>13.5</b> <code>repeat</code> Loops</a></li>
+<li class="chapter" data-level="13.6" data-path="control-structures.html"><a href="control-structures.html#next-break"><i class="fa fa-check"></i><b>13.6</b> <code>next</code>, <code>break</code></a></li>
+<li class="chapter" data-level="13.7" data-path="control-structures.html"><a href="control-structures.html#summary-3"><i class="fa fa-check"></i><b>13.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>14</b> Functions</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>14.1</b> Functions in R</a></li>
+<li class="chapter" data-level="14.2" data-path="functions.html"><a href="functions.html#your-first-function"><i class="fa fa-check"></i><b>14.2</b> Your First Function</a></li>
+<li class="chapter" data-level="14.3" data-path="functions.html"><a href="functions.html#argument-matching"><i class="fa fa-check"></i><b>14.3</b> Argument Matching</a></li>
+<li class="chapter" data-level="14.4" data-path="functions.html"><a href="functions.html#lazy-evaluation"><i class="fa fa-check"></i><b>14.4</b> Lazy Evaluation</a></li>
+<li class="chapter" data-level="14.5" data-path="functions.html"><a href="functions.html#the-...-argument"><i class="fa fa-check"></i><b>14.5</b> The <code>...</code> Argument</a></li>
+<li class="chapter" data-level="14.6" data-path="functions.html"><a href="functions.html#arguments-coming-after-the-...-argument"><i class="fa fa-check"></i><b>14.6</b> Arguments Coming After the <code>...</code> Argument</a></li>
+<li class="chapter" data-level="14.7" data-path="functions.html"><a href="functions.html#summary-4"><i class="fa fa-check"></i><b>14.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html"><i class="fa fa-check"></i><b>15</b> Scoping Rules of R</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#a-diversion-on-binding-values-to-symbol"><i class="fa fa-check"></i><b>15.1</b> A Diversion on Binding Values to Symbol</a></li>
+<li class="chapter" data-level="15.2" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#scoping-rules"><i class="fa fa-check"></i><b>15.2</b> Scoping Rules</a></li>
+<li class="chapter" data-level="15.3" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#lexical-scoping-why-does-it-matter"><i class="fa fa-check"></i><b>15.3</b> Lexical Scoping: Why Does It Matter?</a></li>
+<li class="chapter" data-level="15.4" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#lexical-vs.-dynamic-scoping"><i class="fa fa-check"></i><b>15.4</b> Lexical vs. Dynamic Scoping</a></li>
+<li class="chapter" data-level="15.5" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#application-optimization"><i class="fa fa-check"></i><b>15.5</b> Application: Optimization</a></li>
+<li class="chapter" data-level="15.6" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#plotting-the-likelihood"><i class="fa fa-check"></i><b>15.6</b> Plotting the Likelihood</a></li>
+<li class="chapter" data-level="15.7" data-path="scoping-rules-of-r.html"><a href="scoping-rules-of-r.html#summary-5"><i class="fa fa-check"></i><b>15.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="loop-functions.html"><a href="loop-functions.html"><i class="fa fa-check"></i><b>16</b> Loop Functions</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="loop-functions.html"><a href="loop-functions.html#looping-on-the-command-line"><i class="fa fa-check"></i><b>16.1</b> Looping on the Command Line</a></li>
+<li class="chapter" data-level="16.2" data-path="loop-functions.html"><a href="loop-functions.html#lapply"><i class="fa fa-check"></i><b>16.2</b> <code>lapply()</code></a></li>
+<li class="chapter" data-level="16.3" data-path="loop-functions.html"><a href="loop-functions.html#sapply"><i class="fa fa-check"></i><b>16.3</b> <code>sapply()</code></a></li>
+<li class="chapter" data-level="16.4" data-path="loop-functions.html"><a href="loop-functions.html#split"><i class="fa fa-check"></i><b>16.4</b> <code>split()</code></a></li>
+<li class="chapter" data-level="16.5" data-path="loop-functions.html"><a href="loop-functions.html#splitting-a-data-frame"><i class="fa fa-check"></i><b>16.5</b> Splitting a Data Frame</a></li>
+<li class="chapter" data-level="16.6" data-path="loop-functions.html"><a href="loop-functions.html#tapply"><i class="fa fa-check"></i><b>16.6</b> tapply</a></li>
+<li class="chapter" data-level="16.7" data-path="loop-functions.html"><a href="loop-functions.html#apply"><i class="fa fa-check"></i><b>16.7</b> <code>apply()</code></a></li>
+<li class="chapter" data-level="16.8" data-path="loop-functions.html"><a href="loop-functions.html#colrow-sums-and-means"><i class="fa fa-check"></i><b>16.8</b> Col/Row Sums and Means</a></li>
+<li class="chapter" data-level="16.9" data-path="loop-functions.html"><a href="loop-functions.html#other-ways-to-apply"><i class="fa fa-check"></i><b>16.9</b> Other Ways to Apply</a></li>
+<li class="chapter" data-level="16.10" data-path="loop-functions.html"><a href="loop-functions.html#mapply"><i class="fa fa-check"></i><b>16.10</b> <code>mapply()</code></a></li>
+<li class="chapter" data-level="16.11" data-path="loop-functions.html"><a href="loop-functions.html#vectorizing-a-function"><i class="fa fa-check"></i><b>16.11</b> Vectorizing a Function</a></li>
+<li class="chapter" data-level="16.12" data-path="loop-functions.html"><a href="loop-functions.html#summary-6"><i class="fa fa-check"></i><b>16.12</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="regular-expressions.html"><a href="regular-expressions.html"><i class="fa fa-check"></i><b>17</b> Regular Expressions</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="regular-expressions.html"><a href="regular-expressions.html#before-you-begin"><i class="fa fa-check"></i><b>17.1</b> Before You Begin</a></li>
+<li class="chapter" data-level="17.2" data-path="regular-expressions.html"><a href="regular-expressions.html#primary-r-functions"><i class="fa fa-check"></i><b>17.2</b> Primary R Functions</a></li>
+<li class="chapter" data-level="17.3" data-path="regular-expressions.html"><a href="regular-expressions.html#grep"><i class="fa fa-check"></i><b>17.3</b> <code>grep()</code></a></li>
+<li class="chapter" data-level="17.4" data-path="regular-expressions.html"><a href="regular-expressions.html#grepl"><i class="fa fa-check"></i><b>17.4</b> <code>grepl()</code></a></li>
+<li class="chapter" data-level="17.5" data-path="regular-expressions.html"><a href="regular-expressions.html#regexpr"><i class="fa fa-check"></i><b>17.5</b> <code>regexpr()</code></a></li>
+<li class="chapter" data-level="17.6" data-path="regular-expressions.html"><a href="regular-expressions.html#sub-and-gsub"><i class="fa fa-check"></i><b>17.6</b> <code>sub()</code> and <code>gsub()</code></a></li>
+<li class="chapter" data-level="17.7" data-path="regular-expressions.html"><a href="regular-expressions.html#regexec"><i class="fa fa-check"></i><b>17.7</b> <code>regexec()</code></a></li>
+<li class="chapter" data-level="17.8" data-path="regular-expressions.html"><a href="regular-expressions.html#the-stringr-package"><i class="fa fa-check"></i><b>17.8</b> The <code>stringr</code> Package</a></li>
+<li class="chapter" data-level="17.9" data-path="regular-expressions.html"><a href="regular-expressions.html#summary-7"><i class="fa fa-check"></i><b>17.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>18</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="debugging.html"><a href="debugging.html#somethings-wrong"><i class="fa fa-check"></i><b>18.1</b> Something’s Wrong!</a></li>
+<li class="chapter" data-level="18.2" data-path="debugging.html"><a href="debugging.html#figuring-out-whats-wrong"><i class="fa fa-check"></i><b>18.2</b> Figuring Out What’s Wrong</a></li>
+<li class="chapter" data-level="18.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>18.3</b> Debugging Tools in R</a></li>
+<li class="chapter" data-level="18.4" data-path="debugging.html"><a href="debugging.html#using-traceback"><i class="fa fa-check"></i><b>18.4</b> Using <code>traceback()</code></a></li>
+<li class="chapter" data-level="18.5" data-path="debugging.html"><a href="debugging.html#using-debug"><i class="fa fa-check"></i><b>18.5</b> Using <code>debug()</code></a></li>
+<li class="chapter" data-level="18.6" data-path="debugging.html"><a href="debugging.html#using-recover"><i class="fa fa-check"></i><b>18.6</b> Using <code>recover()</code></a></li>
+<li class="chapter" data-level="18.7" data-path="debugging.html"><a href="debugging.html#summary-8"><i class="fa fa-check"></i><b>18.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="profiling-r-code.html"><a href="profiling-r-code.html"><i class="fa fa-check"></i><b>19</b> Profiling R Code</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-system.time"><i class="fa fa-check"></i><b>19.1</b> Using <code>system.time()</code></a></li>
+<li class="chapter" data-level="19.2" data-path="profiling-r-code.html"><a href="profiling-r-code.html#timing-longer-expressions"><i class="fa fa-check"></i><b>19.2</b> Timing Longer Expressions</a></li>
+<li class="chapter" data-level="19.3" data-path="profiling-r-code.html"><a href="profiling-r-code.html#the-r-profiler"><i class="fa fa-check"></i><b>19.3</b> The R Profiler</a></li>
+<li class="chapter" data-level="19.4" data-path="profiling-r-code.html"><a href="profiling-r-code.html#using-summaryrprof"><i class="fa fa-check"></i><b>19.4</b> Using <code>summaryRprof()</code></a></li>
+<li class="chapter" data-level="19.5" data-path="profiling-r-code.html"><a href="profiling-r-code.html#summary-9"><i class="fa fa-check"></i><b>19.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>20</b> Simulation</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="simulation.html"><a href="simulation.html#generating-random-numbers"><i class="fa fa-check"></i><b>20.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="20.2" data-path="simulation.html"><a href="simulation.html#setting-the-random-number-seed"><i class="fa fa-check"></i><b>20.2</b> Setting the random number seed</a></li>
+<li class="chapter" data-level="20.3" data-path="simulation.html"><a href="simulation.html#simulating-a-linear-model"><i class="fa fa-check"></i><b>20.3</b> Simulating a Linear Model</a></li>
+<li class="chapter" data-level="20.4" data-path="simulation.html"><a href="simulation.html#random-sampling"><i class="fa fa-check"></i><b>20.4</b> Random Sampling</a></li>
+<li class="chapter" data-level="20.5" data-path="simulation.html"><a href="simulation.html#summary-10"><i class="fa fa-check"></i><b>20.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><i class="fa fa-check"></i><b>21</b> Data Analysis Case Study: Changes in Fine Particle Air Pollution in the U.S.</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#synopsis"><i class="fa fa-check"></i><b>21.1</b> Synopsis</a></li>
+<li class="chapter" data-level="21.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#loading-and-processing-the-raw-data"><i class="fa fa-check"></i><b>21.2</b> Loading and Processing the Raw Data</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#reading-in-the-1999-data"><i class="fa fa-check"></i><b>21.2.1</b> Reading in the 1999 data</a></li>
+<li class="chapter" data-level="21.2.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#reading-in-the-2012-data"><i class="fa fa-check"></i><b>21.2.2</b> Reading in the 2012 data</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#results"><i class="fa fa-check"></i><b>21.3</b> Results</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#entire-u.s.-analysis"><i class="fa fa-check"></i><b>21.3.1</b> Entire U.S. analysis</a></li>
+<li class="chapter" data-level="21.3.2" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#changes-in-pm-levels-at-an-individual-monitor"><i class="fa fa-check"></i><b>21.3.2</b> Changes in PM levels at an individual monitor</a></li>
+<li class="chapter" data-level="21.3.3" data-path="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html"><a href="data-analysis-case-study-changes-in-fine-particle-air-pollution-in-the-u.s..html#changes-in-state-wide-pm-levels"><i class="fa fa-check"></i><b>21.3.3</b> Changes in state-wide PM levels</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="parallel-computation.html"><a href="parallel-computation.html"><i class="fa fa-check"></i><b>22</b> Parallel Computation</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="parallel-computation.html"><a href="parallel-computation.html#hidden-parallelism"><i class="fa fa-check"></i><b>22.1</b> Hidden Parallelism</a>
+<ul>
+<li class="chapter" data-level="22.1.1" data-path="parallel-computation.html"><a href="parallel-computation.html#parallel-blas"><i class="fa fa-check"></i><b>22.1.1</b> Parallel BLAS</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="parallel-computation.html"><a href="parallel-computation.html#embarrassing-parallelism"><i class="fa fa-check"></i><b>22.2</b> Embarrassing Parallelism</a></li>
+<li class="chapter" data-level="22.3" data-path="parallel-computation.html"><a href="parallel-computation.html#the-parallel-package"><i class="fa fa-check"></i><b>22.3</b> The Parallel Package</a>
+<ul>
+<li class="chapter" data-level="22.3.1" data-path="parallel-computation.html"><a href="parallel-computation.html#mclapply"><i class="fa fa-check"></i><b>22.3.1</b> <code>mclapply()</code></a></li>
+<li class="chapter" data-level="22.3.2" data-path="parallel-computation.html"><a href="parallel-computation.html#error-handling"><i class="fa fa-check"></i><b>22.3.2</b> Error Handling</a></li>
+</ul></li>
+<li class="chapter" data-level="22.4" data-path="parallel-computation.html"><a href="parallel-computation.html#example-bootstrapping-a-statistic"><i class="fa fa-check"></i><b>22.4</b> Example: Bootstrapping a Statistic</a>
+<ul>
+<li class="chapter" data-level="22.4.1" data-path="parallel-computation.html"><a href="parallel-computation.html#generating-random-numbers-1"><i class="fa fa-check"></i><b>22.4.1</b> Generating Random Numbers</a></li>
+<li class="chapter" data-level="22.4.2" data-path="parallel-computation.html"><a href="parallel-computation.html#using-the-boot-package"><i class="fa fa-check"></i><b>22.4.2</b> Using the <code>boot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="22.5" data-path="parallel-computation.html"><a href="parallel-computation.html#building-a-socket-cluster"><i class="fa fa-check"></i><b>22.5</b> Building a Socket Cluster</a></li>
+<li class="chapter" data-level="22.6" data-path="parallel-computation.html"><a href="parallel-computation.html#summary-11"><i class="fa fa-check"></i><b>22.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i><b>23</b> About the Author</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Programming for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="functions" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">14</span> Functions<a href="functions.html#functions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Writing functions is a core activity of an R programmer. It represents
+the key step of the transition from a mere “user” to a developer who
+creates new functionality for R. Functions are often used to
+encapsulate a sequence of expressions that need to be executed
+numerous times, perhaps under slightly different conditions. Functions
+are also often written when code must be shared with others or the
+public.</p>
+<p>The writing of a function allows a developer to create an interface to
+the code, that is explicitly specified with a set of parameters. This
+interface provides an abstraction of the code to potential users. This
+abstraction simplifies the users’ lives because it relieves them from
+having to know every detail of how the code operates. In addition, the
+creation of an interface allows the developer to communicate to the
+user the aspects of the code that are important or are most relevant.</p>
+<div id="functions-in-r" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Functions in R<a href="functions.html#functions-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Functions in R are “first class objects”, which means that they can be
+treated much like any other R object. Importantly,</p>
+<ul>
+<li><p>Functions can be passed as arguments to other functions. This is very handy for the various apply functions, like <code>lapply()</code> and <code>sapply()</code>.</p></li>
+<li><p>Functions can be nested, so that you can define a function inside of
+another function</p></li>
+</ul>
+<p>If you’re familiar with common language like C, these features might appear a bit strange. However, they are really important in R and can be useful for data analysis.</p>
+</div>
+<div id="your-first-function" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Your First Function<a href="functions.html#your-first-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Functions are defined using the <code>function()</code> directive and are stored
+as R objects just like anything else. In particular, they are R
+objects of class “function”.</p>
+<p>Here’s a simple function that takes no arguments and does nothing.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="functions.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> f <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb129-2"><a href="functions.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="do">## This is an empty function</span></span>
+<span id="cb129-3"><a href="functions.html#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span>
+<span id="cb129-4"><a href="functions.html#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Functions have their own class</span></span>
+<span id="cb129-5"><a href="functions.html#cb129-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">class</span>(f)  </span>
+<span id="cb129-6"><a href="functions.html#cb129-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;function&quot;</span></span>
+<span id="cb129-7"><a href="functions.html#cb129-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Execute this function</span></span>
+<span id="cb129-8"><a href="functions.html#cb129-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">f</span>()       </span>
+<span id="cb129-9"><a href="functions.html#cb129-9" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
+<p>Not very interesting, but it’s a start. The next thing we can do is
+create a function that actually has a non-trivial <em>function body</em>.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="functions.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> f <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb130-2"><a href="functions.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">cat</span>(<span class="st">&quot;Hello, world!</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb130-3"><a href="functions.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span>
+<span id="cb130-4"><a href="functions.html#cb130-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">f</span>()</span>
+<span id="cb130-5"><a href="functions.html#cb130-5" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span></code></pre></div>
+<p>The last aspect of a basic function is the <em>function arguments</em>. These
+are the options that you can specify to the user that the user may
+explicity set. For this basic function, we can add an argument that
+determines how many times “Hello, world!” is printed to the console.</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="functions.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> f <span class="ot">&lt;-</span> <span class="cf">function</span>(num) {</span>
+<span id="cb131-2"><a href="functions.html#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(num)) {</span>
+<span id="cb131-3"><a href="functions.html#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">cat</span>(<span class="st">&quot;Hello, world!</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb131-4"><a href="functions.html#cb131-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         }</span>
+<span id="cb131-5"><a href="functions.html#cb131-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span>
+<span id="cb131-6"><a href="functions.html#cb131-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">f</span>(<span class="dv">3</span>)</span>
+<span id="cb131-7"><a href="functions.html#cb131-7" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span>
+<span id="cb131-8"><a href="functions.html#cb131-8" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span>
+<span id="cb131-9"><a href="functions.html#cb131-9" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span></code></pre></div>
+<p>Obviously, we could have just cut-and-pasted the <code>cat("Hello, world!\n")</code> code three times to achieve the same effect, but then we wouldn’t be programming, would we? Also, it would be un-neighborly of you to give your code to someone else and force them to cut-and-paste the code however many times the need to see “Hello, world!”.</p>
+<blockquote>
+<p>In general, if you find yourself doing a lot of cutting and pasting, that’s usually a good sign that you might need to write a function.</p>
+</blockquote>
+<p>Finally, the function above doesn’t <em>return</em> anything. It just prints “Hello, world!” to the console <code>num</code> number of times and then exits. But often it is useful if a function returns something that perhaps can be fed into another section of code.</p>
+<p>This next function returns the total number of characters printed to the console.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="functions.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> f <span class="ot">&lt;-</span> <span class="cf">function</span>(num) {</span>
+<span id="cb132-2"><a href="functions.html#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         hello <span class="ot">&lt;-</span> <span class="st">&quot;Hello, world!</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb132-3"><a href="functions.html#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(num)) {</span>
+<span id="cb132-4"><a href="functions.html#cb132-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">cat</span>(hello)</span>
+<span id="cb132-5"><a href="functions.html#cb132-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         }</span>
+<span id="cb132-6"><a href="functions.html#cb132-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         chars <span class="ot">&lt;-</span> <span class="fu">nchar</span>(hello) <span class="sc">*</span> num</span>
+<span id="cb132-7"><a href="functions.html#cb132-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         chars</span>
+<span id="cb132-8"><a href="functions.html#cb132-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span>
+<span id="cb132-9"><a href="functions.html#cb132-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> meaningoflife <span class="ot">&lt;-</span> <span class="fu">f</span>(<span class="dv">3</span>)</span>
+<span id="cb132-10"><a href="functions.html#cb132-10" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span>
+<span id="cb132-11"><a href="functions.html#cb132-11" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span>
+<span id="cb132-12"><a href="functions.html#cb132-12" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span>
+<span id="cb132-13"><a href="functions.html#cb132-13" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">print</span>(meaningoflife)</span>
+<span id="cb132-14"><a href="functions.html#cb132-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">42</span></span></code></pre></div>
+<p>In the above function, we didn’t have to indicate anything special in order for the function to return the number of characters. In R, the return value of a function is always the very last expression that is evaluated. Because the <code>chars</code> variable is the last expression that is evaluated in this function, that becomes the return value of the function.</p>
+<p>Note that there is a <code>return()</code> function that can be used to return an explicity value from a function, but it is rarely used in R (we will discuss it a bit later in this chapter).</p>
+<p>Finally, in the above function, the user must specify the value of the argument <code>num</code>. If it is not specified by the user, R will throw an error.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="functions.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">f</span>()</span>
+<span id="cb133-2"><a href="functions.html#cb133-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">f</span>()<span class="sc">:</span> argument <span class="st">&quot;num&quot;</span> is missing, with no default</span></code></pre></div>
+<p>We can modify this behavior by setting a <em>default value</em> for the argument <code>num</code>. Any function argument can have a default value, if you wish to specify it. Sometimes, argument values are rarely modified (except in special cases) and it makes sense to set a default value for that argument. This relieves the user from having to specify the value of that argument every single time the function is called.</p>
+<p>Here, for example, we could set the default value for <code>num</code> to be 1, so that if the function is called without the <code>num</code> argument being explicitly specified, then it will print “Hello, world!” to the console once.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="functions.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> f <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">num =</span> <span class="dv">1</span>) {</span>
+<span id="cb134-2"><a href="functions.html#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         hello <span class="ot">&lt;-</span> <span class="st">&quot;Hello, world!</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb134-3"><a href="functions.html#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(num)) {</span>
+<span id="cb134-4"><a href="functions.html#cb134-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">cat</span>(hello)</span>
+<span id="cb134-5"><a href="functions.html#cb134-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         }</span>
+<span id="cb134-6"><a href="functions.html#cb134-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         chars <span class="ot">&lt;-</span> <span class="fu">nchar</span>(hello) <span class="sc">*</span> num</span>
+<span id="cb134-7"><a href="functions.html#cb134-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         chars</span>
+<span id="cb134-8"><a href="functions.html#cb134-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span>
+<span id="cb134-9"><a href="functions.html#cb134-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">f</span>()    <span class="do">## Use default value for &#39;num&#39;</span></span>
+<span id="cb134-10"><a href="functions.html#cb134-10" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span>
+<span id="cb134-11"><a href="functions.html#cb134-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">14</span></span>
+<span id="cb134-12"><a href="functions.html#cb134-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">f</span>(<span class="dv">2</span>)   <span class="do">## Use user-specified value</span></span>
+<span id="cb134-13"><a href="functions.html#cb134-13" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span>
+<span id="cb134-14"><a href="functions.html#cb134-14" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span>
+<span id="cb134-15"><a href="functions.html#cb134-15" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">28</span></span></code></pre></div>
+<p>Remember that the function still returns the number of characters printed to the console.</p>
+<p>At this point, we have written a function that</p>
+<ul>
+<li><p>has one <em>formal argument</em> named <code>num</code> with a <em>default value</em> of 1. The <em>formal arguments</em> are the arguments included in the function definition. The <code>formals()</code> function returns a list of all the formal arguments of a function</p></li>
+<li><p>prints the message “Hello, world!” to the console a number of times indicated by the argument <code>num</code></p></li>
+<li><p><em>returns</em> the number of characters printed to the console</p></li>
+</ul>
+<p>Functions have <em>named arguments</em> which can optionally have default values. Because all function arguments have names, they can be specified using their name.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="functions.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">f</span>(<span class="at">num =</span> <span class="dv">2</span>)</span>
+<span id="cb135-2"><a href="functions.html#cb135-2" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span>
+<span id="cb135-3"><a href="functions.html#cb135-3" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="sc">!</span></span>
+<span id="cb135-4"><a href="functions.html#cb135-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">28</span></span></code></pre></div>
+<p>Specifying an argument by its name is sometimes useful if a function has many arguments and it may not always be clear which argument is being specified. Here, our function only has one argument so there’s no confusion.</p>
+</div>
+<div id="argument-matching" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Argument Matching<a href="functions.html#argument-matching" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Calling an R function with arguments can be done in a variety of ways. This may be confusing at first, but it’s really handing when doing interactive work at the command line. R functions arguments can be matched <em>positionally</em> or by name. Positional matching just means that R assigns the first value to the first argument, the second value to second argument, etc. So in the following call to <code>rnorm()</code></p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="functions.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(rnorm)</span>
+<span id="cb136-2"><a href="functions.html#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)  </span>
+<span id="cb136-3"><a href="functions.html#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> mydata <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">1</span>)              <span class="do">## Generate some data</span></span></code></pre></div>
+<p>100 is assigned to the <code>n</code> argument, 2 is assigned to the <code>mean</code> argument, and 1 is assigned to the <code>sd</code> argument, all by positional matching.</p>
+<p>The following calls to the <code>sd()</code> function (which computes the empirical standard deviation of a vector of numbers) are all equivalent. Note that <code>sd()</code> has two arguments: <code>x</code> indicates the vector of numbers and <code>na.rm</code> is a logical indicating whether missing values should be removed or not.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="functions.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Positional match first argument, default for &#39;na.rm&#39;</span></span>
+<span id="cb137-2"><a href="functions.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">sd</span>(mydata)                     </span>
+<span id="cb137-3"><a href="functions.html#cb137-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9351117</span></span>
+<span id="cb137-4"><a href="functions.html#cb137-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Specify &#39;x&#39; argument by name, default for &#39;na.rm&#39;</span></span>
+<span id="cb137-5"><a href="functions.html#cb137-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">sd</span>(<span class="at">x =</span> mydata)                 </span>
+<span id="cb137-6"><a href="functions.html#cb137-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9351117</span></span>
+<span id="cb137-7"><a href="functions.html#cb137-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Specify both arguments by name</span></span>
+<span id="cb137-8"><a href="functions.html#cb137-8" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">sd</span>(<span class="at">x =</span> mydata, <span class="at">na.rm =</span> <span class="cn">FALSE</span>)  </span>
+<span id="cb137-9"><a href="functions.html#cb137-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9351117</span></span></code></pre></div>
+<p>When specifying the function arguments by name, it doesn’t matter in what order you specify them. In the example below, we specify the <code>na.rm</code> argument first, followed by <code>x</code>, even though <code>x</code> is the first argument defined in the function definition.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="functions.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Specify both arguments by name</span></span>
+<span id="cb138-2"><a href="functions.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">sd</span>(<span class="at">na.rm =</span> <span class="cn">FALSE</span>, <span class="at">x =</span> mydata)     </span>
+<span id="cb138-3"><a href="functions.html#cb138-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9351117</span></span></code></pre></div>
+<p>You can mix positional matching with matching by name. When an argument is matched by name, it is “taken out” of the argument list and the remaining unnamed arguments are matched in the order that they are listed in the function definition.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="functions.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">sd</span>(<span class="at">na.rm =</span> <span class="cn">FALSE</span>, mydata)</span>
+<span id="cb139-2"><a href="functions.html#cb139-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9351117</span></span></code></pre></div>
+<p>Here, the <code>mydata</code> object is assigned to the <code>x</code> argument, because it’s the only argument not yet specified.</p>
+<p>Below is the argument list for the <code>lm()</code> function, which fits linear models to a dataset.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="functions.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">args</span>(lm)</span>
+<span id="cb140-2"><a href="functions.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (formula, data, subset, weights, na.action, <span class="at">method =</span> <span class="st">&quot;qr&quot;</span>, </span>
+<span id="cb140-3"><a href="functions.html#cb140-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="cn">TRUE</span>, <span class="at">x =</span> <span class="cn">FALSE</span>, <span class="at">y =</span> <span class="cn">FALSE</span>, <span class="at">qr =</span> <span class="cn">TRUE</span>, <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb140-4"><a href="functions.html#cb140-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">contrasts =</span> <span class="cn">NULL</span>, offset, ...) </span>
+<span id="cb140-5"><a href="functions.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
+<p>The following two calls are equivalent.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="functions.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="at">data =</span> mydata, y <span class="sc">~</span> x, <span class="at">model =</span> <span class="cn">FALSE</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
+<span id="cb141-2"><a href="functions.html#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, mydata, <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">model =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Even though it’s legal, I don’t recommend messing around with the order of the arguments too much, since it can lead to some confusion.</p>
+<p>Most of the time, named arguments are useful on the command line when you have a long argument list and you want to use the defaults for everything except for an argument near the end of the list. Named arguments also help if you can remember the name of the argument and not its position on the argument list. For example, plotting functions often have a lot of options to allow for customization, but this makes it difficult to remember exactly the position of every argument on the argument list.</p>
+<p>Function arguments can also be <em>partially</em> matched, which is useful for interactive work. The order of operations when given an argument is</p>
+<ol style="list-style-type: decimal">
+<li>Check for exact match for a named argument</li>
+<li>Check for a partial match</li>
+<li>Check for a positional match</li>
+</ol>
+<p>Partial matching should be avoided when writing longer code or programs, because it may lead to confusion if someone is reading the code. However, partial matching is very useful when calling functions interactively that have very long argument names.</p>
+<p>In addition to not specifying a default value, you can also set an argument value to <code>NULL</code>.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="functions.html#cb142-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(a, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">c =</span> <span class="dv">2</span>, <span class="at">d =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb142-2"><a href="functions.html#cb142-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-3"><a href="functions.html#cb142-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>You can check to see whether an R object is <code>NULL</code> with the <code>is.null()</code> function. It is sometimes useful to allow an argument to take the <code>NULL</code> value, which might indicate that the function should take some specific action.</p>
+</div>
+<div id="lazy-evaluation" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> Lazy Evaluation<a href="functions.html#lazy-evaluation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Arguments to functions are evaluated <em>lazily</em>, so they are evaluated only as needed in the body of the function.</p>
+<p>In this example, the function <code>f()</code> has two arguments: <code>a</code> and <code>b</code>.</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="functions.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> f <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb143-2"><a href="functions.html#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         a<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb143-3"><a href="functions.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> } </span>
+<span id="cb143-4"><a href="functions.html#cb143-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">f</span>(<span class="dv">2</span>)</span>
+<span id="cb143-5"><a href="functions.html#cb143-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span></code></pre></div>
+<p>This function never actually uses the argument <code>b</code>, so calling <code>f(2)</code> will not produce an error because the 2 gets positionally matched to <code>a</code>. This behavior can be good or bad. It’s common to write a function that doesn’t use an argument and not notice it simply because R never throws an error.</p>
+<p>This example also shows lazy evaluation at work, but does eventually result in an error.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="functions.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> f <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb144-2"><a href="functions.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">print</span>(a)</span>
+<span id="cb144-3"><a href="functions.html#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">print</span>(b)</span>
+<span id="cb144-4"><a href="functions.html#cb144-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span>
+<span id="cb144-5"><a href="functions.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">f</span>(<span class="dv">45</span>)</span>
+<span id="cb144-6"><a href="functions.html#cb144-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">45</span></span>
+<span id="cb144-7"><a href="functions.html#cb144-7" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">print</span>(b)<span class="sc">:</span> argument <span class="st">&quot;b&quot;</span> is missing, with no default</span></code></pre></div>
+<p>Notice that “45” got printed first before the error was triggered. This is because <code>b</code> did not have to be evaluated until after <code>print(a)</code>. Once the function tried to evaluate <code>print(b)</code> the function had to throw an error.</p>
+</div>
+<div id="the-...-argument" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> The <code>...</code> Argument<a href="functions.html#the-...-argument" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There is a special argument in R known as the <code>...</code> argument, which indicate a variable number of arguments that are usually passed on to other functions. The <code>...</code> argument is often used when extending another function and you don’t want to copy the entire argument list of the original function</p>
+<p>For example, a custom plotting function may want to make use of the default <code>plot()</code> function along with its entire argument list. The function below changes the default for the <code>type</code> argument to the value <code>type = "l"</code> (the original default was <code>type = "p"</code>).</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="functions.html#cb145-1" aria-hidden="true" tabindex="-1"></a>myplot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, ...) {</span>
+<span id="cb145-2"><a href="functions.html#cb145-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot</span>(x, y, <span class="at">type =</span> type, ...)         <span class="do">## Pass &#39;...&#39; to &#39;plot&#39; function</span></span>
+<span id="cb145-3"><a href="functions.html#cb145-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Generic functions use <code>...</code> so that extra arguments can be passed to methods.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="functions.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> mean</span>
+<span id="cb146-2"><a href="functions.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (x, ...) </span>
+<span id="cb146-3"><a href="functions.html#cb146-3" aria-hidden="true" tabindex="-1"></a><span class="fu">UseMethod</span>(<span class="st">&quot;mean&quot;</span>)</span>
+<span id="cb146-4"><a href="functions.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>bytecode<span class="sc">:</span> <span class="dv">0x7f8835a11c50</span><span class="sc">&gt;</span></span>
+<span id="cb146-5"><a href="functions.html#cb146-5" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>environment<span class="sc">:</span> namespace<span class="sc">:</span>base<span class="sc">&gt;</span></span></code></pre></div>
+<p>The <code>...</code> argument is necessary when the number of arguments passed to the function cannot be known in advance. This is clear in functions like <code>paste()</code> and <code>cat()</code>.</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="functions.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">args</span>(paste)</span>
+<span id="cb147-2"><a href="functions.html#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (..., <span class="at">sep =</span> <span class="st">&quot; &quot;</span>, <span class="at">collapse =</span> <span class="cn">NULL</span>, <span class="at">recycle0 =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb147-3"><a href="functions.html#cb147-3" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb147-4"><a href="functions.html#cb147-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">args</span>(cat)</span>
+<span id="cb147-5"><a href="functions.html#cb147-5" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (..., <span class="at">file =</span> <span class="st">&quot;&quot;</span>, <span class="at">sep =</span> <span class="st">&quot; &quot;</span>, <span class="at">fill =</span> <span class="cn">FALSE</span>, <span class="at">labels =</span> <span class="cn">NULL</span>, </span>
+<span id="cb147-6"><a href="functions.html#cb147-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">append =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb147-7"><a href="functions.html#cb147-7" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
+<p>Because both <code>paste()</code> and <code>cat()</code> print out text to the console by combining multiple character vectors together, it is impossible for those functions to know in advance how many character vectors will be passed to the function by the user. So the first argument to either function is <code>...</code>.</p>
+</div>
+<div id="arguments-coming-after-the-...-argument" class="section level2 hasAnchor" number="14.6">
+<h2><span class="header-section-number">14.6</span> Arguments Coming After the <code>...</code> Argument<a href="functions.html#arguments-coming-after-the-...-argument" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One catch with <code>...</code> is that any arguments that appear <em>after</em> <code>...</code> on the argument list must be named explicitly and cannot be partially matched or matched positionally.</p>
+<p>Take a look at the arguments to the <code>paste()</code> function.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="functions.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">args</span>(paste)</span>
+<span id="cb148-2"><a href="functions.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (..., <span class="at">sep =</span> <span class="st">&quot; &quot;</span>, <span class="at">collapse =</span> <span class="cn">NULL</span>, <span class="at">recycle0 =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb148-3"><a href="functions.html#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
+<p>With the <code>paste()</code> function, the arguments <code>sep</code> and <code>collapse</code> must be named explicitly and in full if the default values are not going to be used.</p>
+<p>Here I specify that I want “a” and “b” to be pasted together and separated by a colon.</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="functions.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">paste</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;:&quot;</span>)</span>
+<span id="cb149-2"><a href="functions.html#cb149-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;a:b&quot;</span></span></code></pre></div>
+<p>If I don’t specify the <code>sep</code> argument in full and attempt to rely on partial matching, I don’t get the expected result.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="functions.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">paste</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="at">se =</span> <span class="st">&quot;:&quot;</span>)</span>
+<span id="cb150-2"><a href="functions.html#cb150-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;a b :&quot;</span></span></code></pre></div>
+</div>
+<div id="summary-4" class="section level2 hasAnchor" number="14.7">
+<h2><span class="header-section-number">14.7</span> Summary<a href="functions.html#summary-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Functions can be defined using the <code>function()</code> directive and are assigned to R objects just like any other R object</p></li>
+<li><p>Functions have can be defined with named arguments; these function arguments can have default values</p></li>
+<li><p>Functions arguments can be specified by name or by position in the argument list</p></li>
+<li><p>Functions always return the last expression evaluated in the function body</p></li>
+<li><p>A variable number of arguments can be specified using the special <code>...</code> argument in a function definition.</p></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="control-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="scoping-rules-of-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/functions.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
