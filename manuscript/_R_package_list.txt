@@ -1,3 +1,4 @@
+bookdown
 boot
 datasets
 dplyr
