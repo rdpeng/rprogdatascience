@@ -77,7 +77,7 @@ In this case I ran a singular value decomposition on the matrix in `x`, which is
 You can time longer expressions by wrapping them in curly braces within the call to `system.time()`.
 
 
-```r
+``` r
 > system.time({
 +         n <- 1000
 +         r <- numeric(n)
@@ -87,7 +87,7 @@ You can time longer expressions by wrapping them in curly braces within the call
 +         }
 + })
    user  system elapsed 
-  0.084   0.003   0.087 
+  0.030   0.001   0.031 
 ```
 
 If your expression is getting pretty long (more than 2 or 3 lines), it might be better to either break it into smaller pieces or to use the profiler. The problem is that if the expression is too long, you won't be able to identify which part of the code is causing the bottleneck.
@@ -106,7 +106,7 @@ Note that you should NOT use `system.time()` and `Rprof()` together, or you will
 The profiler is started by calling the `Rprof()` function.
 
 
-```r
+``` r
 > Rprof()    ## Turn on the profiler
 ```
 
@@ -117,7 +117,7 @@ Once you call the `Rprof()` function, everything that you do from then on will b
 The profiler can be turned off by passing `NULL` to `Rprof()`.
 
 
-```r
+``` r
 > Rprof(NULL)    ## Turn off the profiler
 ```
 

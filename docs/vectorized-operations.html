@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10 Vectorized Operations | R Programming for Data Science</title>
   <meta name="description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10 Vectorized Operations | R Programming for Data Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Roger D. Peng" />
 
 
-<meta name="date" content="2022-05-31" />
+<meta name="date" content="2025-12-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -92,7 +93,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +106,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +120,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -389,68 +394,68 @@ in parallel in certain R objects. This allows you to write code that
 is efficient, concise, and easier to read than in non-vectorized
 languages.</p>
 <p>The simplest example is when adding two vectors together.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="vectorized-operations.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
-<span id="cb65-2"><a href="vectorized-operations.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">9</span> </span>
-<span id="cb65-3"><a href="vectorized-operations.html#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> z <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
-<span id="cb65-4"><a href="vectorized-operations.html#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> z</span>
-<span id="cb65-5"><a href="vectorized-operations.html#cb65-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">7</span>  <span class="dv">9</span> <span class="dv">11</span> <span class="dv">13</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="vectorized-operations.html#cb65-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb65-2"><a href="vectorized-operations.html#cb65-2" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">9</span> </span>
+<span id="cb65-3"><a href="vectorized-operations.html#cb65-3" tabindex="-1"></a><span class="sc">&gt;</span> z <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
+<span id="cb65-4"><a href="vectorized-operations.html#cb65-4" tabindex="-1"></a><span class="sc">&gt;</span> z</span>
+<span id="cb65-5"><a href="vectorized-operations.html#cb65-5" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">7</span>  <span class="dv">9</span> <span class="dv">11</span> <span class="dv">13</span></span></code></pre></div>
 <p>Natural, right? Without vectorization, you’d have to do something like</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="vectorized-operations.html#cb66-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(x))</span>
-<span id="cb66-2"><a href="vectorized-operations.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(x)) {</span>
-<span id="cb66-3"><a href="vectorized-operations.html#cb66-3" aria-hidden="true" tabindex="-1"></a>      z[i] <span class="ot">&lt;-</span> x[i] <span class="sc">+</span> y[i]</span>
-<span id="cb66-4"><a href="vectorized-operations.html#cb66-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb66-5"><a href="vectorized-operations.html#cb66-5" aria-hidden="true" tabindex="-1"></a>z</span>
-<span id="cb66-6"><a href="vectorized-operations.html#cb66-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">7</span>  <span class="dv">9</span> <span class="dv">11</span> <span class="dv">13</span></span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="vectorized-operations.html#cb66-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(x))</span>
+<span id="cb66-2"><a href="vectorized-operations.html#cb66-2" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(x)) {</span>
+<span id="cb66-3"><a href="vectorized-operations.html#cb66-3" tabindex="-1"></a>      z[i] <span class="ot">&lt;-</span> x[i] <span class="sc">+</span> y[i]</span>
+<span id="cb66-4"><a href="vectorized-operations.html#cb66-4" tabindex="-1"></a>}</span>
+<span id="cb66-5"><a href="vectorized-operations.html#cb66-5" tabindex="-1"></a>z</span>
+<span id="cb66-6"><a href="vectorized-operations.html#cb66-6" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">7</span>  <span class="dv">9</span> <span class="dv">11</span> <span class="dv">13</span></span></code></pre></div>
 <p>If you had to do that every time you wanted to add two vectors, your
 hands would get very tired from all the typing.</p>
 <p>Another operation you can do in a vectorized manner is logical
 comparisons. So suppose you wanted to know which elements of a vector
 were greater than 2. You could do he following.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="vectorized-operations.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb67-2"><a href="vectorized-operations.html#cb67-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></span>
-<span id="cb67-3"><a href="vectorized-operations.html#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">&gt;</span> <span class="dv">2</span></span>
-<span id="cb67-4"><a href="vectorized-operations.html#cb67-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="vectorized-operations.html#cb67-1" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb67-2"><a href="vectorized-operations.html#cb67-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></span>
+<span id="cb67-3"><a href="vectorized-operations.html#cb67-3" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">&gt;</span> <span class="dv">2</span></span>
+<span id="cb67-4"><a href="vectorized-operations.html#cb67-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span></span></code></pre></div>
 <p>Here are other vectorized logical operations.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="vectorized-operations.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">&gt;=</span> <span class="dv">2</span></span>
-<span id="cb68-2"><a href="vectorized-operations.html#cb68-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span></span>
-<span id="cb68-3"><a href="vectorized-operations.html#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">&lt;</span> <span class="dv">3</span></span>
-<span id="cb68-4"><a href="vectorized-operations.html#cb68-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="cn">TRUE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
-<span id="cb68-5"><a href="vectorized-operations.html#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="sc">==</span> <span class="dv">8</span></span>
-<span id="cb68-6"><a href="vectorized-operations.html#cb68-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="vectorized-operations.html#cb68-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">&gt;=</span> <span class="dv">2</span></span>
+<span id="cb68-2"><a href="vectorized-operations.html#cb68-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span></span>
+<span id="cb68-3"><a href="vectorized-operations.html#cb68-3" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">&lt;</span> <span class="dv">3</span></span>
+<span id="cb68-4"><a href="vectorized-operations.html#cb68-4" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="cn">TRUE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
+<span id="cb68-5"><a href="vectorized-operations.html#cb68-5" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="sc">==</span> <span class="dv">8</span></span>
+<span id="cb68-6"><a href="vectorized-operations.html#cb68-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span></span></code></pre></div>
 <p>Notice that these logical operations return a logical vector of <code>TRUE</code>
 and <code>FALSE</code>.</p>
 <p>Of course, subtraction, multiplication and division are also vectorized.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="vectorized-operations.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">-</span> y</span>
-<span id="cb69-2"><a href="vectorized-operations.html#cb69-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="dv">5</span> <span class="sc">-</span><span class="dv">5</span> <span class="sc">-</span><span class="dv">5</span> <span class="sc">-</span><span class="dv">5</span></span>
-<span id="cb69-3"><a href="vectorized-operations.html#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">*</span> y</span>
-<span id="cb69-4"><a href="vectorized-operations.html#cb69-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">6</span> <span class="dv">14</span> <span class="dv">24</span> <span class="dv">36</span></span>
-<span id="cb69-5"><a href="vectorized-operations.html#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">/</span> y</span>
-<span id="cb69-6"><a href="vectorized-operations.html#cb69-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1666667</span> <span class="fl">0.2857143</span> <span class="fl">0.3750000</span> <span class="fl">0.4444444</span></span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="vectorized-operations.html#cb69-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">-</span> y</span>
+<span id="cb69-2"><a href="vectorized-operations.html#cb69-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="dv">5</span> <span class="sc">-</span><span class="dv">5</span> <span class="sc">-</span><span class="dv">5</span> <span class="sc">-</span><span class="dv">5</span></span>
+<span id="cb69-3"><a href="vectorized-operations.html#cb69-3" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">*</span> y</span>
+<span id="cb69-4"><a href="vectorized-operations.html#cb69-4" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">6</span> <span class="dv">14</span> <span class="dv">24</span> <span class="dv">36</span></span>
+<span id="cb69-5"><a href="vectorized-operations.html#cb69-5" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">/</span> y</span>
+<span id="cb69-6"><a href="vectorized-operations.html#cb69-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1666667</span> <span class="fl">0.2857143</span> <span class="fl">0.3750000</span> <span class="fl">0.4444444</span></span></code></pre></div>
 <div id="vectorized-matrix-operations" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Vectorized Matrix Operations<a href="vectorized-operations.html#vectorized-matrix-operations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Matrix operations are also vectorized, making for nicly compact
 notation. This way, we can do element-by-element operations on
 matrices without having to loop over every element.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="vectorized-operations.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb70-2"><a href="vectorized-operations.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">4</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb70-3"><a href="vectorized-operations.html#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb70-4"><a href="vectorized-operations.html#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## element-wise multiplication</span></span>
-<span id="cb70-5"><a href="vectorized-operations.html#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="sc">*</span> y       </span>
-<span id="cb70-6"><a href="vectorized-operations.html#cb70-6" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
-<span id="cb70-7"><a href="vectorized-operations.html#cb70-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="dv">10</span>   <span class="dv">30</span></span>
-<span id="cb70-8"><a href="vectorized-operations.html#cb70-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="dv">20</span>   <span class="dv">40</span></span>
-<span id="cb70-9"><a href="vectorized-operations.html#cb70-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb70-10"><a href="vectorized-operations.html#cb70-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## element-wise division</span></span>
-<span id="cb70-11"><a href="vectorized-operations.html#cb70-11" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="sc">/</span> y       </span>
-<span id="cb70-12"><a href="vectorized-operations.html#cb70-12" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
-<span id="cb70-13"><a href="vectorized-operations.html#cb70-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="fl">0.1</span>  <span class="fl">0.3</span></span>
-<span id="cb70-14"><a href="vectorized-operations.html#cb70-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]  <span class="fl">0.2</span>  <span class="fl">0.4</span></span>
-<span id="cb70-15"><a href="vectorized-operations.html#cb70-15" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb70-16"><a href="vectorized-operations.html#cb70-16" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## true matrix multiplication</span></span>
-<span id="cb70-17"><a href="vectorized-operations.html#cb70-17" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="sc">%*%</span> y     </span>
-<span id="cb70-18"><a href="vectorized-operations.html#cb70-18" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
-<span id="cb70-19"><a href="vectorized-operations.html#cb70-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="dv">40</span>   <span class="dv">40</span></span>
-<span id="cb70-20"><a href="vectorized-operations.html#cb70-20" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="dv">60</span>   <span class="dv">60</span></span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="vectorized-operations.html#cb70-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb70-2"><a href="vectorized-operations.html#cb70-2" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">10</span>, <span class="dv">4</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb70-3"><a href="vectorized-operations.html#cb70-3" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb70-4"><a href="vectorized-operations.html#cb70-4" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## element-wise multiplication</span></span>
+<span id="cb70-5"><a href="vectorized-operations.html#cb70-5" tabindex="-1"></a><span class="er">&gt;</span> x <span class="sc">*</span> y       </span>
+<span id="cb70-6"><a href="vectorized-operations.html#cb70-6" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb70-7"><a href="vectorized-operations.html#cb70-7" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="dv">10</span>   <span class="dv">30</span></span>
+<span id="cb70-8"><a href="vectorized-operations.html#cb70-8" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="dv">20</span>   <span class="dv">40</span></span>
+<span id="cb70-9"><a href="vectorized-operations.html#cb70-9" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb70-10"><a href="vectorized-operations.html#cb70-10" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## element-wise division</span></span>
+<span id="cb70-11"><a href="vectorized-operations.html#cb70-11" tabindex="-1"></a><span class="er">&gt;</span> x <span class="sc">/</span> y       </span>
+<span id="cb70-12"><a href="vectorized-operations.html#cb70-12" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb70-13"><a href="vectorized-operations.html#cb70-13" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="fl">0.1</span>  <span class="fl">0.3</span></span>
+<span id="cb70-14"><a href="vectorized-operations.html#cb70-14" tabindex="-1"></a>[<span class="dv">2</span>,]  <span class="fl">0.2</span>  <span class="fl">0.4</span></span>
+<span id="cb70-15"><a href="vectorized-operations.html#cb70-15" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb70-16"><a href="vectorized-operations.html#cb70-16" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## true matrix multiplication</span></span>
+<span id="cb70-17"><a href="vectorized-operations.html#cb70-17" tabindex="-1"></a><span class="er">&gt;</span> x <span class="sc">%*%</span> y     </span>
+<span id="cb70-18"><a href="vectorized-operations.html#cb70-18" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb70-19"><a href="vectorized-operations.html#cb70-19" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="dv">40</span>   <span class="dv">40</span></span>
+<span id="cb70-20"><a href="vectorized-operations.html#cb70-20" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="dv">60</span>   <span class="dv">60</span></span></code></pre></div>
 
 </div>
 </div>
@@ -474,42 +479,42 @@ matrices without having to loop over every element.</p>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/vectorized.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/vectorized.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
@@ -520,7 +525,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

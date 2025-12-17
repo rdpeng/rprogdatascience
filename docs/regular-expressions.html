@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>17 Regular Expressions | R Programming for Data Science</title>
   <meta name="description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="17 Regular Expressions | R Programming for Data Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Roger D. Peng" />
 
 
-<meta name="date" content="2022-05-31" />
+<meta name="date" content="2025-12-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -92,7 +93,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +106,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +120,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -399,15 +404,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>For this chapter, we will use a running example using data from homicides in Baltimore City. The Baltimore Sun newspaper collects information on all homicides that occur in the city (it also reports on many of them). That data is collected and presented in a <a href="http://data.baltimoresun.com/bing-maps/homicides/">map that is publically available</a>. I encourage you to go look at the web site/map to get a sense of what kinds of data are presented there. Unfortunately, the data on the web site are not particularly amenable to analysis, so I’ve scraped the data and put it in a separate file. The data in this file contain data from January 2007 to October 2013.</p>
 <p>Here is an excerpt of the Baltimore City homicides dataset:</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="regular-expressions.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> homicides <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;homicides.txt&quot;</span>)</span>
-<span id="cb211-2"><a href="regular-expressions.html#cb211-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb211-3"><a href="regular-expressions.html#cb211-3" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## Total number of events recorded</span></span>
-<span id="cb211-4"><a href="regular-expressions.html#cb211-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">length</span>(homicides)</span>
-<span id="cb211-5"><a href="regular-expressions.html#cb211-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1571</span></span>
-<span id="cb211-6"><a href="regular-expressions.html#cb211-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> homicides[<span class="dv">1</span>]</span>
-<span id="cb211-7"><a href="regular-expressions.html#cb211-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;39.311024, -76.674227, iconHomicideShooting, &#39;p2&#39;, &#39;&lt;dl&gt;&lt;dt&gt;Leon Nelson&lt;/dt&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">address</span><span class="sc">\&quot;</span><span class="st">&gt;3400 Clifton Ave.&lt;br /&gt;Baltimore, MD 21216&lt;/dd&gt;&lt;dd&gt;black male, 17 years old&lt;/dd&gt;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&lt;dd&gt;Victim died at Shock Trauma&lt;/dd&gt;&lt;dd&gt;Cause: shooting&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></span>
-<span id="cb211-8"><a href="regular-expressions.html#cb211-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> homicides[<span class="dv">1000</span>]</span>
-<span id="cb211-9"><a href="regular-expressions.html#cb211-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;39.33626300000, -76.55553990000, icon_homicide_shooting, &#39;p1200&#39;, &#39;&lt;dl&gt;&lt;dt&gt;&lt;a href=</span><span class="sc">\&quot;</span><span class="st">http://essentials.baltimoresun.com/micro_sun/homicides/victim/1200/davon-diggs</span><span class="sc">\&quot;</span><span class="st">&gt;Davon Diggs&lt;/a&gt;&lt;/dt&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">address</span><span class="sc">\&quot;</span><span class="st">&gt;4100 Parkwood Ave&lt;br /&gt;Baltimore, MD 21206&lt;/dd&gt;&lt;dd&gt;Race: Black&lt;br /&gt;Gender: male&lt;br /&gt;Age: 21 years old&lt;/dd&gt;&lt;dd&gt;Found on November  5, 2011&lt;/dd&gt;&lt;dd&gt;Victim died at Johns Hopkins Bayview Medical Center &lt;/dd&gt;&lt;dd&gt;Cause: Shooting&lt;/dd&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">popup-note</span><span class="sc">\&quot;</span><span class="st">&gt;&lt;p&gt;Originally reported in 5000 Belair Road; later determined to be rear alley of 4100 block Parkwood&lt;/p&gt;&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="regular-expressions.html#cb211-1" tabindex="-1"></a><span class="sc">&gt;</span> homicides <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;homicides.txt&quot;</span>)</span>
+<span id="cb211-2"><a href="regular-expressions.html#cb211-2" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb211-3"><a href="regular-expressions.html#cb211-3" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## Total number of events recorded</span></span>
+<span id="cb211-4"><a href="regular-expressions.html#cb211-4" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">length</span>(homicides)</span>
+<span id="cb211-5"><a href="regular-expressions.html#cb211-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1571</span></span>
+<span id="cb211-6"><a href="regular-expressions.html#cb211-6" tabindex="-1"></a><span class="sc">&gt;</span> homicides[<span class="dv">1</span>]</span>
+<span id="cb211-7"><a href="regular-expressions.html#cb211-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;39.311024, -76.674227, iconHomicideShooting, &#39;p2&#39;, &#39;&lt;dl&gt;&lt;dt&gt;Leon Nelson&lt;/dt&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">address</span><span class="sc">\&quot;</span><span class="st">&gt;3400 Clifton Ave.&lt;br /&gt;Baltimore, MD 21216&lt;/dd&gt;&lt;dd&gt;black male, 17 years old&lt;/dd&gt;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&lt;dd&gt;Victim died at Shock Trauma&lt;/dd&gt;&lt;dd&gt;Cause: shooting&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></span>
+<span id="cb211-8"><a href="regular-expressions.html#cb211-8" tabindex="-1"></a><span class="sc">&gt;</span> homicides[<span class="dv">1000</span>]</span>
+<span id="cb211-9"><a href="regular-expressions.html#cb211-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;39.33626300000, -76.55553990000, icon_homicide_shooting, &#39;p1200&#39;, &#39;&lt;dl&gt;&lt;dt&gt;&lt;a href=</span><span class="sc">\&quot;</span><span class="st">http://essentials.baltimoresun.com/micro_sun/homicides/victim/1200/davon-diggs</span><span class="sc">\&quot;</span><span class="st">&gt;Davon Diggs&lt;/a&gt;&lt;/dt&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">address</span><span class="sc">\&quot;</span><span class="st">&gt;4100 Parkwood Ave&lt;br /&gt;Baltimore, MD 21206&lt;/dd&gt;&lt;dd&gt;Race: Black&lt;br /&gt;Gender: male&lt;br /&gt;Age: 21 years old&lt;/dd&gt;&lt;dd&gt;Found on November  5, 2011&lt;/dd&gt;&lt;dd&gt;Victim died at Johns Hopkins Bayview Medical Center &lt;/dd&gt;&lt;dd&gt;Cause: Shooting&lt;/dd&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">popup-note</span><span class="sc">\&quot;</span><span class="st">&gt;&lt;p&gt;Originally reported in 5000 Belair Road; later determined to be rear alley of 4100 block Parkwood&lt;/p&gt;&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></span></code></pre></div>
 <p>The data set is formatted so that each homicide is presented on a single line of text. So when we read the data in with <code>readLines()</code>, each element of the character vector represents one homicide event. Notice that the data are riddled with HTML tags because they were scraped directly from the web site.</p>
 <p>A few interesting features stand out: We have the latitude and longitude of where the victim was found; then there’s the street address; the age, race, and gender of the victim; the date on which the victim was found; in which hospital the victim ultimately died; the cause of death.</p>
 </div>
@@ -416,43 +421,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Suppose we wanted to identify the records for all the victims of shootings (as opposed
 to other causes)? How could we do that? From the map we know that for each cause of death there is a different icon/flag placed on the map. In particular, they are different colors. You can see that is indicated in the dataset for shooting deaths with a <code>iconHomicideShooting</code> label. Perhaps we can use this aspect of the data to idenfity all of the shootings.</p>
 <p>Here I use <code>grep()</code> to match the literal <code>iconHomicideShooting</code> into the character vector of homicides.</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="regular-expressions.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;iconHomicideShooting&quot;</span>, homicides)</span>
-<span id="cb212-2"><a href="regular-expressions.html#cb212-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
-<span id="cb212-3"><a href="regular-expressions.html#cb212-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">228</span></span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="regular-expressions.html#cb212-1" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;iconHomicideShooting&quot;</span>, homicides)</span>
+<span id="cb212-2"><a href="regular-expressions.html#cb212-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
+<span id="cb212-3"><a href="regular-expressions.html#cb212-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">228</span></span></code></pre></div>
 <p>Using this approach I get 228 shooting deaths. However, I notice that for some of the entries, the indicator for the homicide “flag” is noted as <code>icon_homicide_shooting</code>. It’s not uncommon over time for web site maintainers to change the names of files or update files. What happens if we now <code>grep()</code> on both icon names using the <code>|</code> operator?</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="regular-expressions.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;iconHomicideShooting|icon_homicide_shooting&quot;</span>, homicides)</span>
-<span id="cb213-2"><a href="regular-expressions.html#cb213-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
-<span id="cb213-3"><a href="regular-expressions.html#cb213-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1263</span></span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="regular-expressions.html#cb213-1" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;iconHomicideShooting|icon_homicide_shooting&quot;</span>, homicides)</span>
+<span id="cb213-2"><a href="regular-expressions.html#cb213-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
+<span id="cb213-3"><a href="regular-expressions.html#cb213-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1263</span></span></code></pre></div>
 <p>Now we have 1263 shooting deaths, which is quite a bit more. In fact, the vast majority of homicides in Baltimore are shooting deaths.</p>
 <p>Another possible way to do this is to <code>grep()</code> on the cause of death field, which seems to have the format <code>Cause: shooting</code>. We can <code>grep()</code> on this literally and get</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="regular-expressions.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;Cause: shooting&quot;</span>, homicides)</span>
-<span id="cb214-2"><a href="regular-expressions.html#cb214-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
-<span id="cb214-3"><a href="regular-expressions.html#cb214-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">228</span></span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="regular-expressions.html#cb214-1" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;Cause: shooting&quot;</span>, homicides)</span>
+<span id="cb214-2"><a href="regular-expressions.html#cb214-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
+<span id="cb214-3"><a href="regular-expressions.html#cb214-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">228</span></span></code></pre></div>
 <p>Notice that we seem to be undercounting again. This is because for some of the entries, the word “shooting” uses a captial “S” while other entries use a lower case “s”. We can handle this variation by using a character class in our regular expression.</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="regular-expressions.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;Cause: [Ss]hooting&quot;</span>, homicides)</span>
-<span id="cb215-2"><a href="regular-expressions.html#cb215-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
-<span id="cb215-3"><a href="regular-expressions.html#cb215-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1263</span></span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="regular-expressions.html#cb215-1" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;Cause: [Ss]hooting&quot;</span>, homicides)</span>
+<span id="cb215-2"><a href="regular-expressions.html#cb215-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
+<span id="cb215-3"><a href="regular-expressions.html#cb215-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1263</span></span></code></pre></div>
 <p>One thing you have to be careful of when processing text data is not not <code>grep()</code> things out of context. For example, suppose we just <code>grep()</code>-ed on the expression <code>[Ss]hooting</code>.</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="regular-expressions.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;[Ss]hooting&quot;</span>, homicides)</span>
-<span id="cb216-2"><a href="regular-expressions.html#cb216-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
-<span id="cb216-3"><a href="regular-expressions.html#cb216-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1265</span></span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="regular-expressions.html#cb216-1" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;[Ss]hooting&quot;</span>, homicides)</span>
+<span id="cb216-2"><a href="regular-expressions.html#cb216-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
+<span id="cb216-3"><a href="regular-expressions.html#cb216-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1265</span></span></code></pre></div>
 <p>Notice that we see to pick up 2 extra homicides this way. We can figure out which ones they are by comparing the results of the two expressions.</p>
 <p>First we can get the indices for the first expresssion match.</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="regular-expressions.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> i <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;[cC]ause: [Ss]hooting&quot;</span>, homicides)</span>
-<span id="cb217-2"><a href="regular-expressions.html#cb217-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(i)</span>
-<span id="cb217-3"><a href="regular-expressions.html#cb217-3" aria-hidden="true" tabindex="-1"></a> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">1263</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> ...</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="regular-expressions.html#cb217-1" tabindex="-1"></a><span class="sc">&gt;</span> i <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;[cC]ause: [Ss]hooting&quot;</span>, homicides)</span>
+<span id="cb217-2"><a href="regular-expressions.html#cb217-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(i)</span>
+<span id="cb217-3"><a href="regular-expressions.html#cb217-3" tabindex="-1"></a> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">1263</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> ...</span></code></pre></div>
 <p>Then we can get the indices for just matching on <code>[Ss]hooting</code>.</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="regular-expressions.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> j <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;[Ss]hooting&quot;</span>, homicides)</span>
-<span id="cb218-2"><a href="regular-expressions.html#cb218-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(j)</span>
-<span id="cb218-3"><a href="regular-expressions.html#cb218-3" aria-hidden="true" tabindex="-1"></a> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">1265</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> ...</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="regular-expressions.html#cb218-1" tabindex="-1"></a><span class="sc">&gt;</span> j <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;[Ss]hooting&quot;</span>, homicides)</span>
+<span id="cb218-2"><a href="regular-expressions.html#cb218-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(j)</span>
+<span id="cb218-3"><a href="regular-expressions.html#cb218-3" tabindex="-1"></a> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">1265</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> ...</span></code></pre></div>
 <p>Now we just need to identify which are the entries that the vectors <code>i</code> and <code>j</code> do <em>not</em> have in common.</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="regular-expressions.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">setdiff</span>(i, j)</span>
-<span id="cb219-2"><a href="regular-expressions.html#cb219-2" aria-hidden="true" tabindex="-1"></a><span class="fu">integer</span>(<span class="dv">0</span>)</span>
-<span id="cb219-3"><a href="regular-expressions.html#cb219-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">setdiff</span>(j, i)</span>
-<span id="cb219-4"><a href="regular-expressions.html#cb219-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">318</span> <span class="dv">859</span></span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="regular-expressions.html#cb219-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">setdiff</span>(i, j)</span>
+<span id="cb219-2"><a href="regular-expressions.html#cb219-2" tabindex="-1"></a><span class="fu">integer</span>(<span class="dv">0</span>)</span>
+<span id="cb219-3"><a href="regular-expressions.html#cb219-3" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">setdiff</span>(j, i)</span>
+<span id="cb219-4"><a href="regular-expressions.html#cb219-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">318</span> <span class="dv">859</span></span></code></pre></div>
 <p>Here we can see that the index vector <code>j</code> has two entries that are not in <code>i</code>: entries 318, 859. We can take a look at these entries directly to see what makes them different.</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="regular-expressions.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> homicides[<span class="dv">859</span>]</span>
-<span id="cb220-2"><a href="regular-expressions.html#cb220-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;39.33743900000, -76.66316500000, icon_homicide_bluntforce, &#39;p914&#39;, &#39;&lt;dl&gt;&lt;dt&gt;&lt;a href=</span><span class="sc">\&quot;</span><span class="st">http://essentials.baltimoresun.com/micro_sun/homicides/victim/914/steven-harris</span><span class="sc">\&quot;</span><span class="st">&gt;Steven Harris&lt;/a&gt;&lt;/dt&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">address</span><span class="sc">\&quot;</span><span class="st">&gt;4200 Pimlico Road&lt;br /&gt;Baltimore, MD 21215&lt;/dd&gt;&lt;dd&gt;Race: Black&lt;br /&gt;Gender: male&lt;br /&gt;Age: 38 years old&lt;/dd&gt;&lt;dd&gt;Found on July 29, 2010&lt;/dd&gt;&lt;dd&gt;Victim died at Scene&lt;/dd&gt;&lt;dd&gt;Cause: Blunt Force&lt;/dd&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">popup-note</span><span class="sc">\&quot;</span><span class="st">&gt;&lt;p&gt;Harris was found dead July 22 and ruled a shooting victim; an autopsy subsequently showed that he had not been shot,...&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="regular-expressions.html#cb220-1" tabindex="-1"></a><span class="sc">&gt;</span> homicides[<span class="dv">859</span>]</span>
+<span id="cb220-2"><a href="regular-expressions.html#cb220-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;39.33743900000, -76.66316500000, icon_homicide_bluntforce, &#39;p914&#39;, &#39;&lt;dl&gt;&lt;dt&gt;&lt;a href=</span><span class="sc">\&quot;</span><span class="st">http://essentials.baltimoresun.com/micro_sun/homicides/victim/914/steven-harris</span><span class="sc">\&quot;</span><span class="st">&gt;Steven Harris&lt;/a&gt;&lt;/dt&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">address</span><span class="sc">\&quot;</span><span class="st">&gt;4200 Pimlico Road&lt;br /&gt;Baltimore, MD 21215&lt;/dd&gt;&lt;dd&gt;Race: Black&lt;br /&gt;Gender: male&lt;br /&gt;Age: 38 years old&lt;/dd&gt;&lt;dd&gt;Found on July 29, 2010&lt;/dd&gt;&lt;dd&gt;Victim died at Scene&lt;/dd&gt;&lt;dd&gt;Cause: Blunt Force&lt;/dd&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">popup-note</span><span class="sc">\&quot;</span><span class="st">&gt;&lt;p&gt;Harris was found dead July 22 and ruled a shooting victim; an autopsy subsequently showed that he had not been shot,...&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></span></code></pre></div>
 <p>Here we can see that the word “shooting” appears in the narrative text that accompanies the data, but the ultimate cause of death was in fact blunt force.</p>
 <div class="rmdwarning">
 <p>
@@ -463,24 +468,24 @@ doesn’t accidentally grep data out of context.
 </p>
 </div>
 <p>Sometimes we want to identify elements of a character vector that match a pattern, but instead of returning their indices we want the actual values that satisfy the match. For example, we may want to identify all of the states in the United States whose names start with “New”.</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="regular-expressions.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">grep</span>(<span class="st">&quot;^New&quot;</span>, state.name)</span>
-<span id="cb221-2"><a href="regular-expressions.html#cb221-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">29</span> <span class="dv">30</span> <span class="dv">31</span> <span class="dv">32</span></span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="regular-expressions.html#cb221-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">grep</span>(<span class="st">&quot;^New&quot;</span>, state.name)</span>
+<span id="cb221-2"><a href="regular-expressions.html#cb221-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">29</span> <span class="dv">30</span> <span class="dv">31</span> <span class="dv">32</span></span></code></pre></div>
 <p>This gives us the indices into the <code>state.name</code> variable that match, but setting <code>value = TRUE</code> returns the actual elements of the character vector that match.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="regular-expressions.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">grep</span>(<span class="st">&quot;^New&quot;</span>, state.name, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb222-2"><a href="regular-expressions.html#cb222-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;New Hampshire&quot;</span> <span class="st">&quot;New Jersey&quot;</span>    <span class="st">&quot;New Mexico&quot;</span>    <span class="st">&quot;New York&quot;</span>     </span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="regular-expressions.html#cb222-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">grep</span>(<span class="st">&quot;^New&quot;</span>, state.name, <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb222-2"><a href="regular-expressions.html#cb222-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;New Hampshire&quot;</span> <span class="st">&quot;New Jersey&quot;</span>    <span class="st">&quot;New Mexico&quot;</span>    <span class="st">&quot;New York&quot;</span>     </span></code></pre></div>
 </div>
 <div id="grepl" class="section level2 hasAnchor" number="17.4">
 <h2><span class="header-section-number">17.4</span> <code>grepl()</code><a href="regular-expressions.html#grepl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The function <code>grepl()</code> works much like <code>grep()</code> except that it differs in its return value. <code>grepl()</code> returns a logical vector indicating which element of a character vector contains the match. For example, suppose we want to know which states in the United States begin with word “New”.</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="regular-expressions.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;^New&quot;</span>, state.name)</span>
-<span id="cb223-2"><a href="regular-expressions.html#cb223-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> g</span>
-<span id="cb223-3"><a href="regular-expressions.html#cb223-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
-<span id="cb223-4"><a href="regular-expressions.html#cb223-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
-<span id="cb223-5"><a href="regular-expressions.html#cb223-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">25</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
-<span id="cb223-6"><a href="regular-expressions.html#cb223-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">37</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
-<span id="cb223-7"><a href="regular-expressions.html#cb223-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">49</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
-<span id="cb223-8"><a href="regular-expressions.html#cb223-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> state.name[g]</span>
-<span id="cb223-9"><a href="regular-expressions.html#cb223-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;New Hampshire&quot;</span> <span class="st">&quot;New Jersey&quot;</span>    <span class="st">&quot;New Mexico&quot;</span>    <span class="st">&quot;New York&quot;</span>     </span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="regular-expressions.html#cb223-1" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;^New&quot;</span>, state.name)</span>
+<span id="cb223-2"><a href="regular-expressions.html#cb223-2" tabindex="-1"></a><span class="sc">&gt;</span> g</span>
+<span id="cb223-3"><a href="regular-expressions.html#cb223-3" tabindex="-1"></a> [<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
+<span id="cb223-4"><a href="regular-expressions.html#cb223-4" tabindex="-1"></a>[<span class="dv">13</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
+<span id="cb223-5"><a href="regular-expressions.html#cb223-5" tabindex="-1"></a>[<span class="dv">25</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
+<span id="cb223-6"><a href="regular-expressions.html#cb223-6" tabindex="-1"></a>[<span class="dv">37</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
+<span id="cb223-7"><a href="regular-expressions.html#cb223-7" tabindex="-1"></a>[<span class="dv">49</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
+<span id="cb223-8"><a href="regular-expressions.html#cb223-8" tabindex="-1"></a><span class="sc">&gt;</span> state.name[g]</span>
+<span id="cb223-9"><a href="regular-expressions.html#cb223-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;New Hampshire&quot;</span> <span class="st">&quot;New Jersey&quot;</span>    <span class="st">&quot;New Mexico&quot;</span>    <span class="st">&quot;New York&quot;</span>     </span></code></pre></div>
 <p>Here, we can see that <code>grepl()</code> returns a logical vector that can be used to subset the original <code>state.name</code> vector.</p>
 </div>
 <div id="regexpr" class="section level2 hasAnchor" number="17.5">
@@ -488,129 +493,129 @@ doesn’t accidentally grep data out of context.
 <p>Both the <code>grep()</code> and the <code>grepl()</code> functions have some limitations. In particular, both functions tell you which strings in a character vector match a certain pattern but they don’t tell you exactly where the match occurs or what the match is for a more complicated regular expression.</p>
 <p>The <code>regexpr()</code> function gives you the (a) index into each string where the match begins and the (b) length of the match for that string. <code>regexpr()</code> only gives you the <em>first</em> match of the string (reading left to right). <code>gregexpr()</code> will give you <em>all</em> of the matches in a given string if there are is more than one match.</p>
 <p>In our Baltimore City homicides dataset, we might be interested in finding the date on which each victim was found. Taking a look at the dataset</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="regular-expressions.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> homicides[<span class="dv">1</span>]</span>
-<span id="cb224-2"><a href="regular-expressions.html#cb224-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;39.311024, -76.674227, iconHomicideShooting, &#39;p2&#39;, &#39;&lt;dl&gt;&lt;dt&gt;Leon Nelson&lt;/dt&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">address</span><span class="sc">\&quot;</span><span class="st">&gt;3400 Clifton Ave.&lt;br /&gt;Baltimore, MD 21216&lt;/dd&gt;&lt;dd&gt;black male, 17 years old&lt;/dd&gt;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&lt;dd&gt;Victim died at Shock Trauma&lt;/dd&gt;&lt;dd&gt;Cause: shooting&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="regular-expressions.html#cb224-1" tabindex="-1"></a><span class="sc">&gt;</span> homicides[<span class="dv">1</span>]</span>
+<span id="cb224-2"><a href="regular-expressions.html#cb224-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;39.311024, -76.674227, iconHomicideShooting, &#39;p2&#39;, &#39;&lt;dl&gt;&lt;dt&gt;Leon Nelson&lt;/dt&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">address</span><span class="sc">\&quot;</span><span class="st">&gt;3400 Clifton Ave.&lt;br /&gt;Baltimore, MD 21216&lt;/dd&gt;&lt;dd&gt;black male, 17 years old&lt;/dd&gt;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&lt;dd&gt;Victim died at Shock Trauma&lt;/dd&gt;&lt;dd&gt;Cause: shooting&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></span></code></pre></div>
 <p>it seems that we might be able to just <code>grep</code> on the word “Found”. However, the word “found” may be found elsewhere in the entry, such as in this entry, where the word “found” appears in the narrative text at the end.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="regular-expressions.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> homicides[<span class="dv">954</span>]</span>
-<span id="cb225-2"><a href="regular-expressions.html#cb225-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;39.30677400000, -76.59891100000, icon_homicide_shooting, &#39;p816&#39;, &#39;&lt;dl&gt;&lt;dt&gt;&lt;a href=</span><span class="sc">\&quot;</span><span class="st">http://essentials.baltimoresun.com/micro_sun/homicides/victim/816/kenly-wheeler</span><span class="sc">\&quot;</span><span class="st">&gt;Kenly Wheeler&lt;/a&gt;&lt;/dt&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">address</span><span class="sc">\&quot;</span><span class="st">&gt;1400 N Caroline St&lt;br /&gt;Baltimore, MD 21213&lt;/dd&gt;&lt;dd&gt;Race: Black&lt;br /&gt;Gender: male&lt;br /&gt;Age: 29 years old&lt;/dd&gt;&lt;dd&gt;Found on March  3, 2010&lt;/dd&gt;&lt;dd&gt;Victim died at Scene&lt;/dd&gt;&lt;dd&gt;Cause: Shooting&lt;/dd&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">popup-note</span><span class="sc">\&quot;</span><span class="st">&gt;&lt;p&gt;Wheeler</span><span class="sc">\\</span><span class="st">&#39;s body was&amp;nbsp;found on the grounds of Dr. Bernard Harris Sr.&amp;nbsp;Elementary School&lt;/p&gt;&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="regular-expressions.html#cb225-1" tabindex="-1"></a><span class="sc">&gt;</span> homicides[<span class="dv">954</span>]</span>
+<span id="cb225-2"><a href="regular-expressions.html#cb225-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;39.30677400000, -76.59891100000, icon_homicide_shooting, &#39;p816&#39;, &#39;&lt;dl&gt;&lt;dt&gt;&lt;a href=</span><span class="sc">\&quot;</span><span class="st">http://essentials.baltimoresun.com/micro_sun/homicides/victim/816/kenly-wheeler</span><span class="sc">\&quot;</span><span class="st">&gt;Kenly Wheeler&lt;/a&gt;&lt;/dt&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">address</span><span class="sc">\&quot;</span><span class="st">&gt;1400 N Caroline St&lt;br /&gt;Baltimore, MD 21213&lt;/dd&gt;&lt;dd&gt;Race: Black&lt;br /&gt;Gender: male&lt;br /&gt;Age: 29 years old&lt;/dd&gt;&lt;dd&gt;Found on March  3, 2010&lt;/dd&gt;&lt;dd&gt;Victim died at Scene&lt;/dd&gt;&lt;dd&gt;Cause: Shooting&lt;/dd&gt;&lt;dd class=</span><span class="sc">\&quot;</span><span class="st">popup-note</span><span class="sc">\&quot;</span><span class="st">&gt;&lt;p&gt;Wheeler</span><span class="sc">\\</span><span class="st">&#39;s body was&amp;nbsp;found on the grounds of Dr. Bernard Harris Sr.&amp;nbsp;Elementary School&lt;/p&gt;&lt;/dd&gt;&lt;/dl&gt;&#39;&quot;</span></span></code></pre></div>
 <p>But we can see that the date is typically preceded by “Found on” and is surrounded by <code>&lt;dd&gt;&lt;/dd&gt;</code> tags, so let’s use the pattern <code>&lt;dd&gt;[F|f]ound(.*)&lt;/dd&gt;</code> and see what it brings up.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="regular-expressions.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regexpr</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound(.*)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
-<span id="cb226-2"><a href="regular-expressions.html#cb226-2" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">177</span> <span class="dv">178</span> <span class="dv">188</span> <span class="dv">189</span> <span class="dv">178</span> <span class="dv">182</span> <span class="dv">178</span> <span class="dv">187</span> <span class="dv">182</span> <span class="dv">183</span></span>
-<span id="cb226-3"><a href="regular-expressions.html#cb226-3" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;match.length&quot;</span>)</span>
-<span id="cb226-4"><a href="regular-expressions.html#cb226-4" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">93</span> <span class="dv">86</span> <span class="dv">89</span> <span class="dv">90</span> <span class="dv">89</span> <span class="dv">84</span> <span class="dv">85</span> <span class="dv">84</span> <span class="dv">88</span> <span class="dv">84</span></span>
-<span id="cb226-5"><a href="regular-expressions.html#cb226-5" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;index.type&quot;</span>)</span>
-<span id="cb226-6"><a href="regular-expressions.html#cb226-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;chars&quot;</span></span>
-<span id="cb226-7"><a href="regular-expressions.html#cb226-7" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;useBytes&quot;</span>)</span>
-<span id="cb226-8"><a href="regular-expressions.html#cb226-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="regular-expressions.html#cb226-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regexpr</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound(.*)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb226-2"><a href="regular-expressions.html#cb226-2" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">177</span> <span class="dv">178</span> <span class="dv">188</span> <span class="dv">189</span> <span class="dv">178</span> <span class="dv">182</span> <span class="dv">178</span> <span class="dv">187</span> <span class="dv">182</span> <span class="dv">183</span></span>
+<span id="cb226-3"><a href="regular-expressions.html#cb226-3" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;match.length&quot;</span>)</span>
+<span id="cb226-4"><a href="regular-expressions.html#cb226-4" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">93</span> <span class="dv">86</span> <span class="dv">89</span> <span class="dv">90</span> <span class="dv">89</span> <span class="dv">84</span> <span class="dv">85</span> <span class="dv">84</span> <span class="dv">88</span> <span class="dv">84</span></span>
+<span id="cb226-5"><a href="regular-expressions.html#cb226-5" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;index.type&quot;</span>)</span>
+<span id="cb226-6"><a href="regular-expressions.html#cb226-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;chars&quot;</span></span>
+<span id="cb226-7"><a href="regular-expressions.html#cb226-7" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;useBytes&quot;</span>)</span>
+<span id="cb226-8"><a href="regular-expressions.html#cb226-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
 <p>We can use the <code>substr()</code> function to extract the first match in the first string.</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="regular-expressions.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">substr</span>(homicides[<span class="dv">1</span>], <span class="dv">177</span>, <span class="dv">177</span> <span class="sc">+</span> <span class="dv">93</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb227-2"><a href="regular-expressions.html#cb227-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&lt;dd&gt;Victim died at Shock Trauma&lt;/dd&gt;&lt;dd&gt;Cause: shooting&lt;/dd&gt;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="regular-expressions.html#cb227-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">substr</span>(homicides[<span class="dv">1</span>], <span class="dv">177</span>, <span class="dv">177</span> <span class="sc">+</span> <span class="dv">93</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb227-2"><a href="regular-expressions.html#cb227-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&lt;dd&gt;Victim died at Shock Trauma&lt;/dd&gt;&lt;dd&gt;Cause: shooting&lt;/dd&gt;&quot;</span></span></code></pre></div>
 <p>Immediately, we can see that the regular expression picked up too much information. This is because the previous pattern was too greedy and matched too much of the string. We need to use the <code>?</code> metacharacter to make the regular expression “lazy” so that it stops at the <em>first</em> <code>&lt;/dd&gt;</code> tag.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="regular-expressions.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regexpr</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound(.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
-<span id="cb228-2"><a href="regular-expressions.html#cb228-2" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">177</span> <span class="dv">178</span> <span class="dv">188</span> <span class="dv">189</span> <span class="dv">178</span> <span class="dv">182</span> <span class="dv">178</span> <span class="dv">187</span> <span class="dv">182</span> <span class="dv">183</span></span>
-<span id="cb228-3"><a href="regular-expressions.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;match.length&quot;</span>)</span>
-<span id="cb228-4"><a href="regular-expressions.html#cb228-4" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span></span>
-<span id="cb228-5"><a href="regular-expressions.html#cb228-5" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;index.type&quot;</span>)</span>
-<span id="cb228-6"><a href="regular-expressions.html#cb228-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;chars&quot;</span></span>
-<span id="cb228-7"><a href="regular-expressions.html#cb228-7" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;useBytes&quot;</span>)</span>
-<span id="cb228-8"><a href="regular-expressions.html#cb228-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="regular-expressions.html#cb228-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regexpr</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound(.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb228-2"><a href="regular-expressions.html#cb228-2" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">177</span> <span class="dv">178</span> <span class="dv">188</span> <span class="dv">189</span> <span class="dv">178</span> <span class="dv">182</span> <span class="dv">178</span> <span class="dv">187</span> <span class="dv">182</span> <span class="dv">183</span></span>
+<span id="cb228-3"><a href="regular-expressions.html#cb228-3" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;match.length&quot;</span>)</span>
+<span id="cb228-4"><a href="regular-expressions.html#cb228-4" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span> <span class="dv">33</span></span>
+<span id="cb228-5"><a href="regular-expressions.html#cb228-5" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;index.type&quot;</span>)</span>
+<span id="cb228-6"><a href="regular-expressions.html#cb228-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;chars&quot;</span></span>
+<span id="cb228-7"><a href="regular-expressions.html#cb228-7" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;useBytes&quot;</span>)</span>
+<span id="cb228-8"><a href="regular-expressions.html#cb228-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
 <p>Now when we look at the substrings indicated by the <code>regexpr()</code> output, we get</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="regular-expressions.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">substr</span>(homicides[<span class="dv">1</span>], <span class="dv">177</span>, <span class="dv">177</span> <span class="sc">+</span> <span class="dv">33</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb229-2"><a href="regular-expressions.html#cb229-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="regular-expressions.html#cb229-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">substr</span>(homicides[<span class="dv">1</span>], <span class="dv">177</span>, <span class="dv">177</span> <span class="sc">+</span> <span class="dv">33</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb229-2"><a href="regular-expressions.html#cb229-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
 <p>While it’s straightforward to take the output of <code>regexpr()</code> and feed it into <code>substr()</code> to get the matches out of the original data, one handy function is <code>regmatches()</code> which extracts the matches in the strings for you without you having to use <code>substr()</code>.</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="regular-expressions.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> r <span class="ot">&lt;-</span> <span class="fu">regexpr</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound(.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
-<span id="cb230-2"><a href="regular-expressions.html#cb230-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regmatches</span>(homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], r)</span>
-<span id="cb230-3"><a href="regular-expressions.html#cb230-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span></span>
-<span id="cb230-4"><a href="regular-expressions.html#cb230-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 3, 2007&lt;/dd&gt;&quot;</span></span>
-<span id="cb230-5"><a href="regular-expressions.html#cb230-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>] <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="regular-expressions.html#cb230-1" tabindex="-1"></a><span class="sc">&gt;</span> r <span class="ot">&lt;-</span> <span class="fu">regexpr</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound(.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb230-2"><a href="regular-expressions.html#cb230-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regmatches</span>(homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], r)</span>
+<span id="cb230-3"><a href="regular-expressions.html#cb230-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span></span>
+<span id="cb230-4"><a href="regular-expressions.html#cb230-4" tabindex="-1"></a>[<span class="dv">3</span>] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 3, 2007&lt;/dd&gt;&quot;</span></span>
+<span id="cb230-5"><a href="regular-expressions.html#cb230-5" tabindex="-1"></a>[<span class="dv">5</span>] <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
 </div>
 <div id="sub-and-gsub" class="section level2 hasAnchor" number="17.6">
 <h2><span class="header-section-number">17.6</span> <code>sub()</code> and <code>gsub()</code><a href="regular-expressions.html#sub-and-gsub" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Sometimes we need to clean things up or modify strings by matching a pattern and replacing it with something else. For example, how can we extract the date from this string?</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="regular-expressions.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">substr</span>(homicides[<span class="dv">1</span>], <span class="dv">177</span>, <span class="dv">177</span> <span class="sc">+</span> <span class="dv">33</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb231-2"><a href="regular-expressions.html#cb231-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb231-3"><a href="regular-expressions.html#cb231-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="regular-expressions.html#cb231-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">substr</span>(homicides[<span class="dv">1</span>], <span class="dv">177</span>, <span class="dv">177</span> <span class="sc">+</span> <span class="dv">33</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb231-2"><a href="regular-expressions.html#cb231-2" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb231-3"><a href="regular-expressions.html#cb231-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
 <p>We want to strip out the stuff surrounding the “January 1, 2007” portion. We can do that by matching on the text that comes before and after it using the <code>|</code> operator and then replacing it with the empty string.</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="regular-expressions.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">sub</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on |&lt;/dd&gt;&quot;</span>, <span class="st">&quot;&quot;</span>, x)</span>
-<span id="cb232-2"><a href="regular-expressions.html#cb232-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;January 1, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="regular-expressions.html#cb232-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">sub</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on |&lt;/dd&gt;&quot;</span>, <span class="st">&quot;&quot;</span>, x)</span>
+<span id="cb232-2"><a href="regular-expressions.html#cb232-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;January 1, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
 <p>Notice that the <code>sub()</code> function found the first match (at the beginning of the string) and replaced it and then stopped. However, there was another match at the end of the string that we also wanted to replace. To get both matches, we need the <code>gsub()</code> function.</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="regular-expressions.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">gsub</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on |&lt;/dd&gt;&quot;</span>, <span class="st">&quot;&quot;</span>, x)</span>
-<span id="cb233-2"><a href="regular-expressions.html#cb233-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;January 1, 2007&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="regular-expressions.html#cb233-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">gsub</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on |&lt;/dd&gt;&quot;</span>, <span class="st">&quot;&quot;</span>, x)</span>
+<span id="cb233-2"><a href="regular-expressions.html#cb233-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;January 1, 2007&quot;</span></span></code></pre></div>
 <p>The <code>sub() and</code>gsub()` functions can take vector arguments so we don’t have to process each string one by one.</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="regular-expressions.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> r <span class="ot">&lt;-</span> <span class="fu">regexpr</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound(.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
-<span id="cb234-2"><a href="regular-expressions.html#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">regmatches</span>(homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], r)</span>
-<span id="cb234-3"><a href="regular-expressions.html#cb234-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
-<span id="cb234-4"><a href="regular-expressions.html#cb234-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span></span>
-<span id="cb234-5"><a href="regular-expressions.html#cb234-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 3, 2007&lt;/dd&gt;&quot;</span></span>
-<span id="cb234-6"><a href="regular-expressions.html#cb234-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>] <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span></span>
-<span id="cb234-7"><a href="regular-expressions.html#cb234-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on |&lt;/dd&gt;&quot;</span>, <span class="st">&quot;&quot;</span>, m)</span>
-<span id="cb234-8"><a href="regular-expressions.html#cb234-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb234-9"><a href="regular-expressions.html#cb234-9" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## Nice and clean</span></span>
-<span id="cb234-10"><a href="regular-expressions.html#cb234-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> d</span>
-<span id="cb234-11"><a href="regular-expressions.html#cb234-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;January 1, 2007&quot;</span> <span class="st">&quot;January 2, 2007&quot;</span> <span class="st">&quot;January 2, 2007&quot;</span> <span class="st">&quot;January 3, 2007&quot;</span></span>
-<span id="cb234-12"><a href="regular-expressions.html#cb234-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>] <span class="st">&quot;January 5, 2007&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="regular-expressions.html#cb234-1" tabindex="-1"></a><span class="sc">&gt;</span> r <span class="ot">&lt;-</span> <span class="fu">regexpr</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound(.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb234-2"><a href="regular-expressions.html#cb234-2" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">regmatches</span>(homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], r)</span>
+<span id="cb234-3"><a href="regular-expressions.html#cb234-3" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb234-4"><a href="regular-expressions.html#cb234-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span></span>
+<span id="cb234-5"><a href="regular-expressions.html#cb234-5" tabindex="-1"></a>[<span class="dv">3</span>] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 3, 2007&lt;/dd&gt;&quot;</span></span>
+<span id="cb234-6"><a href="regular-expressions.html#cb234-6" tabindex="-1"></a>[<span class="dv">5</span>] <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span></span>
+<span id="cb234-7"><a href="regular-expressions.html#cb234-7" tabindex="-1"></a><span class="sc">&gt;</span> d <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on |&lt;/dd&gt;&quot;</span>, <span class="st">&quot;&quot;</span>, m)</span>
+<span id="cb234-8"><a href="regular-expressions.html#cb234-8" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb234-9"><a href="regular-expressions.html#cb234-9" tabindex="-1"></a><span class="er">&gt;</span> <span class="do">## Nice and clean</span></span>
+<span id="cb234-10"><a href="regular-expressions.html#cb234-10" tabindex="-1"></a><span class="er">&gt;</span> d</span>
+<span id="cb234-11"><a href="regular-expressions.html#cb234-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;January 1, 2007&quot;</span> <span class="st">&quot;January 2, 2007&quot;</span> <span class="st">&quot;January 2, 2007&quot;</span> <span class="st">&quot;January 3, 2007&quot;</span></span>
+<span id="cb234-12"><a href="regular-expressions.html#cb234-12" tabindex="-1"></a>[<span class="dv">5</span>] <span class="st">&quot;January 5, 2007&quot;</span></span></code></pre></div>
 <p>Finally, it may be useful to convert these strings to the <code>Date</code> class so that we can do some date-related computations.</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="regular-expressions.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.Date</span>(d, <span class="st">&quot;%B %d, %Y&quot;</span>)</span>
-<span id="cb235-2"><a href="regular-expressions.html#cb235-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2007-01-01&quot;</span> <span class="st">&quot;2007-01-02&quot;</span> <span class="st">&quot;2007-01-02&quot;</span> <span class="st">&quot;2007-01-03&quot;</span> <span class="st">&quot;2007-01-05&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="regular-expressions.html#cb235-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.Date</span>(d, <span class="st">&quot;%B %d, %Y&quot;</span>)</span>
+<span id="cb235-2"><a href="regular-expressions.html#cb235-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2007-01-01&quot;</span> <span class="st">&quot;2007-01-02&quot;</span> <span class="st">&quot;2007-01-02&quot;</span> <span class="st">&quot;2007-01-03&quot;</span> <span class="st">&quot;2007-01-05&quot;</span></span></code></pre></div>
 </div>
 <div id="regexec" class="section level2 hasAnchor" number="17.7">
 <h2><span class="header-section-number">17.7</span> <code>regexec()</code><a href="regular-expressions.html#regexec" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>regexec()</code> function works like <code>regexpr()</code> except it gives you the indices
 for parenthesized sub-expressions. For example, take a look at the following expression.</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="regular-expressions.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regexec</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on (.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span>])</span>
-<span id="cb236-2"><a href="regular-expressions.html#cb236-2" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb236-3"><a href="regular-expressions.html#cb236-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">177</span> <span class="dv">190</span></span>
-<span id="cb236-4"><a href="regular-expressions.html#cb236-4" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;match.length&quot;</span>)</span>
-<span id="cb236-5"><a href="regular-expressions.html#cb236-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">33</span> <span class="dv">15</span></span>
-<span id="cb236-6"><a href="regular-expressions.html#cb236-6" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;index.type&quot;</span>)</span>
-<span id="cb236-7"><a href="regular-expressions.html#cb236-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;chars&quot;</span></span>
-<span id="cb236-8"><a href="regular-expressions.html#cb236-8" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;useBytes&quot;</span>)</span>
-<span id="cb236-9"><a href="regular-expressions.html#cb236-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="regular-expressions.html#cb236-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regexec</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on (.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span>])</span>
+<span id="cb236-2"><a href="regular-expressions.html#cb236-2" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb236-3"><a href="regular-expressions.html#cb236-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">177</span> <span class="dv">190</span></span>
+<span id="cb236-4"><a href="regular-expressions.html#cb236-4" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;match.length&quot;</span>)</span>
+<span id="cb236-5"><a href="regular-expressions.html#cb236-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">33</span> <span class="dv">15</span></span>
+<span id="cb236-6"><a href="regular-expressions.html#cb236-6" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;index.type&quot;</span>)</span>
+<span id="cb236-7"><a href="regular-expressions.html#cb236-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;chars&quot;</span></span>
+<span id="cb236-8"><a href="regular-expressions.html#cb236-8" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;useBytes&quot;</span>)</span>
+<span id="cb236-9"><a href="regular-expressions.html#cb236-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
 <p>Notice first that the regular expression itself has a portion in parentheses <code>()</code>. That is the portion of the expression that I presume will contain the date. In the output, you’ll notice that there are two indices and two “match.length” values. The first index tells you where the overall match begins (character 177) and the second index tells you where the expression in the parentheses begins (character 190).</p>
 <p>By contrast, if we only use the <code>regexpr()</code> function, we get</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="regular-expressions.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regexec</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on .*?&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span>])</span>
-<span id="cb237-2"><a href="regular-expressions.html#cb237-2" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb237-3"><a href="regular-expressions.html#cb237-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">177</span></span>
-<span id="cb237-4"><a href="regular-expressions.html#cb237-4" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;match.length&quot;</span>)</span>
-<span id="cb237-5"><a href="regular-expressions.html#cb237-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">33</span></span>
-<span id="cb237-6"><a href="regular-expressions.html#cb237-6" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;index.type&quot;</span>)</span>
-<span id="cb237-7"><a href="regular-expressions.html#cb237-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;chars&quot;</span></span>
-<span id="cb237-8"><a href="regular-expressions.html#cb237-8" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;useBytes&quot;</span>)</span>
-<span id="cb237-9"><a href="regular-expressions.html#cb237-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="regular-expressions.html#cb237-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regexec</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on .*?&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span>])</span>
+<span id="cb237-2"><a href="regular-expressions.html#cb237-2" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb237-3"><a href="regular-expressions.html#cb237-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">177</span></span>
+<span id="cb237-4"><a href="regular-expressions.html#cb237-4" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;match.length&quot;</span>)</span>
+<span id="cb237-5"><a href="regular-expressions.html#cb237-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">33</span></span>
+<span id="cb237-6"><a href="regular-expressions.html#cb237-6" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;index.type&quot;</span>)</span>
+<span id="cb237-7"><a href="regular-expressions.html#cb237-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;chars&quot;</span></span>
+<span id="cb237-8"><a href="regular-expressions.html#cb237-8" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;useBytes&quot;</span>)</span>
+<span id="cb237-9"><a href="regular-expressions.html#cb237-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
 <p>We can use the <code>substr()</code> function to demonstrate which parts of a strings are matched by the <code>regexec()</code> function.</p>
 <p>Here’s the output for <code>regexec()</code>.</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="regular-expressions.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regexec</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on (.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span>])</span>
-<span id="cb238-2"><a href="regular-expressions.html#cb238-2" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb238-3"><a href="regular-expressions.html#cb238-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">177</span> <span class="dv">190</span></span>
-<span id="cb238-4"><a href="regular-expressions.html#cb238-4" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;match.length&quot;</span>)</span>
-<span id="cb238-5"><a href="regular-expressions.html#cb238-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">33</span> <span class="dv">15</span></span>
-<span id="cb238-6"><a href="regular-expressions.html#cb238-6" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;index.type&quot;</span>)</span>
-<span id="cb238-7"><a href="regular-expressions.html#cb238-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;chars&quot;</span></span>
-<span id="cb238-8"><a href="regular-expressions.html#cb238-8" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;useBytes&quot;</span>)</span>
-<span id="cb238-9"><a href="regular-expressions.html#cb238-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="regular-expressions.html#cb238-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regexec</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on (.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span>])</span>
+<span id="cb238-2"><a href="regular-expressions.html#cb238-2" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb238-3"><a href="regular-expressions.html#cb238-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">177</span> <span class="dv">190</span></span>
+<span id="cb238-4"><a href="regular-expressions.html#cb238-4" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;match.length&quot;</span>)</span>
+<span id="cb238-5"><a href="regular-expressions.html#cb238-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">33</span> <span class="dv">15</span></span>
+<span id="cb238-6"><a href="regular-expressions.html#cb238-6" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;index.type&quot;</span>)</span>
+<span id="cb238-7"><a href="regular-expressions.html#cb238-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;chars&quot;</span></span>
+<span id="cb238-8"><a href="regular-expressions.html#cb238-8" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;useBytes&quot;</span>)</span>
+<span id="cb238-9"><a href="regular-expressions.html#cb238-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
 <p>Here’s the overall expression match.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="regular-expressions.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">substr</span>(homicides[<span class="dv">1</span>], <span class="dv">177</span>, <span class="dv">177</span> <span class="sc">+</span> <span class="dv">33</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb239-2"><a href="regular-expressions.html#cb239-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="regular-expressions.html#cb239-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">substr</span>(homicides[<span class="dv">1</span>], <span class="dv">177</span>, <span class="dv">177</span> <span class="sc">+</span> <span class="dv">33</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb239-2"><a href="regular-expressions.html#cb239-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
 <p>And here’s the parenthesized sub-expression.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="regular-expressions.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">substr</span>(homicides[<span class="dv">1</span>], <span class="dv">190</span>, <span class="dv">190</span> <span class="sc">+</span> <span class="dv">15</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb240-2"><a href="regular-expressions.html#cb240-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;January 1, 2007&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="regular-expressions.html#cb240-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">substr</span>(homicides[<span class="dv">1</span>], <span class="dv">190</span>, <span class="dv">190</span> <span class="sc">+</span> <span class="dv">15</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb240-2"><a href="regular-expressions.html#cb240-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;January 1, 2007&quot;</span></span></code></pre></div>
 <p>All this can be done much more easily with the <code>regmatches()</code> function.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="regular-expressions.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> r <span class="ot">&lt;-</span> <span class="fu">regexec</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on (.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
-<span id="cb241-2"><a href="regular-expressions.html#cb241-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regmatches</span>(homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], r)</span>
-<span id="cb241-3"><a href="regular-expressions.html#cb241-3" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb241-4"><a href="regular-expressions.html#cb241-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 1, 2007&quot;</span>                  </span>
-<span id="cb241-5"><a href="regular-expressions.html#cb241-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb241-6"><a href="regular-expressions.html#cb241-6" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
-<span id="cb241-7"><a href="regular-expressions.html#cb241-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 2, 2007&quot;</span>                  </span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="regular-expressions.html#cb241-1" tabindex="-1"></a><span class="sc">&gt;</span> r <span class="ot">&lt;-</span> <span class="fu">regexec</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on (.*?)&lt;/dd&gt;&quot;</span>, homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
+<span id="cb241-2"><a href="regular-expressions.html#cb241-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">regmatches</span>(homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], r)</span>
+<span id="cb241-3"><a href="regular-expressions.html#cb241-3" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb241-4"><a href="regular-expressions.html#cb241-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 1, 2007&quot;</span>                  </span>
+<span id="cb241-5"><a href="regular-expressions.html#cb241-5" tabindex="-1"></a></span>
+<span id="cb241-6"><a href="regular-expressions.html#cb241-6" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb241-7"><a href="regular-expressions.html#cb241-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 2, 2007&quot;</span>                  </span></code></pre></div>
 <p>Notice that <code>regmatches()</code> returns a list in this case, where each element of the list contains two strings: the overall match and the parenthesized sub-expression.</p>
 <p>As an example, we can make a plot of monthly homicide counts. First we need a regular expression to capture the dates.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="regular-expressions.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> r <span class="ot">&lt;-</span> <span class="fu">regexec</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on (.*?)&lt;/dd&gt;&quot;</span>, homicides)</span>
-<span id="cb242-2"><a href="regular-expressions.html#cb242-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">regmatches</span>(homicides, r)</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="regular-expressions.html#cb242-1" tabindex="-1"></a><span class="sc">&gt;</span> r <span class="ot">&lt;-</span> <span class="fu">regexec</span>(<span class="st">&quot;&lt;dd&gt;[F|f]ound on (.*?)&lt;/dd&gt;&quot;</span>, homicides)</span>
+<span id="cb242-2"><a href="regular-expressions.html#cb242-2" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">regmatches</span>(homicides, r)</span></code></pre></div>
 <p>Then we can loop through the list returned by <code>regmatches()</code> and extract the second element of each (the parenthesized sub-expression).</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="regular-expressions.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> dates <span class="ot">&lt;-</span> <span class="fu">sapply</span>(m, <span class="cf">function</span>(x) x[<span class="dv">2</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="regular-expressions.html#cb243-1" tabindex="-1"></a><span class="sc">&gt;</span> dates <span class="ot">&lt;-</span> <span class="fu">sapply</span>(m, <span class="cf">function</span>(x) x[<span class="dv">2</span>])</span></code></pre></div>
 <p>Finally, we can convert the date strings into the <code>Date</code> class and make a histogram of the counts.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="regular-expressions.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> dates <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dates, <span class="st">&quot;%B %d, %Y&quot;</span>)</span>
-<span id="cb244-2"><a href="regular-expressions.html#cb244-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">hist</span>(dates, <span class="st">&quot;month&quot;</span>, <span class="at">freq =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">&quot;Monthly Homicides in Baltimore&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="regular-expressions.html#cb244-1" tabindex="-1"></a><span class="sc">&gt;</span> dates <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dates, <span class="st">&quot;%B %d, %Y&quot;</span>)</span>
+<span id="cb244-2"><a href="regular-expressions.html#cb244-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">hist</span>(dates, <span class="st">&quot;month&quot;</span>, <span class="at">freq =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">&quot;Monthly Homicides in Baltimore&quot;</span>)</span></code></pre></div>
 <p><img src="images/regex-unnamed-chunk-36-1.png" width="672" /></p>
 <p>We can see from the picture that homicides do not occur uniformly throughout the year and appear to have some seasonality to them.</p>
 </div>
@@ -619,26 +624,26 @@ for parenthesized sub-expressions. For example, take a look at the following exp
 <p>The <code>stringr</code> package is part of the <a href="https://www.tidyverse.org">tidyverse</a> collection of packages and wraps they underlying <code>stringi</code> package in a series of convenience functions. Some of the complexity of using the base R regular expression functions is usefully hidden by the <code>stringr</code> functions. In addition, the <code>stringr</code> functions provide a more rational interface to regular expressions with more consistency in the arguments and argument ordering.</p>
 <p>Given what we have discussed so far, there is a fairly straightforward mapping from the base R functions to the <code>stringr</code> functions. In general, for the <code>stringr</code> functions, the data are the first argument and the regular expression is the second argument, with optional arguments afterwards.</p>
 <p><code>str_subset()</code> is much like <code>grep(value = TRUE)</code> and returns a character vector of strings that contain a given match.</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="regular-expressions.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(stringr)</span>
-<span id="cb245-2"><a href="regular-expressions.html#cb245-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">str_subset</span>(homicides, <span class="st">&quot;iconHomicideShooting&quot;</span>)</span>
-<span id="cb245-3"><a href="regular-expressions.html#cb245-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
-<span id="cb245-4"><a href="regular-expressions.html#cb245-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">228</span></span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="regular-expressions.html#cb245-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(stringr)</span>
+<span id="cb245-2"><a href="regular-expressions.html#cb245-2" tabindex="-1"></a><span class="sc">&gt;</span> g <span class="ot">&lt;-</span> <span class="fu">str_subset</span>(homicides, <span class="st">&quot;iconHomicideShooting&quot;</span>)</span>
+<span id="cb245-3"><a href="regular-expressions.html#cb245-3" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(g)</span>
+<span id="cb245-4"><a href="regular-expressions.html#cb245-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">228</span></span></code></pre></div>
 <p><code>str_detect()</code> is essentially equivalent <code>grepl()</code>.</p>
 <p><code>str_extract()</code> plays the role of <code>regexpr()</code> and <code>regmatches()</code>, extracting the matches from the output.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="regular-expressions.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str_extract</span>(homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="st">&quot;&lt;dd&gt;[F|f]ound(.*?)&lt;/dd&gt;&quot;</span>)</span>
-<span id="cb246-2"><a href="regular-expressions.html#cb246-2" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span></span>
-<span id="cb246-3"><a href="regular-expressions.html#cb246-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">3</span>] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 3, 2007&lt;/dd&gt;&quot;</span></span>
-<span id="cb246-4"><a href="regular-expressions.html#cb246-4" aria-hidden="true" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span></span>
-<span id="cb246-5"><a href="regular-expressions.html#cb246-5" aria-hidden="true" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 7, 2007&lt;/dd&gt;&quot;</span></span>
-<span id="cb246-6"><a href="regular-expressions.html#cb246-6" aria-hidden="true" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;&lt;dd&gt;Found on January 8, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 8, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="regular-expressions.html#cb246-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str_extract</span>(homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="st">&quot;&lt;dd&gt;[F|f]ound(.*?)&lt;/dd&gt;&quot;</span>)</span>
+<span id="cb246-2"><a href="regular-expressions.html#cb246-2" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span></span>
+<span id="cb246-3"><a href="regular-expressions.html#cb246-3" tabindex="-1"></a> [<span class="dv">3</span>] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 3, 2007&lt;/dd&gt;&quot;</span></span>
+<span id="cb246-4"><a href="regular-expressions.html#cb246-4" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span></span>
+<span id="cb246-5"><a href="regular-expressions.html#cb246-5" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 7, 2007&lt;/dd&gt;&quot;</span></span>
+<span id="cb246-6"><a href="regular-expressions.html#cb246-6" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;&lt;dd&gt;Found on January 8, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;&lt;dd&gt;Found on January 8, 2007&lt;/dd&gt;&quot;</span></span></code></pre></div>
 <p>Finally, <code>str_match()</code> does the job of <code>regexec()</code> by provide a matrix containing the parenthesized sub-expressions.</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="regular-expressions.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str_match</span>(homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="st">&quot;&lt;dd&gt;[F|f]ound on (.*?)&lt;/dd&gt;&quot;</span>)</span>
-<span id="cb247-2"><a href="regular-expressions.html#cb247-2" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>]                                [,<span class="dv">2</span>]             </span>
-<span id="cb247-3"><a href="regular-expressions.html#cb247-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 1, 2007&quot;</span></span>
-<span id="cb247-4"><a href="regular-expressions.html#cb247-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 2, 2007&quot;</span></span>
-<span id="cb247-5"><a href="regular-expressions.html#cb247-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 2, 2007&quot;</span></span>
-<span id="cb247-6"><a href="regular-expressions.html#cb247-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4</span>,] <span class="st">&quot;&lt;dd&gt;Found on January 3, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 3, 2007&quot;</span></span>
-<span id="cb247-7"><a href="regular-expressions.html#cb247-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>,] <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 5, 2007&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="regular-expressions.html#cb247-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str_match</span>(homicides[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="st">&quot;&lt;dd&gt;[F|f]ound on (.*?)&lt;/dd&gt;&quot;</span>)</span>
+<span id="cb247-2"><a href="regular-expressions.html#cb247-2" tabindex="-1"></a>     [,<span class="dv">1</span>]                                [,<span class="dv">2</span>]             </span>
+<span id="cb247-3"><a href="regular-expressions.html#cb247-3" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="st">&quot;&lt;dd&gt;Found on January 1, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 1, 2007&quot;</span></span>
+<span id="cb247-4"><a href="regular-expressions.html#cb247-4" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 2, 2007&quot;</span></span>
+<span id="cb247-5"><a href="regular-expressions.html#cb247-5" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="st">&quot;&lt;dd&gt;Found on January 2, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 2, 2007&quot;</span></span>
+<span id="cb247-6"><a href="regular-expressions.html#cb247-6" tabindex="-1"></a>[<span class="dv">4</span>,] <span class="st">&quot;&lt;dd&gt;Found on January 3, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 3, 2007&quot;</span></span>
+<span id="cb247-7"><a href="regular-expressions.html#cb247-7" tabindex="-1"></a>[<span class="dv">5</span>,] <span class="st">&quot;&lt;dd&gt;Found on January 5, 2007&lt;/dd&gt;&quot;</span> <span class="st">&quot;January 5, 2007&quot;</span></span></code></pre></div>
 <p>Note how the second column of the output contains the values of the parenthesized sub-expressions. We could now obtain these values by extracting the second column of the matrix. If there had been more parenthesized sub-expressions, there would have been more columns in the output matrix.</p>
 </div>
 <div id="summary-7" class="section level2 hasAnchor" number="17.9">
@@ -647,7 +652,7 @@ for parenthesized sub-expressions. For example, take a look at the following exp
 <ul>
 <li><p><code>grep()</code>, <code>grepl()</code>: Search for matches of a regular expression/pattern in a
 character vector</p></li>
-<li><p><code>regexpr()</code>, <code>gregexpr(): Search a character vector for regular expression matches and     return the indices where the match begins; useful in conjunction     with</code>regmatches()`</p></li>
+<li><p><code>regexpr()</code>, <code>gregexpr(): Search a character vector for regular expression matches and return the indices where the match begins; useful in conjunction with</code>regmatches()`</p></li>
 <li><p><code>sub()</code>, <code>gsub()</code>: Search a character vector for regular expression matches and
 replace that match with another string</p></li>
 <li><p><code>regexec()</code>: Gives you indices of parethensized sub-expressions.</p></li>
@@ -676,42 +681,42 @@ replace that match with another string</p></li>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/regex.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/regex.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
@@ -722,7 +727,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

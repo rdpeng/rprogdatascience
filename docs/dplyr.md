@@ -61,21 +61,21 @@ The `dplyr` package can be installed from CRAN or from GitHub using the `devtool
 To install from CRAN, just run
 
 
-```r
+``` r
 > install.packages("dplyr")
 ```
 
 To install from GitHub you can run
 
 
-```r
+``` r
 > install_github("hadley/dplyr")
 ```
 
 After installing the package it is important that you load it into your R session with the `library()` function.
 
 
-```r
+``` r
 > library(dplyr)
 
 Attaching package: 'dplyr'
@@ -97,14 +97,14 @@ For the examples in this chapter we will be using a dataset containing air pollu
 After unzipping the archive, you can load the data into R using the `readRDS()` function.
 
 
-```r
+``` r
 > chicago <- readRDS("chicago.rds")
 ```
 
 You can see some basic characteristics of the dataset with the `dim()` and `str()` functions.
 
 
-```r
+``` r
 > dim(chicago)
 [1] 6940    8
 > str(chicago)
@@ -124,7 +124,7 @@ The `select()` function can be used to select columns of a data frame that you w
 Suppose we wanted to take the first 3 columns only. There are a few ways to do this. We could for example use numerical indices. But we can also use the names directly.
 
 
-```r
+``` r
 > names(chicago)[1:3]
 [1] "city" "tmpd" "dptp"
 > subset <- select(chicago, city:dptp)
@@ -143,7 +143,7 @@ Note that the `:` normally cannot be used with names or strings, but inside the 
 You can also *omit* variables using the `select()` function by using the negative sign. With `select()` you can do
 
 
-```r
+``` r
 > select(chicago, -(city:dptp))
 ```
 
@@ -151,7 +151,7 @@ which indicates that we should include every variable *except* the variables `ci
 The equivalent code in base R would be
 
 
-```r
+``` r
 > i <- match("city", names(chicago))
 > j <- match("dptp", names(chicago))
 > head(chicago[, -(i:j)])
@@ -162,7 +162,7 @@ Not super intuitive, right?
 The `select()` function also allows a special syntax that allows you to specify variable names based on patterns. So, for example, if you wanted to keep every variable that ends with a "2", we could do
 
 
-```r
+``` r
 > subset <- select(chicago, ends_with("2"))
 > str(subset)
 'data.frame':	6940 obs. of  4 variables:
@@ -175,7 +175,7 @@ The `select()` function also allows a special syntax that allows you to specify 
 Or if we wanted to keep every variable that starts with a "d", we could do
 
 
-```r
+``` r
 > subset <- select(chicago, starts_with("d"))
 > str(subset)
 'data.frame':	6940 obs. of  2 variables:
@@ -193,7 +193,7 @@ The `filter()` function is used to extract subsets of rows from a data frame. Th
 Suppose we wanted to extract the rows of the `chicago` data frame where the levels of PM2.5 are greater than 30 (which is a reasonably high level), we could do
 
 
-```r
+``` r
 > chic.f <- filter(chicago, pm25tmean2 > 30)
 > str(chic.f)
 'data.frame':	194 obs. of  8 variables:
@@ -210,7 +210,7 @@ Suppose we wanted to extract the rows of the `chicago` data frame where the leve
 You can see that there are now only 194 rows in the data frame and the distribution of the `pm25tmean2` values is.
 
 
-```r
+``` r
 > summary(chic.f$pm25tmean2)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   30.05   32.12   35.04   36.63   39.53   61.50 
@@ -220,7 +220,7 @@ We can place an arbitrarily complex logical sequence inside of `filter()`, so we
 
 
 
-```r
+``` r
 > chic.f <- filter(chicago, pm25tmean2 > 30 & tmpd > 80)
 > select(chic.f, date, tmpd, pm25tmean2)
          date tmpd pm25tmean2
@@ -255,14 +255,14 @@ of other columns) is normally a pain to do in R. The `arrange()` function simpli
 Here we can order the rows of the data frame by date, so that the first row is the earliest (oldest) observation and the last row is the latest (most recent) observation.
 
 
-```r
+``` r
 > chicago <- arrange(chicago, date)
 ```
 
 We can now check the first few rows
 
 
-```r
+``` r
 > head(select(chicago, date, pm25tmean2), 3)
         date pm25tmean2
 1 1987-01-01         NA
@@ -273,7 +273,7 @@ We can now check the first few rows
 and the last few rows.
 
 
-```r
+``` r
 > tail(select(chicago, date, pm25tmean2), 3)
            date pm25tmean2
 6938 2005-12-29    7.45000
@@ -284,14 +284,14 @@ and the last few rows.
 Columns can be arranged in descending order too by useing the special `desc()` operator.
 
 
-```r
+``` r
 > chicago <- arrange(chicago, desc(date))
 ```
 
 Looking at the first three and last three rows shows the dates in descending order.
 
 
-```r
+``` r
 > head(select(chicago, date, pm25tmean2), 3)
         date pm25tmean2
 1 2005-12-31   15.00000
@@ -312,7 +312,7 @@ Renaming a variable in a data frame in R is surprisingly hard to do! The `rename
 Here you can see the names of the first five variables in the `chicago` data frame.
 
 
-```r
+``` r
 > head(chicago[, 1:5], 3)
   city tmpd dptp       date pm25tmean2
 1 chic   35 30.1 2005-12-31   15.00000
@@ -323,7 +323,7 @@ Here you can see the names of the first five variables in the `chicago` data fra
 The `dptp` column is supposed to represent the dew point temperature adn the `pm25tmean2` column provides the PM2.5 data. However, these names are pretty obscure or awkward and probably be renamed to something more sensible.
 
 
-```r
+``` r
 > chicago <- rename(chicago, dewpoint = dptp, pm25 = pm25tmean2)
 > head(chicago[, 1:5], 3)
   city tmpd dewpoint       date     pm25
@@ -345,7 +345,7 @@ For example, with air pollution data, we often want to *detrend* the data by sub
 Here we create a `pm25detrend` variable that subtracts the mean from the `pm25` variable.
 
 
-```r
+``` r
 > chicago <- mutate(chicago, pm25detrend = pm25 - mean(pm25, na.rm = TRUE))
 > head(chicago)
   city tmpd dewpoint       date     pm25 pm10tmean2  o3tmean2 no2tmean2
@@ -369,7 +369,7 @@ There is also the related `transmute()` function, which does the same thing as `
 Here we detrend the PM10 and ozone (O3) variables.
 
 
-```r
+``` r
 > head(transmute(chicago, 
 +                pm10detrend = pm10tmean2 - mean(pm10tmean2, na.rm = TRUE),
 +                o3detrend = o3tmean2 - mean(o3tmean2, na.rm = TRUE)))
@@ -394,21 +394,21 @@ The general operation here is a combination of splitting a data frame into separ
 First, we can create a `year` varible using `as.POSIXlt()`.
 
 
-```r
+``` r
 > chicago <- mutate(chicago, year = as.POSIXlt(date)$year + 1900)
 ```
 
 Now we can create a separate data frame that splits the original data frame by year.
 
 
-```r
+``` r
 > years <- group_by(chicago, year)
 ```
 
 Finally, we compute summary statistics for each year in the data frame with the `summarize()` function.
 
 
-```r
+``` r
 > summarize(years, pm25 = mean(pm25, na.rm = TRUE), 
 +           o3 = max(o3tmean2, na.rm = TRUE), 
 +           no2 = median(no2tmean2, na.rm = TRUE),
@@ -444,7 +444,7 @@ In a slightly more complicated example, we might want to know what are the avera
 First, we can create a categorical variable of `pm25` divided into quintiles.
 
 
-```r
+``` r
 > qq <- quantile(chicago$pm25, seq(0, 1, 0.2), na.rm = TRUE)
 > chicago <- mutate(chicago, pm25.quint = cut(pm25, qq))
 ```
@@ -452,14 +452,14 @@ First, we can create a categorical variable of `pm25` divided into quintiles.
 Now we can group the data frame by the `pm25.quint` variable.
 
 
-```r
+``` r
 > quint <- group_by(chicago, pm25.quint)
 ```
 
 Finally, we can compute the mean of `o3` and `no2` within quintiles of `pm25`.
 
 
-```r
+``` r
 > summarize(quint, o3 = mean(o3tmean2, na.rm = TRUE), 
 +           no2 = mean(no2tmean2, na.rm = TRUE),
 +           .groups = "drop")
@@ -481,14 +481,14 @@ From the table, it seems there isn't a strong relationship between `pm25` and `o
 The pipeline operater `%>%` is very handy for stringing together multiple `dplyr` functions in a sequence of operations. Notice above that every time we wanted to apply more than one function, the sequence gets buried in a sequence of nested function calls that is difficult to read, i.e.
 
 
-```r
+``` r
 > third(second(first(x)))
 ```
 
 This nesting is not a natural way to think about a sequence of operations. The `%>%` operator allows you to string operations in a left-to-right fashion, i.e.
 
 
-```r
+``` r
 > first(x) %>% second %>% third
 ```
 
@@ -501,7 +501,7 @@ Take the example that we just did in the last section where we computed the mean
 That can be done with the following sequence in a single R expression.
 
 
-```r
+``` r
 > mutate(chicago, pm25.quint = cut(pm25, qq)) %>%    
 +         group_by(pm25.quint) %>% 
 +         summarize(o3 = mean(o3tmean2, na.rm = TRUE), 
@@ -526,7 +526,7 @@ Notice in the above code that I pass the `chicago` data frame to the first call 
 Another example might be computing the average pollutant level by month. This could be useful to see if there are any seasonal trends in the data. 
 
 
-```r
+``` r
 > mutate(chicago, month = as.POSIXlt(date)$mon + 1) %>% 
 +         group_by(month) %>% 
 +         summarize(pm25 = mean(pm25, na.rm = TRUE), 

@@ -37,7 +37,7 @@ This function takes three arguments: (1) a list `X`; (2) a function (or the name
 The body of the `lapply()` function can be seen here.
 
 
-```r
+``` r
 > lapply
 function (X, FUN, ...) 
 {
@@ -46,7 +46,7 @@ function (X, FUN, ...)
         X <- as.list(X)
     .Internal(lapply(X, FUN))
 }
-<bytecode: 0x7f79498e5528>
+<bytecode: 0x105132200>
 <environment: namespace:base>
 ```
 
@@ -58,7 +58,7 @@ Here's an example of applying the `mean()` function to all elements of a list. I
 
 
 
-```r
+``` r
 > x <- list(a = 1:5, b = rnorm(10))
 > lapply(x, mean)
 $a
@@ -74,7 +74,7 @@ Here is another example of using `lapply()`.
 
 
 
-```r
+``` r
 > x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
 > lapply(x, mean)
 $a
@@ -94,7 +94,7 @@ You can use `lapply()` to evaluate a function multiple times each with a differe
 
 
 
-```r
+``` r
 > x <- 1:4
 > lapply(x, runif)
 [[1]]
@@ -119,7 +119,7 @@ Here is where the `...` argument to `lapply()` comes into play. Any arguments th
 Here, the `min = 0` and `max = 10` arguments are passed down to `runif()` every time it gets called.
 
 
-```r
+``` r
 > x <- 1:4
 > lapply(x, runif, min = 0, max = 10)
 [[1]]
@@ -142,7 +142,7 @@ The `lapply()` function and its friends make heavy use of _anonymous_ functions.
 Here I am creating a list that contains two matrices.
 
 
-```r
+``` r
 > x <- list(a = matrix(1:4, 2, 2), b = matrix(1:6, 3, 2)) 
 > x
 $a
@@ -161,7 +161,7 @@ Suppose I wanted to extract the first column of each matrix in the list. I could
 an anonymous function for extracting the first column of each matrix.
 
 
-```r
+``` r
 > lapply(x, function(elt) { elt[,1] })
 $a
 [1] 1 2
@@ -175,7 +175,7 @@ Notice that I put the `function()` definition right in the call to `lapply()`. T
 For example, I could have done the following.
 
 
-```r
+``` r
 > f <- function(elt) {
 +         elt[, 1]
 + }
@@ -203,7 +203,7 @@ The `sapply()` function behaves similarly to `lapply()`; the only real differenc
 Here's the result of calling `lapply()`.
 
 
-```r
+``` r
 > x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
 > lapply(x, mean)
 $a
@@ -224,7 +224,7 @@ Notice that `lapply()` returns a list (as usual), but that each element of the l
 Here's the result of calling `sapply()` on the same list.
 
 
-```r
+``` r
 > sapply(x, mean) 
         a         b         c         d 
  2.500000 -0.251483  1.481246  4.968715 
@@ -243,7 +243,7 @@ The `split()` function takes a vector or other objects and splits it into groups
 The arguments to `split()` are
 
 
-```r
+``` r
 > str(split)
 function (x, f, drop = FALSE, ...)  
 ```
@@ -259,7 +259,7 @@ The combination of `split()` and a function like `lapply()` or `sapply()` is a c
 Here we simulate some data and split it according to a factor variable. Note that we use the `gl()` function to "generate levels" in a factor variable.
 
 
-```r
+``` r
 > x <- c(rnorm(10), runif(10), rnorm(10, 1))
 > f <- gl(3, 10)
 > split(x, f)
@@ -279,7 +279,7 @@ $`3`
 A common idiom is `split` followed by an `lapply`.
 
 
-```r
+``` r
 > lapply(split(x, f), mean)
 $`1`
 [1] 0.07478098
@@ -294,7 +294,7 @@ $`3`
 ## Splitting a Data Frame
 
 
-```r
+``` r
 > library(datasets)
 > head(airquality)
   Ozone Solar.R Wind Temp Month Day
@@ -310,7 +310,7 @@ $`3`
 We can split the `airquality` data frame by the `Month` variable so that we have separate sub-data frames for each month.
 
 
-```r
+``` r
 > s <- split(airquality, airquality$Month)
 > str(s)
 List of 5
@@ -354,7 +354,7 @@ List of 5
 Then we can take the column means for `Ozone`, `Solar.R`, and `Wind` for each sub-data frame.
 
 
-```r
+``` r
 > lapply(s, function(x) {
 +         colMeans(x[, c("Ozone", "Solar.R", "Wind")])
 + })
@@ -382,7 +382,7 @@ $`9`
 Using `sapply()` might be better here for a more readable output.
 
 
-```r
+``` r
 > sapply(s, function(x) {
 +         colMeans(x[, c("Ozone", "Solar.R", "Wind")])
 + })
@@ -395,7 +395,7 @@ Wind    11.62258  10.26667   8.941935 8.793548  10.1800
 Unfortunately, there are `NA`s in the data so we cannot simply take the means of those variables. However, we can tell the `colMeans` function to remove the `NA`s before computing the mean.
 
 
-```r
+``` r
 > sapply(s, function(x) {
 +         colMeans(x[, c("Ozone", "Solar.R", "Wind")], 
 +                  na.rm = TRUE)
@@ -409,7 +409,7 @@ Wind     11.62258  10.26667   8.941935   8.793548  10.18000
 Occasionally, we may want to split an R object according to levels defined in more than one variable. We can do this by creating an interaction of the variables with the `interaction()` function.
 
 
-```r
+``` r
 > x <- rnorm(10)
 > f1 <- gl(2, 5)
 > f2 <- gl(5, 2)
@@ -428,7 +428,7 @@ Levels: 1.1 2.1 1.2 2.2 1.3 2.3 1.4 2.4 1.5 2.5
 With multiple factors and many levels, creating an interaction can result in many levels that are empty.
 
 
-```r
+``` r
 > str(split(x, list(f1, f2)))
 List of 10
  $ 1.1: num [1:2] 1.512 0.083
@@ -446,7 +446,7 @@ List of 10
 Notice that there are 4 categories with no data. But we can drop empty levels when we call the `split()` function.
 
 
-```r
+``` r
 > str(split(x, list(f1, f2), drop = TRUE))
 List of 6
  $ 1.1: num [1:2] 1.512 0.083
@@ -465,7 +465,7 @@ List of 6
 `tapply()` is used to apply a function over subsets of a vector. It can be thought of as a combination of `split()` and `sapply()` for vectors only. I've been told that the "t" in `tapply()` refers to "table", but that is unconfirmed.
 
 
-```r
+``` r
 > str(tapply)
 function (X, INDEX, FUN = NULL, ..., default = NA, simplify = TRUE)  
 ```
@@ -481,7 +481,7 @@ The arguments to `tapply()` are as follows:
 Given a vector of numbers, one simple operation is to take group means.
 
 
-```r
+``` r
 > ## Simulate some data
 > x <- c(rnorm(10), runif(10), rnorm(10, 1))
 > ## Define some groups with a factor variable
@@ -497,7 +497,7 @@ Levels: 1 2 3
 We can also take the group means without simplifying the result, which will give us a list. For functions that return a single value, usually, this is not what we want, but it can be done.
 
 
-```r
+``` r
 > tapply(x, f, mean, simplify = FALSE)
 $`1`
 [1] 0.1896235
@@ -513,7 +513,7 @@ $`3`
 We can also apply functions that return more than a single value. In this case, `tapply()` will not simplify the result and will return a list. Here's an example of finding the range of each sub-group.
 
 
-```r
+``` r
 > tapply(x, f, range)
 $`1`
 [1] -1.869789  1.497041
@@ -534,7 +534,7 @@ The `apply()` function is used to a evaluate a function (often an anonymous one)
 
 
 
-```r
+``` r
 > str(apply)
 function (X, MARGIN, FUN, ..., simplify = TRUE)  
 ```
@@ -550,7 +550,7 @@ The arguments to `apply()` are
 Here I create a 20 by 10 matrix of Normal random numbers. I then compute the mean of each column.
 
 
-```r
+``` r
 > x <- matrix(rnorm(200), 20, 10)
 > apply(x, 2, mean)  ## Take the mean of each column
  [1]  0.02218266 -0.15932850  0.09021391  0.14723035 -0.22431309 -0.49657847
@@ -560,7 +560,7 @@ Here I create a 20 by 10 matrix of Normal random numbers. I then compute the mea
 I can also compute the sum of each row.
 
 
-```r
+``` r
 > apply(x, 1, sum)   ## Take the mean of each row
  [1] -0.48483448  5.33222301 -3.33862932 -1.39998450  2.37859098  0.01082604
  [7] -6.29457190 -0.26287700  0.71133578 -3.38125293 -4.67522818  3.01900232
@@ -575,14 +575,14 @@ You've probably noticed that the second argument is either a 1 or a 2, depending
 The `MARGIN` argument essentially indicates to `apply()` which dimension of the array you want to preserve or retain. So when taking the mean of each column, I specify
 
 
-```r
+``` r
 > apply(x, 2, mean)
 ```
 
 because I want to collapse the first dimension (the rows) by taking the mean and I want to preserve the number of columns. Similarly, when I want the row sums, I run
 
 
-```r
+``` r
 > apply(x, 1, mean)
 ```
 
@@ -605,7 +605,7 @@ The shortcut functions are heavily optimized and hence are _much_ faster, but yo
 You can do more than take sums and means with the `apply()` function. For example, you can compute quantiles of the rows of a matrix using the `quantile()` function.
 
 
-```r
+``` r
 > x <- matrix(rnorm(200), 20, 10)
 > ## Get row quantiles
 > apply(x, 1, quantile, probs = c(0.25, 0.75))    
@@ -628,7 +628,7 @@ Notice that I had to pass the `probs = c(0.25, 0.75)` argument to `quantile()` v
 For a higher dimensional example, I can create an array of $2\times2$ matrices and the compute the average of the matrices in the array.
 
 
-```r
+``` r
 > a <- array(rnorm(2 * 2 * 10), c(2, 2, 10))
 > apply(a, c(1, 2), mean)
           [,1]       [,2]
@@ -641,7 +641,7 @@ In the call to `apply()` here, I indicated via the `MARGIN` argument that I want
 There is a faster way to do this specific operation via the `colMeans()` function.
 
 
-```r
+``` r
 > rowMeans(a, dims = 2)    ## Faster
           [,1]       [,2]
 [1,] 0.1681387 -0.1039673
@@ -658,7 +658,7 @@ In this situation, I might argue that the use of `rowMeans()` is less readable, 
 The `mapply()` function is a multivariate apply of sorts which applies a function in parallel over a set of arguments. Recall that `lapply()` and friends only iterate over a single R object. What if you want to iterate over multiple R objects in parallel? This is what `mapply()` is for.
 
 
-```r
+``` r
 > str(mapply)
 function (FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE, USE.NAMES = TRUE)  
 ```
@@ -679,7 +679,7 @@ For example, the following is tedious to type
 With `mapply()`, instead we can do
 
 
-```r
+``` r
 >  mapply(rep, 1:4, 4:1)
 [[1]]
 [1] 1 1 1 1
@@ -700,7 +700,7 @@ This passes the sequence `1:4` to the first argument of `rep()` and the sequence
 Here's another example for simulating randon Normal variables.
 
 
-```r
+``` r
 > noise <- function(n, mean, sd) {
 +       rnorm(n, mean, sd)
 + }
@@ -717,7 +717,7 @@ Here we can use `mapply()` to pass the sequence `1:5` separately to the `noise()
 
 
 
-```r
+``` r
 > mapply(noise, 1:5, 1:5, 2)
 [[1]]
 [1] 0.8260273
@@ -738,7 +738,7 @@ Here we can use `mapply()` to pass the sequence `1:5` separately to the `noise()
 The above call to `mapply()` is the same as
 
 
-```r
+``` r
 > list(noise(1, 1, 2), noise(2, 2, 2),
 +      noise(3, 3, 2), noise(4, 4, 2),
 +      noise(5, 5, 2))
@@ -765,7 +765,7 @@ The `mapply()` function can be use to automatically "vectorize" a function. What
 Here's an example of a function that computes the sum of squares given some data, a mean parameter and a standard deviation. The formula is $\sum_{i=1}^n(x_i-\mu)^2/\sigma^2$.
 
 
-```r
+``` r
 > sumsq <- function(mu, sigma, x) {
 +         sum(((x - mu) / sigma)^2)
 + }
@@ -776,7 +776,7 @@ This function takes a mean `mu`, a standard deviation `sigma`, and some data in 
 In many statistical applications, we want to minimize the sum of squares to find the optimal `mu` and `sigma`. Before we do that, we may want to evaluate or plot the function for many different values of `mu` or `sigma`. However, passing a vector of `mu`s or `sigma`s won't work with this function because it's not vectorized.
 
 
-```r
+``` r
 > x <- rnorm(100)       ## Generate some data
 > sumsq(1:10, 1:10, x)  ## This is not what we want
 [1] 110.2594
@@ -787,7 +787,7 @@ Note that the call to `sumsq()` only produced one value instead of 10 values.
 However, we can do what we want to do by using `mapply()`.
 
 
-```r
+``` r
 > mapply(sumsq, 1:10, 1:10, MoreArgs = list(x = x))
  [1] 196.2289 121.4765 108.3981 104.0788 102.1975 101.2393 100.6998 100.3745
  [9] 100.1685 100.0332
@@ -796,7 +796,7 @@ However, we can do what we want to do by using `mapply()`.
 There's even a function in R called `Vectorize()` that automatically can create a vectorized version of your function. So we could create a `vsumsq()` function that is fully vectorized as follows.
 
 
-```r
+``` r
 > vsumsq <- Vectorize(sumsq, c("mu", "sigma"))
 > vsumsq(1:10, 1:10, x)
  [1] 196.2289 121.4765 108.3981 104.0788 102.1975 101.2393 100.6998 100.3745

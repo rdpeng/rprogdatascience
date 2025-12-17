@@ -11,10 +11,13 @@
 How does R know which value to assign to which symbol? When I type
 
 
-```r
+``` r
 > lm <- function(x) { x * x }
 > lm
-function(x) { x * x }
+function (x) 
+{
+    x * x
+}
 ```
 
 how does R know what value to assign to the symbol `lm`? Why doesn’t it give it the value of `lm` that is in the `stats` package?
@@ -27,7 +30,7 @@ When R tries to bind a value to a symbol, it searches through a series of `envir
 The search list can be found by using the `search()` function.
 
 
-```r
+``` r
 > search()
 [1] ".GlobalEnv"        "package:stats"     "package:graphics" 
 [4] "package:grDevices" "package:utils"     "package:datasets" 
@@ -53,7 +56,7 @@ symbol
 Consider the following function.
 
 
-```r
+``` r
 > f <- function(x, y) {
 +         x^2 + y / z
 + }
@@ -93,7 +96,7 @@ Typically, a function is defined in the global environment, so that the values o
 Here is an example of a function that returns another function as its return value. Remember, in R functions are treated like any other object and so this is perfectly valid.
 
 
-```r
+``` r
 > make.power <- function(n) {
 +         pow <- function(x) {
 +                 x^n 
@@ -105,7 +108,7 @@ Here is an example of a function that returns another function as its return val
 The `make.power()` function is a kind of "constructor function" that can be used to construct other functions.
 
 
-```r
+``` r
 > cube <- make.power(3)
 > square <- make.power(2)
 > cube(3)
@@ -117,12 +120,13 @@ The `make.power()` function is a kind of "constructor function" that can be used
 Let's take a look at the `cube()` function's code.
 
 
-```r
+``` r
 > cube
-function(x) {
-                x^n 
-        }
-<environment: 0x7fb7c2928670>
+function (x) 
+{
+    x^n
+}
+<environment: 0x106bcd360>
 ```
 
 Notice that `cube()` has a free variable `n`. What is the value of `n` here? Well, its value is taken from the environment where the function was defined. When I defined the `cube()` function it was when I called `make.power(3)`, so the value of `n` at that time was 3.
@@ -130,7 +134,7 @@ Notice that `cube()` has a free variable `n`. What is the value of `n` here? Wel
 We can explore the environment of a function to see what objects are there and their values.
 
 
-```r
+``` r
 > ls(environment(cube))
 [1] "n"   "pow"
 > get("n", environment(cube))
@@ -140,7 +144,7 @@ We can explore the environment of a function to see what objects are there and t
 We can also take a look at the `square()` function.
 
 
-```r
+``` r
 > ls(environment(square))
 [1] "n"   "pow"
 > get("n", environment(square))
@@ -153,7 +157,7 @@ We can also take a look at the `square()` function.
 We can use the following example to demonstrate the difference between lexical and dynamic scoping rules.
 
 
-```r
+``` r
 > y <- 10
 > 
 > f <- function(x) {
@@ -181,7 +185,7 @@ Consider this example.
 
 
 
-```r
+``` r
 > g <- function(x) { 
 +         a <- 3
 +         x+a+y   
@@ -219,7 +223,7 @@ Optimization routines in R like `optim()`, `nlm()`, and `optimize()` require you
 Here is an example of a "constructor" function that creates a negative log-likelihood function that can be minimized to find maximum likelihood estimates in a statistical model.
 
 
-```r
+``` r
 > make.NegLogLik <- function(data, fixed = c(FALSE, FALSE)) {
 +         params <- fixed
 +         function(p) {
@@ -240,23 +244,22 @@ Here is an example of a "constructor" function that creates a negative log-likel
 Now we can generate some data and then construct our negative log-likelihood.
 
 
-```r
+``` r
 > set.seed(1)
 > normals <- rnorm(100, 1, 2)
 > nLL <- make.NegLogLik(normals)
 > nLL
-function(p) {
-                params[!fixed] <- p
-                mu <- params[1]
-                sigma <- params[2]
-                
-                ## Calculate the Normal density
-                a <- -0.5*length(data)*log(2*pi*sigma^2)
-                b <- -0.5*sum((data-mu)^2) / (sigma^2)
-                -(a + b)
-        }
-<bytecode: 0x7fb7718e53b8>
-<environment: 0x7fb7c1d53eb8>
+function (p) 
+{
+    params[!fixed] <- p
+    mu <- params[1]
+    sigma <- params[2]
+    a <- -0.5 * length(data) * log(2 * pi * sigma^2)
+    b <- -0.5 * sum((data - mu)^2)/(sigma^2)
+    -(a + b)
+}
+<bytecode: 0x11eab2af8>
+<environment: 0x11e2ddd58>
 > 
 > ## What's in the function environment?
 > ls(environment(nLL))   
@@ -266,7 +269,7 @@ function(p) {
 Now that we have our `nLL()` function, we can try to minimize it with `optim()` to estimate the parameters.
 
 
-```r
+``` r
 > optim(c(mu = 0, sigma = 1), nLL)$par
       mu    sigma 
 1.218239 1.787343 
@@ -277,7 +280,7 @@ You can see that the algorithm converged and obtained an estimate of `mu` and `s
 We can also try to estimate one parameter while holding another parameter fixed. Here we fix `sigma` to be equal to 2. 
 
 
-```r
+``` r
 > nLL <- make.NegLogLik(normals, c(FALSE, 2))
 > optimize(nLL, c(-1, 3))$minimum
 [1] 1.217775
@@ -288,7 +291,7 @@ Because we now have a one-dimensional problem, we can use the simpler `optimize(
 We can also try to estimate `sigma` while holding `mu` fixed at 1.
 
 
-```r
+``` r
 > nLL <- make.NegLogLik(normals, c(1, FALSE))
 > optimize(nLL, c(1e-6, 10))$minimum
 [1] 1.800596
@@ -301,7 +304,7 @@ Another nice feature that you can take advantage of is plotting the negative log
 Here is the function when `mu` is fixed.
 
 
-```r
+``` r
 > ## Fix 'mu' to be equalt o 1
 > nLL <- make.NegLogLik(normals, c(1, FALSE))  
 > x <- seq(1.7, 1.9, len = 100)
@@ -316,7 +319,7 @@ Here is the function when `mu` is fixed.
 Here is the function when `sigma` is fixed.
 
 
-```r
+``` r
 > ## Fix 'sigma' to be equal to 2
 > nLL <- make.NegLogLik(normals, c(FALSE, 2))
 > x <- seq(0.5, 1.5, len = 100)

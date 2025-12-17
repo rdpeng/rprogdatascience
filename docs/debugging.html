@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>18 Debugging | R Programming for Data Science</title>
   <meta name="description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="18 Debugging | R Programming for Data Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Roger D. Peng" />
 
 
-<meta name="date" content="2022-05-31" />
+<meta name="date" content="2025-12-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -92,7 +93,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +106,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +120,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -394,71 +399,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>condition</code>: A generic concept for indicating that something unexpected has occurred; programmers can create their own custom conditions if they want.</li>
 </ul>
 <p>Here is an example of a warning that you might receive in the course of using R.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="debugging.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb248-2"><a href="debugging.html#cb248-2" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)<span class="sc">:</span> NaNs produced</span>
-<span id="cb248-3"><a href="debugging.html#cb248-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NaN</span></span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="debugging.html#cb248-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb248-2"><a href="debugging.html#cb248-2" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>)<span class="sc">:</span> NaNs produced</span>
+<span id="cb248-3"><a href="debugging.html#cb248-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NaN</span></span></code></pre></div>
 <p>This warning lets you know that taking the log of a negative number results in a <code>NaN</code> value because you can’t take the log of negative numbers. Nevertheless, R doesn’t give an error, because it has a useful value that it can return, the <code>NaN</code> value. The warning is just there to let you know that something unexpected happen. Depending on what you are programming, you may have intentionally taken the log of a negative number in order to move on to another section of code.</p>
 <p>Here is another function that is designed to print a message to the console depending on the nature of its input.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="debugging.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> printmessage <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb249-2"><a href="debugging.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb249-3"><a href="debugging.html#cb249-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>)</span>
-<span id="cb249-4"><a href="debugging.html#cb249-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span></span>
-<span id="cb249-5"><a href="debugging.html#cb249-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)</span>
-<span id="cb249-6"><a href="debugging.html#cb249-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">invisible</span>(x)        </span>
-<span id="cb249-7"><a href="debugging.html#cb249-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="debugging.html#cb249-1" tabindex="-1"></a><span class="sc">&gt;</span> printmessage <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb249-2"><a href="debugging.html#cb249-2" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb249-3"><a href="debugging.html#cb249-3" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>)</span>
+<span id="cb249-4"><a href="debugging.html#cb249-4" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span></span>
+<span id="cb249-5"><a href="debugging.html#cb249-5" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)</span>
+<span id="cb249-6"><a href="debugging.html#cb249-6" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">invisible</span>(x)        </span>
+<span id="cb249-7"><a href="debugging.html#cb249-7" tabindex="-1"></a><span class="sc">+</span> }</span></code></pre></div>
 <p>This function is simple—it prints a message telling you whether <code>x</code> is greater than zero or less than or equal to zero. It also returns its input <em>invisibly</em>, which is a common practice with “print” functions. Returning an object invisibly means that the return value does not get auto-printed when the function is called.</p>
 <p>Take a hard look at the function above and see if you can identify any bugs or problems.</p>
 <p>We can execute the function as follows.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="debugging.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage</span>(<span class="dv">1</span>)</span>
-<span id="cb250-2"><a href="debugging.html#cb250-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is greater than zero&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="debugging.html#cb250-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage</span>(<span class="dv">1</span>)</span>
+<span id="cb250-2"><a href="debugging.html#cb250-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is greater than zero&quot;</span></span></code></pre></div>
 <p>The function seems to work fine at this point. No errors, warnings, or messages.</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="debugging.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage</span>(<span class="cn">NA</span>)</span>
-<span id="cb251-2"><a href="debugging.html#cb251-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)<span class="sc">:</span> missing value where <span class="cn">TRUE</span><span class="sc">/</span><span class="cn">FALSE</span> needed</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="debugging.html#cb251-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage</span>(<span class="cn">NA</span>)</span>
+<span id="cb251-2"><a href="debugging.html#cb251-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)<span class="sc">:</span> missing value where <span class="cn">TRUE</span><span class="sc">/</span><span class="cn">FALSE</span> needed</span></code></pre></div>
 <p>What happened?</p>
 <p>Well, the first thing the function does is test if <code>x &gt; 0</code>. But you can’t do that test if <code>x</code> is a <code>NA</code> or <code>NaN</code> value. R doesn’t know what to do in this case so it stops with a fatal error.</p>
 <p>We can fix this problem by anticipating the possibility of <code>NA</code> values and checking to see if the input is <code>NA</code> with the <code>is.na()</code> function.</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="debugging.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> printmessage2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb252-2"><a href="debugging.html#cb252-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(<span class="fu">is.na</span>(x))</span>
-<span id="cb252-3"><a href="debugging.html#cb252-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>)</span>
-<span id="cb252-4"><a href="debugging.html#cb252-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb252-5"><a href="debugging.html#cb252-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>)</span>
-<span id="cb252-6"><a href="debugging.html#cb252-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span></span>
-<span id="cb252-7"><a href="debugging.html#cb252-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)</span>
-<span id="cb252-8"><a href="debugging.html#cb252-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">invisible</span>(x)</span>
-<span id="cb252-9"><a href="debugging.html#cb252-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="debugging.html#cb252-1" tabindex="-1"></a><span class="sc">&gt;</span> printmessage2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb252-2"><a href="debugging.html#cb252-2" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(<span class="fu">is.na</span>(x))</span>
+<span id="cb252-3"><a href="debugging.html#cb252-3" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>)</span>
+<span id="cb252-4"><a href="debugging.html#cb252-4" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb252-5"><a href="debugging.html#cb252-5" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>)</span>
+<span id="cb252-6"><a href="debugging.html#cb252-6" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span></span>
+<span id="cb252-7"><a href="debugging.html#cb252-7" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)</span>
+<span id="cb252-8"><a href="debugging.html#cb252-8" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">invisible</span>(x)</span>
+<span id="cb252-9"><a href="debugging.html#cb252-9" tabindex="-1"></a><span class="sc">+</span> }</span></code></pre></div>
 <p>Now we can run the following.</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="debugging.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage2</span>(<span class="cn">NA</span>)</span>
-<span id="cb253-2"><a href="debugging.html#cb253-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is a missing value!&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="debugging.html#cb253-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage2</span>(<span class="cn">NA</span>)</span>
+<span id="cb253-2"><a href="debugging.html#cb253-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is a missing value!&quot;</span></span></code></pre></div>
 <p>And all is fine.</p>
 <p>Now what about the following situation.</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="debugging.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb254-2"><a href="debugging.html#cb254-2" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))<span class="sc">:</span> NaNs produced</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="debugging.html#cb254-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb254-2"><a href="debugging.html#cb254-2" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">log</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))<span class="sc">:</span> NaNs produced</span></code></pre></div>
 <p>We expect some <code>NaN</code>s here because taking the log of a negative number doesn’t make sense.</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="debugging.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage2</span>(x)</span>
-<span id="cb255-2"><a href="debugging.html#cb255-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="cf">if</span> (<span class="fu">is.na</span>(x)) <span class="fu">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>) <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)<span class="sc">:</span> the condition has length <span class="sc">&gt;</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="debugging.html#cb255-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage2</span>(x)</span>
+<span id="cb255-2"><a href="debugging.html#cb255-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="cf">if</span> (<span class="fu">is.na</span>(x)) <span class="fu">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>) <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)<span class="sc">:</span> the condition has length <span class="sc">&gt;</span> <span class="dv">1</span></span></code></pre></div>
 <p>Now what?? Why are we getting this error?</p>
 <p>The problem here is that I passed <code>printmessage2()</code> a vector <code>x</code> that was of length 2 rather then length 1. Inside the body of <code>printmessage2()</code> the expression <code>is.na(x)</code> returns a vector that is tested in the <code>if</code> statement. However, <code>if</code> cannot take vector arguments so you get an error (in previous versions of R you only got a warning). The fundamental problem here is that <code>printmessage2()</code> is not <em>vectorized</em>.</p>
 <p>We can solve this problem two ways. One is by simply not allowing vector arguments. The other way is to vectorize the <code>printmessage2()</code> function to allow it to take vector arguments.</p>
 <p>For the first way, we simply need to check the length of the input.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="debugging.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> printmessage3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb256-2"><a href="debugging.html#cb256-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(<span class="fu">length</span>(x) <span class="sc">&gt;</span> 1L)</span>
-<span id="cb256-3"><a href="debugging.html#cb256-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">stop</span>(<span class="st">&quot;&#39;x&#39; has length &gt; 1&quot;</span>)</span>
-<span id="cb256-4"><a href="debugging.html#cb256-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(<span class="fu">is.na</span>(x))</span>
-<span id="cb256-5"><a href="debugging.html#cb256-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>)</span>
-<span id="cb256-6"><a href="debugging.html#cb256-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb256-7"><a href="debugging.html#cb256-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>)</span>
-<span id="cb256-8"><a href="debugging.html#cb256-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span></span>
-<span id="cb256-9"><a href="debugging.html#cb256-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)</span>
-<span id="cb256-10"><a href="debugging.html#cb256-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">invisible</span>(x)</span>
-<span id="cb256-11"><a href="debugging.html#cb256-11" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="debugging.html#cb256-1" tabindex="-1"></a><span class="sc">&gt;</span> printmessage3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb256-2"><a href="debugging.html#cb256-2" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(<span class="fu">length</span>(x) <span class="sc">&gt;</span> <span class="dv">1</span><span class="dt">L</span>)</span>
+<span id="cb256-3"><a href="debugging.html#cb256-3" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">stop</span>(<span class="st">&quot;&#39;x&#39; has length &gt; 1&quot;</span>)</span>
+<span id="cb256-4"><a href="debugging.html#cb256-4" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">if</span>(<span class="fu">is.na</span>(x))</span>
+<span id="cb256-5"><a href="debugging.html#cb256-5" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is a missing value!&quot;</span>)</span>
+<span id="cb256-6"><a href="debugging.html#cb256-6" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span> <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb256-7"><a href="debugging.html#cb256-7" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is greater than zero&quot;</span>)</span>
+<span id="cb256-8"><a href="debugging.html#cb256-8" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">else</span></span>
+<span id="cb256-9"><a href="debugging.html#cb256-9" tabindex="-1"></a><span class="sc">+</span>                 <span class="fu">print</span>(<span class="st">&quot;x is less than or equal to zero&quot;</span>)</span>
+<span id="cb256-10"><a href="debugging.html#cb256-10" tabindex="-1"></a><span class="sc">+</span>         <span class="fu">invisible</span>(x)</span>
+<span id="cb256-11"><a href="debugging.html#cb256-11" tabindex="-1"></a><span class="sc">+</span> }</span></code></pre></div>
 <p>Now when we pass <code>printmessage3()</code> a vector we should get an error.</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="debugging.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage3</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
-<span id="cb257-2"><a href="debugging.html#cb257-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">printmessage3</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)<span class="sc">:</span> <span class="st">&#39;x&#39;</span> has length <span class="sc">&gt;</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="debugging.html#cb257-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">printmessage3</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb257-2"><a href="debugging.html#cb257-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">printmessage3</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)<span class="sc">:</span> <span class="st">&#39;x&#39;</span> has length <span class="sc">&gt;</span> <span class="dv">1</span></span></code></pre></div>
 <p>Vectorizing the function can be accomplished easily with the <code>Vectorize()</code> function.</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="debugging.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> printmessage4 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(printmessage2)</span>
-<span id="cb258-2"><a href="debugging.html#cb258-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> out <span class="ot">&lt;-</span> <span class="fu">printmessage4</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb258-3"><a href="debugging.html#cb258-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is less than or equal to zero&quot;</span></span>
-<span id="cb258-4"><a href="debugging.html#cb258-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is greater than zero&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="debugging.html#cb258-1" tabindex="-1"></a><span class="sc">&gt;</span> printmessage4 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(printmessage2)</span>
+<span id="cb258-2"><a href="debugging.html#cb258-2" tabindex="-1"></a><span class="sc">&gt;</span> out <span class="ot">&lt;-</span> <span class="fu">printmessage4</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb258-3"><a href="debugging.html#cb258-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is less than or equal to zero&quot;</span></span>
+<span id="cb258-4"><a href="debugging.html#cb258-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;x is greater than zero&quot;</span></span></code></pre></div>
 <p>You can see now that the correct messages are printed without any warning or error. Note that I stored the return value of <code>printmessage4()</code> in a separate R object called <code>out</code>. This is because when I use the <code>Vectorize()</code> function it no longer preserves the invisibility of the return value.</p>
 </div>
 <div id="figuring-out-whats-wrong" class="section level2 hasAnchor" number="18.2">
@@ -492,23 +497,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a href="https://youtu.be/VT9ZxCp6o-I">Watch a video of this section</a></p>
 <p>The <code>traceback()</code> function prints out the <em>function call stack</em> after an error has occurred. The function call stack is the sequence of functions that was called before the error occurred.</p>
 <p>For example, you may have a function <code>a()</code> which subsequently calls function <code>b()</code> which calls <code>c()</code> and then <code>d()</code>. If an error occurs, it may not be immediately clear in which function the error occurred. The <code>traceback()</code> function shows you how many levels deep you were when the error occurred.</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="debugging.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">mean</span>(x)</span>
-<span id="cb259-2"><a href="debugging.html#cb259-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">mean</span>(x) <span class="sc">:</span> object <span class="st">&#39;x&#39;</span> not found</span>
-<span id="cb259-3"><a href="debugging.html#cb259-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">traceback</span>()</span>
-<span id="cb259-4"><a href="debugging.html#cb259-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">mean</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="debugging.html#cb259-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">mean</span>(x)</span>
+<span id="cb259-2"><a href="debugging.html#cb259-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">mean</span>(x) <span class="sc">:</span> object <span class="st">&#39;x&#39;</span> not found</span>
+<span id="cb259-3"><a href="debugging.html#cb259-3" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">traceback</span>()</span>
+<span id="cb259-4"><a href="debugging.html#cb259-4" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">mean</span>(x)</span></code></pre></div>
 <p>Here, it’s clear that the error occurred inside the <code>mean()</code> function because the object <code>x</code> does not exist.</p>
 <p>The <code>traceback()</code> function must be called immediately after an error occurs. Once another function is called, you lose the traceback.</p>
 <p>Here is a slightly more complicated example using the <code>lm()</code> function for linear modeling.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="debugging.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb260-2"><a href="debugging.html#cb260-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos) <span class="sc">:</span> object ’y’ not found</span>
-<span id="cb260-3"><a href="debugging.html#cb260-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">traceback</span>()</span>
-<span id="cb260-4"><a href="debugging.html#cb260-4" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span><span class="sc">:</span> <span class="fu">eval</span>(expr, envir, enclos)</span>
-<span id="cb260-5"><a href="debugging.html#cb260-5" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="sc">:</span> <span class="fu">eval</span>(predvars, data, env)</span>
-<span id="cb260-6"><a href="debugging.html#cb260-6" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">:</span> <span class="fu">model.frame.default</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">drop.unused.levels =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb260-7"><a href="debugging.html#cb260-7" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="sc">:</span> <span class="fu">model.frame</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">drop.unused.levels =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb260-8"><a href="debugging.html#cb260-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> <span class="fu">eval</span>(expr, envir, enclos)</span>
-<span id="cb260-9"><a href="debugging.html#cb260-9" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> <span class="fu">eval</span>(mf, <span class="fu">parent.frame</span>())</span>
-<span id="cb260-10"><a href="debugging.html#cb260-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="debugging.html#cb260-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb260-2"><a href="debugging.html#cb260-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos) <span class="sc">:</span> object ’y’ not found</span>
+<span id="cb260-3"><a href="debugging.html#cb260-3" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">traceback</span>()</span>
+<span id="cb260-4"><a href="debugging.html#cb260-4" tabindex="-1"></a><span class="dv">7</span><span class="sc">:</span> <span class="fu">eval</span>(expr, envir, enclos)</span>
+<span id="cb260-5"><a href="debugging.html#cb260-5" tabindex="-1"></a><span class="dv">6</span><span class="sc">:</span> <span class="fu">eval</span>(predvars, data, env)</span>
+<span id="cb260-6"><a href="debugging.html#cb260-6" tabindex="-1"></a><span class="dv">5</span><span class="sc">:</span> <span class="fu">model.frame.default</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">drop.unused.levels =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb260-7"><a href="debugging.html#cb260-7" tabindex="-1"></a><span class="dv">4</span><span class="sc">:</span> <span class="fu">model.frame</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">drop.unused.levels =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb260-8"><a href="debugging.html#cb260-8" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> <span class="fu">eval</span>(expr, envir, enclos)</span>
+<span id="cb260-9"><a href="debugging.html#cb260-9" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> <span class="fu">eval</span>(mf, <span class="fu">parent.frame</span>())</span>
+<span id="cb260-10"><a href="debugging.html#cb260-10" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
 <p>You can see now that the error did not get thrown until the 7th level of the function call stack, in which case the <code>eval()</code> function tried to evaluate the formula <code>y ~ x</code> and realized the object <code>y</code> did not exist.</p>
 <p>Looking at the traceback is useful for figuring out roughly where an error occurred but it’s not useful for more detailed debugging. For that you might turn to the <code>debug()</code> function.</p>
 </div>
@@ -516,19 +521,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">18.5</span> Using <code>debug()</code><a href="debugging.html#using-debug" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>debug()</code> function initiates an interactive debugger (also known as the “browser” in R) for a function. With the debugger, you can step through an R function one expression at a time to pinpoint exactly where an error occurs.</p>
 <p>The <code>debug()</code> function takes a function as its first argument. Here is an example of debugging the <code>lm()</code> function.</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="debugging.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">debug</span>(lm)      <span class="do">## Flag the &#39;lm()&#39; function for interactive debugging</span></span>
-<span id="cb261-2"><a href="debugging.html#cb261-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb261-3"><a href="debugging.html#cb261-3" aria-hidden="true" tabindex="-1"></a>debugging <span class="cf">in</span><span class="sc">:</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb261-4"><a href="debugging.html#cb261-4" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> {</span>
-<span id="cb261-5"><a href="debugging.html#cb261-5" aria-hidden="true" tabindex="-1"></a>    ret.x <span class="ot">&lt;-</span> x</span>
-<span id="cb261-6"><a href="debugging.html#cb261-6" aria-hidden="true" tabindex="-1"></a>    ret.y <span class="ot">&lt;-</span> y</span>
-<span id="cb261-7"><a href="debugging.html#cb261-7" aria-hidden="true" tabindex="-1"></a>    cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
-<span id="cb261-8"><a href="debugging.html#cb261-8" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb261-9"><a href="debugging.html#cb261-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>qr)</span>
-<span id="cb261-10"><a href="debugging.html#cb261-10" aria-hidden="true" tabindex="-1"></a>        z<span class="sc">$</span>qr <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
-<span id="cb261-11"><a href="debugging.html#cb261-11" aria-hidden="true" tabindex="-1"></a>    z</span>
-<span id="cb261-12"><a href="debugging.html#cb261-12" aria-hidden="true" tabindex="-1"></a>} </span>
-<span id="cb261-13"><a href="debugging.html#cb261-13" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="debugging.html#cb261-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">debug</span>(lm)      <span class="do">## Flag the &#39;lm()&#39; function for interactive debugging</span></span>
+<span id="cb261-2"><a href="debugging.html#cb261-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb261-3"><a href="debugging.html#cb261-3" tabindex="-1"></a>debugging <span class="cf">in</span><span class="sc">:</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb261-4"><a href="debugging.html#cb261-4" tabindex="-1"></a>debug<span class="sc">:</span> {</span>
+<span id="cb261-5"><a href="debugging.html#cb261-5" tabindex="-1"></a>    ret.x <span class="ot">&lt;-</span> x</span>
+<span id="cb261-6"><a href="debugging.html#cb261-6" tabindex="-1"></a>    ret.y <span class="ot">&lt;-</span> y</span>
+<span id="cb261-7"><a href="debugging.html#cb261-7" tabindex="-1"></a>    cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
+<span id="cb261-8"><a href="debugging.html#cb261-8" tabindex="-1"></a>    ...</span>
+<span id="cb261-9"><a href="debugging.html#cb261-9" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>qr)</span>
+<span id="cb261-10"><a href="debugging.html#cb261-10" tabindex="-1"></a>        z<span class="sc">$</span>qr <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
+<span id="cb261-11"><a href="debugging.html#cb261-11" tabindex="-1"></a>    z</span>
+<span id="cb261-12"><a href="debugging.html#cb261-12" tabindex="-1"></a>} </span>
+<span id="cb261-13"><a href="debugging.html#cb261-13" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span></span></code></pre></div>
 <p>Now, every time you call the <code>lm()</code> function it will launch the interactive debugger. To turn this behavior off you need to call the <code>undebug()</code> function.</p>
 <p>The debugger calls the browser at the very top level of the function body. From there you can step through each expression in the body. There are a few special commands you can call in the browser:</p>
 <ul>
@@ -537,39 +542,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>Q</code> quits the browser</li>
 </ul>
 <p>Here’s an example of a browser session with the <code>lm()</code> function.</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="debugging.html#cb262-1" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n   <span class="do">## Evalute this expression and move to the next one</span></span>
-<span id="cb262-2"><a href="debugging.html#cb262-2" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> ret.x <span class="ot">&lt;-</span> x</span>
-<span id="cb262-3"><a href="debugging.html#cb262-3" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
-<span id="cb262-4"><a href="debugging.html#cb262-4" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> ret.y <span class="ot">&lt;-</span> y</span>
-<span id="cb262-5"><a href="debugging.html#cb262-5" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
-<span id="cb262-6"><a href="debugging.html#cb262-6" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
-<span id="cb262-7"><a href="debugging.html#cb262-7" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
-<span id="cb262-8"><a href="debugging.html#cb262-8" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> mf <span class="ot">&lt;-</span> <span class="fu">match.call</span>(<span class="at">expand.dots =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb262-9"><a href="debugging.html#cb262-9" aria-hidden="true" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
-<span id="cb262-10"><a href="debugging.html#cb262-10" aria-hidden="true" tabindex="-1"></a>debug<span class="sc">:</span> m <span class="ot">&lt;-</span> <span class="fu">match</span>(<span class="fu">c</span>(<span class="st">&quot;formula&quot;</span>, <span class="st">&quot;data&quot;</span>, <span class="st">&quot;subset&quot;</span>, <span class="st">&quot;weights&quot;</span>, <span class="st">&quot;na.action&quot;</span>,</span>
-<span id="cb262-11"><a href="debugging.html#cb262-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;offset&quot;</span>), <span class="fu">names</span>(mf), 0L)</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="debugging.html#cb262-1" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n   <span class="do">## Evalute this expression and move to the next one</span></span>
+<span id="cb262-2"><a href="debugging.html#cb262-2" tabindex="-1"></a>debug<span class="sc">:</span> ret.x <span class="ot">&lt;-</span> x</span>
+<span id="cb262-3"><a href="debugging.html#cb262-3" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb262-4"><a href="debugging.html#cb262-4" tabindex="-1"></a>debug<span class="sc">:</span> ret.y <span class="ot">&lt;-</span> y</span>
+<span id="cb262-5"><a href="debugging.html#cb262-5" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb262-6"><a href="debugging.html#cb262-6" tabindex="-1"></a>debug<span class="sc">:</span> cl <span class="ot">&lt;-</span> <span class="fu">match.call</span>()</span>
+<span id="cb262-7"><a href="debugging.html#cb262-7" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb262-8"><a href="debugging.html#cb262-8" tabindex="-1"></a>debug<span class="sc">:</span> mf <span class="ot">&lt;-</span> <span class="fu">match.call</span>(<span class="at">expand.dots =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb262-9"><a href="debugging.html#cb262-9" tabindex="-1"></a>Browse[<span class="dv">2</span>]<span class="sc">&gt;</span> n</span>
+<span id="cb262-10"><a href="debugging.html#cb262-10" tabindex="-1"></a>debug<span class="sc">:</span> m <span class="ot">&lt;-</span> <span class="fu">match</span>(<span class="fu">c</span>(<span class="st">&quot;formula&quot;</span>, <span class="st">&quot;data&quot;</span>, <span class="st">&quot;subset&quot;</span>, <span class="st">&quot;weights&quot;</span>, <span class="st">&quot;na.action&quot;</span>,</span>
+<span id="cb262-11"><a href="debugging.html#cb262-11" tabindex="-1"></a>    <span class="st">&quot;offset&quot;</span>), <span class="fu">names</span>(mf), <span class="dv">0</span><span class="dt">L</span>)</span></code></pre></div>
 <p>While you are in the browser you can execute any other R function that might be available to you in a regular session. In particular, you can use <code>ls()</code> to see what is in your current environment (the function environment) and <code>print()</code> to print out the values of R objects in the function environment.</p>
 <p>You can turn off interactive debugging with the <code>undebug()</code> function.</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="debugging.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="fu">undebug</span>(lm)    <span class="do">## Unflag the &#39;lm()&#39; function for debugging</span></span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="debugging.html#cb263-1" tabindex="-1"></a><span class="fu">undebug</span>(lm)    <span class="do">## Unflag the &#39;lm()&#39; function for debugging</span></span></code></pre></div>
 </div>
 <div id="using-recover" class="section level2 hasAnchor" number="18.6">
 <h2><span class="header-section-number">18.6</span> Using <code>recover()</code><a href="debugging.html#using-recover" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>recover()</code> function can be used to modify the error behavior of R when an error occurs. Normally, when an error occurs in a function, R will print out an error message, exit out of the function, and return you to your workspace to await further commands.</p>
 <p>With <code>recover()</code> you can tell R that when an error occurs, it should halt execution at the exact point at which the error occurred. That can give you the opportunity to poke around in the environment in which the error occurred. This can be useful to see if there are any R objects or data that have been corrupted or mistakenly modified.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="debugging.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">options</span>(<span class="at">error =</span> recover)    <span class="do">## Change default R error behavior</span></span>
-<span id="cb264-2"><a href="debugging.html#cb264-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">read.csv</span>(<span class="st">&quot;nosuchfile&quot;</span>)      <span class="do">## This code doesn&#39;t work</span></span>
-<span id="cb264-3"><a href="debugging.html#cb264-3" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">file</span>(file, <span class="st">&quot;rt&quot;</span>) <span class="sc">:</span> cannot open the connection</span>
-<span id="cb264-4"><a href="debugging.html#cb264-4" aria-hidden="true" tabindex="-1"></a>In addition<span class="sc">:</span> Warning message<span class="sc">:</span></span>
-<span id="cb264-5"><a href="debugging.html#cb264-5" aria-hidden="true" tabindex="-1"></a>In <span class="fu">file</span>(file, <span class="st">&quot;rt&quot;</span>) <span class="sc">:</span></span>
-<span id="cb264-6"><a href="debugging.html#cb264-6" aria-hidden="true" tabindex="-1"></a>  cannot open file ’nosuchfile’<span class="sc">:</span> No such file or directory</span>
-<span id="cb264-7"><a href="debugging.html#cb264-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb264-8"><a href="debugging.html#cb264-8" aria-hidden="true" tabindex="-1"></a>Enter a frame number, or <span class="dv">0</span> to exit</span>
-<span id="cb264-9"><a href="debugging.html#cb264-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb264-10"><a href="debugging.html#cb264-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">read.csv</span>(<span class="st">&quot;nosuchfile&quot;</span>)</span>
-<span id="cb264-11"><a href="debugging.html#cb264-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> <span class="fu">read.table</span>(<span class="at">file =</span> file, <span class="at">header =</span> header, <span class="at">sep =</span> sep, <span class="at">quote =</span> quote, <span class="at">dec =</span></span>
-<span id="cb264-12"><a href="debugging.html#cb264-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> <span class="fu">file</span>(file, <span class="st">&quot;rt&quot;</span>)</span>
-<span id="cb264-13"><a href="debugging.html#cb264-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb264-14"><a href="debugging.html#cb264-14" aria-hidden="true" tabindex="-1"></a>Selection<span class="sc">:</span></span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="debugging.html#cb264-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">options</span>(<span class="at">error =</span> recover)    <span class="do">## Change default R error behavior</span></span>
+<span id="cb264-2"><a href="debugging.html#cb264-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">read.csv</span>(<span class="st">&quot;nosuchfile&quot;</span>)      <span class="do">## This code doesn&#39;t work</span></span>
+<span id="cb264-3"><a href="debugging.html#cb264-3" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">file</span>(file, <span class="st">&quot;rt&quot;</span>) <span class="sc">:</span> cannot open the connection</span>
+<span id="cb264-4"><a href="debugging.html#cb264-4" tabindex="-1"></a>In addition<span class="sc">:</span> Warning message<span class="sc">:</span></span>
+<span id="cb264-5"><a href="debugging.html#cb264-5" tabindex="-1"></a>In <span class="fu">file</span>(file, <span class="st">&quot;rt&quot;</span>) <span class="sc">:</span></span>
+<span id="cb264-6"><a href="debugging.html#cb264-6" tabindex="-1"></a>  cannot open file ’nosuchfile’<span class="sc">:</span> No such file or directory</span>
+<span id="cb264-7"><a href="debugging.html#cb264-7" tabindex="-1"></a>  </span>
+<span id="cb264-8"><a href="debugging.html#cb264-8" tabindex="-1"></a>Enter a frame number, or <span class="dv">0</span> to exit</span>
+<span id="cb264-9"><a href="debugging.html#cb264-9" tabindex="-1"></a></span>
+<span id="cb264-10"><a href="debugging.html#cb264-10" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span> <span class="fu">read.csv</span>(<span class="st">&quot;nosuchfile&quot;</span>)</span>
+<span id="cb264-11"><a href="debugging.html#cb264-11" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span> <span class="fu">read.table</span>(<span class="at">file =</span> file, <span class="at">header =</span> header, <span class="at">sep =</span> sep, <span class="at">quote =</span> quote, <span class="at">dec =</span></span>
+<span id="cb264-12"><a href="debugging.html#cb264-12" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span> <span class="fu">file</span>(file, <span class="st">&quot;rt&quot;</span>)</span>
+<span id="cb264-13"><a href="debugging.html#cb264-13" tabindex="-1"></a></span>
+<span id="cb264-14"><a href="debugging.html#cb264-14" tabindex="-1"></a>Selection<span class="sc">:</span></span></code></pre></div>
 <p>The <code>recover()</code> function will first print out the function call stack when an error occurrs. Then, you can choose to jump around the call stack and investigate the problem. When you choose a frame number, you will be put in the browser (just like the interactive debugger triggered with <code>debug()</code>) and will have the ability to poke around.</p>
 </div>
 <div id="summary-8" class="section level2 hasAnchor" number="18.7">
@@ -603,42 +608,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/debugging.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/debugging.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
@@ -649,7 +654,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

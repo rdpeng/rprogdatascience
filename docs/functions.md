@@ -40,7 +40,7 @@ objects of class "function".
 Here's a simple function that takes no arguments and does nothing.
 
 
-```r
+``` r
 > f <- function() {
 +         ## This is an empty function
 + }
@@ -56,7 +56,7 @@ Not very interesting, but it's a start. The next thing we can do is
 create a function that actually has a non-trivial *function body*.
 
 
-```r
+``` r
 > f <- function() {
 +         cat("Hello, world!\n")
 + }
@@ -70,7 +70,7 @@ explicity set. For this basic function, we can add an argument that
 determines how many times "Hello, world!" is printed to the console.
 
 
-```r
+``` r
 > f <- function(num) {
 +         for(i in seq_len(num)) {
 +                 cat("Hello, world!\n")
@@ -91,7 +91,7 @@ Finally, the function above doesn't *return* anything. It just prints "Hello, wo
 This next function returns the total number of characters printed to the console.
 
 
-```r
+``` r
 > f <- function(num) {
 +         hello <- "Hello, world!\n"
 +         for(i in seq_len(num)) {
@@ -115,7 +115,7 @@ Note that there is a `return()` function that can be used to return an explicity
 Finally, in the above function, the user must specify the value of the argument `num`. If it is not specified by the user, R will throw an error.
 
 
-```r
+``` r
 > f()
 Error in f(): argument "num" is missing, with no default
 ```
@@ -125,7 +125,7 @@ We can modify this behavior by setting a *default value* for the argument `num`.
 Here, for example, we could set the default value for `num` to be 1, so that if the function is called without the `num` argument being explicitly specified, then it will print "Hello, world!" to the console once.
 
 
-```r
+``` r
 > f <- function(num = 1) {
 +         hello <- "Hello, world!\n"
 +         for(i in seq_len(num)) {
@@ -157,7 +157,7 @@ At this point, we have written a function that
 Functions have _named arguments_ which can optionally have default values. Because all function arguments have names, they can be specified using their name.
 
 
-```r
+``` r
 > f(num = 2)
 Hello, world!
 Hello, world!
@@ -172,7 +172,7 @@ Specifying an argument by its name is sometimes useful if a function has many ar
 Calling an R function with arguments can be done in a variety of ways. This may be confusing at first, but it's really handing when doing interactive work at the command line. R functions arguments can be matched *positionally* or by name. Positional matching just means that R assigns the first value to the first argument, the second value to second argument, etc. So in the following call to `rnorm()`
 
 
-```r
+``` r
 > str(rnorm)
 function (n, mean = 0, sd = 1)  
 > mydata <- rnorm(100, 2, 1)              ## Generate some data
@@ -183,33 +183,33 @@ function (n, mean = 0, sd = 1)
 The following calls to the `sd()` function (which computes the empirical standard deviation of a vector of numbers) are all equivalent. Note that `sd()` has two arguments: `x` indicates the vector of numbers and `na.rm` is a logical indicating whether missing values should be removed or not.
 
 
-```r
+``` r
 > ## Positional match first argument, default for 'na.rm'
 > sd(mydata)                     
-[1] 0.9351117
+[1] 1.014904
 > ## Specify 'x' argument by name, default for 'na.rm'
 > sd(x = mydata)                 
-[1] 0.9351117
+[1] 1.014904
 > ## Specify both arguments by name
 > sd(x = mydata, na.rm = FALSE)  
-[1] 0.9351117
+[1] 1.014904
 ```
 
 When specifying the function arguments by name, it doesn't matter in what order you specify them. In the example below, we specify the `na.rm` argument first, followed by `x`, even though `x` is the first argument defined in the function definition.
 
 
-```r
+``` r
 > ## Specify both arguments by name
 > sd(na.rm = FALSE, x = mydata)     
-[1] 0.9351117
+[1] 1.014904
 ```
 
 You can mix positional matching with matching by name. When an argument is matched by name, it is “taken out” of the argument list and the remaining unnamed arguments are matched in the order that they are listed in the function definition.
 
 
-```r
+``` r
 > sd(na.rm = FALSE, mydata)
-[1] 0.9351117
+[1] 1.014904
 ```
 
 Here, the `mydata` object is assigned to the `x` argument, because it's the only argument not yet specified.
@@ -217,7 +217,7 @@ Here, the `mydata` object is assigned to the `x` argument, because it's the only
 Below is the argument list for the `lm()` function, which fits linear models to a dataset.
 
 
-```r
+``` r
 > args(lm)
 function (formula, data, subset, weights, na.action, method = "qr", 
     model = TRUE, x = FALSE, y = FALSE, qr = TRUE, singular.ok = TRUE, 
@@ -263,7 +263,7 @@ Arguments to functions are evaluated _lazily_, so they are evaluated only as nee
 In this example, the function `f()` has two arguments: `a` and `b`.
 
 
-```r
+``` r
 > f <- function(a, b) {
 +         a^2
 + } 
@@ -276,14 +276,14 @@ This function never actually uses the argument `b`, so calling `f(2)` will not p
 This example also shows lazy evaluation at work, but does eventually result in an error.
 
 
-```r
+``` r
 > f <- function(a, b) {
 +         print(a)
 +         print(b)
 + }
 > f(45)
 [1] 45
-Error in print(b): argument "b" is missing, with no default
+Error in f(45): argument "b" is missing, with no default
 ```
 
 Notice that "45" got printed first before the error was triggered. This is because `b` did not have to be evaluated until after `print(a)`. Once the function tried to evaluate `print(b)` the function had to throw an error.
@@ -304,11 +304,11 @@ myplot <- function(x, y, type = "l", ...) {
 Generic functions use `...` so that extra arguments can be passed to methods.
 
 
-```r
+``` r
 > mean
 function (x, ...) 
 UseMethod("mean")
-<bytecode: 0x7f8835a11c50>
+<bytecode: 0x15b879d20>
 <environment: namespace:base>
 ```
 
@@ -317,7 +317,7 @@ UseMethod("mean")
 The `...` argument is necessary when the number of arguments passed to the function cannot be known in advance. This is clear in functions like `paste()` and `cat()`.
 
 
-```r
+``` r
 > args(paste)
 function (..., sep = " ", collapse = NULL, recycle0 = FALSE) 
 NULL
@@ -336,7 +336,7 @@ One catch with `...` is that any arguments that appear _after_ `...` on the argu
 Take a look at the arguments to the `paste()` function.
 
 
-```r
+``` r
 > args(paste)
 function (..., sep = " ", collapse = NULL, recycle0 = FALSE) 
 NULL
@@ -347,7 +347,7 @@ With the `paste()` function, the arguments `sep` and `collapse` must be named ex
 Here I specify that I want "a" and "b" to be pasted together and separated by a colon.
 
 
-```r
+``` r
 > paste("a", "b", sep = ":")
 [1] "a:b"
 ```
@@ -356,7 +356,7 @@ If I don't specify the `sep` argument in full and attempt to rely on partial mat
 
 
 
-```r
+``` r
 > paste("a", "b", se = ":")
 [1] "a b :"
 ```

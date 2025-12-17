@@ -37,7 +37,7 @@ rnorm(n, mean = 0, sd = 1)
 Here we simulate standard Normal random numbers with mean 0 and standard deviation 1.
 
 
-```r
+``` r
 > ## Simulate standard Normal random numbers
 > x <- rnorm(10)   
 > x
@@ -48,7 +48,7 @@ Here we simulate standard Normal random numbers with mean 0 and standard deviati
 We can modify the default parameters to simulate numbers with mean 20 and standard deviation 2.
 
 
-```r
+``` r
 > x <- rnorm(10, 20, 2) 
 > x
  [1] 22.20356 21.51156 19.52353 21.97489 21.48278 20.17869 18.09011 19.60970
@@ -61,7 +61,7 @@ We can modify the default parameters to simulate numbers with mean 20 and standa
 If you wanted to know what was the probability of a random Normal variable of being less than, say, 2, you could use the `pnorm()` function to do that calculation.
 
 
-```r
+``` r
 > pnorm(2)
 [1] 0.9772499
 ```
@@ -75,7 +75,7 @@ When simulating any random numbers it is essential to set the *random number see
 For example, I can generate 5 Normal random numbers with `rnorm()`.
 
 
-```r
+``` r
 > set.seed(1)
 > rnorm(5)
 [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
@@ -83,7 +83,7 @@ For example, I can generate 5 Normal random numbers with `rnorm()`.
 
 Note that if I call `rnorm()` again I will of course get a different set of 5 random numbers.
 
-```r
+``` r
 > rnorm(5)
 [1] -0.8204684  0.4874291  0.7383247  0.5757814 -0.3053884
 ```
@@ -91,7 +91,7 @@ Note that if I call `rnorm()` again I will of course get a different set of 5 ra
 If I want to reproduce the original set of random numbers, I can just reset the seed with `set.seed()`.
 
 
-```r
+``` r
 > set.seed(1)
 > rnorm(5)    ## Same as before
 [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
@@ -103,7 +103,7 @@ It is possible to generate random numbers from other probability distributions l
 
 
 
-```r
+``` r
 > rpois(10, 1)    ## Counts with a mean of 1
  [1] 0 0 1 1 2 1 1 4 1 2
 > rpois(10, 2)    ## Counts with a mean of 2
@@ -128,7 +128,7 @@ where $\varepsilon\sim\mathcal{N}(0,2^2)$. Assume $x\sim\mathcal{N}(0,1^2)$, $\b
 
 
 
-```r
+``` r
 > ## Always set your seed!
 > set.seed(20)             
 > 
@@ -148,7 +148,7 @@ where $\varepsilon\sim\mathcal{N}(0,2^2)$. Assume $x\sim\mathcal{N}(0,1^2)$, $\b
 We can plot the results of the model simulation.
 
 
-```r
+``` r
 > plot(x, y)
 ```
 
@@ -158,7 +158,7 @@ We can plot the results of the model simulation.
 What if we wanted to simulate a predictor variable `x` that is binary instead of having a Normal distribution. We can use the `rbinom()` function to simulate binary random variables.
 
 
-```r
+``` r
 > set.seed(10)
 > x <- rbinom(100, 1, 0.5)
 > str(x)    ## 'x' is now 0s and 1s
@@ -168,7 +168,7 @@ What if we wanted to simulate a predictor variable `x` that is binary instead of
 Then we can procede with the rest of the model as before.
 
 
-```r
+``` r
 > e <- rnorm(100, 0, 2)
 > y <- 0.5 + 2 * x + e
 > plot(x, y)
@@ -190,7 +190,7 @@ Y \sim Poisson(\mu)
 and $\beta_0=0.5$ and $\beta_1=0.3$. We need to use the `rpois()` function for this
 
 
-```r
+``` r
 > set.seed(1)
 > 
 > ## Simulate the predictor variable as before
@@ -200,7 +200,7 @@ and $\beta_0=0.5$ and $\beta_1=0.3$. We need to use the `rpois()` function for t
 Now we need to compute the log mean of the model and then exponentiate it to get the mean to pass to `rpois()`.
 
 
-```r
+``` r
 > log.mu <- 0.5 + 0.3 * x
 > y <- rpois(100, exp(log.mu))
 > summary(y)
@@ -220,7 +220,7 @@ You can build arbitrarily complex models like this by simulating more predictors
 The `sample()` function draws randomly from a specified set of (scalar) objects allowing you to sample from arbitrary distributions of numbers.
 
 
-```r
+``` r
 > set.seed(1)
 > sample(1:10, 4)
 [1] 9 4 7 1
@@ -247,7 +247,7 @@ To sample more complicated things, such as rows from a data frame or a list, you
 Here's how you can sample rows from a data frame.
 
 
-```r
+``` r
 > library(datasets)
 > data(airquality)
 > head(airquality)
@@ -264,7 +264,7 @@ Now we just need to create the index vector indexing the rows of the data frame 
 
 
 
-```r
+``` r
 > set.seed(20)
 > 
 > ## Create index vector

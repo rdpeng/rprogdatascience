@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 R Nuts and Bolts | R Programming for Data Science</title>
   <meta name="description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 R Nuts and Bolts | R Programming for Data Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Roger D. Peng" />
 
 
-<meta name="date" content="2022-05-31" />
+<meta name="date" content="2025-12-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -92,7 +93,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +106,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +120,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -388,15 +393,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a href="https://youtu.be/vGY5i_J2c-c?t=4m43s">Watch a video of this section</a></p>
 <p>At the R prompt we type expressions. The <code>&lt;-</code> symbol is the assignment
 operator.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-nuts-and-bolts.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb1-2"><a href="r-nuts-and-bolts.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">print</span>(x)</span>
-<span id="cb1-3"><a href="r-nuts-and-bolts.html#cb1-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
-<span id="cb1-4"><a href="r-nuts-and-bolts.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb1-5"><a href="r-nuts-and-bolts.html#cb1-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
-<span id="cb1-6"><a href="r-nuts-and-bolts.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> msg <span class="ot">&lt;-</span> <span class="st">&quot;hello&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-nuts-and-bolts.html#cb1-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-2"><a href="r-nuts-and-bolts.html#cb1-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">print</span>(x)</span>
+<span id="cb1-3"><a href="r-nuts-and-bolts.html#cb1-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb1-4"><a href="r-nuts-and-bolts.html#cb1-4" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb1-5"><a href="r-nuts-and-bolts.html#cb1-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb1-6"><a href="r-nuts-and-bolts.html#cb1-6" tabindex="-1"></a><span class="sc">&gt;</span> msg <span class="ot">&lt;-</span> <span class="st">&quot;hello&quot;</span></span></code></pre></div>
 <p>The grammar of the language determines whether an expression is
 complete or not.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-nuts-and-bolts.html#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span>  <span class="do">## Incomplete expression</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-nuts-and-bolts.html#cb2-1" tabindex="-1"></a>x <span class="ot">&lt;-</span>  <span class="do">## Incomplete expression</span></span></code></pre></div>
 <p>The # character indicates a comment. Anything to the right of the #
 (including the # itself) is ignored. This is the only comment
 character in R. Unlike some other languages, R does not support
@@ -407,11 +412,11 @@ multi-line comments or comment blocks.</p>
 <p>When a complete expression is entered at the prompt, it is evaluated
 and the result of the evaluated expression is returned. The result may
 be <em>auto-printed</em>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="r-nuts-and-bolts.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">5</span>  <span class="do">## nothing printed</span></span>
-<span id="cb3-2"><a href="r-nuts-and-bolts.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x       <span class="do">## auto-printing occurs</span></span>
-<span id="cb3-3"><a href="r-nuts-and-bolts.html#cb3-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">5</span></span>
-<span id="cb3-4"><a href="r-nuts-and-bolts.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">print</span>(x)  <span class="do">## explicit printing</span></span>
-<span id="cb3-5"><a href="r-nuts-and-bolts.html#cb3-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="r-nuts-and-bolts.html#cb3-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">5</span>  <span class="do">## nothing printed</span></span>
+<span id="cb3-2"><a href="r-nuts-and-bolts.html#cb3-2" tabindex="-1"></a><span class="sc">&gt;</span> x       <span class="do">## auto-printing occurs</span></span>
+<span id="cb3-3"><a href="r-nuts-and-bolts.html#cb3-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">5</span></span>
+<span id="cb3-4"><a href="r-nuts-and-bolts.html#cb3-4" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">print</span>(x)  <span class="do">## explicit printing</span></span>
+<span id="cb3-5"><a href="r-nuts-and-bolts.html#cb3-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">5</span></span></code></pre></div>
 <p>The <code>[1]</code> shown in the output indicates that <code>x</code> is a vector and <code>5</code>
 is its first element.</p>
 <p>Typically with interactive work, we do not explicitly print objects
@@ -423,10 +428,10 @@ does not work in those settings.</p>
 <p>When an R vector is printed you will notice that an index for the
 vector is printed in square brackets <code>[]</code> on the side. For example,
 see this integer sequence of length 20.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="r-nuts-and-bolts.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">30</span></span>
-<span id="cb4-2"><a href="r-nuts-and-bolts.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb4-3"><a href="r-nuts-and-bolts.html#cb4-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">16</span> <span class="dv">17</span> <span class="dv">18</span> <span class="dv">19</span> <span class="dv">20</span> <span class="dv">21</span> <span class="dv">22</span></span>
-<span id="cb4-4"><a href="r-nuts-and-bolts.html#cb4-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="dv">23</span> <span class="dv">24</span> <span class="dv">25</span> <span class="dv">26</span> <span class="dv">27</span> <span class="dv">28</span> <span class="dv">29</span> <span class="dv">30</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="r-nuts-and-bolts.html#cb4-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">30</span></span>
+<span id="cb4-2"><a href="r-nuts-and-bolts.html#cb4-2" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb4-3"><a href="r-nuts-and-bolts.html#cb4-3" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">16</span> <span class="dv">17</span> <span class="dv">18</span> <span class="dv">19</span> <span class="dv">20</span> <span class="dv">21</span> <span class="dv">22</span></span>
+<span id="cb4-4"><a href="r-nuts-and-bolts.html#cb4-4" tabindex="-1"></a>[<span class="dv">13</span>] <span class="dv">23</span> <span class="dv">24</span> <span class="dv">25</span> <span class="dv">26</span> <span class="dv">27</span> <span class="dv">28</span> <span class="dv">29</span> <span class="dv">30</span></span></code></pre></div>
 <p>The numbers in the square brackets are not part of the vector itself,
 they are merely part of the <em>printed output</em>.</p>
 <p>With R, it’s important that one understand that there is a difference
@@ -500,30 +505,30 @@ which case the <code>attributes()</code> function returns <code>NULL</code>.</p>
 <p><a href="https://youtu.be/w8_XdYI3reU">Watch a video of this section</a></p>
 <p>The <code>c()</code> function can be used to create vectors of objects by
 concatenating things together.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="r-nuts-and-bolts.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.6</span>)       <span class="do">## numeric</span></span>
-<span id="cb5-2"><a href="r-nuts-and-bolts.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)    <span class="do">## logical</span></span>
-<span id="cb5-3"><a href="r-nuts-and-bolts.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(T, F)           <span class="do">## logical</span></span>
-<span id="cb5-4"><a href="r-nuts-and-bolts.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)  <span class="do">## character</span></span>
-<span id="cb5-5"><a href="r-nuts-and-bolts.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">9</span><span class="sc">:</span><span class="dv">29</span>              <span class="do">## integer</span></span>
-<span id="cb5-6"><a href="r-nuts-and-bolts.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">+</span>0i, <span class="dv">2</span><span class="sc">+</span>4i)     <span class="do">## complex</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="r-nuts-and-bolts.html#cb5-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.6</span>)       <span class="do">## numeric</span></span>
+<span id="cb5-2"><a href="r-nuts-and-bolts.html#cb5-2" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)    <span class="do">## logical</span></span>
+<span id="cb5-3"><a href="r-nuts-and-bolts.html#cb5-3" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(T, F)           <span class="do">## logical</span></span>
+<span id="cb5-4"><a href="r-nuts-and-bolts.html#cb5-4" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)  <span class="do">## character</span></span>
+<span id="cb5-5"><a href="r-nuts-and-bolts.html#cb5-5" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">9</span><span class="sc">:</span><span class="dv">29</span>              <span class="do">## integer</span></span>
+<span id="cb5-6"><a href="r-nuts-and-bolts.html#cb5-6" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">0</span><span class="dt">i</span>, <span class="dv">2</span><span class="sc">+</span><span class="dv">4</span><span class="dt">i</span>)     <span class="do">## complex</span></span></code></pre></div>
 <p>Note that in the above example, <code>T</code> and <code>F</code> are short-hand ways to
 specify <code>TRUE</code> and <code>FALSE</code>. However, in general one should try to use
 the explicit <code>TRUE</code> and <code>FALSE</code> values when indicating logical
 values. The <code>T</code> and <code>F</code> values are primarily there for when you’re
 feeling lazy.</p>
 <p>You can also use the <code>vector()</code> function to initialize vectors.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="r-nuts-and-bolts.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="at">length =</span> <span class="dv">10</span>) </span>
-<span id="cb6-2"><a href="r-nuts-and-bolts.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb6-3"><a href="r-nuts-and-bolts.html#cb6-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="r-nuts-and-bolts.html#cb6-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="at">length =</span> <span class="dv">10</span>) </span>
+<span id="cb6-2"><a href="r-nuts-and-bolts.html#cb6-2" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb6-3"><a href="r-nuts-and-bolts.html#cb6-3" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></span></code></pre></div>
 </div>
 <div id="mixing-objects" class="section level2 hasAnchor" number="4.7">
 <h2><span class="header-section-number">4.7</span> Mixing Objects<a href="r-nuts-and-bolts.html#mixing-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are occasions when different classes of R objects get mixed
 together. Sometimes this happens by accident but it can also happen on
 purpose. So what happens with the following code?</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="r-nuts-and-bolts.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.7</span>, <span class="st">&quot;a&quot;</span>)   <span class="do">## character</span></span>
-<span id="cb7-2"><a href="r-nuts-and-bolts.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="dv">2</span>)    <span class="do">## numeric</span></span>
-<span id="cb7-3"><a href="r-nuts-and-bolts.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="cn">TRUE</span>)  <span class="do">## character</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="r-nuts-and-bolts.html#cb7-1" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.7</span>, <span class="st">&quot;a&quot;</span>)   <span class="do">## character</span></span>
+<span id="cb7-2"><a href="r-nuts-and-bolts.html#cb7-2" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="dv">2</span>)    <span class="do">## numeric</span></span>
+<span id="cb7-3"><a href="r-nuts-and-bolts.html#cb7-3" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="cn">TRUE</span>)  <span class="do">## character</span></span></code></pre></div>
 <p>In each case above, we are mixing objects of two different classes in
 a vector. But remember that the only rule about vectors says this is
 not allowed. When different objects are mixed in a vector, <em>coercion</em>
@@ -539,26 +544,26 @@ usually be easily represented as strings.</p>
 <h2><span class="header-section-number">4.8</span> Explicit Coercion<a href="r-nuts-and-bolts.html#explicit-coercion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Objects can be explicitly coerced from one class to another using the
 <code>as.*</code> functions, if available.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="r-nuts-and-bolts.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span></span>
-<span id="cb8-2"><a href="r-nuts-and-bolts.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(x)</span>
-<span id="cb8-3"><a href="r-nuts-and-bolts.html#cb8-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span></span>
-<span id="cb8-4"><a href="r-nuts-and-bolts.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.numeric</span>(x)</span>
-<span id="cb8-5"><a href="r-nuts-and-bolts.html#cb8-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span></span>
-<span id="cb8-6"><a href="r-nuts-and-bolts.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.logical</span>(x)</span>
-<span id="cb8-7"><a href="r-nuts-and-bolts.html#cb8-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span></span>
-<span id="cb8-8"><a href="r-nuts-and-bolts.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.character</span>(x)</span>
-<span id="cb8-9"><a href="r-nuts-and-bolts.html#cb8-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;0&quot;</span> <span class="st">&quot;1&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;3&quot;</span> <span class="st">&quot;4&quot;</span> <span class="st">&quot;5&quot;</span> <span class="st">&quot;6&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="r-nuts-and-bolts.html#cb8-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb8-2"><a href="r-nuts-and-bolts.html#cb8-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(x)</span>
+<span id="cb8-3"><a href="r-nuts-and-bolts.html#cb8-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span></span>
+<span id="cb8-4"><a href="r-nuts-and-bolts.html#cb8-4" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.numeric</span>(x)</span>
+<span id="cb8-5"><a href="r-nuts-and-bolts.html#cb8-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span></span>
+<span id="cb8-6"><a href="r-nuts-and-bolts.html#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.logical</span>(x)</span>
+<span id="cb8-7"><a href="r-nuts-and-bolts.html#cb8-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span></span>
+<span id="cb8-8"><a href="r-nuts-and-bolts.html#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.character</span>(x)</span>
+<span id="cb8-9"><a href="r-nuts-and-bolts.html#cb8-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;0&quot;</span> <span class="st">&quot;1&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;3&quot;</span> <span class="st">&quot;4&quot;</span> <span class="st">&quot;5&quot;</span> <span class="st">&quot;6&quot;</span></span></code></pre></div>
 <p>Sometimes, R can’t figure out how to coerce an object and this can
 result in <code>NA</code>s being produced.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="r-nuts-and-bolts.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
-<span id="cb9-2"><a href="r-nuts-and-bolts.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.numeric</span>(x)</span>
-<span id="cb9-3"><a href="r-nuts-and-bolts.html#cb9-3" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> NAs introduced by coercion</span>
-<span id="cb9-4"><a href="r-nuts-and-bolts.html#cb9-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span></span>
-<span id="cb9-5"><a href="r-nuts-and-bolts.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.logical</span>(x)</span>
-<span id="cb9-6"><a href="r-nuts-and-bolts.html#cb9-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span></span>
-<span id="cb9-7"><a href="r-nuts-and-bolts.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.complex</span>(x)</span>
-<span id="cb9-8"><a href="r-nuts-and-bolts.html#cb9-8" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> NAs introduced by coercion</span>
-<span id="cb9-9"><a href="r-nuts-and-bolts.html#cb9-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="r-nuts-and-bolts.html#cb9-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb9-2"><a href="r-nuts-and-bolts.html#cb9-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.numeric</span>(x)</span>
+<span id="cb9-3"><a href="r-nuts-and-bolts.html#cb9-3" tabindex="-1"></a>Warning<span class="sc">:</span> NAs introduced by coercion</span>
+<span id="cb9-4"><a href="r-nuts-and-bolts.html#cb9-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span></span>
+<span id="cb9-5"><a href="r-nuts-and-bolts.html#cb9-5" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.logical</span>(x)</span>
+<span id="cb9-6"><a href="r-nuts-and-bolts.html#cb9-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span></span>
+<span id="cb9-7"><a href="r-nuts-and-bolts.html#cb9-7" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.complex</span>(x)</span>
+<span id="cb9-8"><a href="r-nuts-and-bolts.html#cb9-8" tabindex="-1"></a>Warning<span class="sc">:</span> NAs introduced by coercion</span>
+<span id="cb9-9"><a href="r-nuts-and-bolts.html#cb9-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span></span></code></pre></div>
 <p>When nonsensical coercion takes place, you will usually get a warning
 from R.</p>
 </div>
@@ -567,46 +572,46 @@ from R.</p>
 <p>Matrices are vectors with a <em>dimension</em> attribute. The dimension
 attribute is itself an integer vector of length 2 (number of rows,
 number of columns)</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="r-nuts-and-bolts.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>) </span>
-<span id="cb10-2"><a href="r-nuts-and-bolts.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
-<span id="cb10-3"><a href="r-nuts-and-bolts.html#cb10-3" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
-<span id="cb10-4"><a href="r-nuts-and-bolts.html#cb10-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span></span>
-<span id="cb10-5"><a href="r-nuts-and-bolts.html#cb10-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span></span>
-<span id="cb10-6"><a href="r-nuts-and-bolts.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(m)</span>
-<span id="cb10-7"><a href="r-nuts-and-bolts.html#cb10-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span></span>
-<span id="cb10-8"><a href="r-nuts-and-bolts.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">attributes</span>(m)</span>
-<span id="cb10-9"><a href="r-nuts-and-bolts.html#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>dim</span>
-<span id="cb10-10"><a href="r-nuts-and-bolts.html#cb10-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="r-nuts-and-bolts.html#cb10-1" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>) </span>
+<span id="cb10-2"><a href="r-nuts-and-bolts.html#cb10-2" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb10-3"><a href="r-nuts-and-bolts.html#cb10-3" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb10-4"><a href="r-nuts-and-bolts.html#cb10-4" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span></span>
+<span id="cb10-5"><a href="r-nuts-and-bolts.html#cb10-5" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span></span>
+<span id="cb10-6"><a href="r-nuts-and-bolts.html#cb10-6" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(m)</span>
+<span id="cb10-7"><a href="r-nuts-and-bolts.html#cb10-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb10-8"><a href="r-nuts-and-bolts.html#cb10-8" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">attributes</span>(m)</span>
+<span id="cb10-9"><a href="r-nuts-and-bolts.html#cb10-9" tabindex="-1"></a><span class="sc">$</span>dim</span>
+<span id="cb10-10"><a href="r-nuts-and-bolts.html#cb10-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span></span></code></pre></div>
 <p>Matrices are constructed <em>column-wise</em>, so entries can be thought of
 starting in the “upper left” corner and running down the columns.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="r-nuts-and-bolts.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>) </span>
-<span id="cb11-2"><a href="r-nuts-and-bolts.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
-<span id="cb11-3"><a href="r-nuts-and-bolts.html#cb11-3" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
-<span id="cb11-4"><a href="r-nuts-and-bolts.html#cb11-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span></span>
-<span id="cb11-5"><a href="r-nuts-and-bolts.html#cb11-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="r-nuts-and-bolts.html#cb11-1" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>) </span>
+<span id="cb11-2"><a href="r-nuts-and-bolts.html#cb11-2" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb11-3"><a href="r-nuts-and-bolts.html#cb11-3" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb11-4"><a href="r-nuts-and-bolts.html#cb11-4" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span></span>
+<span id="cb11-5"><a href="r-nuts-and-bolts.html#cb11-5" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span></span></code></pre></div>
 <p>Matrices can also be created directly from vectors by adding a
 dimension attribute.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r-nuts-and-bolts.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> </span>
-<span id="cb12-2"><a href="r-nuts-and-bolts.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
-<span id="cb12-3"><a href="r-nuts-and-bolts.html#cb12-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span></span>
-<span id="cb12-4"><a href="r-nuts-and-bolts.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
-<span id="cb12-5"><a href="r-nuts-and-bolts.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
-<span id="cb12-6"><a href="r-nuts-and-bolts.html#cb12-6" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>] [,<span class="dv">5</span>]</span>
-<span id="cb12-7"><a href="r-nuts-and-bolts.html#cb12-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span>    <span class="dv">9</span></span>
-<span id="cb12-8"><a href="r-nuts-and-bolts.html#cb12-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span>    <span class="dv">8</span>   <span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r-nuts-and-bolts.html#cb12-1" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> </span>
+<span id="cb12-2"><a href="r-nuts-and-bolts.html#cb12-2" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb12-3"><a href="r-nuts-and-bolts.html#cb12-3" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span></span>
+<span id="cb12-4"><a href="r-nuts-and-bolts.html#cb12-4" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
+<span id="cb12-5"><a href="r-nuts-and-bolts.html#cb12-5" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb12-6"><a href="r-nuts-and-bolts.html#cb12-6" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>] [,<span class="dv">5</span>]</span>
+<span id="cb12-7"><a href="r-nuts-and-bolts.html#cb12-7" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span>    <span class="dv">9</span></span>
+<span id="cb12-8"><a href="r-nuts-and-bolts.html#cb12-8" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span>    <span class="dv">8</span>   <span class="dv">10</span></span></code></pre></div>
 <p>Matrices can be created by <em>column-binding</em> or <em>row-binding</em> with the
 <code>cbind()</code> and <code>rbind()</code> functions.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="r-nuts-and-bolts.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
-<span id="cb13-2"><a href="r-nuts-and-bolts.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span></span>
-<span id="cb13-3"><a href="r-nuts-and-bolts.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">cbind</span>(x, y)</span>
-<span id="cb13-4"><a href="r-nuts-and-bolts.html#cb13-4" aria-hidden="true" tabindex="-1"></a>     x  y</span>
-<span id="cb13-5"><a href="r-nuts-and-bolts.html#cb13-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="dv">1</span> <span class="dv">10</span></span>
-<span id="cb13-6"><a href="r-nuts-and-bolts.html#cb13-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="dv">2</span> <span class="dv">11</span></span>
-<span id="cb13-7"><a href="r-nuts-and-bolts.html#cb13-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="dv">3</span> <span class="dv">12</span></span>
-<span id="cb13-8"><a href="r-nuts-and-bolts.html#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">rbind</span>(x, y) </span>
-<span id="cb13-9"><a href="r-nuts-and-bolts.html#cb13-9" aria-hidden="true" tabindex="-1"></a>  [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
-<span id="cb13-10"><a href="r-nuts-and-bolts.html#cb13-10" aria-hidden="true" tabindex="-1"></a>x    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span></span>
-<span id="cb13-11"><a href="r-nuts-and-bolts.html#cb13-11" aria-hidden="true" tabindex="-1"></a>y   <span class="dv">10</span>   <span class="dv">11</span>   <span class="dv">12</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="r-nuts-and-bolts.html#cb13-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb13-2"><a href="r-nuts-and-bolts.html#cb13-2" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span></span>
+<span id="cb13-3"><a href="r-nuts-and-bolts.html#cb13-3" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">cbind</span>(x, y)</span>
+<span id="cb13-4"><a href="r-nuts-and-bolts.html#cb13-4" tabindex="-1"></a>     x  y</span>
+<span id="cb13-5"><a href="r-nuts-and-bolts.html#cb13-5" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="dv">1</span> <span class="dv">10</span></span>
+<span id="cb13-6"><a href="r-nuts-and-bolts.html#cb13-6" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="dv">2</span> <span class="dv">11</span></span>
+<span id="cb13-7"><a href="r-nuts-and-bolts.html#cb13-7" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="dv">3</span> <span class="dv">12</span></span>
+<span id="cb13-8"><a href="r-nuts-and-bolts.html#cb13-8" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">rbind</span>(x, y) </span>
+<span id="cb13-9"><a href="r-nuts-and-bolts.html#cb13-9" tabindex="-1"></a>  [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb13-10"><a href="r-nuts-and-bolts.html#cb13-10" tabindex="-1"></a>x    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span></span>
+<span id="cb13-11"><a href="r-nuts-and-bolts.html#cb13-11" tabindex="-1"></a>y   <span class="dv">10</span>   <span class="dv">11</span>   <span class="dv">12</span></span></code></pre></div>
 </div>
 <div id="lists" class="section level2 hasAnchor" number="4.10">
 <h2><span class="header-section-number">4.10</span> Lists<a href="r-nuts-and-bolts.html#lists" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -616,37 +621,37 @@ should get to know them well. Lists, in combination with the various
 “apply” functions discussed later, make for a powerful combination.</p>
 <p>Lists can be explicitly created using the <code>list()</code> function, which
 takes an arbitrary number of arguments.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="r-nuts-and-bolts.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="st">&quot;a&quot;</span>, <span class="cn">TRUE</span>, <span class="dv">1</span> <span class="sc">+</span> 4i) </span>
-<span id="cb14-2"><a href="r-nuts-and-bolts.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb14-3"><a href="r-nuts-and-bolts.html#cb14-3" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb14-4"><a href="r-nuts-and-bolts.html#cb14-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
-<span id="cb14-5"><a href="r-nuts-and-bolts.html#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="r-nuts-and-bolts.html#cb14-6" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
-<span id="cb14-7"><a href="r-nuts-and-bolts.html#cb14-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span></span>
-<span id="cb14-8"><a href="r-nuts-and-bolts.html#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="r-nuts-and-bolts.html#cb14-9" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">3</span>]]</span>
-<span id="cb14-10"><a href="r-nuts-and-bolts.html#cb14-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
-<span id="cb14-11"><a href="r-nuts-and-bolts.html#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="r-nuts-and-bolts.html#cb14-12" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">4</span>]]</span>
-<span id="cb14-13"><a href="r-nuts-and-bolts.html#cb14-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span><span class="sc">+</span>4i</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="r-nuts-and-bolts.html#cb14-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="st">&quot;a&quot;</span>, <span class="cn">TRUE</span>, <span class="dv">1</span> <span class="sc">+</span> <span class="dv">4</span><span class="dt">i</span>) </span>
+<span id="cb14-2"><a href="r-nuts-and-bolts.html#cb14-2" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb14-3"><a href="r-nuts-and-bolts.html#cb14-3" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb14-4"><a href="r-nuts-and-bolts.html#cb14-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb14-5"><a href="r-nuts-and-bolts.html#cb14-5" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="r-nuts-and-bolts.html#cb14-6" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb14-7"><a href="r-nuts-and-bolts.html#cb14-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span></span>
+<span id="cb14-8"><a href="r-nuts-and-bolts.html#cb14-8" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="r-nuts-and-bolts.html#cb14-9" tabindex="-1"></a>[[<span class="dv">3</span>]]</span>
+<span id="cb14-10"><a href="r-nuts-and-bolts.html#cb14-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb14-11"><a href="r-nuts-and-bolts.html#cb14-11" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="r-nuts-and-bolts.html#cb14-12" tabindex="-1"></a>[[<span class="dv">4</span>]]</span>
+<span id="cb14-13"><a href="r-nuts-and-bolts.html#cb14-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span><span class="sc">+</span><span class="dv">4</span><span class="dt">i</span></span></code></pre></div>
 <p>We can also create an empty list of a prespecified length with the
 <code>vector()</code> function</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="r-nuts-and-bolts.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="dv">5</span>)</span>
-<span id="cb15-2"><a href="r-nuts-and-bolts.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb15-3"><a href="r-nuts-and-bolts.html#cb15-3" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb15-4"><a href="r-nuts-and-bolts.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
-<span id="cb15-5"><a href="r-nuts-and-bolts.html#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="r-nuts-and-bolts.html#cb15-6" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
-<span id="cb15-7"><a href="r-nuts-and-bolts.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
-<span id="cb15-8"><a href="r-nuts-and-bolts.html#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="r-nuts-and-bolts.html#cb15-9" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">3</span>]]</span>
-<span id="cb15-10"><a href="r-nuts-and-bolts.html#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
-<span id="cb15-11"><a href="r-nuts-and-bolts.html#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="r-nuts-and-bolts.html#cb15-12" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">4</span>]]</span>
-<span id="cb15-13"><a href="r-nuts-and-bolts.html#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
-<span id="cb15-14"><a href="r-nuts-and-bolts.html#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="r-nuts-and-bolts.html#cb15-15" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">5</span>]]</span>
-<span id="cb15-16"><a href="r-nuts-and-bolts.html#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="r-nuts-and-bolts.html#cb15-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="dv">5</span>)</span>
+<span id="cb15-2"><a href="r-nuts-and-bolts.html#cb15-2" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb15-3"><a href="r-nuts-and-bolts.html#cb15-3" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb15-4"><a href="r-nuts-and-bolts.html#cb15-4" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb15-5"><a href="r-nuts-and-bolts.html#cb15-5" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="r-nuts-and-bolts.html#cb15-6" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb15-7"><a href="r-nuts-and-bolts.html#cb15-7" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb15-8"><a href="r-nuts-and-bolts.html#cb15-8" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="r-nuts-and-bolts.html#cb15-9" tabindex="-1"></a>[[<span class="dv">3</span>]]</span>
+<span id="cb15-10"><a href="r-nuts-and-bolts.html#cb15-10" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb15-11"><a href="r-nuts-and-bolts.html#cb15-11" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="r-nuts-and-bolts.html#cb15-12" tabindex="-1"></a>[[<span class="dv">4</span>]]</span>
+<span id="cb15-13"><a href="r-nuts-and-bolts.html#cb15-13" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb15-14"><a href="r-nuts-and-bolts.html#cb15-14" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="r-nuts-and-bolts.html#cb15-15" tabindex="-1"></a>[[<span class="dv">5</span>]]</span>
+<span id="cb15-16"><a href="r-nuts-and-bolts.html#cb15-16" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
 </div>
 <div id="factors" class="section level2 hasAnchor" number="4.11">
 <h2><span class="header-section-number">4.11</span> Factors<a href="r-nuts-and-bolts.html#factors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -660,19 +665,19 @@ and are treated specially by modelling functions like <code>lm()</code> and
 factors are self-describing. Having a variable that has values “Male”
 and “Female” is better than a variable that has values 1 and 2.</p>
 <p>Factor objects can be created with the <code>factor()</code> function.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="r-nuts-and-bolts.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)) </span>
-<span id="cb16-2"><a href="r-nuts-and-bolts.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb16-3"><a href="r-nuts-and-bolts.html#cb16-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] yes yes no  yes no </span>
-<span id="cb16-4"><a href="r-nuts-and-bolts.html#cb16-4" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> no yes</span>
-<span id="cb16-5"><a href="r-nuts-and-bolts.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">table</span>(x) </span>
-<span id="cb16-6"><a href="r-nuts-and-bolts.html#cb16-6" aria-hidden="true" tabindex="-1"></a>x</span>
-<span id="cb16-7"><a href="r-nuts-and-bolts.html#cb16-7" aria-hidden="true" tabindex="-1"></a> no yes </span>
-<span id="cb16-8"><a href="r-nuts-and-bolts.html#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>   <span class="dv">3</span> </span>
-<span id="cb16-9"><a href="r-nuts-and-bolts.html#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## See the underlying representation of factor</span></span>
-<span id="cb16-10"><a href="r-nuts-and-bolts.html#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">unclass</span>(x)  </span>
-<span id="cb16-11"><a href="r-nuts-and-bolts.html#cb16-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span></span>
-<span id="cb16-12"><a href="r-nuts-and-bolts.html#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;levels&quot;</span>)</span>
-<span id="cb16-13"><a href="r-nuts-and-bolts.html#cb16-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;no&quot;</span>  <span class="st">&quot;yes&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="r-nuts-and-bolts.html#cb16-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)) </span>
+<span id="cb16-2"><a href="r-nuts-and-bolts.html#cb16-2" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb16-3"><a href="r-nuts-and-bolts.html#cb16-3" tabindex="-1"></a>[<span class="dv">1</span>] yes yes no  yes no </span>
+<span id="cb16-4"><a href="r-nuts-and-bolts.html#cb16-4" tabindex="-1"></a>Levels<span class="sc">:</span> no yes</span>
+<span id="cb16-5"><a href="r-nuts-and-bolts.html#cb16-5" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">table</span>(x) </span>
+<span id="cb16-6"><a href="r-nuts-and-bolts.html#cb16-6" tabindex="-1"></a>x</span>
+<span id="cb16-7"><a href="r-nuts-and-bolts.html#cb16-7" tabindex="-1"></a> no yes </span>
+<span id="cb16-8"><a href="r-nuts-and-bolts.html#cb16-8" tabindex="-1"></a>  <span class="dv">2</span>   <span class="dv">3</span> </span>
+<span id="cb16-9"><a href="r-nuts-and-bolts.html#cb16-9" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## See the underlying representation of factor</span></span>
+<span id="cb16-10"><a href="r-nuts-and-bolts.html#cb16-10" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">unclass</span>(x)  </span>
+<span id="cb16-11"><a href="r-nuts-and-bolts.html#cb16-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span></span>
+<span id="cb16-12"><a href="r-nuts-and-bolts.html#cb16-12" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">&quot;levels&quot;</span>)</span>
+<span id="cb16-13"><a href="r-nuts-and-bolts.html#cb16-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;no&quot;</span>  <span class="st">&quot;yes&quot;</span></span></code></pre></div>
 <p>Often factors will be automatically created for you when you read a
 dataset in using a function like <code>read.table()</code>. Those functions often
 default to creating factors when they encounter data that look like
@@ -680,15 +685,15 @@ characters or strings.</p>
 <p>The order of the levels of a factor can be set using the <code>levels</code>
 argument to <code>factor()</code>. This can be important in linear modelling
 because the first level is used as the baseline level.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="r-nuts-and-bolts.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))</span>
-<span id="cb17-2"><a href="r-nuts-and-bolts.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x  <span class="do">## Levels are put in alphabetical order</span></span>
-<span id="cb17-3"><a href="r-nuts-and-bolts.html#cb17-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] yes yes no  yes no </span>
-<span id="cb17-4"><a href="r-nuts-and-bolts.html#cb17-4" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> no yes</span>
-<span id="cb17-5"><a href="r-nuts-and-bolts.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>),</span>
-<span id="cb17-6"><a href="r-nuts-and-bolts.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))</span>
-<span id="cb17-7"><a href="r-nuts-and-bolts.html#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb17-8"><a href="r-nuts-and-bolts.html#cb17-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] yes yes no  yes no </span>
-<span id="cb17-9"><a href="r-nuts-and-bolts.html#cb17-9" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> yes no</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="r-nuts-and-bolts.html#cb17-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))</span>
+<span id="cb17-2"><a href="r-nuts-and-bolts.html#cb17-2" tabindex="-1"></a><span class="sc">&gt;</span> x  <span class="do">## Levels are put in alphabetical order</span></span>
+<span id="cb17-3"><a href="r-nuts-and-bolts.html#cb17-3" tabindex="-1"></a>[<span class="dv">1</span>] yes yes no  yes no </span>
+<span id="cb17-4"><a href="r-nuts-and-bolts.html#cb17-4" tabindex="-1"></a>Levels<span class="sc">:</span> no yes</span>
+<span id="cb17-5"><a href="r-nuts-and-bolts.html#cb17-5" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>),</span>
+<span id="cb17-6"><a href="r-nuts-and-bolts.html#cb17-6" tabindex="-1"></a><span class="sc">+</span>             <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>))</span>
+<span id="cb17-7"><a href="r-nuts-and-bolts.html#cb17-7" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb17-8"><a href="r-nuts-and-bolts.html#cb17-8" tabindex="-1"></a>[<span class="dv">1</span>] yes yes no  yes no </span>
+<span id="cb17-9"><a href="r-nuts-and-bolts.html#cb17-9" tabindex="-1"></a>Levels<span class="sc">:</span> yes no</span></code></pre></div>
 </div>
 <div id="missing-values" class="section level2 hasAnchor" number="4.12">
 <h2><span class="header-section-number">4.12</span> Missing Values<a href="r-nuts-and-bolts.html#missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -701,20 +706,20 @@ mathematical operations.</p>
 <code>NA</code>, etc.</p></li>
 <li><p>A <code>NaN</code> value is also <code>NA</code> but the converse is not true</p></li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="r-nuts-and-bolts.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Create a vector with NAs in it</span></span>
-<span id="cb18-2"><a href="r-nuts-and-bolts.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">10</span>, <span class="dv">3</span>)  </span>
-<span id="cb18-3"><a href="r-nuts-and-bolts.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Return a logical vector indicating which elements are NA</span></span>
-<span id="cb18-4"><a href="r-nuts-and-bolts.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">is.na</span>(x)    </span>
-<span id="cb18-5"><a href="r-nuts-and-bolts.html#cb18-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
-<span id="cb18-6"><a href="r-nuts-and-bolts.html#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Return a logical vector indicating which elements are NaN</span></span>
-<span id="cb18-7"><a href="r-nuts-and-bolts.html#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">is.nan</span>(x)   </span>
-<span id="cb18-8"><a href="r-nuts-and-bolts.html#cb18-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="r-nuts-and-bolts.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Now create a vector with both NA and NaN values</span></span>
-<span id="cb19-2"><a href="r-nuts-and-bolts.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NaN</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
-<span id="cb19-3"><a href="r-nuts-and-bolts.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">is.na</span>(x)</span>
-<span id="cb19-4"><a href="r-nuts-and-bolts.html#cb19-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
-<span id="cb19-5"><a href="r-nuts-and-bolts.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">is.nan</span>(x)</span>
-<span id="cb19-6"><a href="r-nuts-and-bolts.html#cb19-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="r-nuts-and-bolts.html#cb18-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Create a vector with NAs in it</span></span>
+<span id="cb18-2"><a href="r-nuts-and-bolts.html#cb18-2" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">10</span>, <span class="dv">3</span>)  </span>
+<span id="cb18-3"><a href="r-nuts-and-bolts.html#cb18-3" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Return a logical vector indicating which elements are NA</span></span>
+<span id="cb18-4"><a href="r-nuts-and-bolts.html#cb18-4" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">is.na</span>(x)    </span>
+<span id="cb18-5"><a href="r-nuts-and-bolts.html#cb18-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
+<span id="cb18-6"><a href="r-nuts-and-bolts.html#cb18-6" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Return a logical vector indicating which elements are NaN</span></span>
+<span id="cb18-7"><a href="r-nuts-and-bolts.html#cb18-7" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">is.nan</span>(x)   </span>
+<span id="cb18-8"><a href="r-nuts-and-bolts.html#cb18-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="r-nuts-and-bolts.html#cb19-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Now create a vector with both NA and NaN values</span></span>
+<span id="cb19-2"><a href="r-nuts-and-bolts.html#cb19-2" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NaN</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb19-3"><a href="r-nuts-and-bolts.html#cb19-3" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">is.na</span>(x)</span>
+<span id="cb19-4"><a href="r-nuts-and-bolts.html#cb19-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
+<span id="cb19-5"><a href="r-nuts-and-bolts.html#cb19-5" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">is.nan</span>(x)</span>
+<span id="cb19-6"><a href="r-nuts-and-bolts.html#cb19-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span></code></pre></div>
 </div>
 <div id="data-frames" class="section level2 hasAnchor" number="4.13">
 <h2><span class="header-section-number">4.13</span> Data Frames<a href="r-nuts-and-bolts.html#data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -741,60 +746,60 @@ coerced from other types of objects like lists.</p>
 <code>data.matrix()</code>. While it might seem that the <code>as.matrix()</code> function
 should be used to coerce a data frame to a matrix, almost always, what
 you want is the result of <code>data.matrix()</code>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="r-nuts-and-bolts.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">foo =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">bar =</span> <span class="fu">c</span>(T, T, F, F)) </span>
-<span id="cb20-2"><a href="r-nuts-and-bolts.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb20-3"><a href="r-nuts-and-bolts.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  foo   bar</span>
-<span id="cb20-4"><a href="r-nuts-and-bolts.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1</span>  <span class="cn">TRUE</span></span>
-<span id="cb20-5"><a href="r-nuts-and-bolts.html#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">2</span>  <span class="cn">TRUE</span></span>
-<span id="cb20-6"><a href="r-nuts-and-bolts.html#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   <span class="dv">3</span> <span class="cn">FALSE</span></span>
-<span id="cb20-7"><a href="r-nuts-and-bolts.html#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">4</span> <span class="cn">FALSE</span></span>
-<span id="cb20-8"><a href="r-nuts-and-bolts.html#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(x)</span>
-<span id="cb20-9"><a href="r-nuts-and-bolts.html#cb20-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span>
-<span id="cb20-10"><a href="r-nuts-and-bolts.html#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ncol</span>(x)</span>
-<span id="cb20-11"><a href="r-nuts-and-bolts.html#cb20-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="r-nuts-and-bolts.html#cb20-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">foo =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">bar =</span> <span class="fu">c</span>(T, T, F, F)) </span>
+<span id="cb20-2"><a href="r-nuts-and-bolts.html#cb20-2" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb20-3"><a href="r-nuts-and-bolts.html#cb20-3" tabindex="-1"></a>  foo   bar</span>
+<span id="cb20-4"><a href="r-nuts-and-bolts.html#cb20-4" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1</span>  <span class="cn">TRUE</span></span>
+<span id="cb20-5"><a href="r-nuts-and-bolts.html#cb20-5" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">2</span>  <span class="cn">TRUE</span></span>
+<span id="cb20-6"><a href="r-nuts-and-bolts.html#cb20-6" tabindex="-1"></a><span class="dv">3</span>   <span class="dv">3</span> <span class="cn">FALSE</span></span>
+<span id="cb20-7"><a href="r-nuts-and-bolts.html#cb20-7" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">4</span> <span class="cn">FALSE</span></span>
+<span id="cb20-8"><a href="r-nuts-and-bolts.html#cb20-8" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(x)</span>
+<span id="cb20-9"><a href="r-nuts-and-bolts.html#cb20-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span>
+<span id="cb20-10"><a href="r-nuts-and-bolts.html#cb20-10" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ncol</span>(x)</span>
+<span id="cb20-11"><a href="r-nuts-and-bolts.html#cb20-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
 </div>
 <div id="names" class="section level2 hasAnchor" number="4.14">
 <h2><span class="header-section-number">4.14</span> Names<a href="r-nuts-and-bolts.html#names" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>R objects can have names, which is very useful for writing readable
 code and self-describing objects. Here is an example of assigning
 names to an integer vector.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="r-nuts-and-bolts.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
-<span id="cb21-2"><a href="r-nuts-and-bolts.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x)</span>
-<span id="cb21-3"><a href="r-nuts-and-bolts.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span>
-<span id="cb21-4"><a href="r-nuts-and-bolts.html#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Seattle&quot;</span>, <span class="st">&quot;Los Angeles&quot;</span>) </span>
-<span id="cb21-5"><a href="r-nuts-and-bolts.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb21-6"><a href="r-nuts-and-bolts.html#cb21-6" aria-hidden="true" tabindex="-1"></a>   New York     Seattle Los Angeles </span>
-<span id="cb21-7"><a href="r-nuts-and-bolts.html#cb21-7" aria-hidden="true" tabindex="-1"></a>          <span class="dv">1</span>           <span class="dv">2</span>           <span class="dv">3</span> </span>
-<span id="cb21-8"><a href="r-nuts-and-bolts.html#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x)</span>
-<span id="cb21-9"><a href="r-nuts-and-bolts.html#cb21-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;New York&quot;</span>    <span class="st">&quot;Seattle&quot;</span>     <span class="st">&quot;Los Angeles&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="r-nuts-and-bolts.html#cb21-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb21-2"><a href="r-nuts-and-bolts.html#cb21-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x)</span>
+<span id="cb21-3"><a href="r-nuts-and-bolts.html#cb21-3" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb21-4"><a href="r-nuts-and-bolts.html#cb21-4" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Seattle&quot;</span>, <span class="st">&quot;Los Angeles&quot;</span>) </span>
+<span id="cb21-5"><a href="r-nuts-and-bolts.html#cb21-5" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb21-6"><a href="r-nuts-and-bolts.html#cb21-6" tabindex="-1"></a>   New York     Seattle Los Angeles </span>
+<span id="cb21-7"><a href="r-nuts-and-bolts.html#cb21-7" tabindex="-1"></a>          <span class="dv">1</span>           <span class="dv">2</span>           <span class="dv">3</span> </span>
+<span id="cb21-8"><a href="r-nuts-and-bolts.html#cb21-8" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x)</span>
+<span id="cb21-9"><a href="r-nuts-and-bolts.html#cb21-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;New York&quot;</span>    <span class="st">&quot;Seattle&quot;</span>     <span class="st">&quot;Los Angeles&quot;</span></span></code></pre></div>
 <p>Lists can also have names, which is often very useful.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="r-nuts-and-bolts.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;Los Angeles&quot;</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="at">Boston =</span> <span class="dv">2</span>, <span class="at">London =</span> <span class="dv">3</span>) </span>
-<span id="cb22-2"><a href="r-nuts-and-bolts.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb22-3"><a href="r-nuts-and-bolts.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">Los Angeles</span><span class="st">`</span></span>
-<span id="cb22-4"><a href="r-nuts-and-bolts.html#cb22-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
-<span id="cb22-5"><a href="r-nuts-and-bolts.html#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="r-nuts-and-bolts.html#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>Boston</span>
-<span id="cb22-7"><a href="r-nuts-and-bolts.html#cb22-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span></span>
-<span id="cb22-8"><a href="r-nuts-and-bolts.html#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="r-nuts-and-bolts.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>London</span>
-<span id="cb22-10"><a href="r-nuts-and-bolts.html#cb22-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb22-11"><a href="r-nuts-and-bolts.html#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x)</span>
-<span id="cb22-12"><a href="r-nuts-and-bolts.html#cb22-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Los Angeles&quot;</span> <span class="st">&quot;Boston&quot;</span>      <span class="st">&quot;London&quot;</span>     </span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="r-nuts-and-bolts.html#cb22-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;Los Angeles&quot;</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="at">Boston =</span> <span class="dv">2</span>, <span class="at">London =</span> <span class="dv">3</span>) </span>
+<span id="cb22-2"><a href="r-nuts-and-bolts.html#cb22-2" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb22-3"><a href="r-nuts-and-bolts.html#cb22-3" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">Los Angeles</span><span class="st">`</span></span>
+<span id="cb22-4"><a href="r-nuts-and-bolts.html#cb22-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb22-5"><a href="r-nuts-and-bolts.html#cb22-5" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="r-nuts-and-bolts.html#cb22-6" tabindex="-1"></a><span class="sc">$</span>Boston</span>
+<span id="cb22-7"><a href="r-nuts-and-bolts.html#cb22-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span></span>
+<span id="cb22-8"><a href="r-nuts-and-bolts.html#cb22-8" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="r-nuts-and-bolts.html#cb22-9" tabindex="-1"></a><span class="sc">$</span>London</span>
+<span id="cb22-10"><a href="r-nuts-and-bolts.html#cb22-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb22-11"><a href="r-nuts-and-bolts.html#cb22-11" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(x)</span>
+<span id="cb22-12"><a href="r-nuts-and-bolts.html#cb22-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Los Angeles&quot;</span> <span class="st">&quot;Boston&quot;</span>      <span class="st">&quot;London&quot;</span>     </span></code></pre></div>
 <p>Matrices can have both column and row names.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="r-nuts-and-bolts.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb23-2"><a href="r-nuts-and-bolts.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dimnames</span>(m) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)) </span>
-<span id="cb23-3"><a href="r-nuts-and-bolts.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
-<span id="cb23-4"><a href="r-nuts-and-bolts.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  c d</span>
-<span id="cb23-5"><a href="r-nuts-and-bolts.html#cb23-5" aria-hidden="true" tabindex="-1"></a>a <span class="dv">1</span> <span class="dv">3</span></span>
-<span id="cb23-6"><a href="r-nuts-and-bolts.html#cb23-6" aria-hidden="true" tabindex="-1"></a>b <span class="dv">2</span> <span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="r-nuts-and-bolts.html#cb23-1" tabindex="-1"></a><span class="sc">&gt;</span> m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb23-2"><a href="r-nuts-and-bolts.html#cb23-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dimnames</span>(m) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)) </span>
+<span id="cb23-3"><a href="r-nuts-and-bolts.html#cb23-3" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb23-4"><a href="r-nuts-and-bolts.html#cb23-4" tabindex="-1"></a>  c d</span>
+<span id="cb23-5"><a href="r-nuts-and-bolts.html#cb23-5" tabindex="-1"></a>a <span class="dv">1</span> <span class="dv">3</span></span>
+<span id="cb23-6"><a href="r-nuts-and-bolts.html#cb23-6" tabindex="-1"></a>b <span class="dv">2</span> <span class="dv">4</span></span></code></pre></div>
 <p>Column names and row names can be set separately using the
 <code>colnames()</code> and <code>rownames()</code> functions.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="r-nuts-and-bolts.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">colnames</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;h&quot;</span>, <span class="st">&quot;f&quot;</span>)</span>
-<span id="cb24-2"><a href="r-nuts-and-bolts.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">rownames</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;z&quot;</span>)</span>
-<span id="cb24-3"><a href="r-nuts-and-bolts.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
-<span id="cb24-4"><a href="r-nuts-and-bolts.html#cb24-4" aria-hidden="true" tabindex="-1"></a>  h f</span>
-<span id="cb24-5"><a href="r-nuts-and-bolts.html#cb24-5" aria-hidden="true" tabindex="-1"></a>x <span class="dv">1</span> <span class="dv">3</span></span>
-<span id="cb24-6"><a href="r-nuts-and-bolts.html#cb24-6" aria-hidden="true" tabindex="-1"></a>z <span class="dv">2</span> <span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="r-nuts-and-bolts.html#cb24-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">colnames</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;h&quot;</span>, <span class="st">&quot;f&quot;</span>)</span>
+<span id="cb24-2"><a href="r-nuts-and-bolts.html#cb24-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">rownames</span>(m) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;z&quot;</span>)</span>
+<span id="cb24-3"><a href="r-nuts-and-bolts.html#cb24-3" tabindex="-1"></a><span class="sc">&gt;</span> m</span>
+<span id="cb24-4"><a href="r-nuts-and-bolts.html#cb24-4" tabindex="-1"></a>  h f</span>
+<span id="cb24-5"><a href="r-nuts-and-bolts.html#cb24-5" tabindex="-1"></a>x <span class="dv">1</span> <span class="dv">3</span></span>
+<span id="cb24-6"><a href="r-nuts-and-bolts.html#cb24-6" tabindex="-1"></a>z <span class="dv">2</span> <span class="dv">4</span></span></code></pre></div>
 <p>Note that for data frames, there is a separate function for setting
 the row names, the <code>row.names()</code> function. Also, data frames do not
 have column names, they just have names (like lists). So to set the
@@ -861,42 +866,42 @@ the behavior of objects, like turning a vector into a matrix.</p>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/nutsbolts.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/nutsbolts.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
@@ -907,7 +912,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

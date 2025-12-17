@@ -30,7 +30,7 @@ We first read in the 1999 data from the raw text file included in the zip archiv
 After reading in the 1999 we check the first few rows (there are 117,421) rows in this dataset. 
 
 
-```r
+``` r
 > dim(pm0)
 [1] 117421     28
 > head(pm0[, 1:13])
@@ -47,7 +47,7 @@ We then attach the column headers to the dataset and make sure that they are pro
 
 
 
-```r
+``` r
 > cnames <- readLines("pm25_data/RD_501_88101_1999-0.txt", 1)
 > cnames <- strsplit(cnames, "|", fixed = TRUE)
 > ## Ensure names are properly formatted
@@ -73,7 +73,7 @@ The column we are interested in is the `Sample.Value` column which contains the 
 
 
 
-```r
+``` r
 > x0 <- pm0$Sample.Value
 > summary(x0)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
@@ -83,7 +83,7 @@ The column we are interested in is the `Sample.Value` column which contains the 
 Missing values are a common problem with environmental data and so we check to se what proportion of the observations are missing (i.e. coded as `NA`).
 
 
-```r
+``` r
 > mean(is.na(x0))  ## Are missing values important here?
 [1] 0.1125608
 ```
@@ -105,7 +105,7 @@ We then read in the 2012 data in the same manner in which we read the 1999 data 
 We also set the column names (they are the same as the 1999 dataset) and extract the `Sample.Value` column from this dataset.
 
 
-```r
+``` r
 > names(pm1) <- make.names(cnames[[1]])
 > x1 <- pm1$Sample.Value
 ```
@@ -117,31 +117,31 @@ We also set the column names (they are the same as the 1999 dataset) and extract
 In order to show aggregate changes in PM across the entire monitoring network, we can make boxplots of all monitor values in 1999 and 2012. Here, we take the log of the PM values to adjust for the skew in the data.
 
 
-```r
+``` r
 > boxplot(log2(x0), log2(x1))
 Warning in boxplot.default(log2(x0), log2(x1)): NaNs produced
-Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z$group
-== : Outlier (-Inf) in boxplot 1 is not drawn
-Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z$group
-== : Outlier (-Inf) in boxplot 2 is not drawn
+Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out =
+z$out[z$group == : Outlier (-Inf) in boxplot 1 is not drawn
+Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out =
+z$out[z$group == : Outlier (-Inf) in boxplot 2 is not drawn
 ```
 
 <img src="images/unnamed-chunk-5-1.png" width="672" />
 
 
-```r
+``` r
 > summary(x0)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
    0.00    7.20   11.50   13.74   17.90  157.10   13217 
 > summary(x1)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
- -10.00    4.00    7.63    9.14   12.00  908.97   73133 
+-10.000   4.000   7.633   9.140  12.000 908.970   73133 
 ```
 
 Interestingly, from the summary of `x1` it appears there are some negative values of PM, which in general should not occur. We can investigate that somewhat to see if there is anything we should worry about.
 
 
-```r
+``` r
 > negative <- x1 < 0
 > mean(negative, na.rm = T)
 [1] 0.0215034
@@ -159,7 +159,7 @@ There is a relatively small proportion of values that are negative, which is per
 We can then extract the month from each of the dates with negative values and attempt to identify when negative values occur most often.
 
 
-```r
+``` r
 > missing.months <- month.name[as.POSIXlt(dates)$mon + 1]
 > tab <- table(factor(missing.months, levels = month.name))
 > round(100 * tab / sum(tab))
@@ -188,7 +188,7 @@ Our first task is to identify a monitor in New York State that has data in 1999 
 Then we create a new variable that combines the county code and the site ID into a single string.
 
 
-```r
+``` r
 > site0 <- paste(site0[,1], site0[,2], sep = ".")
 > site1 <- paste(site1[,1], site1[,2], sep = ".")
 > str(site0)
@@ -200,7 +200,7 @@ Then we create a new variable that combines the county code and the site ID into
 Finaly, we want the intersection between the sites present in 1999 and 2012 so that we might choose a monitor that has data in both periods.
 
 
-```r
+``` r
 > both <- intersect(site0, site1)
 > print(both)
  [1] "1.5"     "1.12"    "5.80"    "13.11"   "29.5"    "31.3"    "63.2008"
@@ -221,7 +221,7 @@ Here (above) we can see that there are 10 monitors that were operating in both t
 Now that we have subsetted the original data frames to only include the data from the monitors that overlap between 1999 and 2012, we can split the data frames and count the number of observations at each monitor to see which ones have the most observations.
 
 
-```r
+``` r
 > ## 1999
 > sapply(split(cnt0, cnt0$county.site), nrow)  
    1.12     1.5   101.3   13.11    29.5    31.3    5.80 63.2008 67.1015   85.55 
@@ -235,7 +235,7 @@ Now that we have subsetted the original data frames to only include the data fro
 A number of monitors seem suitable from the output, but we will focus here on County 63 and site ID 2008. 
 
 
-```r
+``` r
 > both.county <- 63
 > both.id <- 2008
 > 
@@ -247,7 +247,7 @@ A number of monitors seem suitable from the output, but we will focus here on Co
 Now we plot the time series data of PM for the monitor in both years.
 
 
-```r
+``` r
 > dates1 <- as.Date(as.character(pm1sub$Date), "%Y%m%d")
 > x1sub <- pm1sub$Sample.Value
 > dates0 <- as.Date(as.character(pm0sub$Date), "%Y%m%d")
@@ -273,7 +273,7 @@ Although ambient air quality standards are set at the federal level in the U.S. 
 What we do here is calculate the mean of PM for each state in 1999 and 2012.
 
 
-```r
+``` r
 > ## 1999
 > mn0 <- with(pm0, tapply(Sample.Value, State.Code, mean, na.rm = TRUE))  
 > ## 2012
@@ -296,7 +296,7 @@ What we do here is calculate the mean of PM for each state in 1999 and 2012.
 Now make a plot that shows the 1999 state-wide means in one "column" and the 2012 state-wide means in another columns. We then draw a line connecting the means for each year in the same state to highlight the trend.
 
 
-```r
+``` r
 > par(mfrow = c(1, 1))
 > rng <- range(mrg[,2], mrg[,3])
 > with(mrg, plot(rep(1, 52), mrg[, 2], xlim = c(.5, 2.5), ylim = rng, xaxt = "n", xlab = "", ylab = "State-wide Mean PM"))

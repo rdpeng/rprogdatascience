@@ -6,10 +6,6 @@
 
 ## Reading and Writing Data
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Z_dc_FADyi4?si=BaKZJw3M_dvdsNfw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-
-
 [Watch a video of this section](https://youtu.be/Z_dc_FADyi4)
 
 There are a few principal functions reading data into R. 
@@ -482,7 +478,7 @@ vector coded in hexadecimal format.
 ``` r
 > x <- list(1, 2, 3)
 > serialize(x, NULL)
- [1] 58 0a 00 00 00 03 00 04 04 01 00 03 05 00 00 00 00 05 55 54 46 2d 38 00 00
+ [1] 58 0a 00 00 00 03 00 04 05 02 00 03 05 00 00 00 00 05 55 54 46 2d 38 00 00
 [26] 00 13 00 00 00 03 00 00 00 0e 00 00 00 01 3f f0 00 00 00 00 00 00 00 00 00
 [51] 0e 00 00 00 01 40 00 00 00 00 00 00 00 00 00 00 0e 00 00 00 01 40 08 00 00
 [76] 00 00 00 00

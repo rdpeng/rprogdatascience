@@ -12,7 +12,7 @@ languages.
 The simplest example is when adding two vectors together.
 
 
-```r
+``` r
 > x <- 1:4
 > y <- 6:9 
 > z <- x + y
@@ -23,7 +23,7 @@ The simplest example is when adding two vectors together.
 Natural, right? Without vectorization, you'd have to do something like
 
 
-```r
+``` r
 z <- numeric(length(x))
 for(i in seq_along(x)) {
       z[i] <- x[i] + y[i]
@@ -40,7 +40,7 @@ comparisons. So suppose you wanted to know which elements of a vector
 were greater than 2. You could do he following.
 
 
-```r
+``` r
 > x
 [1] 1 2 3 4
 > x > 2
@@ -50,7 +50,7 @@ were greater than 2. You could do he following.
 Here are other vectorized logical operations.
 
 
-```r
+``` r
 > x >= 2
 [1] FALSE  TRUE  TRUE  TRUE
 > x < 3
@@ -66,7 +66,7 @@ and `FALSE`.
 Of course, subtraction, multiplication and division are also vectorized.
 
 
-```r
+``` r
 > x - y
 [1] -5 -5 -5 -5
 > x * y
@@ -82,7 +82,7 @@ notation. This way, we can do element-by-element operations on
 matrices without having to loop over every element.
 
 
-```r
+``` r
 > x <- matrix(1:4, 2, 2)
 > y <- matrix(rep(10, 4), 2, 2)
 > 

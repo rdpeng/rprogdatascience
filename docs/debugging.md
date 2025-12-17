@@ -17,7 +17,7 @@ R has a number of ways to indicate to you that something’s not right. There ar
 Here is an example of a warning that you might receive in the course of using R.
 
 
-```r
+``` r
 > log(-1)
 Warning in log(-1): NaNs produced
 [1] NaN
@@ -29,7 +29,7 @@ Here is another function that is designed to print a message to the console depe
 
 
 
-```r
+``` r
 > printmessage <- function(x) {
 +         if(x > 0)
 +                 print("x is greater than zero")
@@ -46,7 +46,7 @@ Take a hard look at the function above and see if you can identify any bugs or p
 We can execute the function as follows.
 
 
-```r
+``` r
 > printmessage(1)
 [1] "x is greater than zero"
 ```
@@ -54,7 +54,7 @@ We can execute the function as follows.
 The function seems to work fine at this point. No errors, warnings, or messages.
 
 
-```r
+``` r
 > printmessage(NA)
 Error in if (x > 0) print("x is greater than zero") else print("x is less than or equal to zero"): missing value where TRUE/FALSE needed
 ```
@@ -66,7 +66,7 @@ Well, the first thing the function does is test if `x > 0`. But you can't do tha
 We can fix this problem by anticipating the possibility of `NA` values and checking to see if the input is `NA` with the `is.na()` function.
 
 
-```r
+``` r
 > printmessage2 <- function(x) {
 +         if(is.na(x))
 +                 print("x is a missing value!")
@@ -81,7 +81,7 @@ We can fix this problem by anticipating the possibility of `NA` values and check
 Now we can run the following.
 
 
-```r
+``` r
 > printmessage2(NA)
 [1] "x is a missing value!"
 ```
@@ -91,7 +91,7 @@ And all is fine.
 Now what about the following situation.
 
 
-```r
+``` r
 > x <- log(c(-1, 2))
 Warning in log(c(-1, 2)): NaNs produced
 ```
@@ -99,7 +99,7 @@ Warning in log(c(-1, 2)): NaNs produced
 We expect some `NaN`s here because taking the log of a negative number doesn't make sense.
 
 
-```r
+``` r
 > printmessage2(x)
 Error in if (is.na(x)) print("x is a missing value!") else if (x > 0) print("x is greater than zero") else print("x is less than or equal to zero"): the condition has length > 1
 ```
@@ -113,7 +113,7 @@ We can solve this problem two ways. One is by simply not allowing vector argumen
 For the first way, we simply need to check the length of the input.
 
 
-```r
+``` r
 > printmessage3 <- function(x) {
 +         if(length(x) > 1L)
 +                 stop("'x' has length > 1")
@@ -130,7 +130,7 @@ For the first way, we simply need to check the length of the input.
 Now when we pass `printmessage3()` a vector we should get an error.
 
 
-```r
+``` r
 > printmessage3(1:2)
 Error in printmessage3(1:2): 'x' has length > 1
 ```
@@ -139,7 +139,7 @@ Vectorizing the function can be accomplished easily with the `Vectorize()` funct
 
 
 
-```r
+``` r
 > printmessage4 <- Vectorize(printmessage2)
 > out <- printmessage4(c(-1, 2))
 [1] "x is less than or equal to zero"

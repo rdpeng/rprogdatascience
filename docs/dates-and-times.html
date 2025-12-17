@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>11 Dates and Times | R Programming for Data Science</title>
   <meta name="description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="11 Dates and Times | R Programming for Data Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Roger D. Peng" />
 
 
-<meta name="date" content="2022-05-31" />
+<meta name="date" content="2025-12-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -92,7 +93,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +106,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +120,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -389,15 +394,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.1</span> Dates in R<a href="dates-and-times.html#dates-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://youtu.be/opYexVgjwkE">Watch a video of this section</a></p>
 <p>Dates are represented by the <code>Date</code> class and can be coerced from a character string using the <code>as.Date()</code> function. This is a common way to end up with a <code>Date</code> object in R.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="dates-and-times.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Coerce a &#39;Date&#39; object from character</span></span>
-<span id="cb71-2"><a href="dates-and-times.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;1970-01-01&quot;</span>)   </span>
-<span id="cb71-3"><a href="dates-and-times.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb71-4"><a href="dates-and-times.html#cb71-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;1970-01-01&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="dates-and-times.html#cb71-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## Coerce a &#39;Date&#39; object from character</span></span>
+<span id="cb71-2"><a href="dates-and-times.html#cb71-2" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;1970-01-01&quot;</span>)   </span>
+<span id="cb71-3"><a href="dates-and-times.html#cb71-3" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb71-4"><a href="dates-and-times.html#cb71-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;1970-01-01&quot;</span></span></code></pre></div>
 <p>You can see the internal representation of a <code>Date</code> object by using the <code>unclass()</code> function.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="dates-and-times.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">unclass</span>(x)</span>
-<span id="cb72-2"><a href="dates-and-times.html#cb72-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
-<span id="cb72-3"><a href="dates-and-times.html#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">unclass</span>(<span class="fu">as.Date</span>(<span class="st">&quot;1970-01-02&quot;</span>))</span>
-<span id="cb72-4"><a href="dates-and-times.html#cb72-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="dates-and-times.html#cb72-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">unclass</span>(x)</span>
+<span id="cb72-2"><a href="dates-and-times.html#cb72-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb72-3"><a href="dates-and-times.html#cb72-3" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">unclass</span>(<span class="fu">as.Date</span>(<span class="st">&quot;1970-01-02&quot;</span>))</span>
+<span id="cb72-4"><a href="dates-and-times.html#cb72-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span></code></pre></div>
 </div>
 <div id="times-in-r" class="section level2 hasAnchor" number="11.2">
 <h2><span class="header-section-number">11.2</span> Times in R<a href="dates-and-times.html#times-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -410,63 +415,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>quarters</code>: give the quarter number (“Q1”, “Q2”, “Q3”, or “Q4”)</li>
 </ul>
 <p>Times can be coerced from a character string using the <code>as.POSIXlt</code> or <code>as.POSIXct</code> function.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="dates-and-times.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb73-2"><a href="dates-and-times.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb73-3"><a href="dates-and-times.html#cb73-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2022-05-31 09:26:50 EDT&quot;</span></span>
-<span id="cb73-4"><a href="dates-and-times.html#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(x)   <span class="do">## &#39;POSIXct&#39; object</span></span>
-<span id="cb73-5"><a href="dates-and-times.html#cb73-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;POSIXct&quot;</span> <span class="st">&quot;POSIXt&quot;</span> </span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="dates-and-times.html#cb73-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb73-2"><a href="dates-and-times.html#cb73-2" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb73-3"><a href="dates-and-times.html#cb73-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2025-12-17 10:49:16 CST&quot;</span></span>
+<span id="cb73-4"><a href="dates-and-times.html#cb73-4" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(x)   <span class="do">## &#39;POSIXct&#39; object</span></span>
+<span id="cb73-5"><a href="dates-and-times.html#cb73-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;POSIXct&quot;</span> <span class="st">&quot;POSIXt&quot;</span> </span></code></pre></div>
 <p>The <code>POSIXlt</code> object contains some useful metadata.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="dates-and-times.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p <span class="ot">&lt;-</span> <span class="fu">as.POSIXlt</span>(x)</span>
-<span id="cb74-2"><a href="dates-and-times.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(<span class="fu">unclass</span>(p))</span>
-<span id="cb74-3"><a href="dates-and-times.html#cb74-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;sec&quot;</span>    <span class="st">&quot;min&quot;</span>    <span class="st">&quot;hour&quot;</span>   <span class="st">&quot;mday&quot;</span>   <span class="st">&quot;mon&quot;</span>    <span class="st">&quot;year&quot;</span>   <span class="st">&quot;wday&quot;</span>   <span class="st">&quot;yday&quot;</span>  </span>
-<span id="cb74-4"><a href="dates-and-times.html#cb74-4" aria-hidden="true" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;isdst&quot;</span>  <span class="st">&quot;zone&quot;</span>   <span class="st">&quot;gmtoff&quot;</span></span>
-<span id="cb74-5"><a href="dates-and-times.html#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p<span class="sc">$</span>wday     <span class="do">## day of the week</span></span>
-<span id="cb74-6"><a href="dates-and-times.html#cb74-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="dates-and-times.html#cb74-1" tabindex="-1"></a><span class="sc">&gt;</span> p <span class="ot">&lt;-</span> <span class="fu">as.POSIXlt</span>(x)</span>
+<span id="cb74-2"><a href="dates-and-times.html#cb74-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">names</span>(<span class="fu">unclass</span>(p))</span>
+<span id="cb74-3"><a href="dates-and-times.html#cb74-3" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;sec&quot;</span>    <span class="st">&quot;min&quot;</span>    <span class="st">&quot;hour&quot;</span>   <span class="st">&quot;mday&quot;</span>   <span class="st">&quot;mon&quot;</span>    <span class="st">&quot;year&quot;</span>   <span class="st">&quot;wday&quot;</span>   <span class="st">&quot;yday&quot;</span>  </span>
+<span id="cb74-4"><a href="dates-and-times.html#cb74-4" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;isdst&quot;</span>  <span class="st">&quot;zone&quot;</span>   <span class="st">&quot;gmtoff&quot;</span></span>
+<span id="cb74-5"><a href="dates-and-times.html#cb74-5" tabindex="-1"></a><span class="sc">&gt;</span> p<span class="sc">$</span>wday     <span class="do">## day of the week</span></span>
+<span id="cb74-6"><a href="dates-and-times.html#cb74-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
 <p>You can also use the <code>POSIXct</code> format.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="dates-and-times.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb75-2"><a href="dates-and-times.html#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x             <span class="do">## Already in ‘POSIXct’ format</span></span>
-<span id="cb75-3"><a href="dates-and-times.html#cb75-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2022-05-31 09:26:50 EDT&quot;</span></span>
-<span id="cb75-4"><a href="dates-and-times.html#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">unclass</span>(x)    <span class="do">## Internal representation</span></span>
-<span id="cb75-5"><a href="dates-and-times.html#cb75-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1654003610</span></span>
-<span id="cb75-6"><a href="dates-and-times.html#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x<span class="sc">$</span>sec         <span class="do">## Can&#39;t do this with &#39;POSIXct&#39;!</span></span>
-<span id="cb75-7"><a href="dates-and-times.html#cb75-7" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> x<span class="sc">$</span>sec<span class="sc">:</span> <span class="er">$</span> operator is invalid <span class="cf">for</span> atomic vectors</span>
-<span id="cb75-8"><a href="dates-and-times.html#cb75-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p <span class="ot">&lt;-</span> <span class="fu">as.POSIXlt</span>(x)</span>
-<span id="cb75-9"><a href="dates-and-times.html#cb75-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> p<span class="sc">$</span>sec         <span class="do">## That&#39;s better</span></span>
-<span id="cb75-10"><a href="dates-and-times.html#cb75-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">50.11802</span></span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="dates-and-times.html#cb75-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb75-2"><a href="dates-and-times.html#cb75-2" tabindex="-1"></a><span class="sc">&gt;</span> x             <span class="do">## Already in ‘POSIXct’ format</span></span>
+<span id="cb75-3"><a href="dates-and-times.html#cb75-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2025-12-17 10:49:16 CST&quot;</span></span>
+<span id="cb75-4"><a href="dates-and-times.html#cb75-4" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">unclass</span>(x)    <span class="do">## Internal representation</span></span>
+<span id="cb75-5"><a href="dates-and-times.html#cb75-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1765990157</span></span>
+<span id="cb75-6"><a href="dates-and-times.html#cb75-6" tabindex="-1"></a><span class="sc">&gt;</span> x<span class="sc">$</span>sec         <span class="do">## Can&#39;t do this with &#39;POSIXct&#39;!</span></span>
+<span id="cb75-7"><a href="dates-and-times.html#cb75-7" tabindex="-1"></a>Error <span class="cf">in</span> x<span class="sc">$</span>sec<span class="sc">:</span> <span class="er">$</span> operator is invalid <span class="cf">for</span> atomic vectors</span>
+<span id="cb75-8"><a href="dates-and-times.html#cb75-8" tabindex="-1"></a><span class="sc">&gt;</span> p <span class="ot">&lt;-</span> <span class="fu">as.POSIXlt</span>(x)</span>
+<span id="cb75-9"><a href="dates-and-times.html#cb75-9" tabindex="-1"></a><span class="sc">&gt;</span> p<span class="sc">$</span>sec         <span class="do">## That&#39;s better</span></span>
+<span id="cb75-10"><a href="dates-and-times.html#cb75-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">16.9565</span></span></code></pre></div>
 <p>Finally, there is the <code>strptime()</code> function in case your dates are
 written in a different format. <code>strptime()</code> takes a character vector that has dates and times and converts them into to a <code>POSIXlt</code> object.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="dates-and-times.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> datestring <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;January 10, 2012 10:40&quot;</span>, <span class="st">&quot;December 9, 2011 9:10&quot;</span>)</span>
-<span id="cb76-2"><a href="dates-and-times.html#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">strptime</span>(datestring, <span class="st">&quot;%B %d, %Y %H:%M&quot;</span>)</span>
-<span id="cb76-3"><a href="dates-and-times.html#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb76-4"><a href="dates-and-times.html#cb76-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2012-01-10 10:40:00 EST&quot;</span> <span class="st">&quot;2011-12-09 09:10:00 EST&quot;</span></span>
-<span id="cb76-5"><a href="dates-and-times.html#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(x)</span>
-<span id="cb76-6"><a href="dates-and-times.html#cb76-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;POSIXlt&quot;</span> <span class="st">&quot;POSIXt&quot;</span> </span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="dates-and-times.html#cb76-1" tabindex="-1"></a><span class="sc">&gt;</span> datestring <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;January 10, 2012 10:40&quot;</span>, <span class="st">&quot;December 9, 2011 9:10&quot;</span>)</span>
+<span id="cb76-2"><a href="dates-and-times.html#cb76-2" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">strptime</span>(datestring, <span class="st">&quot;%B %d, %Y %H:%M&quot;</span>)</span>
+<span id="cb76-3"><a href="dates-and-times.html#cb76-3" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb76-4"><a href="dates-and-times.html#cb76-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2012-01-10 10:40:00 CST&quot;</span> <span class="st">&quot;2011-12-09 09:10:00 CST&quot;</span></span>
+<span id="cb76-5"><a href="dates-and-times.html#cb76-5" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(x)</span>
+<span id="cb76-6"><a href="dates-and-times.html#cb76-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;POSIXlt&quot;</span> <span class="st">&quot;POSIXt&quot;</span> </span></code></pre></div>
 <p>The weird-looking symbols that start with the <code>%</code> symbol are the formatting strings for dates and times. I can <em>never</em> remember the formatting strings. Check <code>?strptime</code> for details. It’s probably not worth memorizing this stuff.</p>
 </div>
 <div id="operations-on-dates-and-times" class="section level2 hasAnchor" number="11.3">
 <h2><span class="header-section-number">11.3</span> Operations on Dates and Times<a href="dates-and-times.html#operations-on-dates-and-times" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://youtu.be/vEmWJrpP1KM">Watch a video of this section</a></p>
 <p>You can use mathematical operations on dates and times. Well, really just + and -. You can do comparisons too (i.e. ==, &lt;=)</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="dates-and-times.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2012-01-01&quot;</span>)</span>
-<span id="cb77-2"><a href="dates-and-times.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">strptime</span>(<span class="st">&quot;9 Jan 2011 11:34:21&quot;</span>, <span class="st">&quot;%d %b %Y %H:%M:%S&quot;</span>) </span>
-<span id="cb77-3"><a href="dates-and-times.html#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x<span class="sc">-</span>y</span>
-<span id="cb77-4"><a href="dates-and-times.html#cb77-4" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Incompatible <span class="fu">methods</span> (<span class="st">&quot;-.Date&quot;</span>, <span class="st">&quot;-.POSIXt&quot;</span>) <span class="cf">for</span> <span class="st">&quot;-&quot;</span></span>
-<span id="cb77-5"><a href="dates-and-times.html#cb77-5" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> x <span class="sc">-</span> y<span class="sc">:</span> non<span class="sc">-</span>numeric argument to binary operator</span>
-<span id="cb77-6"><a href="dates-and-times.html#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">as.POSIXlt</span>(x) </span>
-<span id="cb77-7"><a href="dates-and-times.html#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x<span class="sc">-</span>y</span>
-<span id="cb77-8"><a href="dates-and-times.html#cb77-8" aria-hidden="true" tabindex="-1"></a>Time difference of <span class="fl">356.3095</span> days</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="dates-and-times.html#cb77-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2012-01-01&quot;</span>)</span>
+<span id="cb77-2"><a href="dates-and-times.html#cb77-2" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">strptime</span>(<span class="st">&quot;9 Jan 2011 11:34:21&quot;</span>, <span class="st">&quot;%d %b %Y %H:%M:%S&quot;</span>) </span>
+<span id="cb77-3"><a href="dates-and-times.html#cb77-3" tabindex="-1"></a><span class="sc">&gt;</span> x<span class="sc">-</span>y</span>
+<span id="cb77-4"><a href="dates-and-times.html#cb77-4" tabindex="-1"></a>Warning<span class="sc">:</span> Incompatible <span class="fu">methods</span> (<span class="st">&quot;-.Date&quot;</span>, <span class="st">&quot;-.POSIXt&quot;</span>) <span class="cf">for</span> <span class="st">&quot;-&quot;</span></span>
+<span id="cb77-5"><a href="dates-and-times.html#cb77-5" tabindex="-1"></a>Error <span class="cf">in</span> x <span class="sc">-</span> y<span class="sc">:</span> non<span class="sc">-</span>numeric argument to binary operator</span>
+<span id="cb77-6"><a href="dates-and-times.html#cb77-6" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">as.POSIXlt</span>(x) </span>
+<span id="cb77-7"><a href="dates-and-times.html#cb77-7" tabindex="-1"></a><span class="sc">&gt;</span> x<span class="sc">-</span>y</span>
+<span id="cb77-8"><a href="dates-and-times.html#cb77-8" tabindex="-1"></a>Time difference of <span class="fl">356.2678</span> days</span></code></pre></div>
 <p>The nice thing about the date/time classes is that they keep track of all the annoying things about dates and times, like leap years, leap seconds, daylight savings, and time zones.</p>
 <p>Here’s an example where a leap year gets involved.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="dates-and-times.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2012-03-01&quot;</span>) </span>
-<span id="cb78-2"><a href="dates-and-times.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2012-02-28&quot;</span>) </span>
-<span id="cb78-3"><a href="dates-and-times.html#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x<span class="sc">-</span>y</span>
-<span id="cb78-4"><a href="dates-and-times.html#cb78-4" aria-hidden="true" tabindex="-1"></a>Time difference of <span class="dv">2</span> days</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="dates-and-times.html#cb78-1" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2012-03-01&quot;</span>) </span>
+<span id="cb78-2"><a href="dates-and-times.html#cb78-2" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2012-02-28&quot;</span>) </span>
+<span id="cb78-3"><a href="dates-and-times.html#cb78-3" tabindex="-1"></a><span class="sc">&gt;</span> x<span class="sc">-</span>y</span>
+<span id="cb78-4"><a href="dates-and-times.html#cb78-4" tabindex="-1"></a>Time difference of <span class="dv">2</span> days</span></code></pre></div>
 <p>Here’s an example where two different time zones are in play (unless you live in GMT timezone, in which case they will be the same!).</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="dates-and-times.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## My local time zone</span></span>
-<span id="cb79-2"><a href="dates-and-times.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2012-10-25 01:00:00&quot;</span>)     </span>
-<span id="cb79-3"><a href="dates-and-times.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2012-10-25 06:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>) </span>
-<span id="cb79-4"><a href="dates-and-times.html#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y<span class="sc">-</span>x</span>
-<span id="cb79-5"><a href="dates-and-times.html#cb79-5" aria-hidden="true" tabindex="-1"></a>Time difference of <span class="dv">1</span> hours</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="dates-and-times.html#cb79-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="do">## My local time zone</span></span>
+<span id="cb79-2"><a href="dates-and-times.html#cb79-2" tabindex="-1"></a><span class="er">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2012-10-25 01:00:00&quot;</span>)     </span>
+<span id="cb79-3"><a href="dates-and-times.html#cb79-3" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2012-10-25 06:00:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;GMT&quot;</span>) </span>
+<span id="cb79-4"><a href="dates-and-times.html#cb79-4" tabindex="-1"></a><span class="sc">&gt;</span> y<span class="sc">-</span>x</span>
+<span id="cb79-5"><a href="dates-and-times.html#cb79-5" tabindex="-1"></a>Time difference of <span class="dv">0</span> secs</span></code></pre></div>
 </div>
 <div id="summary-1" class="section level2 hasAnchor" number="11.4">
 <h2><span class="header-section-number">11.4</span> Summary<a href="dates-and-times.html#summary-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -499,42 +504,42 @@ written in a different format. <code>strptime()</code> takes a character vector 
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/dates.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/dates.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
@@ -545,7 +550,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

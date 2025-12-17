@@ -10,7 +10,7 @@ At the R prompt we type expressions. The `<-` symbol is the assignment
 operator.
 
 
-```r
+``` r
 > x <- 1
 > print(x)
 [1] 1
@@ -39,7 +39,7 @@ and the result of the evaluated expression is returned. The result may
 be *auto-printed*.
 
 
-```r
+``` r
 > x <- 5  ## nothing printed
 > x       ## auto-printing occurs
 [1] 5
@@ -64,7 +64,7 @@ see this integer sequence of length 20.
 
 
 
-```r
+``` r
 > x <- 11:30
 > x
  [1] 11 12 13 14 15 16 17 18 19 20 21 22
@@ -170,7 +170,7 @@ The `c()` function can be used to create vectors of objects by
 concatenating things together.
 
 
-```r
+``` r
 > x <- c(0.5, 0.6)       ## numeric
 > x <- c(TRUE, FALSE)    ## logical
 > x <- c(T, F)           ## logical
@@ -188,7 +188,7 @@ feeling lazy.
 You can also use the `vector()` function to initialize vectors.
 
 
-```r
+``` r
 > x <- vector("numeric", length = 10) 
 > x
  [1] 0 0 0 0 0 0 0 0 0 0
@@ -201,7 +201,7 @@ together. Sometimes this happens by accident but it can also happen on
 purpose. So what happens with the following code?
 
 
-```r
+``` r
 > y <- c(1.7, "a")   ## character
 > y <- c(TRUE, 2)    ## numeric
 > y <- c("a", TRUE)  ## character
@@ -226,7 +226,7 @@ Objects can be explicitly coerced from one class to another using the
 `as.*` functions, if available.
 
 
-```r
+``` r
 > x <- 0:6
 > class(x)
 [1] "integer"
@@ -242,7 +242,7 @@ Sometimes, R can't figure out how to coerce an object and this can
 result in `NA`s being produced.
 
 
-```r
+``` r
 > x <- c("a", "b", "c")
 > as.numeric(x)
 Warning: NAs introduced by coercion
@@ -265,7 +265,7 @@ attribute is itself an integer vector of length 2 (number of rows,
 number of columns)
 
 
-```r
+``` r
 > m <- matrix(nrow = 2, ncol = 3) 
 > m
      [,1] [,2] [,3]
@@ -282,7 +282,7 @@ Matrices are constructed _column-wise_, so entries can be thought of
 starting in the "upper left" corner and running down the columns.
 
 
-```r
+``` r
 > m <- matrix(1:6, nrow = 2, ncol = 3) 
 > m
      [,1] [,2] [,3]
@@ -294,7 +294,7 @@ Matrices can also be created directly from vectors by adding a
 dimension attribute.
 
 
-```r
+``` r
 > m <- 1:10 
 > m
  [1]  1  2  3  4  5  6  7  8  9 10
@@ -309,7 +309,7 @@ Matrices can be created by _column-binding_ or _row-binding_ with the
 `cbind()` and `rbind()` functions.
 
 
-```r
+``` r
 > x <- 1:3
 > y <- 10:12
 > cbind(x, y)
@@ -334,7 +334,7 @@ Lists can be explicitly created using the `list()` function, which
 takes an arbitrary number of arguments.
 
 
-```r
+``` r
 > x <- list(1, "a", TRUE, 1 + 4i) 
 > x
 [[1]]
@@ -354,7 +354,7 @@ We can also create an empty list of a prespecified length with the
 `vector()` function
 
 
-```r
+``` r
 > x <- vector("list", length = 5)
 > x
 [[1]]
@@ -390,7 +390,7 @@ and "Female" is better than a variable that has values 1 and 2.
 Factor objects can be created with the `factor()` function.
 
 
-```r
+``` r
 > x <- factor(c("yes", "yes", "no", "yes", "no")) 
 > x
 [1] yes yes no  yes no 
@@ -416,7 +416,7 @@ argument to `factor()`. This can be important in linear modelling
 because the first level is used as the baseline level.
 
 
-```r
+``` r
 > x <- factor(c("yes", "yes", "no", "yes", "no"))
 > x  ## Levels are put in alphabetical order
 [1] yes yes no  yes no 
@@ -444,7 +444,7 @@ mathematical operations.
 
 
 
-```r
+``` r
 > ## Create a vector with NAs in it
 > x <- c(1, 2, NA, 10, 3)  
 > ## Return a logical vector indicating which elements are NA
@@ -456,7 +456,7 @@ mathematical operations.
 ```
 
 
-```r
+``` r
 > ## Now create a vector with both NA and NaN values
 > x <- c(1, 2, NaN, NA, 4)
 > is.na(x)
@@ -497,7 +497,7 @@ should be used to coerce a data frame to a matrix, almost always, what
 you want is the result of `data.matrix()`.
 
 
-```r
+``` r
 > x <- data.frame(foo = 1:4, bar = c(T, T, F, F)) 
 > x
   foo   bar
@@ -518,7 +518,7 @@ code and self-describing objects. Here is an example of assigning
 names to an integer vector.
 
 
-```r
+``` r
 > x <- 1:3
 > names(x)
 NULL
@@ -533,7 +533,7 @@ NULL
 Lists can also have names, which is often very useful.
 
 
-```r
+``` r
 > x <- list("Los Angeles" = 1, Boston = 2, London = 3) 
 > x
 $`Los Angeles`
@@ -551,7 +551,7 @@ $London
 Matrices can have both column and row names.
 
 
-```r
+``` r
 > m <- matrix(1:4, nrow = 2, ncol = 2)
 > dimnames(m) <- list(c("a", "b"), c("c", "d")) 
 > m
@@ -564,7 +564,7 @@ Column names and row names can be set separately using the
 `colnames()` and `rownames()` functions.
 
 
-```r
+``` r
 > colnames(m) <- c("h", "f")
 > rownames(m) <- c("x", "z")
 > m

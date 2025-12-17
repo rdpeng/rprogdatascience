@@ -74,7 +74,7 @@ Statistical Software*.
 
 In the next step of my career, I went to the [Department of
 Biostatistics](http://www.biostat.jhsph.edu) at the Johns Hopkins
-Bloomberg School of Public Health, where I have been for the past 19
+Bloomberg School of Public Health, where I have been for the past 22
 years. When I got to Johns Hopkins people already seemed into R. Most
 people had abandoned S-PLUS a while ago and were committed to using R
 for their research. Of all the available statistical packages, R had

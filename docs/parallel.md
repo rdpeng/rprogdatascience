@@ -104,18 +104,18 @@ system.</p>
 The first thing you might want to check with the `parallel` package is if your computer in fact has multiple cores that you can take advantage of.
 
 
-```r
+``` r
 > library(parallel)
 > detectCores()
-[1] 16
+[1] 10
 ```
 
 The computer on which this is being written is a circa 2016 MacBook Pro (with Touch Bar) with 2 physical CPUs. However, because each core allows for hyperthreading, each core is presented as 2 separate cores, allowing for 4 "logical" cores. This is what `detectCores()` returns. On some systems you can call `detectCores(logical = FALSE)` to return the number of physical cores.
 
 
-```r
+``` r
 > detectCores(logical = FALSE)  ## Same answer as before on some systems?
-[1] 8
+[1] 10
 ```
 
 In general, the information from `detectCores()` should be used cautiously as obtaining this kind of information from Unix-like operating systems is not always reliable. If you are going down this road, it's best if you get to know your hardware better in order to have an understanding of how many CPUs/cores are available to you.
@@ -125,7 +125,7 @@ In general, the information from `detectCores()` should be used cautiously as ob
 The simplest application of the `parallel` package is via the `mclapply()` function, which conceptually splits what might be a call to `lapply()` across multiple cores. Just to show how the function works, I'll run some code that splits a job across 10 cores and then just sleeps for 10 seconds.
 
 
-```r
+``` r
 > r <- mclapply(1:10, function(i) {
 +         Sys.sleep(10)  ## Do nothing for 10 seconds
 + }, mc.cores = 10)      ## Split this job across 10 cores
@@ -142,7 +142,7 @@ We will use as a second (slightly more realistic) example processing data from m
 Here we have data on ambient concentrations of sulfate particulate matter (PM) and nitrate PM from 332 monitors around the United States. First, we can read in the data via a simple call to `lapply()`.
 
 
-```r
+``` r
 > infiles <- dir("specdata", full.names = TRUE)
 > specdata <- lapply(infiles, read.csv)
 ```
@@ -152,7 +152,7 @@ Now, `specdata` is a list of data frames, with each data frame corresponding to 
 One thing we might want to do is compute a summary statistic across each of the monitors. For example, we might want to compute the 90th percentile of sulfate for each of the monitors. This can easily be implemented as a serial call to `lapply()`.
 
 
-```r
+``` r
 > s <- system.time({
 +         mn <- lapply(specdata, function(df) {
 +                 quantile(df$sulfate, 0.9, na.rm = TRUE)
@@ -160,15 +160,15 @@ One thing we might want to do is compute a summary statistic across each of the 
 + })
 > s
    user  system elapsed 
-  0.034   0.000   0.034 
+  0.020   0.001   0.020 
 ```
 
-Note that in the `system.time()` output, the `user` time (0.034 seconds) and the `elapsed` time (0.034 seconds) are roughly the same, which is what we would expect because there was no parallelization.
+Note that in the `system.time()` output, the `user` time (0.02 seconds) and the `elapsed` time (0.02 seconds) are roughly the same, which is what we would expect because there was no parallelization.
 
 The equivalent call using `mclapply()` would be
 
 
-```r
+``` r
 > s <- system.time({
 +         mn <- mclapply(specdata, function(df) {
 +                 quantile(df$sulfate, 0.9, na.rm = TRUE)
@@ -176,7 +176,7 @@ The equivalent call using `mclapply()` would be
 + })
 > s
    user  system elapsed 
-  0.002   0.004   0.027 
+  0.018   0.035   0.027 
 ```
 
 You'll notice that the the `elapsed` time is now less than the `user` time. However, in general, the `elapsed` time will not be 1/4th of the `user` time, which is what we might expect with 4 cores if there were a perfect performance gain from parallelization. 
@@ -184,13 +184,13 @@ You'll notice that the the `elapsed` time is now less than the `user` time. Howe
 R keeps track of how much time is spent in the main process and how much is spent in any child processes.
 
 
-```r
+``` r
 > s["user.self"]  ## Main process
 user.self 
-    0.002 
+    0.001 
 > s["user.child"] ## Child processes
 user.child 
-         0 
+     0.017 
 ```
 
 In the call to `mclapply()` you can see that virtually all of the `user` time is spent in the child processes. The total `user` time is the sum of the `self` and `child` times. 
@@ -217,7 +217,7 @@ This error handling behavior is a significant difference from the usual call to 
 With `mclapply()`, when a sub-process fails, the return value for that sub-process will be an R object that inherits from the class `"try-error"`, which is something you can test with the `inherits()` function. Conceptually, each child process is executed with the `try()` function wrapped around it. The code below deliberately causes an error in the 3 element of the list.
 
 
-```r
+``` r
 > r <- mclapply(1:5, function(i) {
 +         if(i == 3L)
 +                 stop("error in this process!")
@@ -231,7 +231,7 @@ user code, all values of the job will be affected
 Here we see there was a warning but no error in the running of the above code. We can check the return value.
 
 
-```r
+``` r
 > str(r)
 List of 5
  $ : chr "success!"
@@ -248,7 +248,7 @@ List of 5
 Note that the 3rd list element in `r` is different.
 
 
-```r
+``` r
 > class(r[[3]])
 [1] "try-error"
 > inherits(r[[3]], "try-error")
@@ -258,7 +258,7 @@ Note that the 3rd list element in `r` is different.
 When running code where there may be errors in some of the sub-processes, it's useful to check afterwards to see if there are any errors in the output received.
 
 
-```r
+``` r
 > bad <- sapply(r, inherits, what = "try-error")
 > bad
 [1] FALSE FALSE  TRUE FALSE FALSE
@@ -266,7 +266,7 @@ When running code where there may be errors in some of the sub-processes, it's u
 
 You can subsequently subset your return object to only keep the "good" elements.
 
-```r
+``` r
 > r.good <- r[!bad]
 > str(r.good)
 List of 4
@@ -285,7 +285,7 @@ One technique that is commonly used to assess the variability of a statistic is 
 One example of a statistic for which the bootstrap is useful is the median. Here, we plot the histogram of some of the sulfate particulate matter data from the previous example.
 
 
-```r
+``` r
 > dat <- read.csv("specdata/001.csv")
 > sulf <- dat$sulfate
 > sulf <- sulf[!is.na(sulf)]     ## Remove missing values
@@ -297,7 +297,7 @@ One example of a statistic for which the bootstrap is useful is the median. Here
 We can see from the histogram that the distribution of sulfate is skewed to the right. Therefore, it would seem that the median might be a better summary of the distribution than the mean.
 
 
-```r
+``` r
 > summary(sulf)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   0.613   2.210   2.870   3.881   4.730  19.100 
@@ -306,7 +306,7 @@ We can see from the histogram that the distribution of sulfate is skewed to the 
 How can we construct confidence interval for the median of sulfate for this monitor? The bootstrap is simple procedure that can work well. Here's how we might do it in the usual (non-parallel) way.
 
 
-```r
+``` r
 > set.seed(1)
 > med.boot <- replicate(5000, {
 +         xnew <- sample(sulf, replace = TRUE)
@@ -317,7 +317,7 @@ How can we construct confidence interval for the median of sulfate for this moni
 A 95% confidence interval would then take the 2.5th and 97.5th percentiles of this distribution (this is known as the percentile method).
 
 
-```r
+``` r
 > quantile(med.boot, c(0.025, 0.975))
  2.5% 97.5% 
  2.70  3.47 
@@ -330,17 +330,17 @@ How could be done in parallel? We could simply wrap the expression passed to `re
 Generating random numbers in a parallel environment warrants caution because it's possible to create a situation where each of the sub-processes are all generating the *exact same random numbers*. For the most part, the `mc*` functions do their best to avoid this.
 
 
-```r
+``` r
 > r <- mclapply(1:5, function(i) {
 +         rnorm(3)
 + }, mc.cores = 5)
 > str(r)
 List of 5
- $ : num [1:3] -0.7308 -0.5486 0.0307
- $ : num [1:3] 0.258 -1.028 0.81
- $ : num [1:3] -0.526 -0.477 -0.671
- $ : num [1:3] 1.066 -0.639 0.675
- $ : num [1:3] 2.012 1.616 0.419
+ $ : num [1:3] -0.511 -0.581 -1.867
+ $ : num [1:3] 0.836 0.458 2.379
+ $ : num [1:3] 0.629 -1.399 0.509
+ $ : num [1:3] -0.75417 0.0438 0.00524
+ $ : num [1:3] -0.111 0.463 0.537
 ```
 
 However, the above expression is not **reproducible** because the next time you run it, you will get a different set of random numbers. You cannot simply call `set.seed()` before running the expression as you might in a non-parallel version of the code. 
@@ -348,7 +348,7 @@ However, the above expression is not **reproducible** because the next time you 
 The `parallel` package provides a way to reproducibly generate random numbers in a parallel environment via the "L'Ecuyer-CMRG" random number generator. Note that this is not the default random number generator so you will have to set it explicitly.
 
 
-```r
+``` r
 > ## Reproducible random numbers
 > RNGkind("L'Ecuyer-CMRG")
 > set.seed(1)
@@ -369,7 +369,7 @@ Running the above code twice will generate the same random numbers in each of th
 Now we can run our parallel bootstrap in a reproducible way.
 
 
-```r
+``` r
 > RNGkind("L'Ecuyer-CMRG")
 > set.seed(1)
 > med.boot <- mclapply(1:5000, function(i) {
@@ -397,7 +397,7 @@ changed.</p>
 For bootstrapping in particular, you can use the `boot` package to do most of the work and the key `boot` function has an option to do the work in parallel.
 
 
-```r
+``` r
 > library(boot)
 > b <- boot(sulf, function(x, i) median(x[i]), R = 5000, parallel = "multicore", ncpus = 4)
 > boot.ci(b, type = "perc")
@@ -420,7 +420,7 @@ Using the forking mechanism on your computer is one way to execute parallel comp
 Building a socket cluster is simple to do in R with the `makeCluster()` function. Here I'm initializing a cluster with 4 components.
 
 
-```r
+``` r
 > cl <- makeCluster(4)
 ```
 
@@ -436,7 +436,7 @@ not discuss these other options here.</p>
 To do an `lapply()` operation over a socket cluster we can use the `parLapply()` function. For example, we can use `parLapply()` to run our median bootstrap example described above.
 
 
-```r
+``` r
 > med.boot <- parLapply(cl, 1:5000, function(i) {
 +         xnew <- sample(sulf, replace = TRUE)
 +         median(xnew)
@@ -447,7 +447,7 @@ Error in checkForRemoteErrors(val): 4 nodes produced errors; first error: object
 You'll notice, unfortunately, that there's an error in running this code. The reason is that while we have loaded the sulfate data into our R session, the data is not available to the independent child processes that have been spawned by the `makeCluster()` function. The data, and any other information that the child process will need to execute your code, needs to be **exported** to the child process from the parent process via the `clusterExport()` function. The need to export data is a key difference in behavior between the "multicore" approach and the "socket" approach.
 
 
-```r
+``` r
 > clusterExport(cl, "sulf")
 ```
 
@@ -456,7 +456,7 @@ The second argument to `clusterExport()` is a character vector, and so you can e
 Once the data have been exported to the child processes, we can run our bootstrap code again.
 
 
-```r
+``` r
 > med.boot <- parLapply(cl, 1:5000, function(i) {
 +         xnew <- sample(sulf, replace = TRUE)
 +         median(xnew)
@@ -464,13 +464,13 @@ Once the data have been exported to the child processes, we can run our bootstra
 > med.boot <- unlist(med.boot)  ## Collapse list into vector
 > quantile(med.boot, c(0.025, 0.975))
  2.5% 97.5% 
- 2.68  3.47 
+ 2.70  3.47 
 ```
 
 Once you've finished working with your cluster, it's good to clean up and stop the cluster child processes (quitting R will also stop all of the child processes).
 
 
-```r
+``` r
 > stopCluster(cl)
 ```
 

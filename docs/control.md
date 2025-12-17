@@ -78,7 +78,7 @@ if(<condition1>) {
 Here is an example of a valid if/else structure.
 
 
-```r
+``` r
 ## Generate a uniform random number
 x <- runif(1, 0, 10)  
 if(x > 3) {
@@ -92,7 +92,7 @@ The value of `y` is set depending on whether `x > 3` or not. This
 expression can also be written a different, but equivalent, way in R.
 
 
-```r
+``` r
 y <- if(x > 3) {
         10
 } else { 
@@ -133,7 +133,7 @@ values from a sequence or vector. For loops are most commonly used for
 iterating over the elements of an object (list, vector, etc.)
 
 
-```r
+``` r
 > for(i in 1:10) {
 +         print(i)
 + }
@@ -156,7 +156,7 @@ braces, and then the loop exits.
 The following three loops all have the same behavior.
 
 
-```r
+``` r
 > x <- c("a", "b", "c", "d")
 > 
 > for(i in 1:4) {
@@ -174,7 +174,7 @@ loops in order to generate an integer sequence based on the length of
 an object (in this case, the object `x`).
 
 
-```r
+``` r
 > ## Generate a sequence based on length of 'x'
 > for(i in seq_along(x)) {   
 +         print(x[i])
@@ -188,7 +188,7 @@ an object (in this case, the object `x`).
 It is not necessary to use an index-type variable. 
 
 
-```r
+``` r
 > for(letter in x) {
 +         print(letter)
 + }
@@ -201,7 +201,7 @@ It is not necessary to use an index-type variable.
 For one line loops, the curly braces are not strictly necessary.
 
 
-```r
+``` r
 > for(i in 1:4) print(x[i])
 [1] "a"
 [1] "b"
@@ -247,7 +247,7 @@ is tested again, and so forth, until the condition is false, after
 which the loop exits.
 
 
-```r
+``` r
 > count <- 0
 > while(count < 10) {
 +         print(count)
@@ -271,7 +271,7 @@ properly. Use with care!
 Sometimes there will be more than one condition in the test.
 
 
-```r
+``` r
 > z <- 5
 > set.seed(1)
 > 
@@ -310,7 +310,7 @@ don't know in advance how many iterations it's going to take to get
 "close enough" to the solution.
 
 
-```r
+``` r
 x0 <- 1
 tol <- 1e-8
 
@@ -341,7 +341,7 @@ report whether convergence was achieved or not.
 `next` is used to skip an iteration of a loop. 
 
 
-```r
+``` r
 for(i in 1:100) {
         if(i <= 20) {
                 ## Skip the first 20 iterations
@@ -355,7 +355,7 @@ for(i in 1:100) {
 iteration the loop may be on.
 
 
-```r
+``` r
 for(i in 1:100) {
       print(i)
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>19 Profiling R Code | R Programming for Data Science</title>
   <meta name="description" content="The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox." />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="19 Profiling R Code | R Programming for Data Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Roger D. Peng" />
 
 
-<meta name="date" content="2022-05-31" />
+<meta name="date" content="2025-12-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -92,7 +93,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +106,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +120,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -414,36 +419,36 @@ the code spends most of its time. This cannot be done without some sort of rigor
 <p>Usually, the user time and elapsed time are relatively close, for straight computing tasks. But there are a few situations where the two can diverge, sometimes dramatically. The elapsed time may be <em>greater than</em> the user time if the CPU spends a lot of time waiting around. This commonly happens if your R expression involes some input or output, which depends on the activity of the file system and the disk (or the Internet, if using a network connection).</p>
 <p>The elapsed time may be <em>smaller than</em> the user time if your machine has multiple cores/processors (and is capable of using them). For example, multi-threaded BLAS libraries (vecLib/Accelerate, ATLAS, ACML, MKL) can greatly speed up linear algebra calculations and are commonly installed on even desktop systems these days. Also, parallel processing done via something like the <code>parallell</code> package can make the elapsed time smaller than the user time. When you have multiple processors/cores/machines working in parallel, the amount of time that the collection of CPUs spends working on a problem is the same as with a single CPU, but because they are operating in parallel, there is a savings in elapsed time.</p>
 <p>Here’s an example of where the elapsed time is greater than the user time.</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="profiling-r-code.html#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Elapsed time &gt; user time</span></span>
-<span id="cb265-2"><a href="profiling-r-code.html#cb265-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">readLines</span>(<span class="st">&quot;http://www.jhsph.edu&quot;</span>))</span>
-<span id="cb265-3"><a href="profiling-r-code.html#cb265-3" aria-hidden="true" tabindex="-1"></a>   user  system elapsed </span>
-<span id="cb265-4"><a href="profiling-r-code.html#cb265-4" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.004</span>   <span class="fl">0.002</span>   <span class="fl">0.431</span> </span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="profiling-r-code.html#cb265-1" tabindex="-1"></a><span class="do">## Elapsed time &gt; user time</span></span>
+<span id="cb265-2"><a href="profiling-r-code.html#cb265-2" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">readLines</span>(<span class="st">&quot;http://www.jhsph.edu&quot;</span>))</span>
+<span id="cb265-3"><a href="profiling-r-code.html#cb265-3" tabindex="-1"></a>   user  system elapsed </span>
+<span id="cb265-4"><a href="profiling-r-code.html#cb265-4" tabindex="-1"></a>  <span class="fl">0.004</span>   <span class="fl">0.002</span>   <span class="fl">0.431</span> </span></code></pre></div>
 <p>Most of the time in this expression is spent waiting for the connection to the web server and waiting for the data to travel back to my computer. This doesn’t involve the CPU and so the CPU simply waits around for things to get done. Hence, the user time is small.</p>
 <p>In this example, the elapsed time is smaller than the user time.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="profiling-r-code.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Elapsed time &lt; user time</span></span>
-<span id="cb266-2"><a href="profiling-r-code.html#cb266-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> hilbert <span class="ot">&lt;-</span> <span class="cf">function</span>(n) { </span>
-<span id="cb266-3"><a href="profiling-r-code.html#cb266-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         i <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
-<span id="cb266-4"><a href="profiling-r-code.html#cb266-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="dv">1</span> <span class="sc">/</span> <span class="fu">outer</span>(i <span class="sc">-</span> <span class="dv">1</span>, i, <span class="st">&quot;+&quot;</span>)</span>
-<span id="cb266-5"><a href="profiling-r-code.html#cb266-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> }</span>
-<span id="cb266-6"><a href="profiling-r-code.html#cb266-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">hilbert</span>(<span class="dv">1000</span>)</span>
-<span id="cb266-7"><a href="profiling-r-code.html#cb266-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">system.time</span>(<span class="fu">svd</span>(x))</span>
-<span id="cb266-8"><a href="profiling-r-code.html#cb266-8" aria-hidden="true" tabindex="-1"></a>   user  system elapsed </span>
-<span id="cb266-9"><a href="profiling-r-code.html#cb266-9" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1.035</span>   <span class="fl">0.255</span>   <span class="fl">0.462</span> </span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="profiling-r-code.html#cb266-1" tabindex="-1"></a><span class="do">## Elapsed time &lt; user time</span></span>
+<span id="cb266-2"><a href="profiling-r-code.html#cb266-2" tabindex="-1"></a><span class="sc">&gt;</span> hilbert <span class="ot">&lt;-</span> <span class="cf">function</span>(n) { </span>
+<span id="cb266-3"><a href="profiling-r-code.html#cb266-3" tabindex="-1"></a><span class="sc">+</span>         i <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb266-4"><a href="profiling-r-code.html#cb266-4" tabindex="-1"></a><span class="sc">+</span>         <span class="dv">1</span> <span class="sc">/</span> <span class="fu">outer</span>(i <span class="sc">-</span> <span class="dv">1</span>, i, <span class="st">&quot;+&quot;</span>)</span>
+<span id="cb266-5"><a href="profiling-r-code.html#cb266-5" tabindex="-1"></a><span class="sc">+</span> }</span>
+<span id="cb266-6"><a href="profiling-r-code.html#cb266-6" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">hilbert</span>(<span class="dv">1000</span>)</span>
+<span id="cb266-7"><a href="profiling-r-code.html#cb266-7" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">system.time</span>(<span class="fu">svd</span>(x))</span>
+<span id="cb266-8"><a href="profiling-r-code.html#cb266-8" tabindex="-1"></a>   user  system elapsed </span>
+<span id="cb266-9"><a href="profiling-r-code.html#cb266-9" tabindex="-1"></a>  <span class="fl">1.035</span>   <span class="fl">0.255</span>   <span class="fl">0.462</span> </span></code></pre></div>
 <p>In this case I ran a singular value decomposition on the matrix in <code>x</code>, which is a common linear algebra procedure. Because my computer is able to split the work across multiple processors, the elapsed time is about half the user time.</p>
 </div>
 <div id="timing-longer-expressions" class="section level2 hasAnchor" number="19.2">
 <h2><span class="header-section-number">19.2</span> Timing Longer Expressions<a href="profiling-r-code.html#timing-longer-expressions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You can time longer expressions by wrapping them in curly braces within the call to <code>system.time()</code>.</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="profiling-r-code.html#cb267-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">system.time</span>({</span>
-<span id="cb267-2"><a href="profiling-r-code.html#cb267-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb267-3"><a href="profiling-r-code.html#cb267-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         r <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
-<span id="cb267-4"><a href="profiling-r-code.html#cb267-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb267-5"><a href="profiling-r-code.html#cb267-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb267-6"><a href="profiling-r-code.html#cb267-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                 r[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb267-7"><a href="profiling-r-code.html#cb267-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         }</span>
-<span id="cb267-8"><a href="profiling-r-code.html#cb267-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> })</span>
-<span id="cb267-9"><a href="profiling-r-code.html#cb267-9" aria-hidden="true" tabindex="-1"></a>   user  system elapsed </span>
-<span id="cb267-10"><a href="profiling-r-code.html#cb267-10" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.084</span>   <span class="fl">0.003</span>   <span class="fl">0.087</span> </span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="profiling-r-code.html#cb267-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">system.time</span>({</span>
+<span id="cb267-2"><a href="profiling-r-code.html#cb267-2" tabindex="-1"></a><span class="sc">+</span>         n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb267-3"><a href="profiling-r-code.html#cb267-3" tabindex="-1"></a><span class="sc">+</span>         r <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb267-4"><a href="profiling-r-code.html#cb267-4" tabindex="-1"></a><span class="sc">+</span>         <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb267-5"><a href="profiling-r-code.html#cb267-5" tabindex="-1"></a><span class="sc">+</span>                 x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb267-6"><a href="profiling-r-code.html#cb267-6" tabindex="-1"></a><span class="sc">+</span>                 r[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb267-7"><a href="profiling-r-code.html#cb267-7" tabindex="-1"></a><span class="sc">+</span>         }</span>
+<span id="cb267-8"><a href="profiling-r-code.html#cb267-8" tabindex="-1"></a><span class="sc">+</span> })</span>
+<span id="cb267-9"><a href="profiling-r-code.html#cb267-9" tabindex="-1"></a>   user  system elapsed </span>
+<span id="cb267-10"><a href="profiling-r-code.html#cb267-10" tabindex="-1"></a>  <span class="fl">0.030</span>   <span class="fl">0.001</span>   <span class="fl">0.031</span> </span></code></pre></div>
 <p>If your expression is getting pretty long (more than 2 or 3 lines), it might be better to either break it into smaller pieces or to use the profiler. The problem is that if the expression is too long, you won’t be able to identify which part of the code is causing the bottleneck.</p>
 </div>
 <div id="the-r-profiler" class="section level2 hasAnchor" number="19.3">
@@ -454,29 +459,29 @@ the code spends most of its time. This cannot be done without some sort of rigor
 Note that you should NOT use <code>system.time()</code> and <code>Rprof()</code> together, or you will be sad.</p>
 <p><code>Rprof()</code> keeps track of the function call stack at regularly sampled intervals and tabulates how much time is spent inside each function. By default, the profiler samples the function call stack every 0.02 seconds. This means that if your code runs very quickly (say, under 0.02 seconds), the profiler is not useful. But of your code runs that fast, you probably don’t need the profiler.</p>
 <p>The profiler is started by calling the <code>Rprof()</code> function.</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="profiling-r-code.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Rprof</span>()    <span class="do">## Turn on the profiler</span></span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="profiling-r-code.html#cb268-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Rprof</span>()    <span class="do">## Turn on the profiler</span></span></code></pre></div>
 <p>You don’t need any other arguments. By default it will write its output to a file called <code>Rprof.out</code>. You can specify the name of the output file if you don’t want to use this default.</p>
 <p>Once you call the <code>Rprof()</code> function, everything that you do from then on will be measured by the profiler. Therefore, you usually only want to run a single R function or expression once you turn on the profiler and then immediately turn it off. The reason is that if you mix too many function calls together when running the profiler, all of the results will be mixed together and you won’t be able to sort out where the bottlenecks are. In reality, I usually only run a single function with the profiler on.</p>
 <p>The profiler can be turned off by passing <code>NULL</code> to <code>Rprof()</code>.</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="profiling-r-code.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Rprof</span>(<span class="cn">NULL</span>)    <span class="do">## Turn off the profiler</span></span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="profiling-r-code.html#cb269-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">Rprof</span>(<span class="cn">NULL</span>)    <span class="do">## Turn off the profiler</span></span></code></pre></div>
 <p>The raw output from the profiler looks something like this. Here I’m calling the <code>lm()</code> function on some data with the profiler running.</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="profiling-r-code.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(y ~ x)</span></span>
-<span id="cb270-2"><a href="profiling-r-code.html#cb270-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb270-3"><a href="profiling-r-code.html#cb270-3" aria-hidden="true" tabindex="-1"></a>sample.interval<span class="ot">=</span><span class="dv">10000</span></span>
-<span id="cb270-4"><a href="profiling-r-code.html#cb270-4" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;list&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-5"><a href="profiling-r-code.html#cb270-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;list&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-6"><a href="profiling-r-code.html#cb270-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;list&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-7"><a href="profiling-r-code.html#cb270-7" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;list&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-8"><a href="profiling-r-code.html#cb270-8" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-9"><a href="profiling-r-code.html#cb270-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-10"><a href="profiling-r-code.html#cb270-10" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-11"><a href="profiling-r-code.html#cb270-11" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-12"><a href="profiling-r-code.html#cb270-12" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-13"><a href="profiling-r-code.html#cb270-13" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-14"><a href="profiling-r-code.html#cb270-14" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-15"><a href="profiling-r-code.html#cb270-15" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;lm.fit&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-16"><a href="profiling-r-code.html#cb270-16" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;lm.fit&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
-<span id="cb270-17"><a href="profiling-r-code.html#cb270-17" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;lm.fit&quot;</span> <span class="st">&quot;lm&quot;</span> </span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="profiling-r-code.html#cb270-1" tabindex="-1"></a><span class="do">## lm(y ~ x)</span></span>
+<span id="cb270-2"><a href="profiling-r-code.html#cb270-2" tabindex="-1"></a></span>
+<span id="cb270-3"><a href="profiling-r-code.html#cb270-3" tabindex="-1"></a>sample.interval<span class="ot">=</span><span class="dv">10000</span></span>
+<span id="cb270-4"><a href="profiling-r-code.html#cb270-4" tabindex="-1"></a><span class="st">&quot;list&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-5"><a href="profiling-r-code.html#cb270-5" tabindex="-1"></a><span class="st">&quot;list&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-6"><a href="profiling-r-code.html#cb270-6" tabindex="-1"></a><span class="st">&quot;list&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-7"><a href="profiling-r-code.html#cb270-7" tabindex="-1"></a><span class="st">&quot;list&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-8"><a href="profiling-r-code.html#cb270-8" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-9"><a href="profiling-r-code.html#cb270-9" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-10"><a href="profiling-r-code.html#cb270-10" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-11"><a href="profiling-r-code.html#cb270-11" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-12"><a href="profiling-r-code.html#cb270-12" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-13"><a href="profiling-r-code.html#cb270-13" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-14"><a href="profiling-r-code.html#cb270-14" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span> <span class="st">&quot;model.frame.default&quot;</span> <span class="st">&quot;model.frame&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;eval&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-15"><a href="profiling-r-code.html#cb270-15" tabindex="-1"></a><span class="st">&quot;lm.fit&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-16"><a href="profiling-r-code.html#cb270-16" tabindex="-1"></a><span class="st">&quot;lm.fit&quot;</span> <span class="st">&quot;lm&quot;</span> </span>
+<span id="cb270-17"><a href="profiling-r-code.html#cb270-17" tabindex="-1"></a><span class="st">&quot;lm.fit&quot;</span> <span class="st">&quot;lm&quot;</span> </span></code></pre></div>
 <p>At each line of the output, the profiler writes out the function call stack. For example, on the very first line of the output you can see that the code is 8 levels deep in the call stack. This is where you need the <code>summaryRprof()</code> function to help you interpret this data.</p>
 </div>
 <div id="using-summaryrprof" class="section level2 hasAnchor" number="19.4">
@@ -487,44 +492,44 @@ Note that you should NOT use <code>system.time()</code> and <code>Rprof()</code>
 <li><p>“by.self” does the same as “by.total” but first subtracts out time spent in functions above the current function in the call stack. I personally find this output to be much more useful.</p></li>
 </ul>
 <p>Here is what <code>summaryRprof()</code> reports in the “by.total” output.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="profiling-r-code.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>by.total</span>
-<span id="cb271-2"><a href="profiling-r-code.html#cb271-2" aria-hidden="true" tabindex="-1"></a>                        total.time total.pct self.time self.pct</span>
-<span id="cb271-3"><a href="profiling-r-code.html#cb271-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;lm&quot;</span>                          <span class="fl">7.41</span>    <span class="fl">100.00</span>      <span class="fl">0.30</span>     <span class="fl">4.05</span></span>
-<span id="cb271-4"><a href="profiling-r-code.html#cb271-4" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;lm.fit&quot;</span>                      <span class="fl">3.50</span>     <span class="fl">47.23</span>      <span class="fl">2.99</span>    <span class="fl">40.35</span></span>
-<span id="cb271-5"><a href="profiling-r-code.html#cb271-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;model.frame.default&quot;</span>         <span class="fl">2.24</span>     <span class="fl">30.23</span>      <span class="fl">0.12</span>     <span class="fl">1.62</span></span>
-<span id="cb271-6"><a href="profiling-r-code.html#cb271-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;eval&quot;</span>                        <span class="fl">2.24</span>     <span class="fl">30.23</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></span>
-<span id="cb271-7"><a href="profiling-r-code.html#cb271-7" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;model.frame&quot;</span>                 <span class="fl">2.24</span>     <span class="fl">30.23</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></span>
-<span id="cb271-8"><a href="profiling-r-code.html#cb271-8" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span>                     <span class="fl">1.54</span>     <span class="fl">20.78</span>      <span class="fl">0.24</span>     <span class="fl">3.24</span></span>
-<span id="cb271-9"><a href="profiling-r-code.html#cb271-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit.data.frame&quot;</span>          <span class="fl">1.30</span>     <span class="fl">17.54</span>      <span class="fl">0.49</span>     <span class="fl">6.61</span></span>
-<span id="cb271-10"><a href="profiling-r-code.html#cb271-10" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;lapply&quot;</span>                      <span class="fl">1.04</span>     <span class="fl">14.04</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></span>
-<span id="cb271-11"><a href="profiling-r-code.html#cb271-11" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;[.data.frame&quot;</span>                <span class="fl">1.03</span>     <span class="fl">13.90</span>      <span class="fl">0.79</span>    <span class="fl">10.66</span></span>
-<span id="cb271-12"><a href="profiling-r-code.html#cb271-12" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;[&quot;</span>                           <span class="fl">1.03</span>     <span class="fl">13.90</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></span>
-<span id="cb271-13"><a href="profiling-r-code.html#cb271-13" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;as.list.data.frame&quot;</span>          <span class="fl">0.82</span>     <span class="fl">11.07</span>      <span class="fl">0.82</span>    <span class="fl">11.07</span></span>
-<span id="cb271-14"><a href="profiling-r-code.html#cb271-14" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;as.list&quot;</span>                     <span class="fl">0.82</span>     <span class="fl">11.07</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="profiling-r-code.html#cb271-1" tabindex="-1"></a><span class="sc">$</span>by.total</span>
+<span id="cb271-2"><a href="profiling-r-code.html#cb271-2" tabindex="-1"></a>                        total.time total.pct self.time self.pct</span>
+<span id="cb271-3"><a href="profiling-r-code.html#cb271-3" tabindex="-1"></a><span class="st">&quot;lm&quot;</span>                          <span class="fl">7.41</span>    <span class="fl">100.00</span>      <span class="fl">0.30</span>     <span class="fl">4.05</span></span>
+<span id="cb271-4"><a href="profiling-r-code.html#cb271-4" tabindex="-1"></a><span class="st">&quot;lm.fit&quot;</span>                      <span class="fl">3.50</span>     <span class="fl">47.23</span>      <span class="fl">2.99</span>    <span class="fl">40.35</span></span>
+<span id="cb271-5"><a href="profiling-r-code.html#cb271-5" tabindex="-1"></a><span class="st">&quot;model.frame.default&quot;</span>         <span class="fl">2.24</span>     <span class="fl">30.23</span>      <span class="fl">0.12</span>     <span class="fl">1.62</span></span>
+<span id="cb271-6"><a href="profiling-r-code.html#cb271-6" tabindex="-1"></a><span class="st">&quot;eval&quot;</span>                        <span class="fl">2.24</span>     <span class="fl">30.23</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></span>
+<span id="cb271-7"><a href="profiling-r-code.html#cb271-7" tabindex="-1"></a><span class="st">&quot;model.frame&quot;</span>                 <span class="fl">2.24</span>     <span class="fl">30.23</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></span>
+<span id="cb271-8"><a href="profiling-r-code.html#cb271-8" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span>                     <span class="fl">1.54</span>     <span class="fl">20.78</span>      <span class="fl">0.24</span>     <span class="fl">3.24</span></span>
+<span id="cb271-9"><a href="profiling-r-code.html#cb271-9" tabindex="-1"></a><span class="st">&quot;na.omit.data.frame&quot;</span>          <span class="fl">1.30</span>     <span class="fl">17.54</span>      <span class="fl">0.49</span>     <span class="fl">6.61</span></span>
+<span id="cb271-10"><a href="profiling-r-code.html#cb271-10" tabindex="-1"></a><span class="st">&quot;lapply&quot;</span>                      <span class="fl">1.04</span>     <span class="fl">14.04</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></span>
+<span id="cb271-11"><a href="profiling-r-code.html#cb271-11" tabindex="-1"></a><span class="st">&quot;[.data.frame&quot;</span>                <span class="fl">1.03</span>     <span class="fl">13.90</span>      <span class="fl">0.79</span>    <span class="fl">10.66</span></span>
+<span id="cb271-12"><a href="profiling-r-code.html#cb271-12" tabindex="-1"></a><span class="st">&quot;[&quot;</span>                           <span class="fl">1.03</span>     <span class="fl">13.90</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></span>
+<span id="cb271-13"><a href="profiling-r-code.html#cb271-13" tabindex="-1"></a><span class="st">&quot;as.list.data.frame&quot;</span>          <span class="fl">0.82</span>     <span class="fl">11.07</span>      <span class="fl">0.82</span>    <span class="fl">11.07</span></span>
+<span id="cb271-14"><a href="profiling-r-code.html#cb271-14" tabindex="-1"></a><span class="st">&quot;as.list&quot;</span>                     <span class="fl">0.82</span>     <span class="fl">11.07</span>      <span class="fl">0.00</span>     <span class="fl">0.00</span></span></code></pre></div>
 <p>Because <code>lm()</code> is the function that I called from the command line, of course 100% of the time is spent somewhere in that function. However, what this doesn’t show is that if <code>lm()</code> immediately calls another function (like <code>lm.fit()</code>, which does most of the heavy lifting), then in reality, most of the time is spent in <em>that</em> function, rather than in the top-level <code>lm()</code> function.</p>
 <p>The “by.self” output corrects for this discrepancy.</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="profiling-r-code.html#cb272-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>by.self</span>
-<span id="cb272-2"><a href="profiling-r-code.html#cb272-2" aria-hidden="true" tabindex="-1"></a>                        self.time self.pct total.time total.pct</span>
-<span id="cb272-3"><a href="profiling-r-code.html#cb272-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;lm.fit&quot;</span>                     <span class="fl">2.99</span>    <span class="fl">40.35</span>       <span class="fl">3.50</span>     <span class="fl">47.23</span></span>
-<span id="cb272-4"><a href="profiling-r-code.html#cb272-4" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;as.list.data.frame&quot;</span>         <span class="fl">0.82</span>    <span class="fl">11.07</span>       <span class="fl">0.82</span>     <span class="fl">11.07</span></span>
-<span id="cb272-5"><a href="profiling-r-code.html#cb272-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;[.data.frame&quot;</span>               <span class="fl">0.79</span>    <span class="fl">10.66</span>       <span class="fl">1.03</span>     <span class="fl">13.90</span></span>
-<span id="cb272-6"><a href="profiling-r-code.html#cb272-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;structure&quot;</span>                  <span class="fl">0.73</span>     <span class="fl">9.85</span>       <span class="fl">0.73</span>      <span class="fl">9.85</span></span>
-<span id="cb272-7"><a href="profiling-r-code.html#cb272-7" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit.data.frame&quot;</span>         <span class="fl">0.49</span>     <span class="fl">6.61</span>       <span class="fl">1.30</span>     <span class="fl">17.54</span></span>
-<span id="cb272-8"><a href="profiling-r-code.html#cb272-8" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;list&quot;</span>                       <span class="fl">0.46</span>     <span class="fl">6.21</span>       <span class="fl">0.46</span>      <span class="fl">6.21</span></span>
-<span id="cb272-9"><a href="profiling-r-code.html#cb272-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;lm&quot;</span>                         <span class="fl">0.30</span>     <span class="fl">4.05</span>       <span class="fl">7.41</span>    <span class="fl">100.00</span></span>
-<span id="cb272-10"><a href="profiling-r-code.html#cb272-10" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;model.matrix.default&quot;</span>       <span class="fl">0.27</span>     <span class="fl">3.64</span>       <span class="fl">0.79</span>     <span class="fl">10.66</span></span>
-<span id="cb272-11"><a href="profiling-r-code.html#cb272-11" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span>                    <span class="fl">0.24</span>     <span class="fl">3.24</span>       <span class="fl">1.54</span>     <span class="fl">20.78</span></span>
-<span id="cb272-12"><a href="profiling-r-code.html#cb272-12" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;as.character&quot;</span>               <span class="fl">0.18</span>     <span class="fl">2.43</span>       <span class="fl">0.18</span>      <span class="fl">2.43</span></span>
-<span id="cb272-13"><a href="profiling-r-code.html#cb272-13" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;model.frame.default&quot;</span>        <span class="fl">0.12</span>     <span class="fl">1.62</span>       <span class="fl">2.24</span>     <span class="fl">30.23</span></span>
-<span id="cb272-14"><a href="profiling-r-code.html#cb272-14" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;anyDuplicated.default&quot;</span>      <span class="fl">0.02</span>     <span class="fl">0.27</span>       <span class="fl">0.02</span>      <span class="fl">0.27</span></span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="profiling-r-code.html#cb272-1" tabindex="-1"></a><span class="sc">$</span>by.self</span>
+<span id="cb272-2"><a href="profiling-r-code.html#cb272-2" tabindex="-1"></a>                        self.time self.pct total.time total.pct</span>
+<span id="cb272-3"><a href="profiling-r-code.html#cb272-3" tabindex="-1"></a><span class="st">&quot;lm.fit&quot;</span>                     <span class="fl">2.99</span>    <span class="fl">40.35</span>       <span class="fl">3.50</span>     <span class="fl">47.23</span></span>
+<span id="cb272-4"><a href="profiling-r-code.html#cb272-4" tabindex="-1"></a><span class="st">&quot;as.list.data.frame&quot;</span>         <span class="fl">0.82</span>    <span class="fl">11.07</span>       <span class="fl">0.82</span>     <span class="fl">11.07</span></span>
+<span id="cb272-5"><a href="profiling-r-code.html#cb272-5" tabindex="-1"></a><span class="st">&quot;[.data.frame&quot;</span>               <span class="fl">0.79</span>    <span class="fl">10.66</span>       <span class="fl">1.03</span>     <span class="fl">13.90</span></span>
+<span id="cb272-6"><a href="profiling-r-code.html#cb272-6" tabindex="-1"></a><span class="st">&quot;structure&quot;</span>                  <span class="fl">0.73</span>     <span class="fl">9.85</span>       <span class="fl">0.73</span>      <span class="fl">9.85</span></span>
+<span id="cb272-7"><a href="profiling-r-code.html#cb272-7" tabindex="-1"></a><span class="st">&quot;na.omit.data.frame&quot;</span>         <span class="fl">0.49</span>     <span class="fl">6.61</span>       <span class="fl">1.30</span>     <span class="fl">17.54</span></span>
+<span id="cb272-8"><a href="profiling-r-code.html#cb272-8" tabindex="-1"></a><span class="st">&quot;list&quot;</span>                       <span class="fl">0.46</span>     <span class="fl">6.21</span>       <span class="fl">0.46</span>      <span class="fl">6.21</span></span>
+<span id="cb272-9"><a href="profiling-r-code.html#cb272-9" tabindex="-1"></a><span class="st">&quot;lm&quot;</span>                         <span class="fl">0.30</span>     <span class="fl">4.05</span>       <span class="fl">7.41</span>    <span class="fl">100.00</span></span>
+<span id="cb272-10"><a href="profiling-r-code.html#cb272-10" tabindex="-1"></a><span class="st">&quot;model.matrix.default&quot;</span>       <span class="fl">0.27</span>     <span class="fl">3.64</span>       <span class="fl">0.79</span>     <span class="fl">10.66</span></span>
+<span id="cb272-11"><a href="profiling-r-code.html#cb272-11" tabindex="-1"></a><span class="st">&quot;na.omit&quot;</span>                    <span class="fl">0.24</span>     <span class="fl">3.24</span>       <span class="fl">1.54</span>     <span class="fl">20.78</span></span>
+<span id="cb272-12"><a href="profiling-r-code.html#cb272-12" tabindex="-1"></a><span class="st">&quot;as.character&quot;</span>               <span class="fl">0.18</span>     <span class="fl">2.43</span>       <span class="fl">0.18</span>      <span class="fl">2.43</span></span>
+<span id="cb272-13"><a href="profiling-r-code.html#cb272-13" tabindex="-1"></a><span class="st">&quot;model.frame.default&quot;</span>        <span class="fl">0.12</span>     <span class="fl">1.62</span>       <span class="fl">2.24</span>     <span class="fl">30.23</span></span>
+<span id="cb272-14"><a href="profiling-r-code.html#cb272-14" tabindex="-1"></a><span class="st">&quot;anyDuplicated.default&quot;</span>      <span class="fl">0.02</span>     <span class="fl">0.27</span>       <span class="fl">0.02</span>      <span class="fl">0.27</span></span></code></pre></div>
 <p>Now you can see that only about 4% of the runtime is spent in the actual <code>lm()</code> function, whereas over 40% of the time is spent in <code>lm.fit()</code>. In this case, this is no surprise since the <code>lm.fit()</code> function is the function that actually fits the linear model.</p>
 <p>You can see that a reasonable amount of time is spent in functions not necessarily associated with linear modeling (i.e. <code>as.list.data.frame</code>, <code>[.data.frame</code>). This is because the <code>lm()</code> function does a bit of pre-processing and checking before it actually fits the model. This is common with modeling functions—the preprocessing and checking is useful to see if there are any errors. But those two functions take up over 1.5 seconds of runtime. What if you want to fit this model 10,000 times? You’re going to be spending a lot of time in preprocessing and checking.</p>
 <p>The final bit of output that <code>summaryRprof()</code> provides is the sampling interval and the total runtime.</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="profiling-r-code.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>sample.interval</span>
-<span id="cb273-2"><a href="profiling-r-code.html#cb273-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.02</span></span>
-<span id="cb273-3"><a href="profiling-r-code.html#cb273-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb273-4"><a href="profiling-r-code.html#cb273-4" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>sampling.time</span>
-<span id="cb273-5"><a href="profiling-r-code.html#cb273-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">7.41</span></span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="profiling-r-code.html#cb273-1" tabindex="-1"></a><span class="sc">$</span>sample.interval</span>
+<span id="cb273-2"><a href="profiling-r-code.html#cb273-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.02</span></span>
+<span id="cb273-3"><a href="profiling-r-code.html#cb273-3" tabindex="-1"></a></span>
+<span id="cb273-4"><a href="profiling-r-code.html#cb273-4" tabindex="-1"></a><span class="sc">$</span>sampling.time</span>
+<span id="cb273-5"><a href="profiling-r-code.html#cb273-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">7.41</span></span></code></pre></div>
 </div>
 <div id="summary-9" class="section level2 hasAnchor" number="19.5">
 <h2><span class="header-section-number">19.5</span> Summary<a href="profiling-r-code.html#summary-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -560,42 +565,42 @@ useful information about where time is being spent</p></li>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/profiler.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rdpeng/rprogdatascience/edit/bookdown/profiler.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
@@ -606,7 +611,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
